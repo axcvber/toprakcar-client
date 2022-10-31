@@ -1,11 +1,16 @@
 import React from 'react'
-import Avatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
+import MenuList from '@mui/material/MenuList'
 import { useRouter } from 'next/router'
 import Skeleton from '@mui/material/Skeleton'
+import { Button, Stack, Typography } from '@mui/material'
+import Popper from '@mui/material/Popper'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import Grow from '@mui/material/Grow'
+import Paper from '@mui/material/Paper'
+import Image from 'next/image'
+import { HiChevronDown } from 'react-icons/hi'
+
 interface LocaleProps {
   icon: string
   label: string
@@ -14,40 +19,45 @@ interface LocaleProps {
 
 const localeArr = [
   {
-    icon: '/tr.png',
-    label: 'Turkish',
+    icon: '/tr2.png',
+    label: 'Türkçe',
     locale: 'tr',
   },
   {
-    icon: '/en.png',
+    icon: '/us2.png',
     label: 'English',
     locale: 'en',
   },
   {
-    icon: '/ru.png',
-    label: 'Russian',
+    icon: '/ru2.png',
+    label: 'Русский',
     locale: 'ru',
   },
 ]
 
-const LocaleMenu = () => {
+interface ILocaleMenu {
+  scrolledToDown?: boolean
+}
+
+const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
   const router = useRouter()
   const [currentLocale, setCurrentLocale] = React.useState<LocaleProps | undefined>()
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-  const onSelectLocale = (item: LocaleProps) => {
-    if (router.locale !== item.locale) {
-      router.push(router.asPath, undefined, { locale: item.locale })
-      setCurrentLocale(item)
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const prevOpen = React.useRef(open)
+
+  React.useEffect(() => {
+    if (scrolledToDown) setOpen(false)
+  }, [scrolledToDown])
+
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus()
     }
-    handleClose()
-  }
+
+    prevOpen.current = open
+  }, [open])
+
   React.useEffect(() => {
     const currentLocale = localeArr.find((item) => item.locale === router.locale)
     if (currentLocale) {
@@ -55,72 +65,137 @@ const LocaleMenu = () => {
     }
   }, [router.locale])
 
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen)
+  }
+
+  const handleClose = (event: Event | React.SyntheticEvent) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return
+    }
+    setOpen(false)
+  }
+
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault()
+      setOpen(false)
+    } else if (event.key === 'Escape') {
+      setOpen(false)
+    }
+  }
+
+  const onSelectLocale = (item: LocaleProps) => {
+    if (router.locale !== item.locale) {
+      router.push(router.asPath, undefined, { locale: item.locale })
+      setCurrentLocale(item)
+    }
+    setOpen(false)
+  }
+
   return (
-    <div>
-      {currentLocale?.icon ? (
-        <IconButton
-          onClick={handleClick}
-          size='small'
-          aria-controls={open ? 'locale-menu' : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
-          color='primary'
-        >
-          <Avatar sx={{ width: 28, height: 28, boxShadow: '0px 2px 8px rgba(0,0,0,0.5)' }} src={currentLocale.icon} />
-        </IconButton>
+    <>
+      {currentLocale ? (
+        <Stack direction={'row'} alignItems='center'>
+          <Button
+            ref={anchorRef}
+            id='locale-button'
+            aria-controls={open ? 'locale-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup='true'
+            onClick={handleToggle}
+            color='inherit'
+            sx={(theme) => ({
+              borderRadius: '8px',
+              'span, svg': {
+                color: theme.palette.text.disabled,
+                transition: 'color 0.2s ease',
+              },
+              '&:hover, & .Mui-focusVisible': {
+                'span, svg': {
+                  color: theme.palette.text.primary,
+                },
+              },
+            })}
+          >
+            <Image priority width={28} height={28} src={currentLocale.icon} alt='lang' />
+            <Typography component='span' ml={1} fontSize={14} fontWeight={600} textTransform='capitalize'>
+              {currentLocale.locale.charAt(0).toUpperCase() + currentLocale.locale.slice(1)}
+            </Typography>
+            <HiChevronDown fontSize={20} />
+          </Button>
+        </Stack>
       ) : (
-        <Skeleton variant='circular' width={30} height={30} />
+        <Skeleton width={91} height={55} />
       )}
 
-      <Menu
-        anchorEl={anchorEl}
-        id='account-menu'
+      <Popper
         open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
+        anchorEl={anchorRef.current}
+        role={undefined}
+        placement='bottom-end'
+        transition
+        disablePortal
+        sx={{
+          zIndex: 9,
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {localeArr.map((item) => (
-          <MenuItem key={item.label} onClick={() => onSelectLocale(item)} sx={{ fontSize: '15px' }}>
-            <Avatar
+        {({ TransitionProps }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin: 'right top',
+            }}
+          >
+            <Paper
+              elevation={0}
               sx={{
-                width: '24px !important',
-                height: '24px !important',
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.32))',
+                mt: 1.5,
+                borderRadius: 2,
+                '& .MuiAvatar-root': {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
               }}
-              src={item.icon}
-            />
-            {item.label}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
+            >
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  id='locale-menu'
+                  aria-labelledby='locale-button'
+                  onKeyDown={handleListKeyDown}
+                >
+                  {localeArr.map((item) => (
+                    <MenuItem key={item.label} color='primary' onClick={() => onSelectLocale(item)}>
+                      <Image priority width={24} height={24} src={item.icon} alt='lang' />
+                      <Typography component='span' ml={1} fontSize={14} fontWeight={500} color='text.secondary'>
+                        {item.label}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </>
   )
 }
 

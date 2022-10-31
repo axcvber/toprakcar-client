@@ -1,8 +1,8 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 import { red } from '@mui/material/colors'
 
 // Create a theme instance.
-const theme = createTheme({
+let theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -28,6 +28,54 @@ const theme = createTheme({
         },
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          textTransform: 'capitalize',
+          ...(ownerState.size === 'small' && {
+            borderRadius: '5px',
+          }),
+          ...(ownerState.size === 'medium' && {
+            borderRadius: '10px',
+          }),
+          ...(ownerState.size === 'large' && {
+            borderRadius: '8px',
+          }),
+          ...(ownerState.variant === 'contained' && {
+            boxShadow: 'none',
+          }),
+          ...(ownerState.variant === 'contained' &&
+            ownerState.color === 'primary' && {
+              color: '#fff',
+            }),
+          ...(ownerState.variant === 'contained' &&
+            ownerState.color === 'inherit' && {
+              background: theme.palette.background.paper,
+            }),
+
+          // '&:focus': {
+          //   color: 'rgba(0, 0, 0, 0.87)',
+          //   backgroundColor: 'rgba(0, 0, 0, 0.87)',
+          //   // opacity: 0.8,
+          // },
+          // ...(ownerState.variant === 'outlined' &&
+          // {
+          //   backgroundColor: '#202020',
+          //   color: '#fff',
+          // }),
+          // ...(ownerState.variant === 'contained' &&
+          // {
+          //   backgroundColor: '#202020',
+          //   color: '#fff',
+          // }),
+        }),
+      },
+    },
   },
   palette: {
     primary: {
@@ -36,10 +84,33 @@ const theme = createTheme({
     secondary: {
       main: '#19857b',
     },
+    background: {
+      default: '#FAFAFA',
+      paper: '#F2F2F2',
+    },
     error: {
       main: red.A400,
     },
+    warning: {
+      main: '#FFEF44',
+    },
+    success: {
+      main: '#3EFF24',
+    },
+    text: {
+      primary: '#333333',
+      secondary: '#4E5359',
+      disabled: '#8D8E90',
+    },
+    divider: '#E5E5E9',
+  },
+  typography: {
+    fontFamily: '"Montserrat", sans-serif',
   },
 })
+
+theme.shadows.push('0px 0px 5px 1px rgba(0,0,0,0.1)')
+
+theme = responsiveFontSizes(theme)
 
 export default theme

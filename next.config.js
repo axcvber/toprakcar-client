@@ -5,6 +5,10 @@ const nextConfig = {
   i18n: {
     defaultLocale: 'tr',
     locales: ['tr', 'en', 'ru'],
+    localeDetection: false,
+  },
+  images: {
+    domains: ['res.cloudinary.com'],
   },
 }
 
