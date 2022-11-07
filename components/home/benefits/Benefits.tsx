@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import Heading from '../../Heading'
 import IconBox from '../../IconBox'
@@ -89,9 +89,17 @@ const Line: React.FC<{ placement: LinePlacement; rightSide: boolean }> = ({ plac
         marginTop: 3,
         transform: rightSide ? 'scaleX(-1)' : 'none',
         display: 'block',
+        maxWidth: '100%',
       }}
     >
-      <Image width={width} height={height} objectFit='contain' src={path} alt='line' />
+      <Image
+        // layout='responsive'
+        width={width}
+        height={height}
+        objectFit='contain'
+        src={path}
+        alt='line'
+      />
     </Box>
   )
 }
@@ -109,7 +117,7 @@ const Benefits = () => {
         sx={{
           display: { xs: 'none', sm: 'flex' },
           justifyContent: 'space-between',
-          // background: 'gray',
+          background: 'gray',
           width: '100%',
         }}
       >
@@ -147,6 +155,37 @@ const Benefits = () => {
           ))}
         </Stack>
       </Box>
+
+      <Grid
+        container
+        columnSpacing={2}
+        rowSpacing={8}
+        sx={{
+          display: { xs: 'flex', sm: 'none' },
+          mt: 1,
+        }}
+      >
+        {leftSideData.map((item) => (
+          <Grid key={item.id} item xs={6} sm={4}>
+            <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
+              <IconBox icon={item.icon} variant='small' />
+              <Typography fontWeight={600} variant='body2'>
+                {item.label}
+              </Typography>
+            </Stack>
+          </Grid>
+        ))}
+        {rightSideData.map((item) => (
+          <Grid key={item.id} item xs={6} sm={4}>
+            <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
+              <IconBox icon={item.icon} variant='small' />
+              <Typography fontWeight={600} variant='body2'>
+                {item.label}
+              </Typography>
+            </Stack>
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   )
 }

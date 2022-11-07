@@ -4,29 +4,41 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import { FaChevronDown } from 'react-icons/fa'
-import { SlQuestion } from 'react-icons/sl'
-import { BsQuestionCircle, BsQuestionSquareFill } from 'react-icons/bs'
+import { BsQuestionCircle } from 'react-icons/bs'
 import { Divider, Stack } from '@mui/material'
 
 interface IFaqAccordion {
+  id: number
   title: string
   content: string
+  expanded: number | boolean
+  onChange: (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => void
 }
 
-const FaqAccordion: React.FC<IFaqAccordion> = ({ title, content }) => {
+const FaqAccordion: React.FC<IFaqAccordion> = ({ id, title, content, expanded, onChange }) => {
   return (
-    <Accordion sx={{ boxShadow: 25 }}>
+    <Accordion
+      disableGutters
+      expanded={expanded === id}
+      onChange={onChange(id)}
+      elevation={0}
+      sx={{ border: '1px solid', borderColor: 'divider' }}
+    >
       <AccordionSummary
         sx={{
           py: 0.5,
           background: 'background.paper',
+          '.MuiAccordionSummary-expandIconWrapper': {
+            mt: 2,
+            alignSelf: 'flex-start',
+          },
         }}
         expandIcon={<FaChevronDown color='inherit' />}
       >
         <Stack
           direction='row'
           spacing={1.5}
-          alignItems={'center'}
+          alignItems={'flex-start'}
           sx={{
             'svg': {
               color: 'primary.main',

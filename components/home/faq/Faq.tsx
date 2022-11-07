@@ -42,14 +42,25 @@ const data = [
 ]
 
 const Faq = () => {
+  const [expanded, setExpanded] = React.useState<number | false>(false)
+
+  const handleChange = (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    setExpanded(isExpanded ? id : false)
+  }
   return (
     <Container sx={{ my: 10 }}>
       <Heading width={450} label={'Find Your Answer Here'} title='Frequently asked questions' align='left' withLine />
 
-      <Grid container spacing={3} mt={2}>
+      <Grid container spacing={2} mt={2}>
         {data.map((item) => (
           <Grid key={item.id} item xs={12} md={6}>
-            <FaqAccordion title={item.question} content={item.answer} />
+            <FaqAccordion
+              id={item.id}
+              title={item.question}
+              content={item.answer}
+              expanded={expanded}
+              onChange={handleChange}
+            />
           </Grid>
         ))}
       </Grid>

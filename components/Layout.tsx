@@ -9,13 +9,20 @@ interface ILayout {
 
 const Layout: React.FC<ILayout> = ({ children }) => {
   return (
-    <div>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowX: 'hidden',
+      }}
+    >
       <Navbar />
-      <Box component='main' sx={{ mt: '70px', overflowX: 'hidden' }}>
+      <Box component='main' sx={{ mt: '70px' }}>
         {children}
       </Box>
-      {/* <Footer /> */}
-    </div>
+      <Footer />
+    </Box>
   )
 }
 

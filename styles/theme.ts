@@ -82,7 +82,7 @@ let theme = createTheme({
       main: '#FF8A5D',
     },
     secondary: {
-      main: '#19857b',
+      main: '#498B8F',
     },
     background: {
       default: '#FAFAFA',
@@ -99,7 +99,7 @@ let theme = createTheme({
     },
     text: {
       primary: '#333333',
-      secondary: '#4E5359',
+      secondary: '#777777',
       disabled: '#8D8E90',
     },
     divider: '#E5E5E9',
@@ -107,9 +107,18 @@ let theme = createTheme({
   typography: {
     fontFamily: '"Montserrat", sans-serif',
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1400,
+    },
+  },
 })
 
-theme.shadows.push('0px 0px 5px 1px rgba(0,0,0,0.1)')
+theme.shadows.push('0px 0px 4px 1px rgba(0,0,0,0.1)')
 
 theme = responsiveFontSizes(theme)
 

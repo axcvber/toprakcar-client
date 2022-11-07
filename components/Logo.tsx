@@ -18,7 +18,7 @@ const Logo = () => {
           priority
           objectFit='cover'
           layout='fill'
-          src='https://res.cloudinary.com/doea7ahfk/image/upload/v1666971417/logo_ba5yp1.webp'
+          src='https://res.cloudinary.com/doea7ahfk/image/upload/v1667566274/toprakcar_sxxwjb.png'
           alt='logo'
         />
       </Box>

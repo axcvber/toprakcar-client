@@ -12,13 +12,13 @@ import Navbar from '../components/navbar/Navbar'
 const Home: NextPage = () => {
   return (
     <>
-      {/* <Hero /> */}
+      <Hero />
+      {/* <Brands /> */}
       <Steps />
       <Services />
       <Fleets />
       <Benefits />
       <Faq />
-      {/* <Brands />  */}
     </>
   )
 }

@@ -21,6 +21,18 @@ const en = {
       path: '/insurance',
     },
   ],
+  heroTitle: 'Looking to save more on your rental car?',
+  heroSubtitle: 'The Company that offers the Best Quality Service and Customer Satisfaction among Car Rental Companies',
+  stepsLabel: 'HOW IT WORKS',
+  stepsTitle: 'Rentgo following 3 working Steps',
+  servicesLabel: 'BEST SEVICES',
+  servicesTitle: 'Feel the best expirience with our rental deals',
+  fleetsLabel: 'OUR FLEETS',
+  fleetsTitle: 'Explore Our Top Deal From Top-Rated Dealer',
+  benefitsTitle: 'We Are Ensuring The Best Customer Experience',
+  benefitsDesc: 'You cannot put a price on your family’s safety and security on the road. Find a lower price?',
+  faqLabel: 'FIND YOUR ANSWER HERE',
+  faqTitle: 'Frequently asked questions',
 }
 
 export default en
