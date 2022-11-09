@@ -16,19 +16,19 @@ const leftSideData = [
     id: 1,
     icon: <ImPriceTags />,
     label: 'Competitive Pricing',
-    placement: 'top-left',
+    placement: 'top-left' as LinePlacement,
   },
   {
     id: 2,
     icon: <RiMoneyDollarCircleFill />,
     label: 'Easier Rent On Your Budget',
-    placement: 'middle-left',
+    placement: 'middle-left' as LinePlacement,
   },
   {
     id: 3,
     icon: <MdPayments />,
     label: 'Most Flexible Payment Plans',
-    placement: 'bottom-left',
+    placement: 'bottom-left' as LinePlacement,
   },
 ]
 
@@ -37,23 +37,23 @@ const rightSideData = [
     id: 4,
     icon: <ImPriceTags />,
     label: 'The Best Extended Auto Warranties',
-    placement: 'top-left',
+    placement: 'top-left' as LinePlacement,
   },
   {
     id: 5,
     icon: <BiSupport />,
     label: 'Roadside Assistance 24/7',
-    placement: 'middle-left',
+    placement: 'middle-left' as LinePlacement,
   },
   {
     id: 6,
     icon: <RiMedal2Fill />,
     label: 'Your Choise Of Mechanic',
-    placement: 'bottom-left',
+    placement: 'bottom-left' as LinePlacement,
   },
 ]
 
-const Line: React.FC<{ placement: LinePlacement; rightSide: boolean }> = ({ placement, rightSide }) => {
+const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ placement, rightSide }) => {
   let path = '/top-line.png'
   let width
   let height

@@ -36,7 +36,7 @@ let theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
-          textTransform: 'capitalize',
+          textTransform: 'none',
           ...(ownerState.size === 'small' && {
             borderRadius: '5px',
           }),
