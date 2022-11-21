@@ -7,19 +7,20 @@ interface IconBoxProps {
   icon: JSX.Element
   isActive?: boolean
   variant?: IconBoxVariants
+  rounded?: boolean
 }
 
-const IconBox: React.FC<IconBoxProps> = ({ icon, isActive, variant = 'medium' }) => {
+const IconBox: React.FC<IconBoxProps> = ({ icon, isActive, variant = 'medium', rounded }) => {
   return (
-    <StyledBox variant={variant} isActive={isActive}>
+    <StyledBox variant={variant} isActive={isActive} rounded={rounded}>
       {icon}
     </StyledBox>
   )
 }
 
 const StyledBox = styled('div', {
-  shouldForwardProp: (prop) => prop !== 'isActive',
-})<{ isActive?: boolean; variant: IconBoxVariants }>(({ isActive, theme, variant }) => ({
+  shouldForwardProp: (prop) => prop !== 'isActive' && prop !== 'variant' && prop !== 'rounded',
+})<{ isActive?: boolean; variant: IconBoxVariants; rounded?: boolean }>(({ isActive, theme, variant, rounded }) => ({
   width: '80px',
   height: '80px',
   border: `2px solid ${theme.palette.primary.main}`,
@@ -53,6 +54,11 @@ const StyledBox = styled('div', {
     background: theme.palette.primary.main,
     color: '#fff',
     boxShadow: theme.shadows[5],
+  }),
+  ...(rounded && {
+    borderRadius: 50,
+    background: theme.palette.primary.main,
+    color: '#fff',
   }),
 }))
 

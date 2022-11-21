@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Stack, Typography, Divider } from '@mui/material'
 import Chip from '@mui/material/Chip'
+import Dropdown from './Dropdown'
 
 const FilterNav = () => {
   const handleDelete = () => {
@@ -27,7 +28,14 @@ const FilterNav = () => {
 
       <Stack direction='row' justifyContent='space-between'>
         <Typography variant='h6'>265 result</Typography>
-        <Typography>SortBy</Typography>
+        <Dropdown
+          title={'Best math'}
+          //   <Stack direction='row' spacing={1}>
+          //   <IoLocationSharp fontSize={24} color='#FF8A5D' />
+          //   <Typography>Choose a location</Typography>
+          // </Stack>
+          // menu={[<Box>Create</Box>, <Box>Edit</Box>, <Box>Delete</Box>]}
+        />
       </Stack>
     </Stack>
   )

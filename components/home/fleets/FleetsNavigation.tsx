@@ -46,7 +46,7 @@ const FleetsNavigation = () => {
           variant='contained'
           color={inx === 0 ? 'primary' : 'inherit'}
           startIcon={item.icon}
-          sx={{ fontWeight: 600 }}
+          sx={{ fontWeight: 600, border: '1px solid gray' }}
         >
           {item.label}
         </Button>

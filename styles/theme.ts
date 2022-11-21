@@ -86,7 +86,8 @@ let theme = createTheme({
     },
     background: {
       default: '#FAFAFA',
-      paper: '#F2F2F2',
+      // paper: '#F2F2F2',
+      paper: '#fff',
     },
     error: {
       main: red.A400,

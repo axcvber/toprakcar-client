@@ -3,13 +3,46 @@ import React from 'react'
 import Heading from '../../Heading'
 import IconBox from '../../IconBox'
 import { ImPriceTags } from 'react-icons/im'
-import { MdPayments } from 'react-icons/md'
+import { MdElectricalServices, MdPayments } from 'react-icons/md'
 import { BiSupport } from 'react-icons/bi'
 import { RiMedal2Fill, RiMoneyDollarCircleFill } from 'react-icons/ri'
 import { GiAutoRepair } from 'react-icons/gi'
 import Image from 'next/image'
+import AdditionalBenefits from './AdditionalBenefits'
+import { TbEngine, TbManualGearbox } from 'react-icons/tb'
+import { BsThermometerSnow } from 'react-icons/bs'
+import { CiCircleMore } from 'react-icons/ci'
+import { CgMoreO } from 'react-icons/cg'
 
 type LinePlacement = 'top-left' | 'middle-left' | 'bottom-left' | 'right-top' | 'right-middle' | 'right-bottom'
+
+const addBenefits = [
+  {
+    id: 1,
+    icon: <TbEngine />,
+    label: 'Engine',
+  },
+  {
+    id: 2,
+    icon: <TbManualGearbox />,
+    label: 'Transmission',
+  },
+  {
+    id: 3,
+    icon: <MdElectricalServices />,
+    label: 'Electrical',
+  },
+  {
+    id: 4,
+    icon: <BsThermometerSnow />,
+    label: 'Cooling',
+  },
+  {
+    id: 5,
+    icon: <CgMoreO />,
+    label: '10+ More',
+  },
+]
 
 const leftSideData = [
   {
@@ -62,7 +95,7 @@ const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ pla
     case 'top-left':
       path = '/top-line.png'
       width = 225
-      height = 145
+      height = 149
       break
 
     case 'middle-left':
@@ -84,22 +117,18 @@ const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ pla
   return (
     <Box
       sx={{
-        marginLeft: rightSide ? 0 : -8,
-        marginRight: rightSide ? -8 : 0,
-        marginTop: 3,
         transform: rightSide ? 'scaleX(-1)' : 'none',
         display: 'block',
-        maxWidth: '100%',
+        // background: 'red',
+        width: { sm: '130px', lg: '180px' },
+        position: 'absolute',
+        top: 25,
+        right: rightSide ? 'auto' : { sm: '-40%', lg: '-90%' },
+        left: rightSide ? { sm: '-40%', lg: '-90%' } : 'auto',
+        zIndex: 0,
       }}
     >
-      <Image
-        // layout='responsive'
-        width={width}
-        height={height}
-        objectFit='contain'
-        src={path}
-        alt='line'
-      />
+      <Image width={width} height={height} objectFit='contain' src={path} alt='line' />
     </Box>
   )
 }
@@ -115,15 +144,15 @@ const Benefits = () => {
       />
       <Box
         sx={{
-          display: { xs: 'none', sm: 'flex' },
-          justifyContent: 'space-between',
-          background: 'gray',
+          display: { xs: 'none', md: 'flex' },
+          justifyContent: 'space-around',
           width: '100%',
+          mt: 6,
         }}
       >
         <Stack spacing={5} justifyContent='space-around'>
           {leftSideData.map((item) => (
-            <Stack key={item.id} direction='row' justifyContent={'center'}>
+            <Stack key={item.id} position='relative'>
               <Stack spacing={2} maxWidth={150}>
                 <IconBox icon={item.icon} variant='small' />
                 <Typography fontWeight={600}>{item.label}</Typography>
@@ -133,11 +162,12 @@ const Benefits = () => {
           ))}
         </Stack>
 
-        <Box width={'600px'}>
+        <Box width={'500px'} sx={{ zIndex: 1 }}>
           <Image
             width={500}
             height={900}
             layout='responsive'
+            objectFit='contain'
             src='https://res.cloudinary.com/doea7ahfk/image/upload/v1667158574/Image_p5dapl.png'
             alt='car'
           />
@@ -145,7 +175,7 @@ const Benefits = () => {
 
         <Stack spacing={5} justifyContent='space-around'>
           {rightSideData.map((item) => (
-            <Stack key={item.id} direction='row'>
+            <Stack key={item.id} direction='row' position='relative'>
               <Line rightSide placement={item.placement} />
               <Stack spacing={2} maxWidth={150} alignItems='flex-end' textAlign={'right'}>
                 <IconBox icon={item.icon} variant='small' />
@@ -161,14 +191,14 @@ const Benefits = () => {
         columnSpacing={2}
         rowSpacing={8}
         sx={{
-          display: { xs: 'flex', sm: 'none' },
-          mt: 1,
+          display: { xs: 'flex', md: 'none' },
+          pt: 4,
         }}
       >
         {leftSideData.map((item) => (
           <Grid key={item.id} item xs={6} sm={4}>
             <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
-              <IconBox icon={item.icon} variant='small' />
+              <IconBox icon={item.icon} rounded />
               <Typography fontWeight={600} variant='body2'>
                 {item.label}
               </Typography>
@@ -178,7 +208,7 @@ const Benefits = () => {
         {rightSideData.map((item) => (
           <Grid key={item.id} item xs={6} sm={4}>
             <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
-              <IconBox icon={item.icon} variant='small' />
+              <IconBox icon={item.icon} rounded />
               <Typography fontWeight={600} variant='body2'>
                 {item.label}
               </Typography>
@@ -186,6 +216,9 @@ const Benefits = () => {
           </Grid>
         ))}
       </Grid>
+      <Box display={{ xs: 'none', md: 'block' }} my={3}>
+        <AdditionalBenefits data={addBenefits} />
+      </Box>
     </Container>
   )
 }

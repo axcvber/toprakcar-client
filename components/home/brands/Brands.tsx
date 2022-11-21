@@ -46,9 +46,9 @@ const Brands = () => {
       <Swiper
         modules={[Autoplay]}
         autoplay={{
-          delay: 2000,
+          delay: 4000,
         }}
-        spaceBetween={50}
+        spaceBetween={100}
         slidesPerView={4}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
@@ -69,9 +69,23 @@ const Brands = () => {
               sx={{
                 filter: 'saturate(0)',
                 opacity: 0.5,
+                // background: 'red',
+                display: 'block',
               }}
             >
-              <Image priority width={90} height={90} objectFit='contain' src={item.imageUrl} alt='image-alt' />
+              <Image
+                priority
+                layout='responsive'
+                width={80}
+                height={80}
+                objectFit='contain'
+                src={item.imageUrl}
+                alt='image-alt'
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+              />
             </Box>
           </SwiperSlide>
         ))}

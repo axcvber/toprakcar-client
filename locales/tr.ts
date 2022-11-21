@@ -21,6 +21,28 @@ const tr = {
       path: '/insurance',
     },
   ],
+  footer: {
+    explore: 'Navigasyon',
+    workHours: 'Çalışma saatlerimiz',
+    contactUs: 'Bize Ulaşın',
+    rights: 'Tüm hakları saklıdır.',
+    createdBy: 'Tarafından oluşturuldu',
+    footerLinks: [
+      {
+        label: 'Kullanım Koşulları',
+        path: '/terms',
+      },
+      {
+        label: 'Gizlilik Politikası',
+        path: '/privacy-policy',
+      },
+      {
+        label: 'Çerez Politikası',
+        path: '/cookie-policy',
+      },
+    ],
+  },
+
   heroTitle: 'Kiralik aracinizda daha fazla tasarruf etmek mi istiyorsunuz?',
   heroSubtitle: 'Araç Kiralama Şirketleri Arasında En Kaliteli Hizmeti ve Müşteri Memnuniyetini Sunan Şirket',
   stepsLabel: 'NASIL ÇALIŞIR',
