@@ -16,6 +16,7 @@ let theme = createTheme({
         // },
         body: {
           lineHeight: 1,
+          counterReset: 'li',
         },
         'ol, ul, li': {
           listStyle: 'none',

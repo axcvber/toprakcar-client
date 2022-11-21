@@ -61,7 +61,7 @@ const icons = [
 const Footer = () => {
   const t = useLocale()
   return (
-    <Box sx={{ marginTop: 'auto', background: '#1D252C', pt: 8, pb: 3, color: 'text.secondary', boxShadow: 15 }}>
+    <Box sx={{ marginTop: 'auto', background: '#1D252C', pt: 6, pb: 3, color: 'text.secondary', boxShadow: 15 }}>
       <Container maxWidth='xl'>
         <Stack gap={6} direction={'row'} justifyContent={'space-between'} flexWrap='wrap'>
           <Stack spacing={3} width={300}>
