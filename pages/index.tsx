@@ -8,12 +8,17 @@ import Hero from '../components/home/hero/Hero'
 import Services from '../components/home/services/Services'
 import Steps from '../components/home/steps/Steps'
 import Navbar from '../components/navbar/Navbar'
+import dynamic from 'next/dynamic'
+
+// const Brands = dynamic(() => import('../components/home/brands/Brands'), {
+//   ssr: false,
+// })
 
 const Home: NextPage = () => {
   return (
     <>
       <Hero />
-      {/* <Brands /> */}
+      <Brands />
       <Steps />
       <Services />
       <Fleets />

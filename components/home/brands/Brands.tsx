@@ -1,7 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper'
-import 'swiper/css'
+import { Autoplay } from 'swiper'
 import { Box, Container } from '@mui/material'
 import Image from 'next/image'
 
@@ -42,16 +41,13 @@ const data = [
 
 const Brands = () => {
   return (
-    <Container maxWidth={'xl'} sx={{ mt: 5, mb: 10 }}>
+    <Container maxWidth={'xl'} sx={{ my: 4, width: '100%' }}>
       <Swiper
-        modules={[Autoplay]}
-        autoplay={{
-          delay: 4000,
-        }}
-        spaceBetween={100}
+        // spaceBetween={100}
+        style={{ width: '100%' }}
+        observer={true}
         slidesPerView={4}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        loop={true}
         breakpoints={{
           576: {
             // width: 576,
@@ -62,6 +58,14 @@ const Brands = () => {
             slidesPerView: 6,
           },
         }}
+        spaceBetween={30}
+        // centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        navigation={true}
+        modules={[Autoplay]}
       >
         {data.map((item) => (
           <SwiperSlide key={item.id}>
@@ -70,22 +74,12 @@ const Brands = () => {
                 filter: 'saturate(0)',
                 opacity: 0.5,
                 // background: 'red',
-                display: 'block',
+                width: '100%',
+                height: '80px',
+                userSelect: 'none',
               }}
             >
-              <Image
-                priority
-                layout='responsive'
-                width={80}
-                height={80}
-                objectFit='contain'
-                src={item.imageUrl}
-                alt='image-alt'
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
-              />
+              <Image priority layout='fill' objectFit='contain' src={item.imageUrl} alt='brand' />
             </Box>
           </SwiperSlide>
         ))}

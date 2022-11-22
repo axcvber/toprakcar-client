@@ -21,6 +21,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/ru'
 import 'dayjs/locale/tr'
 import { useRouter } from 'next/router'
+import 'swiper/css'
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 

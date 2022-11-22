@@ -9,7 +9,7 @@ const Hero = () => {
   const t = useLocale()
 
   return (
-    <Box sx={{ py: 5 }}>
+    <Box py={{ xs: 3, md: 5 }}>
       <Container maxWidth='xl'>
         <Stack
           direction={{ xs: 'column-reverse', md: 'row' }}
@@ -18,18 +18,18 @@ const Hero = () => {
           spacing={4}
         >
           <Stack width={{ xs: '100%', md: '50%' }} spacing={3}>
-            <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'column' }}>
+            <Stack spacing={4} direction={{ xs: 'column-reverse', md: 'column' }}>
               <Stack spacing={3}>
                 <Typography variant={'h2'} fontWeight={800} textTransform='uppercase'>
                   {t.heroTitle}
                 </Typography>
                 <Line />
-                <Typography width={'70%'} fontWeight={400} color='text.primary'>
+                <Typography width={{ xs: '100%', md: '70%' }} fontWeight={400} color='text.primary'>
                   {t.heroSubtitle}
                 </Typography>
               </Stack>
 
-              <Box zIndex={2} pt={2} width={{ xs: '100%', md: '850px', lg: '1000px' }}>
+              <Box zIndex={2} pt={0} width={{ xs: '100%', md: '850px', lg: '1000px' }}>
                 <Search />
               </Box>
             </Stack>
