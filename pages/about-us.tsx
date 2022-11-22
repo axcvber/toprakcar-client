@@ -11,11 +11,18 @@ interface IAboutUsPage {
 
 const AboutUsPage: React.FC<IAboutUsPage> = ({ data }) => {
   return (
-    <Container sx={{ mt: 6, mb: 10 }}>
-      <Stack direction={{ xs: 'column', md: 'row' }} alignItems='center' spacing={{ xs: 3, md: 6 }} mb={12}>
+    <Container maxWidth={'xl'}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        alignItems='center'
+        spacing={{ xs: 3, md: 6 }}
+        mt={{ xs: 4, md: 6 }}
+      >
         <Stack width={{ xs: '100%', md: '50%' }} spacing={3}>
           <Heading width={450} title='Who we are' withLine />
-          <Typography lineHeight={2}>{data.text}</Typography>
+          <Typography lineHeight={2} color='text.secondary'>
+            {data.text}
+          </Typography>
         </Stack>
         <Box
           sx={{
@@ -25,20 +32,29 @@ const AboutUsPage: React.FC<IAboutUsPage> = ({ data }) => {
             width: { xs: '100%', md: '50%' },
           }}
         >
-          <Image layout='responsive' width={500} height={350} objectFit='cover' src={data.image} alt='sell' />
+          <Image
+            layout='responsive'
+            width={500}
+            height={350}
+            objectFit='cover'
+            src={data.image}
+            blurDataURL={data.image}
+            placeholder='blur'
+            alt='sell'
+          />
         </Box>
       </Stack>
 
-      <Grid component='ol' container spacing={{ xs: 4, md: 8 }}>
+      <Grid component='ol' container columnSpacing={{ xs: 4, md: 8 }} rowGap={{ xs: 4, md: 8 }} my={{ xs: 6, md: 10 }}>
         {data.aboutItems.map((item: any) => (
-          <Grid key={item.id} item xs={12} md={4}>
+          <Grid key={item.id} component='li' item xs={12} md={4}>
             <AboutItem title={item.title} text={item.text} />
           </Grid>
         ))}
       </Grid>
-      <Box mt={10}>
-        <Heading width={450} title='Contact Us' withLine />
-        <Stack component='ul' spacing={3} mt={4}>
+      <Box mb={{ xs: 8, md: 12 }}>
+        <Heading width={450} title='Contacts' withLine />
+        <Stack component='ul' spacing={3} mt={3}>
           {data.contactItems.map((item: any) => (
             <ContactListItem key={item.id} title={item.title} text={item.text} />
           ))}
@@ -76,7 +92,7 @@ export async function getStaticProps() {
           {
             id: 3,
             title: 'Our vision',
-            text: `The goal of our company is to become the company with the highest and best quality vehicle fleet by creating economic profitability in the short and long term car rental sector. In the car rental sector, as Kırmızı, we always got the best, we were never satisfied with what we did. We have earned people's trust knowing that trust is the hardest thing to have in the world. We started to rise rapidly in the rental car sector. 
+            text: `The goal of our company is to become the company with the highest and best quality vehicle fleet by creating economic profitability in the short and long term car rental sector. In the car rental sector, as Kırmızı, we always got the best, we were never satisfied with what we did. 
             `,
           },
         ],

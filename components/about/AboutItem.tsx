@@ -10,7 +10,6 @@ const AboutItem: React.FC<IAboutItem> = ({ title, text }) => {
   return (
     <Stack
       spacing={2}
-      component='li'
       sx={{
         borderTop: '1px solid',
         borderColor: 'divider',
@@ -19,7 +18,7 @@ const AboutItem: React.FC<IAboutItem> = ({ title, text }) => {
           position: 'relative',
           counterIncrement: 'li',
           content: `'0' counter(li)`,
-          marginBottom: '16px',
+          marginBottom: 2,
           color: 'primary.main',
           fontSize: '32px',
           fontWeight: 600,
