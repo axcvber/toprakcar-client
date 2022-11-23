@@ -1,7 +1,12 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 import { red } from '@mui/material/colors'
 
-// Create a theme instance.
+declare module '@mui/material/Button' {
+  interface ButtonPropsSizeOverrides {
+    extra: true
+  }
+}
+
 let theme = createTheme({
   components: {
     MuiCssBaseline: {
@@ -35,30 +40,46 @@ let theme = createTheme({
       },
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      variants: [
+        {
+          props: { size: 'extra' },
+          style: {
+            fontSize: '16px',
+            paddingTop: '11px',
+            paddingBottom: '11px',
+          },
+        },
+      ],
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
           textTransform: 'none',
-          ...(ownerState.size === 'small' && {
-            borderRadius: '5px',
-          }),
-          ...(ownerState.size === 'medium' && {
-            borderRadius: '10px',
-          }),
-          ...(ownerState.size === 'large' && {
-            borderRadius: '8px',
-          }),
-          ...(ownerState.variant === 'contained' && {
-            boxShadow: 'none',
-          }),
-          ...(ownerState.variant === 'contained' &&
-            ownerState.color === 'primary' && {
-              color: '#fff',
-            }),
+          borderRadius: '10px',
+          fontWeight: 600,
+          // ...(ownerState.size === 'small' && {
+          //   borderRadius: '5px',
+          // }),
+          // ...(ownerState.size === 'medium' && {
+          //   borderRadius: '10px',
+          // }),
+          // ...(ownerState.size === 'large' && {
+          //   borderRadius: '8px',
+          // }),
+
+          // ...(ownerState.variant === 'contained' &&
+          //   ownerState.color === 'primary' &&
+          //   {
+          //   }),
           ...(ownerState.variant === 'contained' &&
             ownerState.color === 'inherit' && {
               background: theme.palette.background.paper,
             }),
-
+          ...(ownerState.variant === 'text' && {
+            paddingLeft: '16px',
+            paddingRight: '16px',
+          }),
           // '&:focus': {
           //   color: 'rgba(0, 0, 0, 0.87)',
           //   backgroundColor: 'rgba(0, 0, 0, 0.87)',
@@ -79,8 +100,10 @@ let theme = createTheme({
     },
   },
   palette: {
+    contrastThreshold: 2,
     primary: {
       main: '#FF8A5D',
+      dark: '#EA7F55',
     },
     secondary: {
       main: '#498B8F',
@@ -105,6 +128,9 @@ let theme = createTheme({
       disabled: '#8D8E90',
     },
     divider: '#E5E5E9',
+    action: {
+      hoverOpacity: 0.1,
+    },
   },
   typography: {
     fontFamily: '"Montserrat", sans-serif',

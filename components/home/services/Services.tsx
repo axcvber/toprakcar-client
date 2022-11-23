@@ -33,7 +33,7 @@ const data = [
 const Services = () => {
   return (
     <Container>
-      <Stack my={10} direction={{ xs: 'column-reverse', md: 'row' }} justifyContent={'space-between'} spacing={5}>
+      <Stack my={8} direction={{ xs: 'column-reverse', md: 'row' }} justifyContent={'space-between'} spacing={5}>
         <Box
           sx={{
             // position: 'absolute',

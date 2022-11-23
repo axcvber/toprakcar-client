@@ -41,7 +41,7 @@ const data = [
 
 const Brands = () => {
   return (
-    <Container maxWidth={'xl'} sx={{ my: 4 }}>
+    <Container maxWidth={'xl'} sx={{ my: 10 }}>
       <Swiper
         wrapperTag='ul'
         observer

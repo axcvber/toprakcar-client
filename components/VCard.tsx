@@ -20,7 +20,7 @@ const VCard: React.FC<IVCard> = ({ name, price, year, widthButton, imageUrl, opt
       sx={(theme) => ({
         background: '#fff',
         borderRadius: 3,
-        // boxShadow: 25,
+        boxShadow: 25,
         border: `1px solid ${theme.palette.divider}`,
       })}
     >
@@ -79,7 +79,7 @@ const VCard: React.FC<IVCard> = ({ name, price, year, widthButton, imageUrl, opt
         ))}
       </Stack>
       {widthButton && (
-        <Button variant='contained' size='large' sx={{ fontSize: '17px', py: 1.5, fontWeight: 600 }}>
+        <Button variant='contained' size='extra'>
           {btnText}
         </Button>
       )}

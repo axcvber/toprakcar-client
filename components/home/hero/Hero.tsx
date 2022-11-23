@@ -9,7 +9,7 @@ const Hero = () => {
   const t = useLocale()
 
   return (
-    <Box py={{ xs: 3, md: 5 }}>
+    <Box my={{ xs: 3, md: 5 }}>
       <Container maxWidth='xl'>
         <Stack
           direction={{ xs: 'column-reverse', md: 'row' }}

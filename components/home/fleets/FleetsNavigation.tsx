@@ -1,4 +1,4 @@
-import { Button, Stack, Typography, Box } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import React from 'react'
 import { CgBmw } from 'react-icons/cg'
 import { SiAudi, SiHonda, SiMazda, SiMercedes, SiToyota } from 'react-icons/si'
@@ -73,7 +73,6 @@ const FleetsNavigation = () => {
 
 const StyledSwiper = styled(Swiper)(({ theme }) => ({
   width: 'auto',
-  // background: 'red',
   padding: '10px 0 !important',
   [theme.breakpoints.down('lg')]: {
     width: '100%',

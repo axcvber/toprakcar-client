@@ -29,7 +29,7 @@ const data = [
 
 const Steps = () => {
   return (
-    <Container sx={{ py: 5 }}>
+    <Container sx={{ pt: 6, pb: 10 }}>
       <Heading label={'How it works'} title='Rentgo following 3 working Steps' align='center' />
       <Stack
         direction={{ xs: 'column', md: 'row' }}

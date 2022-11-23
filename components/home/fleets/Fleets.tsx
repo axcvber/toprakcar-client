@@ -183,7 +183,7 @@ const data = [
 
 const Fleets = () => {
   return (
-    <Container sx={{ my: 20 }}>
+    <Container sx={{ my: 8 }}>
       <Heading
         width={500}
         label={'Our Fleets'}
@@ -195,7 +195,7 @@ const Fleets = () => {
         <FleetsNavigation />
         <Grid container spacing={3}>
           {data.map((item) => (
-            <Grid key={item.id} item xs={12} sm={6} md={6} lg={4}>
+            <Grid key={item.id} item xs={12} sm={6} lg={4}>
               <VCard {...item} />
             </Grid>
           ))}
