@@ -19,8 +19,8 @@ const VCard: React.FC<IVCard> = ({ name, price, year, widthButton, imageUrl, opt
       spacing={2}
       sx={(theme) => ({
         background: '#fff',
-        borderRadius: 5,
-        boxShadow: 25,
+        borderRadius: 3,
+        // boxShadow: 25,
         border: `1px solid ${theme.palette.divider}`,
       })}
     >

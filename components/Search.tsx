@@ -99,7 +99,7 @@ const Search = () => {
           label='Return date'
           value={value}
           onChange={(newValue) => setValue(newValue)}
-          renderInput={(params) => <TextField size='small' {...params} variant='filled' />}
+          renderInput={(params) => <TextField size='small' {...params} />}
         />
       </Box>
       <Button

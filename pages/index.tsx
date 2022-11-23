@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import Benefits from '../components/home/benefits/Benefits'
-import Brands from '../components/home/brands/Brands'
+// import Brands from '../components/home/brands/Brands'
 import Faq from '../components/home/faq/Faq'
 import Fleets from '../components/home/fleets/Fleets'
 import Hero from '../components/home/hero/Hero'
@@ -10,9 +10,9 @@ import Steps from '../components/home/steps/Steps'
 import Navbar from '../components/navbar/Navbar'
 import dynamic from 'next/dynamic'
 
-// const Brands = dynamic(() => import('../components/home/brands/Brands'), {
-//   ssr: false,
-// })
+const Brands = dynamic(() => import('../components/home/brands/Brands'), {
+  ssr: false,
+})
 
 const Home: NextPage = () => {
   return (

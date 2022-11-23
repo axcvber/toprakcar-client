@@ -6,10 +6,15 @@ import { BsSpeedometer2 } from 'react-icons/bs'
 import { TbManualGearbox } from 'react-icons/tb'
 import { TbGasStation } from 'react-icons/tb'
 import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
-import FleetsNavigation from './FleetsNavigation'
+// import FleetsNavigation from './FleetsNavigation'
 import { FaCarAlt } from 'react-icons/fa'
 import { IoCarSportOutline } from 'react-icons/io5'
 import { HiOutlineExternalLink } from 'react-icons/hi'
+import dynamic from 'next/dynamic'
+
+const FleetsNavigation = dynamic(() => import('./FleetsNavigation'), {
+  ssr: false,
+})
 
 const data = [
   {
@@ -186,7 +191,7 @@ const Fleets = () => {
         align='center'
         withLine
       />
-      <Stack alignItems='center' mt={4} gap={4}>
+      <Stack alignItems='center' mt={4} gap={3}>
         <FleetsNavigation />
         <Grid container spacing={3}>
           {data.map((item) => (

@@ -41,25 +41,24 @@ const data = [
 
 const Brands = () => {
   return (
-    <Container maxWidth={'xl'} sx={{ my: 4, width: '100%' }}>
+    <Container maxWidth={'xl'} sx={{ my: 4 }}>
       <Swiper
-        // spaceBetween={100}
-        style={{ width: '100%' }}
-        observer={true}
+        wrapperTag='ul'
+        observer
         slidesPerView={4}
-        loop={true}
+        loop
         breakpoints={{
-          576: {
-            // width: 576,
+          0: {
             slidesPerView: 4,
           },
-          768: {
-            // width: 768,
+          600: {
             slidesPerView: 6,
           },
+          1200: {
+            slidesPerView: 8,
+          },
         }}
-        spaceBetween={30}
-        // centeredSlides={true}
+        spaceBetween={20}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -68,7 +67,7 @@ const Brands = () => {
         modules={[Autoplay]}
       >
         {data.map((item) => (
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item.id} tag='li'>
             <Box
               sx={{
                 filter: 'saturate(0)',
