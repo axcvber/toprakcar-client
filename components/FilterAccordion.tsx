@@ -19,10 +19,10 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children }) => {
     <Accordion
       disableGutters
       expanded={expanded}
-      onClick={onToggle}
       elevation={0}
       sx={{
         background: 'transparent',
+        // padding: '0px !important',
         '&:before': {
           content: 'none',
         },
@@ -35,12 +35,14 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children }) => {
         aria-controls='panel1d-content'
         id='panel1d-header'
         expandIcon={expanded ? <HiMinus /> : <HiPlus />}
+        sx={{ padding: 0, 'svg': { color: 'text.primary' } }}
+        onClick={onToggle}
       >
-        <Typography fontWeight={500} color='#777'>
+        <Typography fontWeight={600} color='text.primary'>
           {title}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <AccordionDetails sx={{ padding: 0 }}>{children}</AccordionDetails>
     </Accordion>
   )
 }

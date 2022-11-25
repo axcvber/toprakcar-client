@@ -94,13 +94,15 @@ const Dropdown: React.FC<IDropdown> = ({ title, trigger, menu, icon }) => {
         onClick={handleToggle}
         color='inherit'
         size='large'
-        sx={{ position: 'relative' }}
+        sx={{ position: 'relative', '.arrow': { color: 'text.secondary' } }}
       >
-        {icon && icon}
-        <Typography component='span' ml={1} fontSize={14} fontWeight={600} textTransform='capitalize'>
-          {title}
-        </Typography>
-        <HiChevronDown fontSize={20} />
+        <Stack direction='row' spacing={1} alignItems='center'>
+          {icon && icon}
+          <Typography color='text.secondary' component='span' fontSize={14} fontWeight={600} textTransform='capitalize'>
+            {title}
+          </Typography>
+          <HiChevronDown fontSize={20} className={'arrow'} />
+        </Stack>
       </Button>
       <Popper
         open={open}

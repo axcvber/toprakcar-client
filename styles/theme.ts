@@ -72,10 +72,7 @@ let theme = createTheme({
           //   ownerState.color === 'primary' &&
           //   {
           //   }),
-          ...(ownerState.variant === 'contained' &&
-            ownerState.color === 'inherit' && {
-              background: theme.palette.background.paper,
-            }),
+
           ...(ownerState.variant === 'text' && {
             paddingLeft: '16px',
             paddingRight: '16px',

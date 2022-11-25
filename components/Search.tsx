@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography, Divider } from '@mui/material'
 import React, { forwardRef, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
@@ -6,6 +6,10 @@ import TextField from '@mui/material/TextField'
 import dayjs, { Dayjs } from 'dayjs'
 import Dropdown from './Dropdown'
 import { IoLocationSharp } from 'react-icons/io5'
+import { HiChevronDown } from 'react-icons/hi'
+import { BsCalendar3 } from 'react-icons/bs'
+import DatePicker from './DatePicker'
+import InputAdornment from '@mui/material/InputAdornment'
 
 const data = [
   {
@@ -45,13 +49,15 @@ const data = [
 const Search = () => {
   // const [value, setValue] = React.useState<any | null>()
   const [value, setValue] = React.useState<Dayjs | null>(dayjs())
+  const [open, setOpen] = React.useState<boolean>(false)
+
   return (
     <Stack
-      direction={'row'}
+      direction={{ xs: 'column', md: 'row' }}
       justifyContent='space-between'
       alignItems='center'
       width={'100%'}
-      spacing={3}
+      gap={3}
       sx={{
         background: '#fff',
         borderRadius: 3,
@@ -71,43 +77,14 @@ const Search = () => {
         />
       </Box>
       <Box>
-        {/* <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          showTimeSelect
-          timeFormat='p'
-          timeIntervals={15}
-          dateFormat='Pp'
-          customInput={<ExampleCustomInput />}
-          calendarClassName='rasta-stripes'
-        /> */}
-        <DateTimePicker
-          // disableOpenPicker
-          // views={['month', 'day', 'hours', 'minutes']}
-          disablePast
-          label='Pick-up date'
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-          renderInput={(params) => <TextField color='primary' size='small' {...params} />}
-        />
+        <DatePicker />
+        {/* <TextField size='small' /> */}
       </Box>
+
       <Box>
-        <DateTimePicker
-          // disableOpenPicker
-          // views={['month', 'day', 'hours', 'minutes']}
-          disablePast
-          label='Return date'
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-          renderInput={(params) => <TextField size='small' {...params} />}
-        />
+        <DatePicker />
       </Box>
-      <Button
-        startIcon={<FiSearch />}
-        variant='contained'
-        size='large'
-        sx={{ color: '#fff', textTransform: 'capitalize', fontSize: 20, px: 6, py: 1.5 }}
-      >
+      <Button startIcon={<FiSearch />} variant='contained' size='extra' sx={{ color: '#fff', fontSize: 18, px: 6 }}>
         Search
       </Button>
     </Stack>

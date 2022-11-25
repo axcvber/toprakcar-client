@@ -58,7 +58,7 @@ const Brands = () => {
             slidesPerView: 8,
           },
         }}
-        spaceBetween={20}
+        spaceBetween={30}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,

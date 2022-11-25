@@ -14,7 +14,7 @@ interface IHCard {
 const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
   return (
     <Stack
-      direction='row'
+      direction={{ xs: 'column', lg: 'row' }}
       spacing={3}
       p={2.5}
       sx={(theme) => ({
@@ -26,7 +26,8 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
     >
       <Box
         sx={(theme) => ({
-          width: 350,
+          width: '100%',
+          maxWidth: { xs: '100%', md: '300px' },
           background: theme.palette.background.paper,
           borderRadius: 3,
         })}
@@ -43,7 +44,13 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
         />
       </Box>
       <Stack width={'100%'} flex={1} spacing={3}>
-        <Stack direction='row' justifyContent='space-between' alignItems='flex-start'>
+        <Stack
+          direction={{ xs: 'column', lg: 'row' }}
+          justifyContent='space-between'
+          alignItems='flex-start'
+          // sx={{ background: 'red' }}
+          gap={3}
+        >
           <div>
             <Typography variant='h6' fontWeight={600} mb={1}>
               {name}
@@ -53,8 +60,14 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
             </Typography>
           </div>
 
-          <Stack direction='row' spacing={1}>
-            <Button size={'large'} startIcon={<AiOutlineInfoCircle />} sx={{ fontWeight: 600 }}>
+          <Stack
+            direction={{ xs: 'row-reverse', lg: 'row' }}
+            gap={2}
+            alignItems='center'
+            justifyContent='flex-end'
+            flexWrap='wrap-reverse'
+          >
+            <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />} sx={{ fontWeight: 600 }}>
               More Info
             </Button>
             <Button size={'large'} variant='contained' sx={{ fontWeight: 600, px: 5 }}>

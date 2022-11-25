@@ -5,6 +5,7 @@ import FilterAccordion from './FilterAccordion'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import PriceRange from './filtration/PriceRange'
 
 const filterData = [
   {
@@ -155,7 +156,7 @@ const FilterBar = () => {
         // boxShadow: 25,
         border: ' 1px solid',
         borderColor: 'divider',
-        p: 2,
+        p: 3,
       }}
     >
       <Stack
@@ -174,6 +175,7 @@ const FilterBar = () => {
           Filter by
         </Typography>
       </Stack>
+      <PriceRange />
 
       {filterData.map((item) => (
         <React.Fragment key={item.id}>
@@ -182,7 +184,30 @@ const FilterBar = () => {
           <FilterAccordion title={item.title}>
             <FormGroup>
               {item.options.map((item) => (
-                <FormControlLabel key={item.id} control={<Checkbox />} label={item.name} />
+                <FormControlLabel
+                  key={item.id}
+                  control={
+                    <Checkbox
+                      disableRipple
+                      sx={{
+                        padding: 0,
+                        '& .MuiSvgIcon-root': {
+                          fontSize: 22,
+                        },
+                      }}
+                    />
+                  }
+                  label={item.name}
+                  sx={{
+                    color: 'text.secondary',
+                    userSelect: 'none',
+                    'span': {
+                      fontWeight: 500,
+                      fontSize: 15,
+                      ml: 1,
+                    },
+                  }}
+                />
               ))}
             </FormGroup>
           </FilterAccordion>

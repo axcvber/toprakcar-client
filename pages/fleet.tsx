@@ -1,4 +1,4 @@
-import { Container, Typography, Grid, Stack } from '@mui/material'
+import { Container, Typography, Grid, Stack, Box } from '@mui/material'
 import React from 'react'
 import { BiSupport } from 'react-icons/bi'
 import { BsSpeedometer2 } from 'react-icons/bs'
@@ -11,6 +11,7 @@ import HCard from '../components/HCard'
 import ImageHeading from '../components/ImageHeading'
 import Search from '../components/Search'
 import Pagination from '@mui/material/Pagination'
+import LocationFilter from '../components/filtration/LocationFilter'
 
 const vehicles = [
   {
@@ -238,24 +239,26 @@ const vehicles = [
 const FleetPage = () => {
   return (
     <Container maxWidth='xl'>
-      <ImageHeading>
-        {/* <Typography variant={'h3'} color='#fff'>
-          Choose a Vehicle
-        </Typography> */}
-        <Search />
-      </ImageHeading>
+      {/* <ImageHeading>
+        <Box width={1200}>
+          <Search />
+        </Box>
+      </ImageHeading> */}
 
       <Grid container spacing={3}>
-        <Grid item xs={3}>
+        <Grid item xs={0} md={3.5} lg={3} display={{ xs: 'none', md: 'block' }}>
+          <LocationFilter />
           <FilterBar />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={8.5} lg={9}>
           <FilterNav />
-          <Stack spacing={2} mt={3}>
+          <Grid container spacing={3}>
             {vehicles.map((item) => (
-              <HCard key={item.id} {...item} />
+              <Grid key={item.id} item xs={12} sm={6} md={6} lg={12}>
+                <HCard {...item} />
+              </Grid>
             ))}
-          </Stack>
+          </Grid>
           <Stack my={5} alignItems='center'>
             <Pagination color='primary' count={10} variant='outlined' shape='rounded' />
           </Stack>

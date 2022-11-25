@@ -18,8 +18,8 @@ const Hero = () => {
           spacing={4}
         >
           <Stack width={{ xs: '100%', md: '50%' }} spacing={3}>
-            <Stack spacing={4} direction={{ xs: 'column-reverse', md: 'column' }}>
-              <Stack spacing={3}>
+            <Stack spacing={4} direction={{ xs: 'column', md: 'column' }}>
+              <Stack spacing={3} px={{ xs: 1, md: 0 }}>
                 <Typography variant={'h2'} fontWeight={800} textTransform='uppercase'>
                   {t.heroTitle}
                 </Typography>
