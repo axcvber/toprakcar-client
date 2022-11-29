@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import Typography from '@mui/material/Typography'
 import { HiMinus, HiPlus } from 'react-icons/hi'
+import { Typography } from '@mui/material'
 
 interface IFilterAccordion {
   title: string
@@ -35,10 +35,10 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children }) => {
         aria-controls='panel1d-content'
         id='panel1d-header'
         expandIcon={expanded ? <HiMinus /> : <HiPlus />}
-        sx={{ padding: 0, 'svg': { color: 'text.primary' } }}
+        sx={{ padding: 0, 'svg': { color: 'text.secondary' } }}
         onClick={onToggle}
       >
-        <Typography fontWeight={600} color='text.primary'>
+        <Typography fontWeight={600} color='text.secondary'>
           {title}
         </Typography>
       </AccordionSummary>

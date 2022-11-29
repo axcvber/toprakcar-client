@@ -11,24 +11,30 @@ const FilterNav = () => {
   }
 
   return (
-    <Stack spacing={2}>
-      {/* <Box>
+    <>
+      <Stack display={{ xs: 'none', lg: 'flex' }} spacing={2} mb={3}>
         <Stack direction='row' spacing={2} alignItems='center'>
           <Typography color='text.secondary'>6 Filters</Typography>
           <Typography variant='body2' color='primary' fontWeight={500}>
             Clear All
           </Typography>
         </Stack>
-      </Box>
-      <Stack direction='row' spacing={2}>
-        <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
-        <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
-        <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+        <Stack direction='row' gap={2} flexWrap='wrap'>
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+          <Chip color='primary' label='Mersedes' onDelete={handleDelete} />
+        </Stack>
       </Stack>
 
-      <Divider /> */}
+      {/* <Divider /> */}
 
-      <Stack direction='row' justifyContent='space-between' alignItems='center'>
+      <Stack direction='row' justifyContent='space-between' alignItems='center' my={2}>
         <Typography variant='h6'>265 result</Typography>
 
         <Stack direction='row' spacing={2}>
@@ -51,7 +57,7 @@ const FilterNav = () => {
           </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </>
   )
 }
 

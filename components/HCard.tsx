@@ -25,12 +25,12 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
       })}
     >
       <Box
-        sx={(theme) => ({
+        sx={{
           width: '100%',
           maxWidth: { xs: '100%', md: '300px' },
-          background: theme.palette.background.paper,
+          backgroundColor: 'grey.100',
           borderRadius: 3,
-        })}
+        }}
       >
         <Image
           width='100%'
@@ -67,11 +67,11 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
             justifyContent='flex-end'
             flexWrap='wrap-reverse'
           >
-            <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />} sx={{ fontWeight: 600 }}>
+            <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />}>
               More Info
             </Button>
-            <Button size={'large'} variant='contained' sx={{ fontWeight: 600, px: 5 }}>
-              Rent
+            <Button size={'large'} variant='contained' sx={{ px: 5 }}>
+              Select
             </Button>
           </Stack>
         </Stack>

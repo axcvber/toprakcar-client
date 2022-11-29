@@ -1,18 +1,15 @@
-import { Container, Typography, Grid, Stack, Box } from '@mui/material'
 import React from 'react'
+import { Container, Typography, Grid, Stack, Box } from '@mui/material'
+import LocationFilter from '../filtration/LocationFilter'
+import FilterBar from '../FilterBar'
+import FilterNav from '../FilterNav'
+import HCard from '../HCard'
+import Pagination from '@mui/material/Pagination'
 import { BiSupport } from 'react-icons/bi'
 import { BsSpeedometer2 } from 'react-icons/bs'
 import { FiBarChart } from 'react-icons/fi'
 import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
 import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
-import FilterBar from '../components/FilterBar'
-import FilterNav from '../components/FilterNav'
-import HCard from '../components/HCard'
-import ImageHeading from '../components/ImageHeading'
-import Search from '../components/Search'
-import Pagination from '@mui/material/Pagination'
-import LocationFilter from '../components/filtration/LocationFilter'
-import CustomizedSteppers from '../components/Stepper'
 
 const vehicles = [
   {
@@ -237,17 +234,28 @@ const vehicles = [
   },
 ]
 
-const FleetPage = () => {
+const ChooseVehicleStep = () => {
   return (
-    <Container maxWidth='xl'>
-      {/* <ImageHeading>
-        <Box width={1200}>
-          <Search />
-        </Box>
-      </ImageHeading> */}
-      <CustomizedSteppers />
-    </Container>
+    <Grid container spacing={3}>
+      <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
+        <LocationFilter />
+        <FilterBar />
+      </Grid>
+      <Grid item xs={12} lg={9}>
+        <FilterNav />
+        <Grid container spacing={3}>
+          {vehicles.map((item) => (
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={12}>
+              <HCard {...item} />
+            </Grid>
+          ))}
+        </Grid>
+        <Stack my={5} alignItems='center'>
+          <Pagination color='primary' count={10} variant='outlined' shape='rounded' />
+        </Stack>
+      </Grid>
+    </Grid>
   )
 }
 
-export default FleetPage
+export default ChooseVehicleStep

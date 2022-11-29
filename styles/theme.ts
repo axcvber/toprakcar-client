@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+import { createTheme, responsiveFontSizes, experimental_sx as sx } from '@mui/material/styles'
 import { red } from '@mui/material/colors'
 
 declare module '@mui/material/Button' {
@@ -32,6 +32,16 @@ let theme = createTheme({
         a: {
           textDecoration: 'none',
         },
+      },
+    },
+    MuiCheckbox: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiRadio: {
+      defaultProps: {
+        disableRipple: true,
       },
     },
     MuiButtonBase: {

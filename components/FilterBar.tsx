@@ -175,7 +175,9 @@ const FilterBar = () => {
           Filter by
         </Typography>
       </Stack>
-      <PriceRange />
+      <Divider />
+
+      <PriceRange title={'Rent cost (day)'} />
 
       {filterData.map((item) => (
         <React.Fragment key={item.id}>
@@ -188,7 +190,6 @@ const FilterBar = () => {
                   key={item.id}
                   control={
                     <Checkbox
-                      disableRipple
                       sx={{
                         padding: 0,
                         '& .MuiSvgIcon-root': {
@@ -201,6 +202,7 @@ const FilterBar = () => {
                   sx={{
                     color: 'text.secondary',
                     userSelect: 'none',
+                    my: 1,
                     'span': {
                       fontWeight: 500,
                       fontSize: 15,
