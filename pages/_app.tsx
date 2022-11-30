@@ -22,6 +22,7 @@ import 'dayjs/locale/ru'
 import 'dayjs/locale/tr'
 import { useRouter } from 'next/router'
 import 'swiper/css'
+import { RentProvider } from '../context/rent-context'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -34,15 +35,17 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   const router = useRouter()
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
-          <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </LocalizationProvider>
-      </ThemeProvider>
-    </CacheProvider>
+    <RentProvider>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={theme}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
+            <CssBaseline />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </LocalizationProvider>
+        </ThemeProvider>
+      </CacheProvider>
+    </RentProvider>
   )
 }

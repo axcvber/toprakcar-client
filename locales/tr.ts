@@ -21,6 +21,10 @@ const tr = {
       path: '/insurance',
     },
   ],
+  button: {
+    back: 'Geri',
+  },
+  stepLabels: ['Sürüş Detayları', 'Bir Araç Seçin', 'İletişim Bilgileri', 'Rezervasyon Özeti'],
   footer: {
     explore: 'Navigasyon',
     workHours: 'Çalışma saatlerimiz',

@@ -10,6 +10,7 @@ import { BsSpeedometer2 } from 'react-icons/bs'
 import { FiBarChart } from 'react-icons/fi'
 import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
 import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
+import { useRentContext } from '../../context/rent-context'
 
 const vehicles = [
   {
@@ -235,6 +236,13 @@ const vehicles = [
 ]
 
 const ChooseVehicleStep = () => {
+  const { setCurrentStep, setSelectedCar } = useRentContext()
+
+  const handleSelectCar = (id: number) => {
+    setSelectedCar(id)
+    setCurrentStep(2)
+  }
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
@@ -246,7 +254,7 @@ const ChooseVehicleStep = () => {
         <Grid container spacing={3}>
           {vehicles.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={12}>
-              <HCard {...item} />
+              <HCard {...item} buttonCallback={handleSelectCar} />
             </Grid>
           ))}
         </Grid>

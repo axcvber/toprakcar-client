@@ -10,8 +10,15 @@ import { FiBarChart } from 'react-icons/fi'
 import OrderSummary from '../OrderSummary'
 import AdditionalServices from '../AdditionalServices'
 import PersonalInfoForm from '../forms/PersonalInfoForm'
+import { useRentContext } from '../../context/rent-context'
 
 const ContactDetailsStep = () => {
+  const { setCurrentStep } = useRentContext()
+
+  const handleSubmit = () => {
+    setCurrentStep(3)
+  }
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -20,7 +27,7 @@ const ContactDetailsStep = () => {
       <Grid item xs={3}>
         <AdditionalServices />
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={9} onClick={handleSubmit}>
         <PersonalInfoForm />
       </Grid>
     </Grid>

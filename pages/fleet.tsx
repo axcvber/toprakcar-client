@@ -12,7 +12,9 @@ import ImageHeading from '../components/ImageHeading'
 import Search from '../components/Search'
 import Pagination from '@mui/material/Pagination'
 import LocationFilter from '../components/filtration/LocationFilter'
-import CustomizedSteppers from '../components/Stepper'
+import CustomizedSteppers from '../components/RentStepper'
+import { useRentContext } from '../context/rent-context'
+import RentSteps from '../components/RentSteps'
 
 const vehicles = [
   {
@@ -238,14 +240,14 @@ const vehicles = [
 ]
 
 const FleetPage = () => {
+  const { currentStep } = useRentContext()
+
   return (
     <Container maxWidth='xl'>
-      {/* <ImageHeading>
-        <Box width={1200}>
+      {/* <Box width={1200}>
           <Search />
-        </Box>
-      </ImageHeading> */}
-      <CustomizedSteppers />
+        </Box> */}
+      <RentSteps />
     </Container>
   )
 }

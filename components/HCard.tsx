@@ -9,9 +9,10 @@ interface IHCard {
   name: string
   price: string
   options: any
+  buttonCallback: (id: number) => void
 }
 
-const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
+const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCallback }) => {
   return (
     <Stack
       direction={{ xs: 'column', lg: 'row' }}
@@ -70,7 +71,7 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options }) => {
             <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />}>
               More Info
             </Button>
-            <Button size={'large'} variant='contained' sx={{ px: 5 }}>
+            <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={() => buttonCallback(id)}>
               Select
             </Button>
           </Stack>

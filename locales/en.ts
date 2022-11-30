@@ -21,6 +21,10 @@ const en = {
       path: '/insurance',
     },
   ],
+  button: {
+    back: 'Back',
+  },
+  stepLabels: ['Ride Details', 'Choose a Vehicle', 'Contact Details', 'Booking Summary'],
   footer: {
     explore: 'Explore',
     workHours: 'Our working hours',
