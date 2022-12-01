@@ -1,11 +1,10 @@
 import React from 'react'
-import { Box, Container, Grid, Stack, Typography, Divider } from '@mui/material'
-import { FiTarget } from 'react-icons/fi'
+import { Stack, Divider } from '@mui/material'
+import PriceRange from './PriceRange'
 import FilterAccordion from './FilterAccordion'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import PriceRange from './filtration/PriceRange'
 
 const filterData = [
   {
@@ -146,37 +145,9 @@ const filterData = [
   // },
 ]
 
-const FilterBar = () => {
+const FilterList = () => {
   return (
-    <Stack
-      spacing={2}
-      sx={{
-        background: '#fff',
-        borderRadius: 3,
-        // boxShadow: 25,
-        border: ' 1px solid',
-        borderColor: 'divider',
-        p: 3,
-      }}
-    >
-      <Stack
-        direction='row'
-        spacing={1}
-        alignItems='center'
-        sx={{
-          'svg': {
-            color: 'primary.main',
-            fontSize: 28,
-          },
-        }}
-      >
-        <FiTarget />
-        <Typography variant='h6' fontWeight={600}>
-          Filter by
-        </Typography>
-      </Stack>
-      <Divider />
-
+    <Stack spacing={2}>
       <PriceRange title={'Rent cost (day)'} />
 
       {filterData.map((item) => (
@@ -219,4 +190,4 @@ const FilterBar = () => {
   )
 }
 
-export default FilterBar
+export default FilterList

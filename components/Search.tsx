@@ -46,10 +46,28 @@ const data = [
   },
 ]
 
-const Search = () => {
+interface ISearch {
+  forModal?: boolean
+}
+
+const Search: React.FC<ISearch> = ({ forModal }) => {
   // const [value, setValue] = React.useState<any | null>()
   const [value, setValue] = React.useState<Dayjs | null>(dayjs())
   const [open, setOpen] = React.useState<boolean>(false)
+
+  if (forModal) {
+    return (
+      <Stack spacing={2}>
+        <Dropdown
+          title={'Choose a location'}
+          icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
+          // menu={[<Box>Create</Box>, <Box>Edit</Box>, <Box>Delete</Box>]}
+        />
+        <DatePicker />
+        <DatePicker />
+      </Stack>
+    )
+  }
 
   return (
     <Stack

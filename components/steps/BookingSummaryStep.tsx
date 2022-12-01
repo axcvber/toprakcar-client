@@ -6,10 +6,10 @@ import ReservationText from '../ReservationText'
 const BookingSummaryStep = () => {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={4} lg={3}>
         <ReservationDetails />
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={12} md={8} lg={9}>
         <ReservationText />
       </Grid>
     </Grid>

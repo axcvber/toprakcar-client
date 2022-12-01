@@ -24,10 +24,10 @@ const ContactDetailsStep = () => {
       <Grid item xs={12}>
         <OrderSummary />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} md={4} lg={3}>
         <AdditionalServices />
       </Grid>
-      <Grid item xs={9} onClick={handleSubmit}>
+      <Grid item xs={12} md={8} lg={9} onClick={handleSubmit}>
         <PersonalInfoForm />
       </Grid>
     </Grid>

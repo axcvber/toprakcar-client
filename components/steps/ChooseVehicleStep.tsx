@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Typography, Grid, Stack, Box } from '@mui/material'
 import LocationFilter from '../filtration/LocationFilter'
-import FilterBar from '../FilterBar'
-import FilterNav from '../FilterNav'
+import FilterBar from '../filtration/FilterBar'
+import FilterNav from '../filtration/FilterNav'
 import HCard from '../HCard'
 import Pagination from '@mui/material/Pagination'
 import { BiSupport } from 'react-icons/bi'
@@ -238,8 +238,8 @@ const vehicles = [
 const ChooseVehicleStep = () => {
   const { setCurrentStep, setSelectedCar } = useRentContext()
 
-  const handleSelectCar = (id: number) => {
-    setSelectedCar(id)
+  const handleSelectCar = (item: any) => {
+    setSelectedCar(item)
     setCurrentStep(2)
   }
 
@@ -254,7 +254,7 @@ const ChooseVehicleStep = () => {
         <Grid container spacing={3}>
           {vehicles.map((item) => (
             <Grid key={item.id} item xs={12} sm={6} md={4} lg={12}>
-              <HCard {...item} buttonCallback={handleSelectCar} />
+              <HCard item={item} buttonCallback={handleSelectCar} />
             </Grid>
           ))}
         </Grid>

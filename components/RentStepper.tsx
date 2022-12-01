@@ -37,7 +37,7 @@ function getStepContent(step: number) {
 
 function StepIcon(props: StepIconProps) {
   const { active, completed } = props
-  return <StepIconRoot ownerState={{ active }}>{completed ? <FiCheck fontSize={22} /> : props.icon}</StepIconRoot>
+  return <StepIconRoot ownerState={{ active }}>{completed ? <FiCheck /> : props.icon}</StepIconRoot>
 }
 
 const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
@@ -50,7 +50,16 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
 
   return (
     <>
-      <Box sx={{ width: '100%', backgroundColor: 'primary.main', py: 2, borderRadius: 4, mb: 2, boxShadow: 25 }}>
+      <Box
+        sx={{
+          width: '100%',
+          backgroundColor: 'primary.main',
+          py: 2,
+          borderRadius: 4,
+          mb: 2,
+          boxShadow: 25,
+        }}
+      >
         <Stepper activeStep={currentStep} alternativeLabel connector={<Connector />}>
           {stepLabels.map((label, index) => (
             <Step key={index} disabled={index === 0} last={currentStep === 2}>
@@ -60,6 +69,7 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
                     color: '#fff !important',
                     fontWeight: 500,
                     marginTop: '10px',
+                    fontSize: { xs: '12px', md: '14px' },
                   },
                 }}
                 StepIconComponent={StepIcon}
@@ -72,7 +82,7 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
       </Box>
       <Button
         startIcon={<BiArrowBack />}
-        // color='inherit'
+        color='inherit'
         disabled={currentStep === 1 || currentStep === 3}
         onClick={handleBack}
         sx={{ mb: 2 }}
@@ -84,16 +94,22 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
   )
 }
 
-const Connector = styled(StepConnector)({
+const Connector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 22,
+    [theme.breakpoints.down('md')]: {
+      top: 16,
+    },
   },
   [`& .${stepConnectorClasses.line}`]: {
     border: 0,
     borderBottom: '3px dashed #fff',
     margin: '0 30px',
+    [theme.breakpoints.down('md')]: {
+      margin: '0 10px',
+    },
   },
-})
+}))
 
 const StepIconRoot = styled('div')<{
   ownerState: { active?: boolean }
@@ -108,10 +124,21 @@ const StepIconRoot = styled('div')<{
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: 18,
+  'svg': {
+    fontSize: 22,
+  },
   ...(ownerState.active && {
     backgroundColor: '#fff',
     color: theme.palette.text.primary,
   }),
+  [theme.breakpoints.down('md')]: {
+    width: 35,
+    height: 35,
+    fontSize: 14,
+    'svg': {
+      fontSize: 18,
+    },
+  },
 }))
 
 export default RentStepper

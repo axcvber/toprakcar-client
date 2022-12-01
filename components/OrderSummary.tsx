@@ -8,6 +8,7 @@ import { BiSupport } from 'react-icons/bi'
 import { FiBarChart } from 'react-icons/fi'
 import LocationItem from './LocationItem'
 import Paper from './Paper'
+import { useRentContext } from '../context/rent-context'
 
 const options = [
   {
@@ -48,9 +49,10 @@ const options = [
 ]
 
 const OrderSummary = () => {
+  const { setCurrentStep, selectedCar } = useRentContext()
   return (
     <Paper>
-      <Stack direction='row' justifyContent={'space-between'} alignItems='flex-start'>
+      <Stack direction='row' justifyContent={'space-between'} alignItems='center' spacing={6}>
         <Stack spacing={3}>
           <Typography variant='h6' fontWeight={600}>
             Ride Details
@@ -59,12 +61,23 @@ const OrderSummary = () => {
           <LocationItem title={'Pick Up'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 15 ,2022 00:00'} />
           <LocationItem title={'Drop Off'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 18 ,2022 00:00'} />
         </Stack>
-        <Stack direction='row' width={700} alignSelf='center'>
+        <Stack
+          direction='row'
+          flex={'1'}
+          alignSelf='center'
+          sx={
+            {
+              // backgroundColor: 'primary.main',
+            }
+          }
+        >
           <Box
             sx={{
               width: '100%',
               backgroundColor: 'grey.100',
               borderRadius: 3,
+              // border: '1px solid',
+              // borderColor: 'primary.main',
             }}
           >
             <Image
@@ -72,18 +85,18 @@ const OrderSummary = () => {
               height={60}
               layout='responsive'
               objectFit='contain'
-              src={'https://res.cloudinary.com/doea7ahfk/image/upload/v1667134669/pngwing.com_11_tfibsn.png'}
+              src={selectedCar.imageUrl}
               placeholder='blur'
-              blurDataURL={'https://res.cloudinary.com/doea7ahfk/image/upload/v1667134669/pngwing.com_11_tfibsn.png'}
+              blurDataURL={selectedCar.imageUrl}
               alt='selected-car'
             />
           </Box>
           <Box ml={3}>
             <Typography variant='h6' fontWeight={600} mb={2}>
-              Mercedes-Benz SLS
+              {selectedCar.name}
             </Typography>
             <Grid container component='ul' columnGap={4} rowGap={2}>
-              {options.map((item: any) => (
+              {selectedCar.options.map((item: any) => (
                 <Grid item key={item.text}>
                   <Stack
                     component='li'

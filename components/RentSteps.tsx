@@ -12,7 +12,7 @@ const RentSteps = () => {
   return (
     <>
       <ImageHeading>
-        <Typography variant='h3' color='#fff'>
+        <Typography variant='h4' color='#fff'>
           {t.stepLabels[currentStep]}
         </Typography>
         {/* <Box width={1200}>

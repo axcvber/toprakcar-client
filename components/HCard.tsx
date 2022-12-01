@@ -4,15 +4,16 @@ import Image from 'next/image'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 interface IHCard {
-  id: number
-  imageUrl: string
-  name: string
-  price: string
-  options: any
+  // id: number
+  // imageUrl: string
+  // name: string
+  // price: string
+  // options: any
+  item: any
   buttonCallback: (id: number) => void
 }
 
-const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCallback }) => {
+const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
   return (
     <Stack
       direction={{ xs: 'column', lg: 'row' }}
@@ -38,9 +39,9 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCal
           height={60}
           layout='responsive'
           objectFit='contain'
-          src={imageUrl}
+          src={item.imageUrl}
           placeholder='blur'
-          blurDataURL={imageUrl}
+          blurDataURL={item.imageUrl}
           alt='car'
         />
       </Box>
@@ -54,10 +55,10 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCal
         >
           <div>
             <Typography variant='h6' fontWeight={600} mb={1}>
-              {name}
+              {item.name}
             </Typography>
             <Typography component='span' color='primary' variant='h5' fontWeight={600}>
-              {price}
+              {item.price}
             </Typography>
           </div>
 
@@ -71,7 +72,7 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCal
             <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />}>
               More Info
             </Button>
-            <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={() => buttonCallback(id)}>
+            <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={() => buttonCallback(item)}>
               Select
             </Button>
           </Stack>
@@ -79,7 +80,7 @@ const HCard: React.FC<IHCard> = ({ id, imageUrl, name, price, options, buttonCal
 
         <Divider />
         <Grid container component='ul' columnGap={4} rowGap={2}>
-          {options.map((item: any) => (
+          {item.options.map((item: any) => (
             <Grid item key={item.text}>
               <Stack
                 component='li'

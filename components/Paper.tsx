@@ -9,7 +9,7 @@ const Paper: React.FC<IPaper> = ({ children }) => {
   return (
     <Box
       sx={{
-        p: 4,
+        p: 3,
         border: '1px solid',
         borderColor: 'divider',
         borderRadius: 4,

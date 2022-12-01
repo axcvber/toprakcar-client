@@ -23,6 +23,7 @@ import 'dayjs/locale/tr'
 import { useRouter } from 'next/router'
 import 'swiper/css'
 import { RentProvider } from '../context/rent-context'
+import { ModalProvider } from '../context/modalContext'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -40,9 +41,11 @@ export default function MyApp(props: MyAppProps) {
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
             <CssBaseline />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <ModalProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ModalProvider>
           </LocalizationProvider>
         </ThemeProvider>
       </CacheProvider>

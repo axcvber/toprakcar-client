@@ -1,6 +1,11 @@
 import React from 'react'
 import { Box, Stack, Typography, Divider } from '@mui/material'
 import Paper from './Paper'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 
 const data = [
   {
@@ -46,7 +51,7 @@ const AdditionalServices = () => {
     <Paper>
       <Stack spacing={3}>
         <Typography variant='h6' fontWeight={600}>
-          Ride Details
+          Additional services
         </Typography>
         <Divider />
         <Stack spacing={3}>
@@ -73,6 +78,12 @@ const ServiceItem: React.FC<IServiceItem> = ({ title, price, label }) => {
         <Typography variant='body2' color='text.secondary'>
           {label}
         </Typography>
+        <FormControl>
+          <RadioGroup row aria-labelledby='demo-row-radio-buttons-group-label' name='row-radio-buttons-group'>
+            <FormControlLabel value='female' control={<Radio size='small' />} label='Yes' />
+            <FormControlLabel value='male' control={<Radio size='small' />} label='No' />
+          </RadioGroup>
+        </FormControl>
       </Stack>
       <Typography variant='h6' color='primary.main' fontWeight={600}>
         {price} ₺
