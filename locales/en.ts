@@ -59,6 +59,32 @@ const en = {
   benefitsDesc: 'You cannot put a price on your family’s safety and security on the road. Find a lower price?',
   faqLabel: 'FIND YOUR ANSWER HERE',
   faqTitle: 'Frequently asked questions',
+
+  //
+
+  personalInfoForm: {
+    validation: {
+      fullName: {
+        max: 'Max 20 symbols.',
+        required: 'Enter full name.',
+        matches: 'Please enter a valid full name.',
+      },
+      idNumber: {
+        required: 'Please choose a service.',
+      },
+      email: {
+        isEmail: 'Please enter a valid email address.',
+        required: 'Please enter an email address.',
+      },
+      phone: {
+        required: 'Please enter a phone number.',
+        matches: 'Please enter a valid phone number.',
+      },
+      message: {
+        max: 'Maximum 300 characters',
+      },
+    },
+  },
 }
 
 export default en

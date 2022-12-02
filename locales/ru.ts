@@ -60,6 +60,30 @@ const ru = {
   benefitsDesc: 'Вы не можете назначить цену за безопасность вашей семьи на дороге. Нашли более низкую цену?',
   faqLabel: 'НАЙДИТЕ СВОЙ ОТВЕТ ЗДЕСЬ',
   faqTitle: 'Часто задаваемые вопросы',
+
+  personalInfoForm: {
+    validation: {
+      fullName: {
+        max: 'Max 20 symbols.',
+        required: 'Enter full name.',
+        matches: 'Please enter a valid full name.',
+      },
+      idNumber: {
+        required: 'Please choose a service.',
+      },
+      email: {
+        isEmail: 'Please enter a valid email address.',
+        required: 'Please enter an email address.',
+      },
+      phone: {
+        required: 'Please enter a phone number.',
+        matches: 'Please enter a valid phone number.',
+      },
+      message: {
+        max: 'Maximum 300 characters',
+      },
+    },
+  },
 }
 
 export default ru

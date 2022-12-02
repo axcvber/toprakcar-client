@@ -16,6 +16,7 @@ interface IModalContext {
   isOpen: boolean
 }
 
+//@ts-ignore
 const ModalContext = createContext<IModalContext>({})
 
 const ModalProvider: React.FC<{ children: ReactChild }> = ({ children }) => {

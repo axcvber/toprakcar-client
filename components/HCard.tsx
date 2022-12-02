@@ -19,12 +19,13 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
       direction={{ xs: 'column', lg: 'row' }}
       spacing={3}
       p={2.5}
-      sx={(theme) => ({
-        background: '#fff',
-        borderRadius: 3,
+      sx={{
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
         // boxShadow: 25,
-        border: `1px solid ${theme.palette.divider}`,
-      })}
+        border: '1px solid',
+        borderColor: 'divider',
+      }}
     >
       <Box
         sx={{

@@ -18,6 +18,7 @@ interface IStepContext {
 
 export const useRentContext = () => useContext(RentContext)
 
+//@ts-ignore
 const RentContext = createContext<IRentContext & IStepContext>({})
 
 interface IAppProvider {
@@ -44,6 +45,7 @@ const RentProvider: React.FC<IAppProvider> = ({ children }) => {
 
   return (
     <RentContext.Provider
+      //@ts-ignore
       value={{
         currentStep,
         setCurrentStep,

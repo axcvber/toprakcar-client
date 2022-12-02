@@ -16,7 +16,7 @@ const LocationFilter = () => {
       spacing={3}
       sx={{
         backgroundColor: 'background.paper',
-        borderRadius: 3,
+        borderRadius: 4,
         // boxShadow: 25,
         border: ' 1px solid',
         borderColor: 'divider',

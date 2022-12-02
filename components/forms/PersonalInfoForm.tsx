@@ -8,9 +8,35 @@ import FormLabel from '@mui/material/FormLabel'
 import { FiArrowUpRight } from 'react-icons/fi'
 import FormGroup from '@mui/material/FormGroup'
 import Checkbox from '@mui/material/Checkbox'
-import Field from '../Field'
+import Field from './components/Field'
 import Paper from '../Paper'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { PersonalInfoSchema } from '../../schemas/personal-info-schema'
+
+interface IPersonalInfoFormInputs {
+  fullName: string
+  idNumber: string
+  email: string
+  phone: number
+  message: string
+}
+
 const PersonalInfoForm = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting, isSubmitSuccessful },
+    setValue,
+    reset,
+  } = useForm<IPersonalInfoFormInputs>({
+    resolver: yupResolver(PersonalInfoSchema()),
+  })
+
+  const onSubmit: SubmitHandler<IPersonalInfoFormInputs> = async (data) => {
+    console.log('data', data)
+  }
+
   return (
     <Paper>
       <Stack spacing={3}>
@@ -18,7 +44,7 @@ const PersonalInfoForm = () => {
           Personal Information
         </Typography>
         <Divider />
-        <Stack spacing={4}>
+        <Stack component={'form'} spacing={4} onSubmit={handleSubmit(onSubmit)}>
           <Box>
             <FormControl>
               <FormLabel required id='nationality-label' sx={{ fontWeight: 600 }}>
@@ -44,16 +70,16 @@ const PersonalInfoForm = () => {
             </Grid>
           </Grid> */}
           <Stack direction='row' spacing={4}>
-            <Field label={'Full Name'} placeholder={'John Doe'} />
-            <Field label={'TC Identification number'} placeholder={'YYMMDDSSSSCAZ'} />
+            <Field name='fullName' control={control} label={'Full Name'} placeholder={'John Doe'} />
+            <Field name='idNumber' control={control} label={'TC Identification number'} placeholder={'YYMMDDSSSSCAZ'} />
           </Stack>
 
           <Stack direction='row' spacing={4}>
-            <Field label={'Email'} placeholder={'johndoe@gmail.com'} />
-            <Field label={'Phone number'} placeholder={'+35843949521'} />
+            <Field name='email' control={control} label={'Email'} placeholder={'johndoe@gmail.com'} />
+            <Field name='phone' control={control} label={'Phone number'} placeholder={'+35843949521'} />
           </Stack>
 
-          <Field label={'Additional Note'} placeholder={'Message'} />
+          <Field name='message' control={control} label={'Additional Note'} placeholder={'Message'} />
 
           <Stack direction='row' justifyContent='space-between'>
             <Stack direction='row' alignItems='center' spacing={0.5}>
@@ -86,7 +112,7 @@ const PersonalInfoForm = () => {
               </Typography>
             </Stack>
 
-            <Button variant='contained' size='large' endIcon={<FiArrowUpRight />}>
+            <Button type='submit' variant='contained' size='large' endIcon={<FiArrowUpRight />}>
               Submit
             </Button>
           </Stack>

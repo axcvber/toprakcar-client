@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Typography, Grid, Stack, Box } from '@mui/material'
+import { Grid, Stack } from '@mui/material'
 import LocationFilter from '../filtration/LocationFilter'
 import FilterBar from '../filtration/FilterBar'
 import FilterNav from '../filtration/FilterNav'

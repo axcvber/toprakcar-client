@@ -8,27 +8,26 @@ interface IVCard {
   price: string
   year: number
   options: any
-  widthButton?: boolean
-  btnText?: string
 }
 
-const VCard: React.FC<IVCard> = ({ name, price, year, widthButton, imageUrl, options, btnText }) => {
+const VCard: React.FC<IVCard> = ({ name, price, year, imageUrl, options }) => {
   return (
     <Stack
-      p={2.5}
+      p={2}
       spacing={2}
-      sx={(theme) => ({
+      sx={{
         background: '#fff',
-        borderRadius: 3,
-        boxShadow: 25,
-        border: `1px solid ${theme.palette.divider}`,
-      })}
+        borderRadius: 4,
+        // boxShadow: 25,
+        border: '1px solid',
+        borderColor: 'divider',
+      }}
     >
       <Box
-        sx={(theme) => ({
-          background: theme.palette.background.paper,
-          borderRadius: 3,
-        })}
+        sx={{
+          backgroundColor: 'grey.100',
+          borderRadius: 4,
+        }}
       >
         <Image
           width='100%'
@@ -78,11 +77,9 @@ const VCard: React.FC<IVCard> = ({ name, price, year, widthButton, imageUrl, opt
           </Stack>
         ))}
       </Stack>
-      {widthButton && (
-        <Button variant='contained' size='extra'>
-          {btnText}
-        </Button>
-      )}
+      <Button variant='contained' size='extra'>
+        Rent Now
+      </Button>
     </Stack>
   )
 }
