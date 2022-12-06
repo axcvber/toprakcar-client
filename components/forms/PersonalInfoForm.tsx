@@ -13,6 +13,7 @@ import Paper from '../Paper'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { PersonalInfoSchema } from '../../schemas/personal-info-schema'
+import { useRentContext } from '../../context/rent-context'
 
 interface IPersonalInfoFormInputs {
   fullName: string
@@ -32,9 +33,11 @@ const PersonalInfoForm = () => {
   } = useForm<IPersonalInfoFormInputs>({
     resolver: yupResolver(PersonalInfoSchema()),
   })
+  const { setCurrentStep } = useRentContext()
 
   const onSubmit: SubmitHandler<IPersonalInfoFormInputs> = async (data) => {
     console.log('data', data)
+    setCurrentStep(3)
   }
 
   return (

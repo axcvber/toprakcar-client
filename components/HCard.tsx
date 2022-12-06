@@ -2,6 +2,12 @@ import React from 'react'
 import { Box, Button, Chip, Divider, Stack, Typography, Grid } from '@mui/material'
 import Image from 'next/image'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import { RentCarEntity } from '../generated'
+import { BiCar, BiSupport } from 'react-icons/bi'
+import { FiBarChart } from 'react-icons/fi'
+import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
+import { TbEngine, TbGasStation, TbManualGearbox } from 'react-icons/tb'
+import { BsSpeedometer2 } from 'react-icons/bs'
 
 interface IHCard {
   // id: number
@@ -9,8 +15,8 @@ interface IHCard {
   // name: string
   // price: string
   // options: any
-  item: any
-  buttonCallback: (id: number) => void
+  item: RentCarEntity
+  buttonCallback?: (id: number) => void
 }
 
 const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
@@ -40,9 +46,9 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
           height={60}
           layout='responsive'
           objectFit='contain'
-          src={item.imageUrl}
+          src={item.attributes?.image.data?.attributes?.url || ''}
           placeholder='blur'
-          blurDataURL={item.imageUrl}
+          blurDataURL={item.attributes?.image.data?.attributes?.url || ''}
           alt='car'
         />
       </Box>
@@ -56,10 +62,10 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
         >
           <div>
             <Typography variant='h6' fontWeight={600} mb={1}>
-              {item.name}
+              {item.attributes?.name}
             </Typography>
             <Typography component='span' color='primary' variant='h5' fontWeight={600}>
-              {item.price}
+              {item.attributes?.dailyPrice} ₺ /d
             </Typography>
           </div>
 
@@ -80,31 +86,60 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
         </Stack>
 
         <Divider />
+
         <Grid container component='ul' columnGap={4} rowGap={2}>
-          {item.options.map((item: any) => (
-            <Grid item key={item.text}>
-              <Stack
-                component='li'
-                spacing={1}
-                direction='row'
-                alignItems={'center'}
-                sx={{
-                  color: 'text.disabled',
-                  'svg': {
-                    fontSize: 18,
-                  },
-                }}
-              >
-                {item.icon}
-                <Typography component='span' fontWeight={500} fontSize={{ xs: 14, md: 16 }}>
-                  {item.text}
-                </Typography>
-              </Stack>
-            </Grid>
-          ))}
+          {item.attributes?.vehicle_class?.data && (
+            <CarOption icon={<FiBarChart />} label={item.attributes?.vehicle_class?.data?.attributes?.title} />
+          )}
+          {item.attributes?.fuel_type?.data && (
+            <CarOption icon={<TbGasStation />} label={item.attributes?.fuel_type?.data?.attributes?.type} />
+          )}
+
+          {item.attributes?.transmission?.data && (
+            <CarOption icon={<TbManualGearbox />} label={item.attributes?.transmission?.data?.attributes?.type} />
+          )}
+
+          {item.attributes?.passengers && (
+            <CarOption icon={<MdAirlineSeatLegroomNormal />} label={item.attributes?.passengers} />
+          )}
+          {item.attributes?.body_style?.data && (
+            <CarOption icon={<BiCar />} label={item.attributes?.body_style?.data?.attributes?.style} />
+          )}
+          <CarOption icon={<BsSpeedometer2 />} label={'Unlimited mileage'} />
+          <CarOption icon={<BiSupport />} label={'24/7 Support'} />
+          <CarOption icon={<MdOutlineCancel />} label={'Free Cancellation'} />
         </Grid>
       </Stack>
     </Stack>
+  )
+}
+
+interface ICarOption {
+  icon: JSX.Element
+  label?: string | number
+}
+
+const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
+  return (
+    <Grid item>
+      <Stack
+        component='li'
+        spacing={1}
+        direction='row'
+        alignItems={'center'}
+        sx={{
+          color: 'text.disabled',
+          'svg': {
+            fontSize: 18,
+          },
+        }}
+      >
+        {icon}
+        <Typography component='span' fontWeight={500} fontSize={{ xs: 14, md: 16 }}>
+          {label}
+        </Typography>
+      </Stack>
+    </Grid>
   )
 }
 

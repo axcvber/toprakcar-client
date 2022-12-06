@@ -34,8 +34,8 @@ const MobileFilter: React.FC<IMobileFilter> = () => {
             horizontal: 'left',
           }}
         >
-          <Stack direction='row' spacing={1} alignItems='center'>
-            <HiOutlineFilter fontSize={18} />
+          <Stack direction='row' spacing={0.8} alignItems='center'>
+            <HiOutlineFilter fontSize={20} />
             <Typography fontWeight={600} variant='body2'>
               Filter
             </Typography>

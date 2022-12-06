@@ -44,6 +44,38 @@ const data = [
     id: 8,
     location: 'Kayseri Merkez',
   },
+  {
+    id: 9,
+    location: 'Adana Hava Limanı İç Hatlar',
+  },
+  {
+    id: 10,
+    location: 'Adana Otobüs Terminali',
+  },
+  {
+    id: 11,
+    location: 'Antalya Hava Limanı Dış Hatlar',
+  },
+  {
+    id: 12,
+    location: 'Alanya Hava Limanı',
+  },
+  {
+    id: 13,
+    location: 'Gaziantep Hava Limanı İç Hatlar',
+  },
+  {
+    id: 14,
+    location: 'Muğla Dalaman',
+  },
+  {
+    id: 15,
+    location: 'Kahramanmaraş',
+  },
+  {
+    id: 16,
+    location: 'Kayseri Merkez',
+  },
 ]
 
 interface ISearch {
@@ -54,15 +86,23 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
   // const [value, setValue] = React.useState<any | null>()
   const [value, setValue] = React.useState<Dayjs | null>(dayjs())
   const [open, setOpen] = React.useState<boolean>(false)
-
+  const [sortTitle, setSortTitle] = useState('Recommended')
+  const onSelectSort = (title: string) => {
+    setSortTitle(title)
+  }
   if (forModal) {
     return (
       <Stack spacing={2}>
         <Dropdown
-          title={'Choose a location'}
+          title={sortTitle}
           icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-          // menu={[<Box>Create</Box>, <Box>Edit</Box>, <Box>Delete</Box>]}
+          menu={data.map((item) => (
+            <Box key={item.id} onClick={() => onSelectSort(item.location)}>
+              {item.location}
+            </Box>
+          ))}
         />
+
         <DatePicker />
         <DatePicker />
       </Stack>
@@ -83,25 +123,20 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
         boxShadow: 12,
       }}
     >
-      <Box>
+      <Box minWidth={300}>
         <Dropdown
-          title={'Choose a location'}
+          title={sortTitle}
           icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-          //   <Stack direction='row' spacing={1}>
-          //   <IoLocationSharp fontSize={24} color='#FF8A5D' />
-          //   <Typography>Choose a location</Typography>
-          // </Stack>
-          // menu={[<Box>Create</Box>, <Box>Edit</Box>, <Box>Delete</Box>]}
+          menu={data.map((item) => (
+            <Box key={item.id} width={'100%'} onClick={() => onSelectSort(item.location)} px={2} py={1}>
+              {item.location}
+            </Box>
+          ))}
         />
       </Box>
-      <Box>
-        <DatePicker />
-        {/* <TextField size='small' /> */}
-      </Box>
+      <Box>{/* <DatePicker /> */}</Box>
 
-      <Box>
-        <DatePicker />
-      </Box>
+      <Box>{/* <DatePicker /> */}</Box>
       <Button startIcon={<FiSearch />} variant='contained' size='extra' sx={{ color: '#fff', fontSize: 18, px: 6 }}>
         Search
       </Button>

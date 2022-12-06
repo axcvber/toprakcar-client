@@ -11,7 +11,7 @@ interface IAboutUsPage {
 
 const AboutUsPage: React.FC<IAboutUsPage> = ({ data }) => {
   return (
-    <Container maxWidth={'xl'}>
+    <Container>
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         alignItems='center'

@@ -16,12 +16,12 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
           alignItems='center'
           spacing={1.5}
           component='li'
-          sx={(theme) => ({
-            background: theme.palette.grey[200],
+          sx={{
+            backgroundColor: 'grey.100',
             borderRadius: 3,
             px: 2,
             py: 1.5,
-          })}
+          }}
         >
           <Box
             sx={{

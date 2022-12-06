@@ -48,7 +48,7 @@ const Faq = () => {
     setExpanded(isExpanded ? id : false)
   }
   return (
-    <Container sx={{ my: 10 }} maxWidth={'xl'}>
+    <Container sx={{ my: 10 }}>
       <Heading width={500} label={'Find Your Answer Here'} title='Frequently asked questions' align='left' withLine />
 
       <Grid container spacing={2} mt={2}>

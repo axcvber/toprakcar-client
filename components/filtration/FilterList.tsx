@@ -5,6 +5,7 @@ import FilterAccordion from './FilterAccordion'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import { useFilterContext } from '../../context/filter-context'
 
 const filterData = [
   {
@@ -146,47 +147,133 @@ const filterData = [
 ]
 
 const FilterList = () => {
+  const { data, filtered, setFilteredBrands } = useFilterContext()
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredBrands(+event.target.value)
+  }
+
   return (
     <Stack spacing={2}>
       <PriceRange title={'Rent cost (day)'} />
-
-      {filterData.map((item) => (
-        <React.Fragment key={item.id}>
-          <Divider />
-
-          <FilterAccordion title={item.title}>
-            <FormGroup>
-              {item.options.map((item) => (
-                <FormControlLabel
-                  key={item.id}
-                  control={
-                    <Checkbox
-                      sx={{
-                        padding: 0,
-                        '& .MuiSvgIcon-root': {
-                          fontSize: 22,
-                        },
-                      }}
-                    />
-                  }
-                  label={item.name}
+      <Divider />
+      <FilterAccordion title={'Brands'}>
+        <FormGroup>
+          {data?.brands?.data.map((item, inx) => (
+            <FormControlLabel
+              key={item.id}
+              control={
+                <Checkbox
+                  value={item.id}
+                  onChange={handleChange}
                   sx={{
-                    color: 'text.secondary',
-                    userSelect: 'none',
-                    my: 1,
-                    'span': {
-                      fontWeight: 500,
-                      fontSize: 15,
-                      ml: 1,
+                    padding: 0,
+                    '& .MuiSvgIcon-root': {
+                      fontSize: 22,
                     },
                   }}
                 />
-              ))}
-            </FormGroup>
-          </FilterAccordion>
+              }
+              label={item.attributes?.name}
+              sx={{
+                color: 'text.secondary',
+                userSelect: 'none',
+                my: 1,
+                'span': {
+                  fontWeight: 500,
+                  fontSize: 15,
+                  ml: 1,
+                },
+              }}
+            />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+      <Divider />
+
+      <FilterAccordion title={'Vehicle Class'}>
+        <FormGroup>
+          {data?.vehicleClasses?.data.map((item, inx) => (
+            <FilterListOption key={item.id} label={item.attributes?.title} />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+      <Divider />
+
+      <FilterAccordion title={'Body Style'}>
+        <FormGroup>
+          {data?.bodyStyles?.data.map((item, inx) => (
+            <FilterListOption key={item.id} label={item.attributes?.style} />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+
+      <Divider />
+
+      <FilterAccordion title={'Fuel Type'}>
+        <FormGroup>
+          {data?.fuelTypes?.data.map((item, inx) => (
+            <FilterListOption key={item.id} label={item.attributes?.type} />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+      <Divider />
+
+      <FilterAccordion title={'Transmission'}>
+        <FormGroup>
+          {data?.transmissions?.data.map((item, inx) => (
+            <FilterListOption key={item.id} label={item.attributes?.type} />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+      <Divider />
+
+      <FilterAccordion title={'Color'}>
+        <FormGroup>
+          {data?.colors?.data.map((item, inx) => (
+            <FilterListOption key={item.id} label={item.attributes?.name} />
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+
+      {/* {filterData.map((item) => (
+        <React.Fragment key={item.id}>
+          <Divider />
+
+       
         </React.Fragment>
-      ))}
+      ))} */}
     </Stack>
+  )
+}
+
+const FilterListOption: React.FC<{ label?: string }> = ({ label }) => {
+  return (
+    <FormControlLabel
+      control={
+        <Checkbox
+          value={label}
+          onChange={() => {}}
+          sx={{
+            padding: 0,
+            '& .MuiSvgIcon-root': {
+              fontSize: 22,
+            },
+          }}
+        />
+      }
+      label={label}
+      sx={{
+        color: 'text.secondary',
+        userSelect: 'none',
+        my: 1,
+        'span': {
+          fontWeight: 500,
+          fontSize: 15,
+          ml: 1,
+        },
+      }}
+    />
   )
 }
 

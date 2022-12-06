@@ -1,0 +1,56 @@
+query RentCars($brandId: [ID], $locale: I18NLocaleCode) {
+  rentCars(filters: { brand: { id: { in: $brandId } } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        name
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        dailyPrice
+        body_style {
+          data {
+            attributes {
+              style
+            }
+          }
+        }
+        vehicle_class {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+        fuel_type {
+          data {
+            attributes {
+              type
+            }
+          }
+        }
+        transmission {
+          data {
+            attributes {
+              type
+            }
+          }
+        }
+        passengers
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}

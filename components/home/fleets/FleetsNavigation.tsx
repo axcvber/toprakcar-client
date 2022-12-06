@@ -43,24 +43,13 @@ const FleetsNavigation = () => {
     <StyledSwiper slidesPerView={'auto'} observer spaceBetween={15}>
       {data.map((item, inx) => (
         <SwiperSlide key={item.id} style={{ width: 'auto' }}>
-          <Button
-            size='large'
-            variant='contained'
-            color={inx === 0 ? 'primary' : 'inherit'}
-            startIcon={item.icon}
-            sx={{ fontWeight: 600, border: '1px solid', borderColor: 'divider' }}
-          >
+          <Button size='large' variant='contained' color={inx === 0 ? 'primary' : 'inherit'} startIcon={item.icon}>
             {item.label}
           </Button>
         </SwiperSlide>
       ))}
       <SwiperSlide style={{ width: 'auto' }}>
-        <Button
-          size='large'
-          variant='contained'
-          color='inherit'
-          sx={{ fontWeight: 600, border: '1px solid', borderColor: 'divider' }}
-        >
+        <Button size='large' variant='contained' color='inherit'>
           Explore
           <Typography ml={1} component='span' fontWeight={600} color='primary'>
             10+

@@ -1,15 +1,23 @@
-import React from 'react'
-import { Box, Stack, Typography, Divider, Button } from '@mui/material'
-import Chip from '@mui/material/Chip'
+import React, { useState } from 'react'
+import { Box, Stack, Typography, Divider } from '@mui/material'
 import Dropdown from '../Dropdown'
-import { FiFilter } from 'react-icons/fi'
 import { BiSortAlt2 } from 'react-icons/bi'
 import Badge, { BadgeProps } from '@mui/material/Badge'
 import { styled } from '@mui/material/styles'
 import MobileFilter from './MobileFilter'
 import ChipNavigation from './ChipNavigation'
+import Skeleton from '@mui/material/Skeleton'
 
-const FilterNav = () => {
+interface IFilterNav {
+  totalCount: number | undefined
+  isLoading: boolean
+}
+
+const FilterNav: React.FC<IFilterNav> = ({ totalCount, isLoading }) => {
+  const [sortTitle, setSortTitle] = useState('Recommended')
+  const onSelectSort = (title: string) => {
+    setSortTitle(title)
+  }
   return (
     <>
       <Box display={{ xs: 'none', lg: 'flex' }} mb={3}>
@@ -18,24 +26,31 @@ const FilterNav = () => {
 
       <Divider />
 
-      <Stack direction='row' justifyContent='space-between' alignItems='center' my={2} sx={{}}>
-        <Typography variant='h6'>265 result</Typography>
-
-        <Stack direction='row' spacing={2}>
+      <Stack direction='row' justifyContent='space-between' alignItems='center' my={2} flexWrap='wrap' gap={2}>
+        <Typography variant='h6' px={1} minWidth={120}>
+          {isLoading ? <Skeleton /> : `${totalCount} result`}
+        </Typography>
+        <Stack direction='row' alignItems='center' spacing={1}>
           <MobileFilter />
 
-          <Stack direction='row' spacing={1} alignItems='center'>
-            <BiSortAlt2 />
-            <Typography variant='body2'>Sort</Typography>
-            {/* <Dropdown
-              title={'Best math'}
-              //   <Stack direction='row' spacing={1}>
-              //   <IoLocationSharp fontSize={24} color='#FF8A5D' />
-              //   <Typography>Choose a location</Typography>
-              // </Stack>
-              // menu={[<Box>Create</Box>, <Box>Edit</Box>, <Box>Delete</Box>]}
-            /> */}
-          </Stack>
+          <Dropdown
+            icon={<BiSortAlt2 />}
+            title={sortTitle}
+            menu={[
+              <Box key={2} onClick={() => onSelectSort('Recommended')}>
+                Recommended
+              </Box>,
+              <Box key={2} onClick={() => onSelectSort('Newest Inventory')}>
+                Newest Inventory
+              </Box>,
+              <Box key={2} onClick={() => onSelectSort('Lowest Price')}>
+                Lowest Price
+              </Box>,
+              <Box key={2} onClick={() => onSelectSort('Highest Price')}>
+                Highest Price
+              </Box>,
+            ]}
+          />
         </Stack>
       </Stack>
     </>

@@ -49,6 +49,17 @@ let theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiSkeleton: {
+      defaultProps: {
+        variant: 'rounded',
+        animation: 'wave',
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.grey[100],
+        }),
+      },
+    },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -68,20 +79,23 @@ let theme = createTheme({
           textTransform: 'none',
           borderRadius: '10px',
           fontWeight: 600,
-          // ...(ownerState.size === 'small' && {
-          //   borderRadius: '5px',
-          // }),
-          // ...(ownerState.size === 'medium' && {
-          //   borderRadius: '10px',
-          // }),
-          // ...(ownerState.size === 'large' && {
-          //   borderRadius: '8px',
-          // }),
 
-          // ...(ownerState.variant === 'contained' &&
-          //   ownerState.color === 'primary' &&
-          //   {
-          //   }),
+          ...(ownerState.color === 'inherit' && {
+            color: theme.palette.text.secondary,
+            '&:hover': {
+              background: theme.palette.grey[200],
+            },
+          }),
+
+          ...(ownerState.variant === 'contained' &&
+            ownerState.color === 'inherit' && {
+              background: theme.palette.grey[100],
+            }),
+
+          ...(ownerState.variant === 'outlined' &&
+            ownerState.color === 'inherit' && {
+              borderColor: theme.palette.grey[300],
+            }),
 
           ...(ownerState.variant === 'text' && {
             paddingLeft: '16px',
@@ -115,6 +129,7 @@ let theme = createTheme({
     secondary: {
       main: '#498B8F',
     },
+
     background: {
       default: '#FAFAFA',
       // paper: '#F2F2F2',

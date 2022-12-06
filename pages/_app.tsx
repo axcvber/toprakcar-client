@@ -24,6 +24,9 @@ import { useRouter } from 'next/router'
 import 'swiper/css'
 import { RentProvider } from '../context/rent-context'
 import { ModalProvider } from '../context/modalContext'
+import { ApolloProvider } from '@apollo/client'
+import client from '../graphql/apollo-client'
+import { FilterProvider } from '../context/filter-context'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -36,19 +39,23 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   const router = useRouter()
   return (
-    <RentProvider>
-      <CacheProvider value={emotionCache}>
-        <ThemeProvider theme={theme}>
-          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
-            <CssBaseline />
-            <ModalProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </ModalProvider>
-          </LocalizationProvider>
-        </ThemeProvider>
-      </CacheProvider>
-    </RentProvider>
+    <ApolloProvider client={client}>
+      <FilterProvider>
+        <RentProvider>
+          <CacheProvider value={emotionCache}>
+            <ThemeProvider theme={theme}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
+                <CssBaseline />
+                <ModalProvider>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </ModalProvider>
+              </LocalizationProvider>
+            </ThemeProvider>
+          </CacheProvider>
+        </RentProvider>
+      </FilterProvider>
+    </ApolloProvider>
   )
 }

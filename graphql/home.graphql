@@ -1,0 +1,20 @@
+query HomePage {
+  homePage {
+    data {
+      attributes {
+        hero {
+          title
+          description
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

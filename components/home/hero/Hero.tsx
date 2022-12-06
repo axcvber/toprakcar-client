@@ -1,11 +1,16 @@
 import { Stack, Box, Typography, Container } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
+import { ComponentHomeHero } from '../../../generated'
 import { useLocale } from '../../../hooks/useLocale'
 import Line from '../../../styles/shared/Line'
 import Search from '../../Search'
 
-const Hero = () => {
+interface IHero {
+  data: ComponentHomeHero
+}
+
+const Hero: React.FC<IHero> = ({ data }) => {
   const t = useLocale()
 
   return (
@@ -21,11 +26,11 @@ const Hero = () => {
             <Stack spacing={4} direction={{ xs: 'column', md: 'column' }}>
               <Stack spacing={3} px={{ xs: 1, md: 0 }}>
                 <Typography variant={'h2'} fontWeight={800} textTransform='uppercase'>
-                  {t.heroTitle}
+                  {data.title}
                 </Typography>
                 <Line />
                 <Typography width={{ xs: '100%', md: '70%' }} fontWeight={400} color='text.primary'>
-                  {t.heroSubtitle}
+                  {data.description}
                 </Typography>
               </Stack>
 
@@ -73,7 +78,9 @@ const Hero = () => {
                   width: '100%',
                   height: 'auto',
                 }}
-                src='https://res.cloudinary.com/doea7ahfk/image/upload/v1666896487/40451b669eb48a0ef7ef8844e9b8320b_1_kovycf.png'
+                src={data.image.data?.attributes?.url || ''}
+
+                // src='https://res.cloudinary.com/doea7ahfk/image/upload/v1666896487/40451b669eb48a0ef7ef8844e9b8320b_1_kovycf.png'
               />
             </Box>
           </Box>
