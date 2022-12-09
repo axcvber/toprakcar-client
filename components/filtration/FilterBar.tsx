@@ -4,9 +4,7 @@ import { FiTarget } from 'react-icons/fi'
 import Paper from '../Paper'
 import FilterList from './FilterList'
 
-interface IFilterBar {}
-
-const FilterBar: React.FC<IFilterBar> = () => {
+const FilterBar: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
   return (
     <Paper>
       <Stack
@@ -27,7 +25,7 @@ const FilterBar: React.FC<IFilterBar> = () => {
       </Stack>
       <Divider sx={{ my: 2 }} />
 
-      <FilterList />
+      <FilterList forShopPage={forShopPage} />
     </Paper>
   )
 }

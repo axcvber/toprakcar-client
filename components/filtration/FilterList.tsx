@@ -1,259 +1,234 @@
 import React from 'react'
-import { Stack, Divider } from '@mui/material'
-import PriceRange from './PriceRange'
+import { Stack, Divider, Typography } from '@mui/material'
+import RangeSlider from './RangeSlider'
 import FilterAccordion from './FilterAccordion'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { useFilterContext } from '../../context/filter-context'
+import { FilterKeys, useFilterContext } from '../../context/filter-context'
+import ColorsFilter from './ColorsFilter'
+import StatusToggle from './StatusToggle'
+import FilterCheckbox from './FIlterCheckbox'
 
-const filterData = [
-  {
-    id: 1,
-    title: 'Brand, Model & Trim',
-    options: [
-      {
-        id: 1,
-        name: 'Audi',
-      },
-      {
-        id: 2,
-        name: 'Mercedes',
-      },
-      {
-        id: 3,
-        name: 'Fiat',
-      },
-      {
-        id: 4,
-        name: 'Honda',
-      },
-      {
-        id: 5,
-        name: 'BMW',
-      },
-      {
-        id: 6,
-        name: 'Renault',
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Body Style',
-    options: [
-      {
-        id: 1,
-        name: 'SUV',
-      },
-      {
-        id: 2,
-        name: 'Sedan',
-      },
-      {
-        id: 3,
-        name: 'Truck',
-      },
-      {
-        id: 4,
-        name: 'Hatchback',
-      },
-      {
-        id: 5,
-        name: 'Coupe',
-      },
-      {
-        id: 6,
-        name: 'Wagon',
-      },
-      {
-        id: 7,
-        name: 'Wagon',
-      },
-      {
-        id: 8,
-        name: 'Minivan',
-      },
-      {
-        id: 9,
-        name: 'Convertible',
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Vehicle Class',
-    options: [
-      {
-        id: 1,
-        name: 'Economic',
-      },
-      {
-        id: 2,
-        name: 'Middle class',
-      },
-      {
-        id: 3,
-        name: 'Upper Group',
-      },
-      {
-        id: 4,
-        name: 'Minibus',
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Fuel',
-    options: [
-      {
-        id: 1,
-        name: 'Diesel',
-      },
-      {
-        id: 2,
-        name: 'Gasoline',
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: 'Gearbox',
-    options: [
-      {
-        id: 1,
-        name: 'Manual',
-      },
-      {
-        id: 2,
-        name: 'Automatic',
-      },
-    ],
-  },
-  // {
-  //   id: 6,
-  //   title: 'Mileage',
-  //   options: [
-  //     {
-  //       id: 1,
-  //       name: 'Manual',
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'Automatic',
-  //     },
-  //   ],
-  // },
-]
-
-const FilterList = () => {
-  const { data, filtered, setFilteredBrands } = useFilterContext()
+const FilterList: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
+  const { data, filtered, setFilter, setRangeFilter, deleteFilter } = useFilterContext()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilteredBrands(+event.target.value)
+    const { value, checked, ariaLabel, name } = event.target
+    setFilter({
+      value,
+      fieldName: name as FilterKeys,
+      checked,
+      label: ariaLabel || '',
+    })
+  }
+
+  const handlePriceChange = (rangeArr: Array<number>) => {
+    setRangeFilter({
+      fieldName: FilterKeys.PRICE_RANGE,
+      value: rangeArr,
+      label: `₺ ${rangeArr[0]} - ₺ ${rangeArr[1]}`,
+    })
+  }
+
+  const handleMileageChange = (rangeArr: Array<number>) => {
+    setRangeFilter({
+      fieldName: FilterKeys.MILEAGE_RANGE,
+      value: rangeArr,
+      label: `${rangeArr[0]} - ${rangeArr[1]} km`,
+    })
+  }
+
+  const handleYearChange = (rangeArr: Array<number>) => {
+    setRangeFilter({
+      fieldName: FilterKeys.YEAR_RANGE,
+      value: rangeArr,
+      label: `${rangeArr[0]} - ${rangeArr[1]}`,
+    })
+  }
+
+  if (forShopPage) {
+    return (
+      <Stack spacing={2}>
+        <StatusToggle />
+        <RangeSlider title={'Car cost'} minValue={500} maxValue={500000} handleChange={handlePriceChange} />
+
+        <FilterAccordion title={'All Brands'} selectedCount={filtered.brands.length}>
+          <FormGroup>
+            {data?.brands?.data.map((item) => (
+              <React.Fragment key={item.id}>
+                <FilterCheckbox
+                  name={FilterKeys.BRANDS}
+                  value={item.id}
+                  label={item.attributes?.name}
+                  isChecked={!!filtered.brands?.find((brand) => brand.value === item.id)}
+                  handleChange={handleChange}
+                />
+              </React.Fragment>
+            ))}
+          </FormGroup>
+        </FilterAccordion>
+
+        <FilterAccordion title={'Body Style'} selectedCount={filtered.bodyStyles.length}>
+          <FormGroup>
+            {data?.bodyStyles?.data.map((item) => (
+              <FilterListOption
+                key={item.id}
+                value={item.id}
+                name={FilterKeys.BODY_STYLES}
+                label={item.attributes?.style}
+                isChecked={!!filtered.bodyStyles?.find((style) => style.value === item.id)}
+                handleChange={handleChange}
+              />
+            ))}
+          </FormGroup>
+        </FilterAccordion>
+
+        <FilterAccordion title={'Mileage'} selectedCount={filtered.mileageRange.length}>
+          <RangeSlider minValue={0} maxValue={300000} handleChange={handleMileageChange} />
+        </FilterAccordion>
+
+        <FilterAccordion title={'Year'} selectedCount={filtered.yearRange.length}>
+          <RangeSlider minValue={2006} maxValue={2022} handleChange={handleYearChange} />
+        </FilterAccordion>
+      </Stack>
+    )
   }
 
   return (
     <Stack spacing={2}>
-      <PriceRange title={'Rent cost (day)'} />
+      <RangeSlider title={'Rent cost (day)'} minValue={500} maxValue={500000} handleChange={handlePriceChange} />
       <Divider />
-      <FilterAccordion title={'Brands'}>
+
+      <FilterAccordion title={'All Brands'} selectedCount={filtered.brands.length}>
         <FormGroup>
-          {data?.brands?.data.map((item, inx) => (
-            <FormControlLabel
+          {data?.brands?.data.map((item) => (
+            <React.Fragment key={item.id}>
+              <FilterCheckbox
+                name={FilterKeys.BRANDS}
+                value={item.id}
+                label={item.attributes?.name}
+                isChecked={!!filtered.brands?.find((brand) => brand.value === item.id)}
+                handleChange={handleChange}
+              />
+            </React.Fragment>
+          ))}
+        </FormGroup>
+      </FilterAccordion>
+      <Divider />
+
+      <FilterAccordion title={'Vehicle Class'} selectedCount={filtered.vehicleClasses.length}>
+        <FormGroup>
+          {data?.vehicleClasses?.data.map((item) => (
+            <FilterListOption
               key={item.id}
-              control={
-                <Checkbox
-                  value={item.id}
-                  onChange={handleChange}
-                  sx={{
-                    padding: 0,
-                    '& .MuiSvgIcon-root': {
-                      fontSize: 22,
-                    },
-                  }}
-                />
-              }
-              label={item.attributes?.name}
-              sx={{
-                color: 'text.secondary',
-                userSelect: 'none',
-                my: 1,
-                'span': {
-                  fontWeight: 500,
-                  fontSize: 15,
-                  ml: 1,
-                },
-              }}
+              value={item.id}
+              name={FilterKeys.VEHICLE_CLASSES}
+              label={item.attributes?.title}
+              isChecked={!!filtered.vehicleClasses?.find((vehicleClass) => vehicleClass.value === item.id)}
+              handleChange={handleChange}
             />
           ))}
         </FormGroup>
       </FilterAccordion>
       <Divider />
 
-      <FilterAccordion title={'Vehicle Class'}>
+      <FilterAccordion title={'Body Style'} selectedCount={filtered.bodyStyles.length}>
         <FormGroup>
-          {data?.vehicleClasses?.data.map((item, inx) => (
-            <FilterListOption key={item.id} label={item.attributes?.title} />
+          {data?.bodyStyles?.data.map((item) => (
+            <FilterListOption
+              key={item.id}
+              value={item.id}
+              name={FilterKeys.BODY_STYLES}
+              label={item.attributes?.style}
+              isChecked={!!filtered.bodyStyles?.find((style) => style.value === item.id)}
+              handleChange={handleChange}
+            />
           ))}
         </FormGroup>
       </FilterAccordion>
+
       <Divider />
 
-      <FilterAccordion title={'Body Style'}>
+      <FilterAccordion title={'Fuel Type'} selectedCount={filtered.fuelTypes.length}>
         <FormGroup>
-          {data?.bodyStyles?.data.map((item, inx) => (
-            <FilterListOption key={item.id} label={item.attributes?.style} />
+          {data?.fuelTypes?.data.map((item) => (
+            <FilterListOption
+              key={item.id}
+              value={item.id}
+              name={FilterKeys.FUEL_TYPES}
+              label={item.attributes?.type}
+              isChecked={!!filtered.fuelTypes?.find((type) => type.value === item.id)}
+              handleChange={handleChange}
+            />
           ))}
         </FormGroup>
       </FilterAccordion>
 
       <Divider />
 
-      <FilterAccordion title={'Fuel Type'}>
+      <FilterAccordion title={'Transmission'} selectedCount={filtered.transmissions.length}>
         <FormGroup>
-          {data?.fuelTypes?.data.map((item, inx) => (
-            <FilterListOption key={item.id} label={item.attributes?.type} />
+          {data?.transmissions?.data.map((item) => (
+            <FilterListOption
+              key={item.id}
+              value={item.id}
+              name={FilterKeys.TRANSMISSIONS}
+              label={item.attributes?.type}
+              isChecked={!!filtered.transmissions?.find((type) => type.value === item.id)}
+              handleChange={handleChange}
+            />
           ))}
         </FormGroup>
       </FilterAccordion>
+
       <Divider />
 
-      <FilterAccordion title={'Transmission'}>
-        <FormGroup>
-          {data?.transmissions?.data.map((item, inx) => (
-            <FilterListOption key={item.id} label={item.attributes?.type} />
+      <FilterAccordion title={'Colors'} selectedCount={filtered.colors.length}>
+        <ColorsFilter data={data?.colors?.data} handleChange={handleChange} />
+        {/* <FormGroup>
+          {data?.transmissions?.data.map((item) => (
+            <FilterListOption
+              key={item.id}
+              value={item.id}
+              name={FilterKeys.TRANSMISSIONS}
+              label={item.attributes?.type}
+              isChecked={!!filtered.transmissions?.find((type) => type.value === item.id)}
+              handleChange={handleChange}
+            />
           ))}
-        </FormGroup>
+        </FormGroup> */}
       </FilterAccordion>
-      <Divider />
 
-      <FilterAccordion title={'Color'}>
+      {/* <FilterAccordion title={'Color'}>
         <FormGroup>
           {data?.colors?.data.map((item, inx) => (
             <FilterListOption key={item.id} label={item.attributes?.name} />
           ))}
         </FormGroup>
-      </FilterAccordion>
-
-      {/* {filterData.map((item) => (
-        <React.Fragment key={item.id}>
-          <Divider />
-
-       
-        </React.Fragment>
-      ))} */}
+      </FilterAccordion> */}
     </Stack>
   )
 }
 
-const FilterListOption: React.FC<{ label?: string }> = ({ label }) => {
+interface IFilterListOption {
+  value?: any
+  name: string
+  label?: string
+  isChecked: boolean
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const FilterListOption: React.FC<IFilterListOption> = ({ value, name, label, isChecked, handleChange }) => {
   return (
     <FormControlLabel
       control={
         <Checkbox
-          value={label}
-          onChange={() => {}}
+          name={name}
+          checked={isChecked}
+          value={value}
+          onChange={handleChange}
+          inputProps={{ 'aria-label': label }}
           sx={{
             padding: 0,
             '& .MuiSvgIcon-root': {

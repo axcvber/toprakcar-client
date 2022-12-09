@@ -2,12 +2,18 @@ import React from 'react'
 import { Box, Chip, Divider, Stack, Typography, Grid } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SalesCarEntity } from '../generated'
+import { BsSpeedometer2 } from 'react-icons/bs'
+import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
+import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
+import { BiCar, BiCrosshair } from 'react-icons/bi'
+import { FiClock } from 'react-icons/fi'
 
-interface ISlideCard {
-  item: any
+interface IVehicleShopCard {
+  item: SalesCarEntity
 }
 
-const VehicleShopCard: React.FC<ISlideCard> = ({ item }) => {
+const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
   return (
     <Link href={`/shop/${item.id}`} passHref>
       <Stack
@@ -36,29 +42,26 @@ const VehicleShopCard: React.FC<ISlideCard> = ({ item }) => {
             height={80}
             layout='responsive'
             objectFit='contain'
-            src={item.imageUrl}
+            src={item.attributes?.image.data?.attributes?.url || ''}
             placeholder='blur'
-            blurDataURL={item.imageUrl}
+            blurDataURL={item.attributes?.image.data?.attributes?.url || ''}
             alt='car'
           />
         </Box>
         <Stack spacing={1}>
-          <Chip
-            label={item.year}
-            size='small'
-            variant='outlined'
-            sx={{ borderRadius: 1, fontWeight: 500, width: 60, color: 'text.disabled', borderColor: 'text.disabled' }}
-          />
-
           <Stack spacing={0.5}>
             <Typography variant='h6' color='text.primary' fontWeight={600}>
-              {item.name}
+              {item.attributes?.name}
+            </Typography>
+
+            <Typography variant='body2' color='text.secondary' fontWeight={500}>
+              {item.attributes?.model?.data?.attributes?.model}
             </Typography>
             <Stack direction='row' spacing={1}>
               <Typography component='span' color='primary' variant='h6' fontWeight={600}>
-                {item.currentPrice}
+                {item.attributes?.price.fullPrice} ₺
               </Typography>
-              {item.isDiscount && (
+              {item.attributes?.price.showDiscounted && item.attributes?.price.discountedPrice && (
                 <Typography
                   component='span'
                   color='text.disabled'
@@ -66,7 +69,7 @@ const VehicleShopCard: React.FC<ISlideCard> = ({ item }) => {
                   fontWeight={500}
                   sx={{ textDecoration: 'line-through', pt: 0.3 }}
                 >
-                  {item.fullPrice}
+                  {item.attributes?.price.discountedPrice} ₺
                 </Typography>
               )}
             </Stack>
@@ -76,29 +79,51 @@ const VehicleShopCard: React.FC<ISlideCard> = ({ item }) => {
         <Divider />
 
         <Grid container component='ul' gap={2}>
-          {item.options.map((item: any) => (
-            <Grid item key={item.text} component='li'>
-              <Stack
-                spacing={1}
-                direction='row'
-                alignItems={'center'}
-                sx={{
-                  color: 'text.disabled',
-                  'svg': {
-                    fontSize: 18,
-                  },
-                }}
-              >
-                {item.icon}
-                <Typography component='span' variant='body2' fontWeight={500}>
-                  {item.text}
-                </Typography>
-              </Stack>
-            </Grid>
-          ))}
+          <CarOption icon={<BsSpeedometer2 />} label={item.attributes?.mileage} />
+
+          {item.attributes?.transmission?.data && (
+            <CarOption icon={<TbManualGearbox />} label={item.attributes?.transmission?.data?.attributes?.type} />
+          )}
+          {item.attributes?.body_style?.data && (
+            <CarOption icon={<BiCar />} label={item.attributes?.body_style?.data?.attributes?.style} />
+          )}
+
+          {item.attributes?.fuel_type?.data && (
+            <CarOption icon={<TbGasStation />} label={item.attributes?.fuel_type?.data.attributes?.type} />
+          )}
+          <CarOption icon={<MdAirlineSeatLegroomNormal />} label={item.attributes?.passengers} />
+          <CarOption icon={<BiCrosshair />} label={item.attributes?.year} />
         </Grid>
       </Stack>
     </Link>
+  )
+}
+
+interface ICarOption {
+  icon: JSX.Element
+  label?: string | number
+}
+
+const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
+  return (
+    <Grid item component='li'>
+      <Stack
+        spacing={1}
+        direction='row'
+        alignItems={'center'}
+        sx={{
+          color: 'text.disabled',
+          'svg': {
+            fontSize: 18,
+          },
+        }}
+      >
+        {icon}
+        <Typography component='span' variant='body2' fontWeight={500}>
+          {label}
+        </Typography>
+      </Stack>
+    </Grid>
   )
 }
 

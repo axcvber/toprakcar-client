@@ -13,9 +13,10 @@ import { useTheme } from '@mui/material/styles'
 interface IMobileFilter {
   isOpen?: boolean
   onClose?: () => void
+  forShopPage?: boolean
 }
 
-const MobileFilter: React.FC<IMobileFilter> = () => {
+const MobileFilter: React.FC<IMobileFilter> = ({ forShopPage }) => {
   const [isOpen, setOpen] = React.useState<boolean>(false)
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true })
@@ -63,7 +64,7 @@ const MobileFilter: React.FC<IMobileFilter> = () => {
         <FilterHeader onClose={handleClose} />
         <Stack spacing={3} p={3}>
           <ChipNavigation />
-          <FilterList />
+          <FilterList forShopPage={forShopPage} />
         </Stack>
         <FilterBottom />
       </SwipeableDrawer>

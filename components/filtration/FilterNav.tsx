@@ -7,31 +7,32 @@ import { styled } from '@mui/material/styles'
 import MobileFilter from './MobileFilter'
 import ChipNavigation from './ChipNavigation'
 import Skeleton from '@mui/material/Skeleton'
+import { useFilterContext } from '../../context/filter-context'
 
 interface IFilterNav {
   totalCount: number | undefined
   isLoading: boolean
+  forShopPage?: boolean
 }
 
-const FilterNav: React.FC<IFilterNav> = ({ totalCount, isLoading }) => {
+const FilterNav: React.FC<IFilterNav> = ({ totalCount, isLoading, forShopPage }) => {
   const [sortTitle, setSortTitle] = useState('Recommended')
+
   const onSelectSort = (title: string) => {
     setSortTitle(title)
   }
   return (
     <>
-      <Box display={{ xs: 'none', lg: 'flex' }} mb={3}>
+      <Box display={{ xs: 'none', lg: 'block' }}>
         <ChipNavigation />
       </Box>
 
-      <Divider />
-
-      <Stack direction='row' justifyContent='space-between' alignItems='center' my={2} flexWrap='wrap' gap={2}>
+      <Stack direction='row' justifyContent='space-between' alignItems='center' mb={2} flexWrap='wrap' gap={2}>
         <Typography variant='h6' px={1} minWidth={120}>
           {isLoading ? <Skeleton /> : `${totalCount} result`}
         </Typography>
         <Stack direction='row' alignItems='center' spacing={1}>
-          <MobileFilter />
+          <MobileFilter forShopPage={forShopPage} />
 
           <Dropdown
             icon={<BiSortAlt2 />}

@@ -250,12 +250,14 @@ interface IFleetPage {
 
 const FleetPage: NextPage<IFleetPage> = ({ filters }) => {
   const { currentStep } = useRentContext()
-  console.log('filters', filters)
 
-  const { setFilterData } = useFilterContext()
+  const { setFilterData, clearFilter } = useFilterContext()
 
   useEffect(() => {
     setFilterData(filters)
+    return () => {
+      clearFilter()
+    }
   }, [])
 
   return (

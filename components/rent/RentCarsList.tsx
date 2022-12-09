@@ -7,11 +7,11 @@ import Loader from '../Loader'
 import Skeleton from '@mui/material/Skeleton'
 import { useRentCarsQuery } from '../../generated'
 import HCard from '../HCard'
-import { useFilterContext } from '../../context/filter-context'
+import { FilterOption, useFilterContext } from '../../context/filter-context'
 import { useRouter } from 'next/router'
 
 const RentCarsList = () => {
-  const { filtered, brands } = useFilterContext()
+  const { filtered } = useFilterContext()
   const router = useRouter()
   const { data, loading, error, refetch } = useRentCarsQuery({
     variables: {
@@ -20,12 +20,24 @@ const RentCarsList = () => {
     notifyOnNetworkStatusChange: true,
   })
 
+  const isEmptyFilter = (arr: FilterOption[]) => {
+    if (!arr.length) {
+      return undefined
+    }
+    return arr.map((item) => item.value)
+  }
+
   useEffect(() => {
-    console.log('changed filtered', brands)
-    refetch({
-      brandId: brands,
-    })
-  }, [brands, refetch])
+    console.log('changed filtered', filtered)
+
+    // refetch({
+    //   brands: isEmptyFilter(filtered.brands),
+    //   vehicleClasses: isEmptyFilter(filtered.vehicleClasses),
+    //   bodyStyles: isEmptyFilter(filtered.bodyStyles),
+    //   fuelTypes: isEmptyFilter(filtered.fuelTypes),
+    //   transmissions: isEmptyFilter(filtered.transmissions),
+    // })
+  }, [filtered, refetch])
 
   if (error) {
     console.error(error)

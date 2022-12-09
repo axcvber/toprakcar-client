@@ -1,21 +1,5 @@
-query RentCars(
-  $brands: [ID]
-  $vehicleClasses: [ID]
-  $bodyStyles: [ID]
-  $fuelTypes: [ID]
-  $transmissions: [ID]
-  $locale: I18NLocaleCode
-) {
-  rentCars(
-    filters: {
-      brand: { id: { in: $brands } }
-      vehicle_class: { id: { in: $vehicleClasses } }
-      body_style: { id: { in: $bodyStyles } }
-      fuel_type: { id: { in: $fuelTypes } }
-      transmission: { id: { in: $transmissions } }
-    }
-    locale: $locale
-  ) {
+query SaleCars {
+  salesCars {
     data {
       id
       attributes {
@@ -33,20 +17,6 @@ query RentCars(
           discountedPrice
           showDiscounted
         }
-        body_style {
-          data {
-            attributes {
-              style
-            }
-          }
-        }
-        vehicle_class {
-          data {
-            attributes {
-              title
-            }
-          }
-        }
         fuel_type {
           data {
             attributes {
@@ -61,6 +31,22 @@ query RentCars(
             }
           }
         }
+        body_style {
+          data {
+            attributes {
+              style
+            }
+          }
+        }
+        model {
+          data {
+            attributes {
+              model
+            }
+          }
+        }
+        mileage
+        year
         passengers
       }
     }

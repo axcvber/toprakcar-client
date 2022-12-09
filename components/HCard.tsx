@@ -65,7 +65,7 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
               {item.attributes?.name}
             </Typography>
             <Typography component='span' color='primary' variant='h5' fontWeight={600}>
-              {item.attributes?.dailyPrice} ₺ /d
+              {item.attributes?.price.fullPrice} ₺ /d
             </Typography>
           </div>
 
@@ -121,9 +121,8 @@ interface ICarOption {
 
 const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
   return (
-    <Grid item>
+    <Grid item component='li'>
       <Stack
-        component='li'
         spacing={1}
         direction='row'
         alignItems={'center'}
