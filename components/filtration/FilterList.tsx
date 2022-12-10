@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Divider, Typography } from '@mui/material'
+import { Stack, Divider } from '@mui/material'
 import RangeSlider from './RangeSlider'
 import FilterAccordion from './FilterAccordion'
 import FormGroup from '@mui/material/FormGroup'
@@ -8,9 +8,9 @@ import Checkbox from '@mui/material/Checkbox'
 import { FilterKeys, useFilterContext } from '../../context/filter-context'
 import ColorsFilter from './ColorsFilter'
 import StatusToggle from './StatusToggle'
-import FilterCheckbox from './FIlterCheckbox'
+import FilterCheckbox from './FilterCheckbox'
 
-const FilterList: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
+const FilterList = () => {
   const { data, filtered, setFilter, setRangeFilter, deleteFilter } = useFilterContext()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,73 +31,9 @@ const FilterList: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
     })
   }
 
-  const handleMileageChange = (rangeArr: Array<number>) => {
-    setRangeFilter({
-      fieldName: FilterKeys.MILEAGE_RANGE,
-      value: rangeArr,
-      label: `${rangeArr[0]} - ${rangeArr[1]} km`,
-    })
-  }
-
-  const handleYearChange = (rangeArr: Array<number>) => {
-    setRangeFilter({
-      fieldName: FilterKeys.YEAR_RANGE,
-      value: rangeArr,
-      label: `${rangeArr[0]} - ${rangeArr[1]}`,
-    })
-  }
-
-  if (forShopPage) {
-    return (
-      <Stack spacing={2}>
-        <StatusToggle />
-        <RangeSlider title={'Car cost'} minValue={500} maxValue={500000} handleChange={handlePriceChange} />
-
-        <FilterAccordion title={'All Brands'} selectedCount={filtered.brands.length}>
-          <FormGroup>
-            {data?.brands?.data.map((item) => (
-              <React.Fragment key={item.id}>
-                <FilterCheckbox
-                  name={FilterKeys.BRANDS}
-                  value={item.id}
-                  label={item.attributes?.name}
-                  isChecked={!!filtered.brands?.find((brand) => brand.value === item.id)}
-                  handleChange={handleChange}
-                />
-              </React.Fragment>
-            ))}
-          </FormGroup>
-        </FilterAccordion>
-
-        <FilterAccordion title={'Body Style'} selectedCount={filtered.bodyStyles.length}>
-          <FormGroup>
-            {data?.bodyStyles?.data.map((item) => (
-              <FilterListOption
-                key={item.id}
-                value={item.id}
-                name={FilterKeys.BODY_STYLES}
-                label={item.attributes?.style}
-                isChecked={!!filtered.bodyStyles?.find((style) => style.value === item.id)}
-                handleChange={handleChange}
-              />
-            ))}
-          </FormGroup>
-        </FilterAccordion>
-
-        <FilterAccordion title={'Mileage'} selectedCount={filtered.mileageRange.length}>
-          <RangeSlider minValue={0} maxValue={300000} handleChange={handleMileageChange} />
-        </FilterAccordion>
-
-        <FilterAccordion title={'Year'} selectedCount={filtered.yearRange.length}>
-          <RangeSlider minValue={2006} maxValue={2022} handleChange={handleYearChange} />
-        </FilterAccordion>
-      </Stack>
-    )
-  }
-
   return (
     <Stack spacing={2}>
-      <RangeSlider title={'Rent cost (day)'} minValue={500} maxValue={500000} handleChange={handlePriceChange} />
+      {/* <RangeSlider title={'Rent cost (day)'} minValue={500} maxValue={500000} handleChange={handlePriceChange} /> */}
       <Divider />
 
       <FilterAccordion title={'All Brands'} selectedCount={filtered.brands.length}>
@@ -181,32 +117,6 @@ const FilterList: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
           ))}
         </FormGroup>
       </FilterAccordion>
-
-      <Divider />
-
-      <FilterAccordion title={'Colors'} selectedCount={filtered.colors.length}>
-        <ColorsFilter data={data?.colors?.data} handleChange={handleChange} />
-        {/* <FormGroup>
-          {data?.transmissions?.data.map((item) => (
-            <FilterListOption
-              key={item.id}
-              value={item.id}
-              name={FilterKeys.TRANSMISSIONS}
-              label={item.attributes?.type}
-              isChecked={!!filtered.transmissions?.find((type) => type.value === item.id)}
-              handleChange={handleChange}
-            />
-          ))}
-        </FormGroup> */}
-      </FilterAccordion>
-
-      {/* <FilterAccordion title={'Color'}>
-        <FormGroup>
-          {data?.colors?.data.map((item, inx) => (
-            <FilterListOption key={item.id} label={item.attributes?.name} />
-          ))}
-        </FormGroup>
-      </FilterAccordion> */}
     </Stack>
   )
 }

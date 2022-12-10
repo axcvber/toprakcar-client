@@ -11,6 +11,7 @@ interface IRangeSlider {
   minValue: number
   maxValue: number
   handleChange: (rangeArr: Array<number>) => void
+  value: number[]
 }
 
 const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handleChange }) => {
@@ -25,6 +26,11 @@ const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handle
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // if (event.target.name === 'min') {
+    //   handleChange([Number(event.target.value), value[1]])
+    // } else if (event.target.name === 'max') {
+    //   handleChange([value[0], Number(event.target.value)])
+    // }
     if (event.target.name === 'min') {
       setValue((prev) => [Number(event.target.value), prev[1]])
     } else if (event.target.name === 'max') {

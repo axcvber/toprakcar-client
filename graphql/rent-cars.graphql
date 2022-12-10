@@ -29,8 +29,8 @@ query RentCars(
           }
         }
         price {
+          currentPrice
           fullPrice
-          discountedPrice
           showDiscounted
         }
         body_style {

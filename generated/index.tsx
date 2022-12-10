@@ -564,15 +564,15 @@ export type ComponentVehicleOverviewInput = {
 
 export type ComponentVehiclePrice = {
   __typename?: 'ComponentVehiclePrice';
-  discountedPrice?: Maybe<Scalars['Float']>;
-  fullPrice: Scalars['Float'];
+  currentPrice: Scalars['Float'];
+  fullPrice?: Maybe<Scalars['Float']>;
   id: Scalars['ID'];
   showDiscounted?: Maybe<Scalars['Boolean']>;
 };
 
 export type ComponentVehiclePriceFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentVehiclePriceFiltersInput>>>;
-  discountedPrice?: InputMaybe<FloatFilterInput>;
+  currentPrice?: InputMaybe<FloatFilterInput>;
   fullPrice?: InputMaybe<FloatFilterInput>;
   not?: InputMaybe<ComponentVehiclePriceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentVehiclePriceFiltersInput>>>;
@@ -580,7 +580,7 @@ export type ComponentVehiclePriceFiltersInput = {
 };
 
 export type ComponentVehiclePriceInput = {
-  discountedPrice?: InputMaybe<Scalars['Float']>;
+  currentPrice?: InputMaybe<Scalars['Float']>;
   fullPrice?: InputMaybe<Scalars['Float']>;
   id?: InputMaybe<Scalars['ID']>;
   showDiscounted?: InputMaybe<Scalars['Boolean']>;
@@ -2538,6 +2538,11 @@ export type VehicleClassRelationResponseCollection = {
   data: Array<VehicleClassEntity>;
 };
 
+export type FindAvailableShopFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAvailableShopFiltersQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', id?: string | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', id?: string | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', id?: string | null } | null } | null, exterior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null, interior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null } | null }> } | null };
+
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2553,19 +2558,110 @@ export type RentCarsQueryVariables = Exact<{
 }>;
 
 
-export type RentCarsQuery = { __typename?: 'Query', rentCars?: { __typename?: 'RentCarEntityResponseCollection', data: Array<{ __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', name: string, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', fullPrice: number, discountedPrice?: number | null, showDiscounted?: boolean | null }, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, vehicle_class?: { __typename?: 'VehicleClassEntityResponse', data?: { __typename?: 'VehicleClassEntity', attributes?: { __typename?: 'VehicleClass', title: string } | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
+export type RentCarsQuery = { __typename?: 'Query', rentCars?: { __typename?: 'RentCarEntityResponseCollection', data: Array<{ __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', name: string, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, vehicle_class?: { __typename?: 'VehicleClassEntityResponse', data?: { __typename?: 'VehicleClassEntity', attributes?: { __typename?: 'VehicleClass', title: string } | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
 export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, colors?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
 
-export type SaleCarsQueryVariables = Exact<{ [key: string]: never; }>;
+export type SaleCarsQueryVariables = Exact<{
+  state?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Array<InputMaybe<Scalars['Float']>> | InputMaybe<Scalars['Float']>>;
+  brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  mileage?: InputMaybe<Array<InputMaybe<Scalars['Int']>> | InputMaybe<Scalars['Int']>>;
+  year?: InputMaybe<Array<InputMaybe<Scalars['Int']>> | InputMaybe<Scalars['Int']>>;
+  exteriorColor?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  interiorColor?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
 
 
-export type SaleCarsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', fullPrice: number, discountedPrice?: number | null, showDiscounted?: boolean | null }, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
+export type SaleCarsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
+
+export type GetShopFiltersQueryVariables = Exact<{
+  brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  exteriorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  interiorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+}>;
 
 
+export type GetShopFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, exterior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null, interior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
+
+
+export const FindAvailableShopFiltersDocument = gql`
+    query FindAvailableShopFilters {
+  salesCars {
+    data {
+      attributes {
+        brand {
+          data {
+            id
+          }
+        }
+        body_style {
+          data {
+            id
+          }
+        }
+        fuel_type {
+          data {
+            id
+          }
+        }
+        transmission {
+          data {
+            id
+          }
+        }
+        exterior_color {
+          data {
+            id
+          }
+        }
+        interior_color {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindAvailableShopFiltersQuery__
+ *
+ * To run a query within a React component, call `useFindAvailableShopFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAvailableShopFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAvailableShopFiltersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindAvailableShopFiltersQuery(baseOptions?: Apollo.QueryHookOptions<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>(FindAvailableShopFiltersDocument, options);
+      }
+export function useFindAvailableShopFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>(FindAvailableShopFiltersDocument, options);
+        }
+export type FindAvailableShopFiltersQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersQuery>;
+export type FindAvailableShopFiltersLazyQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersLazyQuery>;
+export type FindAvailableShopFiltersQueryResult = Apollo.QueryResult<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>;
 export const HomePageDocument = gql`
     query HomePage {
   homePage {
@@ -2634,8 +2730,8 @@ export const RentCarsDocument = gql`
           }
         }
         price {
+          currentPrice
           fullPrice
-          discountedPrice
           showDiscounted
         }
         body_style {
@@ -2794,8 +2890,11 @@ export type GetRentFiltersQueryHookResult = ReturnType<typeof useGetRentFiltersQ
 export type GetRentFiltersLazyQueryHookResult = ReturnType<typeof useGetRentFiltersLazyQuery>;
 export type GetRentFiltersQueryResult = Apollo.QueryResult<GetRentFiltersQuery, GetRentFiltersQueryVariables>;
 export const SaleCarsDocument = gql`
-    query SaleCars {
-  salesCars {
+    query SaleCars($state: String, $price: [Float], $brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $mileage: [Int], $year: [Int], $exteriorColor: [ID], $interiorColor: [ID], $locale: I18NLocaleCode) {
+  salesCars(
+    filters: {state: {eq: $state}, price: {currentPrice: {between: $price}}, brand: {id: {in: $brands}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}, mileage: {between: $mileage}, year: {between: $year}, exterior_color: {id: {in: $exteriorColor}}, interior_color: {id: {in: $interiorColor}}}
+    locale: $locale
+  ) {
     data {
       id
       attributes {
@@ -2809,8 +2908,8 @@ export const SaleCarsDocument = gql`
           }
         }
         price {
+          currentPrice
           fullPrice
-          discountedPrice
           showDiscounted
         }
         fuel_type {
@@ -2870,6 +2969,17 @@ export const SaleCarsDocument = gql`
  * @example
  * const { data, loading, error } = useSaleCarsQuery({
  *   variables: {
+ *      state: // value for 'state'
+ *      price: // value for 'price'
+ *      brands: // value for 'brands'
+ *      bodyStyles: // value for 'bodyStyles'
+ *      fuelTypes: // value for 'fuelTypes'
+ *      transmissions: // value for 'transmissions'
+ *      mileage: // value for 'mileage'
+ *      year: // value for 'year'
+ *      exteriorColor: // value for 'exteriorColor'
+ *      interiorColor: // value for 'interiorColor'
+ *      locale: // value for 'locale'
  *   },
  * });
  */
@@ -2884,3 +2994,90 @@ export function useSaleCarsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<S
 export type SaleCarsQueryHookResult = ReturnType<typeof useSaleCarsQuery>;
 export type SaleCarsLazyQueryHookResult = ReturnType<typeof useSaleCarsLazyQuery>;
 export type SaleCarsQueryResult = Apollo.QueryResult<SaleCarsQuery, SaleCarsQueryVariables>;
+export const GetShopFiltersDocument = gql`
+    query GetShopFilters($brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $exteriorColors: [ID], $interiorColors: [ID]) {
+  brands(filters: {id: {in: $brands}}) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+  bodyStyles(filters: {id: {in: $bodyStyles}}) {
+    data {
+      id
+      attributes {
+        style
+      }
+    }
+  }
+  fuelTypes(filters: {id: {in: $fuelTypes}}) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  transmissions(filters: {id: {in: $transmissions}}) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  exterior_color: colors(filters: {id: {in: $exteriorColors}}) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+  interior_color: colors(filters: {id: {in: $interiorColors}}) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShopFiltersQuery__
+ *
+ * To run a query within a React component, call `useGetShopFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShopFiltersQuery({
+ *   variables: {
+ *      brands: // value for 'brands'
+ *      bodyStyles: // value for 'bodyStyles'
+ *      fuelTypes: // value for 'fuelTypes'
+ *      transmissions: // value for 'transmissions'
+ *      exteriorColors: // value for 'exteriorColors'
+ *      interiorColors: // value for 'interiorColors'
+ *   },
+ * });
+ */
+export function useGetShopFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
+      }
+export function useGetShopFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
+        }
+export type GetShopFiltersQueryHookResult = ReturnType<typeof useGetShopFiltersQuery>;
+export type GetShopFiltersLazyQueryHookResult = ReturnType<typeof useGetShopFiltersLazyQuery>;
+export type GetShopFiltersQueryResult = Apollo.QueryResult<GetShopFiltersQuery, GetShopFiltersQueryVariables>;

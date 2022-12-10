@@ -1,0 +1,61 @@
+query GetShopFilters(
+  $brands: [ID]
+  $bodyStyles: [ID]
+  $fuelTypes: [ID]
+  $transmissions: [ID]
+  $exteriorColors: [ID]
+  $interiorColors: [ID]
+) {
+  brands(filters: { id: { in: $brands } }) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+  bodyStyles(filters: { id: { in: $bodyStyles } }) {
+    data {
+      id
+      attributes {
+        style
+      }
+    }
+  }
+
+  fuelTypes(filters: { id: { in: $fuelTypes } }) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  transmissions(filters: { id: { in: $transmissions } }) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  exterior_color: colors(filters: { id: { in: $exteriorColors } }) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+
+  interior_color: colors(filters: { id: { in: $interiorColors } }) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+}

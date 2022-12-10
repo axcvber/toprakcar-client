@@ -26,9 +26,6 @@ interface IColorsFilter {
 const ColorsFilter: React.FC<IColorsFilter> = ({ data, handleChange }) => {
   return (
     <Box>
-      <Typography variant='body2' color='primary.main' fontWeight={500} mb={3}>
-        Exterior Color
-      </Typography>
       <Grid container spacing={3}>
         {data?.map((item) => (
           <Grid key={item.id} item xs={3}>

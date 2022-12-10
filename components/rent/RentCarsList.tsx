@@ -9,6 +9,8 @@ import { useRentCarsQuery } from '../../generated'
 import HCard from '../HCard'
 import { FilterOption, useFilterContext } from '../../context/filter-context'
 import { useRouter } from 'next/router'
+import FilterList from '../filtration/FilterList'
+import { filterEmptyArray } from '../../utils/filterEmptyArray'
 
 const RentCarsList = () => {
   const { filtered } = useFilterContext()
@@ -20,22 +22,15 @@ const RentCarsList = () => {
     notifyOnNetworkStatusChange: true,
   })
 
-  const isEmptyFilter = (arr: FilterOption[]) => {
-    if (!arr.length) {
-      return undefined
-    }
-    return arr.map((item) => item.value)
-  }
-
   useEffect(() => {
     console.log('changed filtered', filtered)
 
     // refetch({
-    //   brands: isEmptyFilter(filtered.brands),
-    //   vehicleClasses: isEmptyFilter(filtered.vehicleClasses),
-    //   bodyStyles: isEmptyFilter(filtered.bodyStyles),
-    //   fuelTypes: isEmptyFilter(filtered.fuelTypes),
-    //   transmissions: isEmptyFilter(filtered.transmissions),
+    //   brands: filterEmptyArray(filtered.brands),
+    //   vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
+    //   bodyStyles: filterEmptyArray(filtered.bodyStyles),
+    //   fuelTypes: filterEmptyArray(filtered.fuelTypes),
+    //   transmissions: filterEmptyArray(filtered.transmissions),
     // })
   }, [filtered, refetch])
 
@@ -48,7 +43,9 @@ const RentCarsList = () => {
     <Grid container spacing={3}>
       <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
         {/* <LocationFilter /> */}
-        <FilterBar />
+        <FilterBar>
+          <FilterList />
+        </FilterBar>
       </Grid>
       <Grid item xs={12} lg={9}>
         <FilterNav totalCount={data?.rentCars?.meta.pagination.total} isLoading={loading} />

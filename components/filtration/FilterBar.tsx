@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Stack, Typography, Divider } from '@mui/material'
 import { FiTarget } from 'react-icons/fi'
 import Paper from '../Paper'
-import FilterList from './FilterList'
 
-const FilterBar: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
+const FilterBar: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Paper>
       <Stack
@@ -24,8 +23,7 @@ const FilterBar: React.FC<{ forShopPage?: boolean }> = ({ forShopPage }) => {
         </Typography>
       </Stack>
       <Divider sx={{ my: 2 }} />
-
-      <FilterList forShopPage={forShopPage} />
+      {children}
     </Paper>
   )
 }

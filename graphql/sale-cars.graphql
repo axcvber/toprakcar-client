@@ -1,5 +1,31 @@
-query SaleCars {
-  salesCars {
+query SaleCars(
+  $state: String
+  $price: [Float]
+  $brands: [ID]
+  $bodyStyles: [ID]
+  $fuelTypes: [ID]
+  $transmissions: [ID]
+  $mileage: [Int]
+  $year: [Int]
+  $exteriorColor: [ID]
+  $interiorColor: [ID]
+  $locale: I18NLocaleCode
+) {
+  salesCars(
+    filters: {
+      state: { eq: $state }
+      price: { currentPrice: { between: $price } }
+      brand: { id: { in: $brands } }
+      body_style: { id: { in: $bodyStyles } }
+      fuel_type: { id: { in: $fuelTypes } }
+      transmission: { id: { in: $transmissions } }
+      mileage: { between: $mileage }
+      year: { between: $year }
+      exterior_color: { id: { in: $exteriorColor } }
+      interior_color: { id: { in: $interiorColor } }
+    }
+    locale: $locale
+  ) {
     data {
       id
       attributes {
@@ -13,8 +39,8 @@ query SaleCars {
           }
         }
         price {
+          currentPrice
           fullPrice
-          discountedPrice
           showDiscounted
         }
         fuel_type {

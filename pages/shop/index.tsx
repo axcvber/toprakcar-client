@@ -6,23 +6,64 @@ import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
 import VehicleShopCard from '../../components/VehicleShopCard'
 import FilterNav from '../../components/filtration/FilterNav'
 import FilterBar from '../../components/filtration/FilterBar'
-import { useSaleCarsQuery } from '../../generated'
+import {
+  GetShopFiltersQuery,
+  GetShopFiltersDocument,
+  useSaleCarsQuery,
+  FindAvailableShopFiltersQuery,
+  FindAvailableShopFiltersDocument,
+  GetShopFiltersQueryVariables,
+} from '../../generated'
 import Loader from '../../components/Loader'
 import Skeleton from '@mui/material/Skeleton'
+import { GetServerSideProps, NextPage } from 'next'
+import client from '../../graphql/apollo-client'
+import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
+import ShopFilter from '../../components/shop/ShopFilter'
+import { useRouter } from 'next/router'
+import { filterEmptyArray } from '../../utils/filterEmptyArray'
 
-const ShopPage = () => {
+interface IFleetPage {
+  filters: GetShopFiltersQuery
+}
+
+const ShopPage: NextPage<IFleetPage> = ({ filters }) => {
+  const { setFilterData, filtered } = useShopFilterContext()
+  const router = useRouter()
+
   const { data, loading, error, refetch } = useSaleCarsQuery({
-    // variables: {
-    //   locale: router.locale,
-    // },
+    variables: {
+      locale: router.locale,
+    },
     notifyOnNetworkStatusChange: true,
   })
+
+  useEffect(() => {
+    setFilterData(filters)
+  }, [])
+
+  useEffect(() => {
+    refetch({
+      state: filtered.carState,
+      price: filtered.priceRange.value,
+      brands: filterEmptyArray(filtered.brands),
+      bodyStyles: filterEmptyArray(filtered.bodyStyles),
+      fuelTypes: filterEmptyArray(filtered.fuelTypes),
+      transmissions: filterEmptyArray(filtered.transmissions),
+      mileage: filtered.mileageRange.value,
+      year: filtered.yearRange.value,
+    })
+  }, [filtered])
+
+  console.log('shop data', data)
 
   return (
     <Container maxWidth='xl'>
       <Grid container spacing={3}>
         <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
-          <FilterBar forShopPage />
+          <FilterBar>
+            <ShopFilter />
+          </FilterBar>
         </Grid>
         <Grid item xs={12} lg={9}>
           <FilterNav forShopPage totalCount={data?.salesCars?.meta.pagination.total} isLoading={loading} />
@@ -45,6 +86,44 @@ const ShopPage = () => {
       </Grid>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // const { locale } = context
+  const { data: availableFilters } = await client.query<FindAvailableShopFiltersQuery>({
+    query: FindAvailableShopFiltersDocument,
+  })
+  const brandsId = availableFilters.salesCars?.data.map((item) => item.attributes?.brand?.data?.id)
+  const bodyStylesId = availableFilters.salesCars?.data.map((item) => item.attributes?.body_style?.data?.id)
+  const fuelTypesId = availableFilters.salesCars?.data.map((item) => item.attributes?.fuel_type?.data?.id)
+  const transmissionsId = availableFilters.salesCars?.data.map((item) => item.attributes?.transmission?.data?.id)
+  const exteriorColorsId = availableFilters.salesCars?.data.map((item) => item.attributes?.exterior_color?.data?.id)
+  const interiorColorsId = availableFilters.salesCars?.data.map((item) => item.attributes?.interior_color?.data?.id)
+
+  const helper = (availableFilters: any): string[] | undefined => {
+    if (!availableFilters.length) {
+      return undefined
+    }
+    return Array.from(new Set(availableFilters))
+  }
+
+  const { data } = await client.query<GetShopFiltersQuery, GetShopFiltersQueryVariables>({
+    query: GetShopFiltersDocument,
+    variables: {
+      brands: helper(brandsId),
+      bodyStyles: helper(bodyStylesId),
+      fuelTypes: helper(fuelTypesId),
+      transmissions: helper(transmissionsId),
+      exteriorColors: helper(exteriorColorsId),
+      interiorColors: helper(interiorColorsId),
+    },
+  })
+
+  return {
+    props: {
+      filters: data,
+    },
+  }
 }
 
 export default ShopPage

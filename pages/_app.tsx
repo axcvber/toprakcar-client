@@ -27,6 +27,7 @@ import { ModalProvider } from '../context/modalContext'
 import { ApolloProvider } from '@apollo/client'
 import client from '../graphql/apollo-client'
 import { FilterProvider } from '../context/filter-context'
+import { ShopFilterProvider } from '../context/shop-filter/shop-filter-context'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -42,18 +43,20 @@ export default function MyApp(props: MyAppProps) {
     <ApolloProvider client={client}>
       <FilterProvider>
         <RentProvider>
-          <CacheProvider value={emotionCache}>
-            <ThemeProvider theme={theme}>
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
-                <CssBaseline />
-                <ModalProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </ModalProvider>
-              </LocalizationProvider>
-            </ThemeProvider>
-          </CacheProvider>
+          <ShopFilterProvider>
+            <CacheProvider value={emotionCache}>
+              <ThemeProvider theme={theme}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
+                  <CssBaseline />
+                  <ModalProvider>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </ModalProvider>
+                </LocalizationProvider>
+              </ThemeProvider>
+            </CacheProvider>
+          </ShopFilterProvider>
         </RentProvider>
       </FilterProvider>
     </ApolloProvider>
