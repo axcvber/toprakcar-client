@@ -11,7 +11,7 @@ import { FiCheck } from 'react-icons/fi'
 import ChooseVehicleStep from './steps/ChooseVehicleStep'
 import ContactDetailsStep from './steps/ContactDetailsStep'
 import BookingSummaryStep from './steps/BookingSummaryStep'
-import { useRentContext } from '../context/rent-context'
+import { useRentContext } from '../context/rent/rent-context'
 import { useLocale } from '../hooks/useLocale'
 import { BiArrowBack } from 'react-icons/bi'
 

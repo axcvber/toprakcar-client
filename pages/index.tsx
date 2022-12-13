@@ -23,7 +23,7 @@ interface IHomePage {
 const Home: NextPage<IHomePage> = ({ pageData }) => {
   return (
     <>
-      <Hero data={pageData.hero} />
+      {/* <Hero data={pageData.hero} /> */}
       <Brands />
       <Steps />
       <Services />
@@ -34,20 +34,20 @@ const Home: NextPage<IHomePage> = ({ pageData }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { locale } = context
-  const { data } = await client.query<HomePageQuery, HomePageQueryVariables>({
-    query: HomePageDocument,
-    // variables: {
-    //   locale: locale,
-    // },
-  })
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const { locale } = context
+//   const { data } = await client.query<HomePageQuery, HomePageQueryVariables>({
+//     query: HomePageDocument,
+//     // variables: {
+//     //   locale: locale,
+//     // },
+//   })
 
-  return {
-    props: {
-      pageData: data.homePage?.data?.attributes,
-    },
-  }
-}
+//   return {
+//     props: {
+//       pageData: data.homePage?.data?.attributes,
+//     },
+//   }
+// }
 
 export default Home

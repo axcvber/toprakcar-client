@@ -13,7 +13,7 @@ import Paper from '../Paper'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { PersonalInfoSchema } from '../../schemas/personal-info-schema'
-import { useRentContext } from '../../context/rent-context'
+import { useRentContext } from '../../context/rent/rent-context'
 
 interface IPersonalInfoFormInputs {
   fullName: string

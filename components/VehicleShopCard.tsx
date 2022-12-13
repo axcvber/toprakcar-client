@@ -15,7 +15,7 @@ interface IVehicleShopCard {
 
 const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
   return (
-    <Link href={`/shop/${item.id}`} passHref>
+    <Link href={`/shop/${item.attributes?.slug}`} passHref>
       <Stack
         component='a'
         p={2}
@@ -59,9 +59,9 @@ const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
             </Typography>
             <Stack direction='row' spacing={1}>
               <Typography component='span' color='primary' variant='h6' fontWeight={600}>
-                {item.attributes?.price.fullPrice} ₺
+                {item.attributes?.price.currentPrice.toLocaleString()} ₺
               </Typography>
-              {item.attributes?.price.showDiscounted && item.attributes?.price.discountedPrice && (
+              {item.attributes?.price.showDiscounted && item.attributes?.price.fullPrice && (
                 <Typography
                   component='span'
                   color='text.disabled'
@@ -69,7 +69,7 @@ const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
                   fontWeight={500}
                   sx={{ textDecoration: 'line-through', pt: 0.3 }}
                 >
-                  {item.attributes?.price.discountedPrice} ₺
+                  {item.attributes?.price.fullPrice.toLocaleString()} ₺
                 </Typography>
               )}
             </Stack>
@@ -79,7 +79,7 @@ const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
         <Divider />
 
         <Grid container component='ul' gap={2}>
-          <CarOption icon={<BsSpeedometer2 />} label={item.attributes?.mileage} />
+          <CarOption icon={<BsSpeedometer2 />} label={item.attributes?.mileage.toLocaleString()} />
 
           {item.attributes?.transmission?.data && (
             <CarOption icon={<TbManualGearbox />} label={item.attributes?.transmission?.data?.attributes?.type} />
@@ -108,7 +108,7 @@ const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
   return (
     <Grid item component='li'>
       <Stack
-        spacing={1}
+        spacing={0.5}
         direction='row'
         alignItems={'center'}
         sx={{

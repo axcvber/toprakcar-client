@@ -18,8 +18,9 @@ interface IDropdown {
   icon?: JSX.Element
   trigger?: any
   menu?: any
+  onTriggerClick?: () => void
 }
-const Dropdown: React.FC<IDropdown> = ({ title, trigger, menu, icon }) => {
+const Dropdown: React.FC<IDropdown> = ({ title, trigger, menu, icon, onTriggerClick }) => {
   // const [open, setOpen] = React.useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -27,6 +28,9 @@ const Dropdown: React.FC<IDropdown> = ({ title, trigger, menu, icon }) => {
   const open = Boolean(anchorEl)
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
+    if (onTriggerClick) {
+      onTriggerClick()
+    }
   }
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {

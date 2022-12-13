@@ -1,0 +1,30 @@
+query GetAboutPage($locale: I18NLocaleCode) {
+  aboutPage(locale: $locale) {
+    data {
+      attributes {
+        heading {
+          title
+          description
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+        aboutItem {
+          id
+          title
+          description
+        }
+        contactInfo {
+          id
+          title
+          description
+        }
+      }
+    }
+  }
+}

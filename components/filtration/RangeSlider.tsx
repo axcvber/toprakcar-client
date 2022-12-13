@@ -11,7 +11,7 @@ interface IRangeSlider {
   minValue: number
   maxValue: number
   handleChange: (rangeArr: Array<number>) => void
-  value: number[]
+  // value: number[]
 }
 
 const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handleChange }) => {

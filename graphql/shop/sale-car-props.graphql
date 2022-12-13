@@ -1,0 +1,51 @@
+query GetSaleCarProps($slug: String, $locale: I18NLocaleCode) {
+  salesCars(filters: { slug: { eq: $slug } }, locale: $locale) {
+    data {
+      attributes {
+        name
+        mileage
+        year
+        price {
+          fullPrice
+          currentPrice
+          showDiscounted
+        }
+        moneyBackLabel {
+          title
+          description
+        }
+        sidebarOptions {
+          id
+          label
+          modalContent
+        }
+        vehicleOverviews {
+          id
+          title
+          subtitle
+        }
+        vehicleFeatures {
+          id
+          option
+          optionList
+        }
+        gallery {
+          data {
+            id
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        model {
+          data {
+            attributes {
+              model
+            }
+          }
+        }
+      }
+    }
+  }
+}

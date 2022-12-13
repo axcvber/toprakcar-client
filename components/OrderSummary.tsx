@@ -3,7 +3,7 @@ import { Box, Grid, Stack, Typography, Divider } from '@mui/material'
 import Image from 'next/image'
 import LocationItem from './LocationItem'
 import Paper from './Paper'
-import { useRentContext } from '../context/rent-context'
+import { useRentContext } from '../context/rent/rent-context'
 
 const OrderSummary = () => {
   const { setCurrentStep, selectedCar } = useRentContext()

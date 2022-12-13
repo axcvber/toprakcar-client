@@ -1918,6 +1918,7 @@ export type SalesCar = {
   passengers: Scalars['Int'];
   price: ComponentVehiclePrice;
   sidebarOptions: Array<Maybe<ComponentVehicleSidebarOptions>>;
+  slug?: Maybe<Scalars['String']>;
   state: Enum_Salescar_State;
   transmission?: Maybe<TransmissionEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1998,6 +1999,7 @@ export type SalesCarFiltersInput = {
   passengers?: InputMaybe<IntFilterInput>;
   price?: InputMaybe<ComponentVehiclePriceFiltersInput>;
   sidebarOptions?: InputMaybe<ComponentVehicleSidebarOptionsFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
   state?: InputMaybe<StringFilterInput>;
   transmission?: InputMaybe<TransmissionFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -2021,6 +2023,7 @@ export type SalesCarInput = {
   passengers?: InputMaybe<Scalars['Int']>;
   price?: InputMaybe<ComponentVehiclePriceInput>;
   sidebarOptions?: InputMaybe<Array<InputMaybe<ComponentVehicleSidebarOptionsInput>>>;
+  slug?: InputMaybe<Scalars['String']>;
   state?: InputMaybe<Enum_Salescar_State>;
   transmission?: InputMaybe<Scalars['ID']>;
   vehicleFeatures?: InputMaybe<Array<InputMaybe<ComponentVehicleVehicleFeaturesInput>>>;
@@ -2538,6 +2541,13 @@ export type VehicleClassRelationResponseCollection = {
   data: Array<VehicleClassEntity>;
 };
 
+export type GetAboutPageQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetAboutPageQuery = { __typename?: 'Query', aboutPage?: { __typename?: 'AboutPageEntityResponse', data?: { __typename?: 'AboutPageEntity', attributes?: { __typename?: 'AboutPage', heading: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, aboutItem: Array<{ __typename?: 'ComponentMainListItem', id: string, title: string, description: string } | null>, contactInfo: Array<{ __typename?: 'ComponentMainMarkdownItem', id: string, title: string, description: string } | null> } | null } | null } | null };
+
 export type FindAvailableShopFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2565,6 +2575,11 @@ export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, colors?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
 
+export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'LocationEntityResponseCollection', data: Array<{ __typename?: 'LocationEntity', id?: string | null, attributes?: { __typename?: 'Location', address: string } | null }> } | null };
+
 export type SaleCarsQueryVariables = Exact<{
   state?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Array<InputMaybe<Scalars['Float']>> | InputMaybe<Scalars['Float']>>;
@@ -2576,11 +2591,14 @@ export type SaleCarsQueryVariables = Exact<{
   year?: InputMaybe<Array<InputMaybe<Scalars['Int']>> | InputMaybe<Scalars['Int']>>;
   exteriorColor?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   interiorColor?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  sortBy?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  start?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type SaleCarsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
+export type SaleCarsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', name: string, slug?: string | null, mileage: number, year: number, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
 export type GetShopFiltersQueryVariables = Exact<{
   brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
@@ -2594,7 +2612,80 @@ export type GetShopFiltersQueryVariables = Exact<{
 
 export type GetShopFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, exterior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null, interior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
 
+export type GetSaleCarPropsQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
 
+
+export type GetSaleCarPropsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, price: { __typename?: 'ComponentVehiclePrice', fullPrice?: number | null, currentPrice: number, showDiscounted?: boolean | null }, moneyBackLabel: { __typename?: 'ComponentVehicleMoneyBackLabel', title: string, description: string }, sidebarOptions: Array<{ __typename?: 'ComponentVehicleSidebarOptions', id: string, label: string, modalContent?: string | null } | null>, vehicleOverviews: Array<{ __typename?: 'ComponentVehicleOverview', id: string, title: string, subtitle: string } | null>, vehicleFeatures: Array<{ __typename?: 'ComponentVehicleVehicleFeatures', id: string, option: string, optionList: string } | null>, gallery: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }> } | null };
+
+export type GetSalesCarsPathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSalesCarsPathsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', slug?: string | null, locale?: string | null } | null }> } | null };
+
+
+export const GetAboutPageDocument = gql`
+    query GetAboutPage($locale: I18NLocaleCode) {
+  aboutPage(locale: $locale) {
+    data {
+      attributes {
+        heading {
+          title
+          description
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+        aboutItem {
+          id
+          title
+          description
+        }
+        contactInfo {
+          id
+          title
+          description
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAboutPageQuery__
+ *
+ * To run a query within a React component, call `useGetAboutPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAboutPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAboutPageQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetAboutPageQuery(baseOptions?: Apollo.QueryHookOptions<GetAboutPageQuery, GetAboutPageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAboutPageQuery, GetAboutPageQueryVariables>(GetAboutPageDocument, options);
+      }
+export function useGetAboutPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAboutPageQuery, GetAboutPageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAboutPageQuery, GetAboutPageQueryVariables>(GetAboutPageDocument, options);
+        }
+export type GetAboutPageQueryHookResult = ReturnType<typeof useGetAboutPageQuery>;
+export type GetAboutPageLazyQueryHookResult = ReturnType<typeof useGetAboutPageLazyQuery>;
+export type GetAboutPageQueryResult = Apollo.QueryResult<GetAboutPageQuery, GetAboutPageQueryVariables>;
 export const FindAvailableShopFiltersDocument = gql`
     query FindAvailableShopFilters {
   salesCars {
@@ -2889,16 +2980,58 @@ export function useGetRentFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetRentFiltersQueryHookResult = ReturnType<typeof useGetRentFiltersQuery>;
 export type GetRentFiltersLazyQueryHookResult = ReturnType<typeof useGetRentFiltersLazyQuery>;
 export type GetRentFiltersQueryResult = Apollo.QueryResult<GetRentFiltersQuery, GetRentFiltersQueryVariables>;
+export const GetLocationsDocument = gql`
+    query GetLocations {
+  locations {
+    data {
+      id
+      attributes {
+        address
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLocationsQuery__
+ *
+ * To run a query within a React component, call `useGetLocationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLocationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLocationsQuery(baseOptions?: Apollo.QueryHookOptions<GetLocationsQuery, GetLocationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, options);
+      }
+export function useGetLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLocationsQuery, GetLocationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, options);
+        }
+export type GetLocationsQueryHookResult = ReturnType<typeof useGetLocationsQuery>;
+export type GetLocationsLazyQueryHookResult = ReturnType<typeof useGetLocationsLazyQuery>;
+export type GetLocationsQueryResult = Apollo.QueryResult<GetLocationsQuery, GetLocationsQueryVariables>;
 export const SaleCarsDocument = gql`
-    query SaleCars($state: String, $price: [Float], $brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $mileage: [Int], $year: [Int], $exteriorColor: [ID], $interiorColor: [ID], $locale: I18NLocaleCode) {
+    query SaleCars($state: String, $price: [Float], $brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $mileage: [Int], $year: [Int], $exteriorColor: [ID], $interiorColor: [ID], $sortBy: [String], $start: Int, $limit: Int, $locale: I18NLocaleCode) {
   salesCars(
     filters: {state: {eq: $state}, price: {currentPrice: {between: $price}}, brand: {id: {in: $brands}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}, mileage: {between: $mileage}, year: {between: $year}, exterior_color: {id: {in: $exteriorColor}}, interior_color: {id: {in: $interiorColor}}}
+    sort: $sortBy
+    pagination: {start: $start, limit: $limit}
     locale: $locale
   ) {
     data {
       id
       attributes {
         name
+        slug
         image {
           data {
             attributes {
@@ -2979,6 +3112,9 @@ export const SaleCarsDocument = gql`
  *      year: // value for 'year'
  *      exteriorColor: // value for 'exteriorColor'
  *      interiorColor: // value for 'interiorColor'
+ *      sortBy: // value for 'sortBy'
+ *      start: // value for 'start'
+ *      limit: // value for 'limit'
  *      locale: // value for 'locale'
  *   },
  * });
@@ -3081,3 +3217,125 @@ export function useGetShopFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetShopFiltersQueryHookResult = ReturnType<typeof useGetShopFiltersQuery>;
 export type GetShopFiltersLazyQueryHookResult = ReturnType<typeof useGetShopFiltersLazyQuery>;
 export type GetShopFiltersQueryResult = Apollo.QueryResult<GetShopFiltersQuery, GetShopFiltersQueryVariables>;
+export const GetSaleCarPropsDocument = gql`
+    query GetSaleCarProps($slug: String, $locale: I18NLocaleCode) {
+  salesCars(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        name
+        mileage
+        year
+        price {
+          fullPrice
+          currentPrice
+          showDiscounted
+        }
+        moneyBackLabel {
+          title
+          description
+        }
+        sidebarOptions {
+          id
+          label
+          modalContent
+        }
+        vehicleOverviews {
+          id
+          title
+          subtitle
+        }
+        vehicleFeatures {
+          id
+          option
+          optionList
+        }
+        gallery {
+          data {
+            id
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        model {
+          data {
+            attributes {
+              model
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSaleCarPropsQuery__
+ *
+ * To run a query within a React component, call `useGetSaleCarPropsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSaleCarPropsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSaleCarPropsQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetSaleCarPropsQuery(baseOptions?: Apollo.QueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+      }
+export function useGetSaleCarPropsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+        }
+export type GetSaleCarPropsQueryHookResult = ReturnType<typeof useGetSaleCarPropsQuery>;
+export type GetSaleCarPropsLazyQueryHookResult = ReturnType<typeof useGetSaleCarPropsLazyQuery>;
+export type GetSaleCarPropsQueryResult = Apollo.QueryResult<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>;
+export const GetSalesCarsPathsDocument = gql`
+    query GetSalesCarsPaths {
+  salesCars(locale: "all") {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSalesCarsPathsQuery__
+ *
+ * To run a query within a React component, call `useGetSalesCarsPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSalesCarsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSalesCarsPathsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSalesCarsPathsQuery(baseOptions?: Apollo.QueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
+      }
+export function useGetSalesCarsPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
+        }
+export type GetSalesCarsPathsQueryHookResult = ReturnType<typeof useGetSalesCarsPathsQuery>;
+export type GetSalesCarsPathsLazyQueryHookResult = ReturnType<typeof useGetSalesCarsPathsLazyQuery>;
+export type GetSalesCarsPathsQueryResult = Apollo.QueryResult<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>;

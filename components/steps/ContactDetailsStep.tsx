@@ -3,7 +3,7 @@ import { Grid } from '@mui/material'
 import OrderSummary from '../OrderSummary'
 import AdditionalServices from '../AdditionalServices'
 import PersonalInfoForm from '../forms/PersonalInfoForm'
-import { useRentContext } from '../../context/rent-context'
+import { useRentContext } from '../../context/rent/rent-context'
 
 const ContactDetailsStep = () => {
   const { setCurrentStep } = useRentContext()

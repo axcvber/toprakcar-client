@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Container } from '@mui/material'
-import { BsSpeedometer2 } from 'react-icons/bs'
-import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
-import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
+import { Grid, Container, Stack, Pagination } from '@mui/material'
 import VehicleShopCard from '../../components/VehicleShopCard'
 import FilterNav from '../../components/filtration/FilterNav'
 import FilterBar from '../../components/filtration/FilterBar'
@@ -22,43 +19,74 @@ import { useShopFilterContext } from '../../context/shop-filter/shop-filter-cont
 import ShopFilter from '../../components/shop/ShopFilter'
 import { useRouter } from 'next/router'
 import { filterEmptyArray } from '../../utils/filterEmptyArray'
+import Paginator from '../../components/Paginator'
 
 interface IFleetPage {
   filters: GetShopFiltersQuery
 }
 
 const ShopPage: NextPage<IFleetPage> = ({ filters }) => {
-  const { setFilterData, filtered } = useShopFilterContext()
+  const { setFilterData, filtered, clearFilter, carState, sortBy } = useShopFilterContext()
   const router = useRouter()
 
   const { data, loading, error, refetch } = useSaleCarsQuery({
     variables: {
       locale: router.locale,
+      start: 0,
+      limit: 20,
     },
     notifyOnNetworkStatusChange: true,
   })
 
+  const page = data?.salesCars?.meta.pagination.page
+  const pageSize = data?.salesCars?.meta.pagination.pageSize
+  const totalCount = data?.salesCars?.meta.pagination.total
+  const pageCount = data?.salesCars?.meta.pagination.pageCount
+
   useEffect(() => {
     setFilterData(filters)
+
+    return () => {
+      clearFilter()
+    }
   }, [])
 
   useEffect(() => {
+    if (!loading) {
+      window.scrollTo({ top: 0, left: 0 })
+    }
+  }, [data, loading])
+
+  useEffect(() => {
     refetch({
-      state: filtered.carState,
-      price: filtered.priceRange.value,
+      state: carState,
+      price: filtered.priceRange ? filtered.priceRange.value : undefined,
       brands: filterEmptyArray(filtered.brands),
       bodyStyles: filterEmptyArray(filtered.bodyStyles),
       fuelTypes: filterEmptyArray(filtered.fuelTypes),
       transmissions: filterEmptyArray(filtered.transmissions),
-      mileage: filtered.mileageRange.value,
-      year: filtered.yearRange.value,
+      sortBy: [sortBy],
+      mileage: filtered.mileageRange ? filtered.mileageRange.value : undefined,
+      year: filtered.yearRange ? filtered.yearRange.value : undefined,
+      exteriorColor: filterEmptyArray(filtered.exteriorColor),
+      interiorColor: filterEmptyArray(filtered.interiorColor),
     })
-  }, [filtered])
+  }, [filtered, carState, sortBy])
 
-  console.log('shop data', data)
+  const handleChange = (event: React.ChangeEvent<unknown>, selectedPage: number) => {
+    console.log('selectedPage', selectedPage)
+
+    if (selectedPage !== page) {
+      if (pageSize) {
+        refetch({
+          start: (selectedPage - 1) * pageSize,
+        })
+      }
+    }
+  }
 
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='xl' sx={{ my: 4 }}>
       <Grid container spacing={3}>
         <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
           <FilterBar>
@@ -66,10 +94,10 @@ const ShopPage: NextPage<IFleetPage> = ({ filters }) => {
           </FilterBar>
         </Grid>
         <Grid item xs={12} lg={9}>
-          <FilterNav forShopPage totalCount={data?.salesCars?.meta.pagination.total} isLoading={loading} />
+          <FilterNav totalResultCount={totalCount} isLoading={loading} />
           <Grid component='ul' container spacing={3}>
             {loading ? (
-              <Loader quantity={6}>
+              <Loader quantity={20}>
                 <Grid item xs={12} sm={6} md={4} lg={4}>
                   <Skeleton width={'100%'} height={440} sx={{ borderRadius: 4 }} />
                 </Grid>
@@ -82,6 +110,7 @@ const ShopPage: NextPage<IFleetPage> = ({ filters }) => {
               ))
             )}
           </Grid>
+          <Paginator page={page} pageCount={pageCount} totalCount={totalCount} handleChange={handleChange} />
         </Grid>
       </Grid>
     </Container>

@@ -1,4 +1,11 @@
-import { FilterRangeOption, ShopFilterOption, ShopFilterOptionKeys, ShopFilterState } from './shop-filter-context'
+import {
+  FilterRangeOption,
+  initialState,
+  ShopFilterOption,
+  ShopFilterOptionKeys,
+  ShopFilterRangeKeys,
+  ShopFilterState,
+} from './shop-filter-context'
 
 export enum ShopFilterActionKind {
   SET_FILTER_DATA = 'SET_FILTER_DATA',
@@ -7,11 +14,12 @@ export enum ShopFilterActionKind {
   SET_RANGE_FILTER = 'SET_RANGE_FILTER',
   DELETE_FILTER = 'DELETE_FILTER',
   CLEAR_FILTER = 'CLEAR_FILTER',
+  SET_SORT_BY = 'SET_SORT_BY',
 }
 
 type Action = {
   type: ShopFilterActionKind
-  payload: any
+  payload?: any
 }
 
 const shopFilterReducer = (state: ShopFilterState, action: Action): ShopFilterState => {
@@ -26,10 +34,7 @@ const shopFilterReducer = (state: ShopFilterState, action: Action): ShopFilterSt
     case ShopFilterActionKind.SET_CAR_STATE:
       return {
         ...state,
-        filtered: {
-          ...state.filtered,
-          carState: payload,
-        },
+        carState: payload,
       }
 
     case ShopFilterActionKind.SET_FILTER_OPTION:
@@ -52,6 +57,29 @@ const shopFilterReducer = (state: ShopFilterState, action: Action): ShopFilterSt
           ...state.filtered,
           [payload.filterKey]: { ...payload },
         },
+      }
+
+    case ShopFilterActionKind.SET_SORT_BY:
+      return {
+        ...state,
+        sortBy: payload,
+      }
+
+    case ShopFilterActionKind.DELETE_FILTER:
+      return {
+        ...state,
+        filtered: {
+          ...state.filtered,
+          [payload.filterKey]: Array.isArray(state.filtered[payload.filterKey as ShopFilterOptionKeys])
+            ? state?.filtered[payload.filterKey as ShopFilterOptionKeys].filter((item) => item.value !== payload.value)
+            : (state.filtered[payload.filterKey as ShopFilterRangeKeys] = null),
+        },
+      }
+
+    case ShopFilterActionKind.CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: initialState.filtered,
       }
 
     default:

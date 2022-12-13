@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
-import { useLocale } from '../hooks/useLocale'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IRentContext {
   location: string

@@ -5,15 +5,22 @@ import FilterBar from '../filtration/FilterBar'
 import FilterNav from '../filtration/FilterNav'
 import Loader from '../Loader'
 import Skeleton from '@mui/material/Skeleton'
-import { useRentCarsQuery } from '../../generated'
+import { GetRentFiltersQuery, useRentCarsQuery } from '../../generated'
 import HCard from '../HCard'
 import { FilterOption, useFilterContext } from '../../context/filter-context'
 import { useRouter } from 'next/router'
 import FilterList from '../filtration/FilterList'
 import { filterEmptyArray } from '../../utils/filterEmptyArray'
+import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 
-const RentCarsList = () => {
-  const { filtered } = useFilterContext()
+interface IRentCarsList {
+  filters: GetRentFiltersQuery
+}
+
+const RentCarsList: React.FC<IRentCarsList> = ({ filters }) => {
+  // const { filtered, deleteFilter, clearFilter } = useFilterContext()
+  const { setFilterData, filtered, deleteFilter, clearFilter, carState } = useShopFilterContext()
+
   const router = useRouter()
   const { data, loading, error, refetch } = useRentCarsQuery({
     variables: {
@@ -25,13 +32,13 @@ const RentCarsList = () => {
   useEffect(() => {
     console.log('changed filtered', filtered)
 
-    // refetch({
-    //   brands: filterEmptyArray(filtered.brands),
-    //   vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
-    //   bodyStyles: filterEmptyArray(filtered.bodyStyles),
-    //   fuelTypes: filterEmptyArray(filtered.fuelTypes),
-    //   transmissions: filterEmptyArray(filtered.transmissions),
-    // })
+    refetch({
+      brands: filterEmptyArray(filtered.brands),
+      // vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
+      bodyStyles: filterEmptyArray(filtered.bodyStyles),
+      fuelTypes: filterEmptyArray(filtered.fuelTypes),
+      transmissions: filterEmptyArray(filtered.transmissions),
+    })
   }, [filtered, refetch])
 
   if (error) {
@@ -44,11 +51,11 @@ const RentCarsList = () => {
       <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
         {/* <LocationFilter /> */}
         <FilterBar>
-          <FilterList />
+          <FilterList filters={filters} />
         </FilterBar>
       </Grid>
       <Grid item xs={12} lg={9}>
-        <FilterNav totalCount={data?.rentCars?.meta.pagination.total} isLoading={loading} />
+        <FilterNav totalResultCount={data?.rentCars?.meta.pagination.total} isLoading={loading} />
 
         <Grid container spacing={3}>
           {loading ? (

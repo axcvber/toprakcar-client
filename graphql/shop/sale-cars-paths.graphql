@@ -1,0 +1,11 @@
+query GetSalesCarsPaths {
+  salesCars(locale: "all") {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}

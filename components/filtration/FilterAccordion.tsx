@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import { HiMinus, HiPlus } from 'react-icons/hi'
 import { Typography, Box, Stack } from '@mui/material'
 import Chip from '@mui/material/Chip'
+import { IoIosArrowDown } from 'react-icons/io'
 
 interface IFilterAccordion {
   title: string
@@ -35,10 +36,10 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selected
       <AccordionSummary
         aria-controls='panel1d-content'
         id='panel1d-header'
-        expandIcon={expanded ? <HiMinus /> : <HiPlus />}
+        expandIcon={<IoIosArrowDown />}
         sx={{
           padding: 0,
-          'svg': { color: 'text.secondary', fontSize: 22 },
+          'svg': { color: 'primary.main', fontSize: 22 },
         }}
         onClick={onToggle}
       >

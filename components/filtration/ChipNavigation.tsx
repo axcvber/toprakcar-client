@@ -1,16 +1,19 @@
 import React from 'react'
 import { Stack, Typography, Divider } from '@mui/material'
 import Chip from '@mui/material/Chip'
-import { FilterKeys, useFilterContext } from '../../context/filter-context'
 import Link from '@mui/material/Link'
+import { ShopFilterOptionKeys, useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 
 const ChipNavigation = () => {
-  const { filtered, deleteFilter, clearFilter } = useFilterContext()
+  const { filtered, deleteFilter, clearFilter } = useShopFilterContext()
 
-  const totalFiltersCount = Object.values(filtered).reduce((acc, val) => acc + val.length, 0)
+  const totalFiltersCount = Object.values(filtered).reduce(
+    (acc, val) => acc + (Array.isArray(val) ? val.length : val !== null),
+    0
+  )
 
-  const handleDelete = (fieldName: FilterKeys, value: string) => {
-    deleteFilter({ fieldName, value })
+  const handleDelete = (filterKey: ShopFilterOptionKeys, value: string) => {
+    deleteFilter({ filterKey, value })
   }
 
   const handleClearAll = () => {
@@ -35,14 +38,23 @@ const ChipNavigation = () => {
         <Stack direction='row' gap={2} flexWrap='wrap'>
           {Object.values(filtered).map((value, index) => (
             <React.Fragment key={index}>
-              {value.map((item) => (
+              {Array.isArray(value) &&
+                value.map((item) => (
+                  <Chip
+                    key={item.label}
+                    color='primary'
+                    label={item.label}
+                    onDelete={() => handleDelete(item.filterKey, item.value)}
+                  />
+                ))}
+              {!Array.isArray(value) && value !== null && (
                 <Chip
-                  key={item.label}
+                  key={value.label}
                   color='primary'
-                  label={item.label}
-                  onDelete={() => handleDelete(item.fieldName, item.value)}
+                  label={value.label}
+                  onDelete={() => handleDelete(value.filterKey, value.value)}
                 />
-              ))}
+              )}
             </React.Fragment>
           ))}
         </Stack>

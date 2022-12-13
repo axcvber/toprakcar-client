@@ -2,8 +2,8 @@ import React from 'react'
 import { Stack, Typography } from '@mui/material'
 
 interface IAboutItem {
-  title: string
-  text: string
+  title?: string
+  text?: string
 }
 
 const AboutItem: React.FC<IAboutItem> = ({ title, text }) => {

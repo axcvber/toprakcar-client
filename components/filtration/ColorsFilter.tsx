@@ -1,76 +1,65 @@
 import React from 'react'
-import { Stack, Divider, Typography, Box, Grid } from '@mui/material'
-import { ColorEntity } from '../../generated'
-import { styled } from '@mui/material/styles'
-
-type DataType =
-  | {
-      __typename?: 'ColorEntity' | undefined
-      id?: string | null | undefined
-      attributes?:
-        | {
-            __typename?: 'Color' | undefined
-            name: string
-            color: string
-          }
-        | null
-        | undefined
-    }[]
-  | undefined
-
+import { Stack, Grid } from '@mui/material'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import { FiCheck } from 'react-icons/fi'
+import { getContrastYIQ } from '../../utils/getContrastYIQ'
 interface IColorsFilter {
-  data: DataType
+  value?: string | null
+  name: string
+  label?: string
+  isChecked: boolean
+  color?: string
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const ColorsFilter: React.FC<IColorsFilter> = ({ data, handleChange }) => {
+const ColorsFilter: React.FC<IColorsFilter> = ({ value, name, label, isChecked, color, handleChange }) => {
   return (
-    <Box>
-      <Grid container spacing={3}>
-        {data?.map((item) => (
-          <Grid key={item.id} item xs={3}>
-            <Stack
-              spacing={0.5}
-              alignItems='center'
-              // value={item.id}
-              // name={FilterKeys.VEHICLE_CLASSES}
-              // label={item.attributes?.title}
-              // isChecked={!!filtered.vehicleClasses?.find((vehicleClass) => vehicleClass.value === item.id)}
-            >
-              <Box
-                sx={{
-                  width: 40,
-                  height: 40,
-                  background: item.attributes?.color,
-                  borderRadius: '50px',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                s
-              </Box>
-              <Typography variant='caption' textAlign='center'>
-                {item.attributes?.name}
-              </Typography>
-
-              {/* <label>
-          <Checkbox
-            checked={this.state.checked}
-            onChange={this.handleCheckboxChange}
-          />
-          <span style={{ marginLeft: 8 }}>Label Text</span>
-        </label> */}
-            </Stack>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+    <Grid item xs={3}>
+      <Stack spacing={0.5} alignItems='center'>
+        <FormControlLabel
+          sx={{
+            'span': {
+              color: 'text.secondary',
+              fontWeight: 500,
+              fontSize: 12,
+              mt: 0.5,
+            },
+          }}
+          value='bottom'
+          control={
+            <Checkbox
+              name={name}
+              checked={isChecked}
+              value={value}
+              onChange={handleChange}
+              inputProps={{ 'aria-label': label }}
+              checkedIcon={<FiCheck />}
+              sx={{
+                width: 40,
+                height: 40,
+                background: color,
+                borderRadius: '50px',
+                border: '1px solid',
+                borderColor: 'divider',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                'svg': {
+                  color: getContrastYIQ(color),
+                },
+                '& .MuiSvgIcon-root': {
+                  display: 'none',
+                },
+              }}
+            />
+          }
+          label={label}
+          labelPlacement='bottom'
+        />
+      </Stack>
+    </Grid>
   )
 }
-
-const StyledCheckbox = styled('input')(({ theme }) => ({}))
 
 export default ColorsFilter

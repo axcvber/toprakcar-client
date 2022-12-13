@@ -2,14 +2,13 @@ import React from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { CarStateType, useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 
 const StatusToggle = () => {
-  // const [alignment, setAlignment] = React.useState('used')
-  const { setCarState, filtered } = useShopFilterContext()
+  const { setCarState, carState } = useShopFilterContext()
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: CarStateType) => {
+  const handleChange = (_: React.MouseEvent<HTMLElement>, newAlignment: CarStateType) => {
     if (newAlignment !== null) {
       setCarState(newAlignment)
     }
@@ -25,16 +24,16 @@ const StatusToggle = () => {
     >
       <StyledToggleButtonGroup
         color='primary'
-        value={filtered.carState}
+        value={carState}
         exclusive
         onChange={handleChange}
         aria-label='Car Status'
         fullWidth
       >
-        <ToggleButton value='used' selected={filtered.carState === 'used'}>
+        <ToggleButton value='used' selected={carState === 'used'}>
           Used Cars
         </ToggleButton>
-        <ToggleButton value='new' selected={filtered.carState === 'new'}>
+        <ToggleButton value='new' selected={carState === 'new'}>
           New Cars
         </ToggleButton>
       </StyledToggleButtonGroup>

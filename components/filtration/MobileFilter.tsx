@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import Badge from '@mui/material/Badge'
 import { FiTarget } from 'react-icons/fi'
@@ -13,10 +13,10 @@ import { useTheme } from '@mui/material/styles'
 interface IMobileFilter {
   isOpen?: boolean
   onClose?: () => void
-  forShopPage?: boolean
+  children: ReactNode
 }
 
-const MobileFilter: React.FC<IMobileFilter> = ({ forShopPage }) => {
+const MobileFilter: React.FC<IMobileFilter> = ({ children }) => {
   const [isOpen, setOpen] = React.useState<boolean>(false)
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true })
@@ -64,7 +64,7 @@ const MobileFilter: React.FC<IMobileFilter> = ({ forShopPage }) => {
         <FilterHeader onClose={handleClose} />
         <Stack spacing={3} p={3}>
           <ChipNavigation />
-          <FilterList forShopPage={forShopPage} />
+          {children}
         </Stack>
         <FilterBottom />
       </SwipeableDrawer>

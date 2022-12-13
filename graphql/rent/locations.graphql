@@ -1,0 +1,10 @@
+query GetLocations {
+  locations {
+    data {
+      id
+      attributes {
+        address
+      }
+    }
+  }
+}

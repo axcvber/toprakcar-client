@@ -13,7 +13,7 @@ import Search from '../components/Search'
 import Pagination from '@mui/material/Pagination'
 import LocationFilter from '../components/filtration/LocationFilter'
 import CustomizedSteppers from '../components/RentStepper'
-import { useRentContext } from '../context/rent-context'
+import { useRentContext } from '../context/rent/rent-context'
 import RentSteps from '../components/RentSteps'
 import { GetServerSideProps, NextPage } from 'next'
 import client from '../graphql/apollo-client'
@@ -28,12 +28,6 @@ interface IFleetPage {
 const FleetPage: NextPage<IFleetPage> = ({ filters }) => {
   const { currentStep } = useRentContext()
 
-  const { setFilterData, clearFilter } = useFilterContext()
-
-  useEffect(() => {
-    setFilterData(filters)
-  }, [])
-
   return (
     <Container maxWidth='xl'>
       <ImageHeading>
@@ -42,7 +36,7 @@ const FleetPage: NextPage<IFleetPage> = ({ filters }) => {
         </Box>
       </ImageHeading>
 
-      <RentCarsList />
+      <RentCarsList filters={filters} />
       {/* <RentSteps /> */}
     </Container>
   )

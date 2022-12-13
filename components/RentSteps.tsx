@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography } from '@mui/material'
 import ImageHeading from './ImageHeading'
 import { useLocale } from '../hooks/useLocale'
-import { useRentContext } from '../context/rent-context'
+import { useRentContext } from '../context/rent/rent-context'
 import RentStepper from './RentStepper'
 
 const RentSteps = () => {

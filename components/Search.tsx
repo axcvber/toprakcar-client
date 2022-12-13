@@ -10,6 +10,7 @@ import { HiChevronDown } from 'react-icons/hi'
 import { BsCalendar3 } from 'react-icons/bs'
 import DatePicker from './DatePicker'
 import InputAdornment from '@mui/material/InputAdornment'
+import { useGetLocationsLazyQuery } from '../generated'
 
 const data = [
   {
@@ -86,28 +87,38 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
   // const [value, setValue] = React.useState<any | null>()
   const [value, setValue] = React.useState<Dayjs | null>(dayjs())
   const [open, setOpen] = React.useState<boolean>(false)
-  const [sortTitle, setSortTitle] = useState('Recommended')
-  const onSelectSort = (title: string) => {
-    setSortTitle(title)
-  }
-  if (forModal) {
-    return (
-      <Stack spacing={2}>
-        <Dropdown
-          title={sortTitle}
-          icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-          menu={data.map((item) => (
-            <Box key={item.id} onClick={() => onSelectSort(item.location)}>
-              {item.location}
-            </Box>
-          ))}
-        />
+  const [dropdownTitle, setDropdownTitle] = useState('Recommended')
 
-        <DatePicker />
-        <DatePicker />
-      </Stack>
-    )
+  const onSelectLocation = (address?: string) => {
+    if (address) {
+      setDropdownTitle(address)
+    }
   }
+
+  const handleSearch = () => {}
+
+  const [getLocations, { loading, error, data }] = useGetLocationsLazyQuery({
+    notifyOnNetworkStatusChange: true,
+  })
+
+  // if (forModal) {
+  //   return (
+  //     <Stack spacing={2}>
+  //       <Dropdown
+  //         title={sortTitle}
+  //         icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
+  //         menu={data.map((item) => (
+  //           <Box key={item.id} onClick={() => onSelectSort(item.location)}>
+  //             {item.location}
+  //           </Box>
+  //         ))}
+  //       />
+
+  //       <DatePicker />
+  //       <DatePicker />
+  //     </Stack>
+  //   )
+  // }
 
   return (
     <Stack
@@ -125,13 +136,24 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
     >
       <Box minWidth={300}>
         <Dropdown
-          title={sortTitle}
+          title={dropdownTitle}
+          onTriggerClick={getLocations}
           icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-          menu={data.map((item) => (
-            <Box key={item.id} width={'100%'} onClick={() => onSelectSort(item.location)} px={2} py={1}>
-              {item.location}
-            </Box>
-          ))}
+          menu={
+            data?.locations?.data
+              ? data?.locations?.data.map((item) => (
+                  <Box
+                    key={item.id}
+                    width={'100%'}
+                    onClick={() => onSelectLocation(item.attributes?.address)}
+                    px={2}
+                    py={1}
+                  >
+                    {item.attributes?.address}
+                  </Box>
+                ))
+              : []
+          }
         />
       </Box>
       <Box>{/* <DatePicker /> */}</Box>
