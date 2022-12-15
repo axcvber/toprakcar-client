@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Stack, Grid, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import Markdown from '../Markdown'
 
 interface IContactListItem {

@@ -8,7 +8,7 @@ const ReservationDetails = () => {
     <Paper>
       <Stack spacing={3}>
         <Typography variant='h6' fontWeight={600}>
-          Your Reservation Details
+          Your Ride Details
         </Typography>
         <Divider />
         <LocationItem title={'Pick Up'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 15 ,2022 00:00'} />

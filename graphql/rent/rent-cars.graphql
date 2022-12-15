@@ -1,4 +1,5 @@
 query RentCars(
+  $address: ID
   $brands: [ID]
   $vehicleClasses: [ID]
   $bodyStyles: [ID]
@@ -8,6 +9,7 @@ query RentCars(
 ) {
   rentCars(
     filters: {
+      locations: { id: { eq: $address } }
       brand: { id: { in: $brands } }
       vehicle_class: { id: { in: $vehicleClasses } }
       body_style: { id: { in: $bodyStyles } }

@@ -10,7 +10,8 @@ import { HiChevronDown } from 'react-icons/hi'
 import { BsCalendar3 } from 'react-icons/bs'
 import DatePicker from './DatePicker'
 import InputAdornment from '@mui/material/InputAdornment'
-import { useGetLocationsLazyQuery } from '../generated'
+import { LocationEntity, useGetLocationsLazyQuery } from '../generated'
+import { useRentContext } from '../context/rent/rent-context'
 
 const data = [
   {
@@ -84,22 +85,37 @@ interface ISearch {
 }
 
 const Search: React.FC<ISearch> = ({ forModal }) => {
-  // const [value, setValue] = React.useState<any | null>()
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs())
-  const [open, setOpen] = React.useState<boolean>(false)
-  const [dropdownTitle, setDropdownTitle] = useState('Recommended')
+  const { location, pickUpDate, dropOffDate, setLocation, setPickUpDate, setDropOffDate } = useRentContext()
 
-  const onSelectLocation = (address?: string) => {
-    if (address) {
-      setDropdownTitle(address)
-    }
+  const handleSearch = () => {
+    // if (pickUpDate >= dropOffDate) {
+    //   alert('dalboeb')
+    // }
+    console.log('totalDayse', dropOffDate?.diff(pickUpDate, 'days'))
+    console.log('pickUpDate', pickUpDate?.format('L LT'))
+    console.log('dropOffDate', dropOffDate?.format('L LT'))
   }
-
-  const handleSearch = () => {}
 
   const [getLocations, { loading, error, data }] = useGetLocationsLazyQuery({
     notifyOnNetworkStatusChange: true,
   })
+
+  const onSelectLocation = (option: LocationEntity) => {
+    if (option.id && option.attributes) {
+      setLocation({
+        id: option.id,
+        address: option.attributes?.address,
+      })
+    }
+  }
+
+  const handlePickUpDateChange = (newValue: Dayjs | null) => {
+    setPickUpDate(newValue)
+  }
+
+  const handleDropOffDateChange = (newValue: Dayjs | null) => {
+    setDropOffDate(newValue)
+  }
 
   // if (forModal) {
   //   return (
@@ -134,21 +150,15 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
         boxShadow: 12,
       }}
     >
-      <Box minWidth={300}>
+      <Box>
         <Dropdown
-          title={dropdownTitle}
+          title={location?.address || 'Choose a location'}
           onTriggerClick={getLocations}
           icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
           menu={
             data?.locations?.data
               ? data?.locations?.data.map((item) => (
-                  <Box
-                    key={item.id}
-                    width={'100%'}
-                    onClick={() => onSelectLocation(item.attributes?.address)}
-                    px={2}
-                    py={1}
-                  >
+                  <Box key={item.id} width={'100%'} onClick={() => onSelectLocation(item)} px={2} py={1}>
                     {item.attributes?.address}
                   </Box>
                 ))
@@ -156,10 +166,20 @@ const Search: React.FC<ISearch> = ({ forModal }) => {
           }
         />
       </Box>
-      <Box>{/* <DatePicker /> */}</Box>
+      <Box>
+        <DatePicker value={pickUpDate} handleChange={handlePickUpDateChange} />
+      </Box>
 
-      <Box>{/* <DatePicker /> */}</Box>
-      <Button startIcon={<FiSearch />} variant='contained' size='extra' sx={{ color: '#fff', fontSize: 18, px: 6 }}>
+      <Box>
+        <DatePicker value={dropOffDate} handleChange={handleDropOffDateChange} />
+      </Box>
+      <Button
+        onClick={handleSearch}
+        startIcon={<FiSearch />}
+        variant='contained'
+        size='extra'
+        sx={{ color: '#fff', fontSize: 18, px: 6 }}
+      >
         Search
       </Button>
     </Stack>

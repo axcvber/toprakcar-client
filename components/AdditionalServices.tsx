@@ -1,52 +1,35 @@
-import React from 'react'
-import { Box, Stack, Typography, Divider } from '@mui/material'
+import React, { useEffect } from 'react'
+import { Stack, Typography, Divider } from '@mui/material'
 import Paper from './Paper'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
+import { ComponentVehicleAdditionalRentServices } from '../generated'
+import { ExtrasType, useRentContext } from '../context/rent/rent-context'
 
-const data = [
-  {
-    id: 1,
-    title: 'Baby chair',
-    price: 15.0,
-    label: '(15.00 ₺ per day)',
-  },
-  {
-    id: 2,
-    title: 'Navigation',
-    price: 10.0,
-    label: '(Daily 10.00 ₺ )',
-  },
-  {
-    id: 3,
-    title: 'Snow Chain',
-    price: 10.0,
-    label: '(Daily 10.00 ₺ )',
-  },
-  {
-    id: 4,
-    title: 'Full Insurance',
-    price: 80.0,
-    label: '(80.00 ₺ per day)',
-  },
-  {
-    id: 5,
-    title: 'Amplifier',
-    price: 10.0,
-    label: '(Daily 10.00 ₺ )',
-  },
-  {
-    id: 6,
-    title: 'Additional Driver',
-    price: 60.0,
-    label: '(60.00 ₺ per day)',
-  },
-]
+interface IAdditionalServices {
+  data: ComponentVehicleAdditionalRentServices[]
+}
 
-const AdditionalServices = () => {
+const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
+  const [values, setValues] = React.useState<ExtrasType[]>([])
+  const { orderSummary, setExtrasData } = useRentContext()
+  const dayCount = orderSummary?.dayCount
+
+  useEffect(() => {
+    setExtrasData(values.filter((item) => item.value === 'yes'))
+  }, [values])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, price: number) => {
+    const { value, name } = event.target
+    const isMatch = values.find((item) => item.name === event.target.name)
+    if (isMatch) {
+      setValues((prev) => prev.filter((item) => item.name !== name))
+    }
+    setValues((prev) => [...prev, { value, name, price }])
+  }
+
   return (
     <Paper>
       <Stack spacing={3}>
@@ -55,40 +38,48 @@ const AdditionalServices = () => {
         </Typography>
         <Divider />
         <Stack spacing={3}>
-          {data.map((item) => (
-            <ServiceItem {...item} key={item.id} />
-          ))}
+          {data &&
+            data.map((item) => (
+              <Stack key={item.id} direction='row' justifyContent='space-between'>
+                <Stack spacing={1}>
+                  <Typography fontWeight={600}>{item.label}</Typography>
+                  <Typography variant='body2' color='text.secondary'>
+                    Daily Price {item.dailyPrice} ₺
+                  </Typography>
+                  <FormControl>
+                    <RadioGroup
+                      row
+                      aria-labelledby='demo-controlled-radio-buttons-group'
+                      name={item.label}
+                      value={values}
+                      onChange={(e) => handleChange(e, (dayCount && dayCount * item.dailyPrice) || 0)}
+                    >
+                      <FormControlLabel
+                        checked={!!values.find((c) => c.name === item.label && c.value === 'yes')}
+                        name={item.label}
+                        value={'yes'}
+                        control={<Radio size='small' />}
+                        label='Yes'
+                      />
+
+                      <FormControlLabel
+                        value={'no'}
+                        name={item.label}
+                        checked={!!values.find((c) => c.name === item.label && c.value === 'no')}
+                        control={<Radio size='small' />}
+                        label='No'
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </Stack>
+                <Typography variant='h6' color='primary.main' fontWeight={600}>
+                  {dayCount && dayCount * item.dailyPrice} ₺
+                </Typography>
+              </Stack>
+            ))}
         </Stack>
       </Stack>
     </Paper>
-  )
-}
-
-interface IServiceItem {
-  title: string
-  price: number
-  label: string
-}
-
-const ServiceItem: React.FC<IServiceItem> = ({ title, price, label }) => {
-  return (
-    <Stack direction='row' justifyContent='space-between'>
-      <Stack spacing={1}>
-        <Typography fontWeight={600}>{title}</Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {label}
-        </Typography>
-        <FormControl>
-          <RadioGroup row aria-labelledby='demo-row-radio-buttons-group-label' name='row-radio-buttons-group'>
-            <FormControlLabel value='female' control={<Radio size='small' />} label='Yes' />
-            <FormControlLabel value='male' control={<Radio size='small' />} label='No' />
-          </RadioGroup>
-        </FormControl>
-      </Stack>
-      <Typography variant='h6' color='primary.main' fontWeight={600}>
-        {price} ₺
-      </Typography>
-    </Stack>
   )
 }
 

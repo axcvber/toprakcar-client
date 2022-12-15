@@ -1,0 +1,14 @@
+query GetAddRentServices($id: ID) {
+  rentCar(id: $id) {
+    data {
+      id
+      attributes {
+        additionalServices {
+          id
+          label
+          dailyPrice
+        }
+      }
+    }
+  }
+}

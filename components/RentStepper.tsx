@@ -30,6 +30,8 @@ function getStepContent(step: number) {
     case 3:
       return <BookingSummaryStep />
 
+    case 4:
+      return <BookingSummaryStep />
     default:
       return null
   }
@@ -45,7 +47,7 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
   const t = useLocale()
 
   const handleBack = () => {
-    setCurrentStep((prevActiveStep) => prevActiveStep - 1)
+    setCurrentStep(currentStep - 1)
   }
 
   return (

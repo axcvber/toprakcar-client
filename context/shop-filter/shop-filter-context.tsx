@@ -1,5 +1,5 @@
 import { ReactNode, useContext, useReducer, createContext } from 'react'
-import { GetShopFiltersQuery } from '../../generated'
+import { GetRentFiltersQuery, GetShopFiltersQuery } from '../../generated'
 import shopFilterReducer, { ShopFilterActionKind } from './shop-filter-reducer'
 
 export enum SortValues {
@@ -58,14 +58,14 @@ export interface FilteredState {
 }
 
 export type ShopFilterState = {
-  data: GetShopFiltersQuery | null
+  data: (GetShopFiltersQuery & GetRentFiltersQuery) | null
   carState: CarStateType
   sortBy: SortValues
   filtered: FilteredState
 }
 
 interface IShopFilterContext {
-  data: GetShopFiltersQuery | null
+  data: (GetShopFiltersQuery & GetRentFiltersQuery) | null
   carState: CarStateType
   sortBy: SortValues
   filtered: FilteredState

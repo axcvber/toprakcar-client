@@ -6,9 +6,14 @@ import { HiChevronDown } from 'react-icons/hi'
 import { BsCalendar3 } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
 
-const DatePicker = () => {
-  const [value, setValue] = React.useState<Dayjs | null>(null)
+interface IDatePicker {
+  value: Dayjs | null
+  handleChange: (newValue: Dayjs | null) => void
+}
+
+const DatePicker: React.FC<IDatePicker> = ({ value, handleChange }) => {
   const [open, setOpen] = React.useState<boolean>(false)
+
   return (
     <DateTimePicker
       // disableOpenPicker
@@ -37,7 +42,7 @@ const DatePicker = () => {
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      onChange={(newValue) => setValue(newValue)}
+      onChange={(newValue) => handleChange(newValue)}
       renderInput={({ inputRef, inputProps }) => (
         <Button color='inherit' ref={inputRef} size='extra' onClick={() => setOpen(true)}>
           <Stack

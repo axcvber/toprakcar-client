@@ -16,7 +16,7 @@ const ImageHeading: React.FC<ImageHeadingProps> = ({ children }) => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
-        height: { xs: '300px', md: '400px' },
+        height: { xs: '300px', md: '300px' },
         boxShadow: 25,
         textAlign: 'center',
         borderRadius: 5,

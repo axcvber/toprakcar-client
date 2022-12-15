@@ -3,6 +3,9 @@ import SearchModal from '../components/modals/SearchModal'
 
 export enum MODAL_TYPES {
   SEARCH_MODAL = 'SEARCH_MODAL',
+  RENT_INFO_MODAL = 'RENT_INFO_MODAL',
+  SALE_CAR_INFO = 'SEARCH_MODAL',
+  SHOP_STEPS = 'SHOP_STEPS',
 }
 
 const MODAL_COMPONENTS: any = {

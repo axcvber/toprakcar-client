@@ -4,9 +4,16 @@ import Image from 'next/image'
 import LocationItem from './LocationItem'
 import Paper from './Paper'
 import { useRentContext } from '../context/rent/rent-context'
+import CarOption from './CarOption'
+import { FiBarChart } from 'react-icons/fi'
+import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
+import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
+import { BiCar, BiSupport } from 'react-icons/bi'
+import { BsSpeedometer2 } from 'react-icons/bs'
 
 const OrderSummary = () => {
-  const { setCurrentStep, selectedCar } = useRentContext()
+  const { location, setCurrentStep, selectedCar, dropOffDate, pickUpDate, orderSummary } = useRentContext()
+
   return (
     <Paper>
       <Grid container spacing={{ xs: 6, md: 3, lg: 6 }}>
@@ -16,8 +23,8 @@ const OrderSummary = () => {
               Ride Details
             </Typography>
             <Divider />
-            <LocationItem title={'Pick Up'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 15 ,2022 00:00'} />
-            <LocationItem title={'Drop Off'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 18 ,2022 00:00'} />
+            <LocationItem title={'Pick Up'} address={location?.address} date={pickUpDate?.format('LLL')} />
+            <LocationItem title={'Drop Off'} address={location?.address} date={dropOffDate?.format('LLL')} />
           </Stack>
         </Grid>
         <Grid item xs={12} md={5} lg={6}>
@@ -34,38 +41,46 @@ const OrderSummary = () => {
               <Image
                 layout='fill'
                 objectFit='contain'
-                src={selectedCar.imageUrl}
+                src={selectedCar?.attributes?.image.data?.attributes?.url || ''}
                 placeholder='blur'
-                blurDataURL={selectedCar.imageUrl}
-                alt='selected-car'
+                blurDataURL={selectedCar?.attributes?.image.data?.attributes?.url || ''}
+                alt={selectedCar?.attributes?.image.data?.attributes?.alternativeText || ''}
               />
             </Box>
             <Box>
               <Typography variant='h6' fontWeight={600} mb={2}>
-                {selectedCar.name}
+                {selectedCar?.attributes?.name}
               </Typography>
               <Grid container component='ul' columnGap={4} rowGap={2}>
-                {selectedCar.options.map((item: any) => (
-                  <Grid item key={item.text}>
-                    <Stack
-                      component='li'
-                      spacing={1}
-                      direction='row'
-                      alignItems={'center'}
-                      sx={{
-                        color: 'text.disabled',
-                        'svg': {
-                          fontSize: 18,
-                        },
-                      }}
-                    >
-                      {item.icon}
-                      <Typography component='span' fontWeight={500} fontSize={{ xs: 14, md: 16 }}>
-                        {item.text}
-                      </Typography>
-                    </Stack>
-                  </Grid>
-                ))}
+                {selectedCar?.attributes?.vehicle_class?.data && (
+                  <CarOption
+                    icon={<FiBarChart />}
+                    label={selectedCar?.attributes?.vehicle_class?.data?.attributes?.title}
+                  />
+                )}
+                {selectedCar?.attributes?.fuel_type?.data && (
+                  <CarOption
+                    icon={<TbGasStation />}
+                    label={selectedCar?.attributes?.fuel_type?.data?.attributes?.type}
+                  />
+                )}
+
+                {selectedCar?.attributes?.transmission?.data && (
+                  <CarOption
+                    icon={<TbManualGearbox />}
+                    label={selectedCar?.attributes?.transmission?.data?.attributes?.type}
+                  />
+                )}
+
+                {selectedCar?.attributes?.passengers && (
+                  <CarOption icon={<MdAirlineSeatLegroomNormal />} label={selectedCar?.attributes?.passengers} />
+                )}
+                {selectedCar?.attributes?.body_style?.data && (
+                  <CarOption icon={<BiCar />} label={selectedCar?.attributes?.body_style?.data?.attributes?.style} />
+                )}
+                <CarOption icon={<BsSpeedometer2 />} label={'Unlimited mileage'} />
+                <CarOption icon={<BiSupport />} label={'24/7 Support'} />
+                <CarOption icon={<MdOutlineCancel />} label={'Free Cancellation'} />
               </Grid>
             </Box>
           </Stack>
@@ -85,9 +100,9 @@ const OrderSummary = () => {
               </Stack>
 
               <Stack spacing={2}>
-                <Typography fontWeight={600}>3</Typography>
-                <Typography fontWeight={600}>850.00 ₺</Typography>
-                <Typography fontWeight={600}>555.00 ₺</Typography>
+                <Typography fontWeight={600}>{orderSummary?.dayCount}</Typography>
+                <Typography fontWeight={600}>{orderSummary?.rentPrice.toLocaleString()} ₺</Typography>
+                <Typography fontWeight={600}>{orderSummary?.extrasPrice.toLocaleString()} ₺</Typography>
               </Stack>
             </Stack>
 
@@ -97,7 +112,7 @@ const OrderSummary = () => {
                 Total amount:
               </Typography>
               <Typography variant='h6' color='primary.main' fontWeight={600}>
-                3 105 ₺
+                {orderSummary?.totalAmount.toLocaleString()} ₺
               </Typography>
             </Stack>
           </Stack>

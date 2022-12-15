@@ -11,15 +11,9 @@ import {
   ShopFilterRangeKeys,
   useShopFilterContext,
 } from '../../context/shop-filter/shop-filter-context'
-import { GetRentFiltersQuery } from '../../generated'
 
-interface IFilterList {
-  filters: GetRentFiltersQuery
-}
-
-const FilterList: React.FC<IFilterList> = ({ filters }) => {
-  // const { data, filtered, setFilter, setRangeFilter, deleteFilter } = useFilterContext()
-  const { filtered, setFilterOption, setRangeFilter } = useShopFilterContext()
+const FilterList = () => {
+  const { data, filtered, setFilterOption, setRangeFilter } = useShopFilterContext()
 
   const handlePriceChange = (rangeArr: Array<number>) => {
     setRangeFilter({
@@ -47,7 +41,7 @@ const FilterList: React.FC<IFilterList> = ({ filters }) => {
 
       <FilterAccordion title={'Brands'} selectedCount={filtered.brands.length}>
         <FormGroup>
-          {filters.brands?.data.map((item) => (
+          {data?.brands?.data.map((item) => (
             <React.Fragment key={item.id}>
               <FilterCheckbox
                 name={ShopFilterOptionKeys.BRANDS}
@@ -64,7 +58,7 @@ const FilterList: React.FC<IFilterList> = ({ filters }) => {
 
       <FilterAccordion title={'Vehicle Class'} selectedCount={filtered.vehicleClasses.length}>
         <FormGroup>
-          {filters.vehicleClasses?.data.map((item) => (
+          {data?.vehicleClasses?.data.map((item) => (
             <React.Fragment key={item.id}>
               <FilterCheckbox
                 name={ShopFilterOptionKeys.VEHICLE_CLASSES}
@@ -82,7 +76,7 @@ const FilterList: React.FC<IFilterList> = ({ filters }) => {
 
       <FilterAccordion title={'Body Style'} selectedCount={filtered.bodyStyles.length}>
         <FormGroup>
-          {filters.bodyStyles?.data.map((item) => (
+          {data?.bodyStyles?.data.map((item) => (
             <React.Fragment key={item.id}>
               <FilterCheckbox
                 name={ShopFilterOptionKeys.BODY_STYLES}
@@ -99,7 +93,7 @@ const FilterList: React.FC<IFilterList> = ({ filters }) => {
       <Divider />
       <FilterAccordion title={'Fuel Type'} selectedCount={filtered.fuelTypes.length}>
         <FormGroup>
-          {filters.fuelTypes?.data.map((item) => (
+          {data?.fuelTypes?.data.map((item) => (
             <React.Fragment key={item.id}>
               <FilterCheckbox
                 name={ShopFilterOptionKeys.FUEL_TYPES}
@@ -117,7 +111,7 @@ const FilterList: React.FC<IFilterList> = ({ filters }) => {
 
       <FilterAccordion title={'Transmission'} selectedCount={filtered.transmissions.length}>
         <FormGroup>
-          {filters.transmissions?.data.map((item) => (
+          {data?.transmissions?.data.map((item) => (
             <React.Fragment key={item.id}>
               <FilterCheckbox
                 name={ShopFilterOptionKeys.TRANSMISSIONS}

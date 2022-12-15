@@ -15,7 +15,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { PersonalInfoSchema } from '../../schemas/personal-info-schema'
 import { useRentContext } from '../../context/rent/rent-context'
 
-interface IPersonalInfoFormInputs {
+export interface UserDataFormInputs {
   fullName: string
   idNumber: string
   email: string
@@ -30,14 +30,15 @@ const PersonalInfoForm = () => {
     formState: { isSubmitting, isSubmitSuccessful },
     setValue,
     reset,
-  } = useForm<IPersonalInfoFormInputs>({
+  } = useForm<UserDataFormInputs>({
     resolver: yupResolver(PersonalInfoSchema()),
   })
-  const { setCurrentStep } = useRentContext()
+  const { setCurrentStep, setUserData } = useRentContext()
 
-  const onSubmit: SubmitHandler<IPersonalInfoFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<UserDataFormInputs> = async (data) => {
     console.log('data', data)
-    setCurrentStep(3)
+    setUserData(data)
+    setCurrentStep(4)
   }
 
   return (
@@ -50,16 +51,12 @@ const PersonalInfoForm = () => {
         <Stack component={'form'} spacing={4} onSubmit={handleSubmit(onSubmit)}>
           <Box>
             <FormControl>
-              <FormLabel required id='nationality-label' sx={{ fontWeight: 600 }}>
+              <FormLabel required id='nationality-label' sx={{ fontSize: 14 }}>
                 Nationality
               </FormLabel>
               <RadioGroup row aria-labelledby='nationality-label' name='row-radio-buttons-group'>
-                <FormControlLabel
-                  value='Turkish'
-                  control={<Radio disableRipple disableFocusRipple disableTouchRipple />}
-                  label='I am a Turkish citizen'
-                />
-                <FormControlLabel value='notTurkish' control={<Radio disableRipple />} label='I am a Turkish citizen' />
+                <FormControlLabel value='Turkish' control={<Radio size='small' />} label='I am a Turkish citizen' />
+                <FormControlLabel value='notTurkish' control={<Radio size='small' />} label='I am a Turkish citizen' />
               </RadioGroup>
             </FormControl>
           </Box>

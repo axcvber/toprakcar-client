@@ -504,6 +504,27 @@ export type ComponentMainMarkdownItemInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentVehicleAdditionalRentServices = {
+  __typename?: 'ComponentVehicleAdditionalRentServices';
+  dailyPrice: Scalars['Float'];
+  id: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type ComponentVehicleAdditionalRentServicesFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentVehicleAdditionalRentServicesFiltersInput>>>;
+  dailyPrice?: InputMaybe<FloatFilterInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentVehicleAdditionalRentServicesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentVehicleAdditionalRentServicesFiltersInput>>>;
+};
+
+export type ComponentVehicleAdditionalRentServicesInput = {
+  dailyPrice?: InputMaybe<Scalars['Float']>;
+  id?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentVehicleFeatureList = {
   __typename?: 'ComponentVehicleFeatureList';
   id: Scalars['ID'];
@@ -785,7 +806,7 @@ export type FuelTypeRelationResponseCollection = {
   data: Array<FuelTypeEntity>;
 };
 
-export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeServices | ComponentHomeSteps | ComponentMainHeading | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | FleetPage | FuelType | HomePage | I18NLocale | Location | Model | RentCar | SalesCar | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
+export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeServices | ComponentHomeSteps | ComponentMainHeading | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentVehicleAdditionalRentServices | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | FleetPage | FuelType | HomePage | I18NLocale | Location | Model | RentCar | SalesCar | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1806,6 +1827,7 @@ export type QueryVehicleClassesArgs = {
 
 export type RentCar = {
   __typename?: 'RentCar';
+  additionalServices: Array<Maybe<ComponentVehicleAdditionalRentServices>>;
   body_style?: Maybe<BodyStyleEntityResponse>;
   brand?: Maybe<BrandEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1821,6 +1843,13 @@ export type RentCar = {
   transmission?: Maybe<TransmissionEntityResponse>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   vehicle_class?: Maybe<VehicleClassEntityResponse>;
+};
+
+
+export type RentCarAdditionalServicesArgs = {
+  filters?: InputMaybe<ComponentVehicleAdditionalRentServicesFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -1855,6 +1884,7 @@ export type RentCarEntityResponseCollection = {
 };
 
 export type RentCarFiltersInput = {
+  additionalServices?: InputMaybe<ComponentVehicleAdditionalRentServicesFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<RentCarFiltersInput>>>;
   body_style?: InputMaybe<BodyStyleFiltersInput>;
   brand?: InputMaybe<BrandFiltersInput>;
@@ -1876,6 +1906,7 @@ export type RentCarFiltersInput = {
 };
 
 export type RentCarInput = {
+  additionalServices?: InputMaybe<Array<InputMaybe<ComponentVehicleAdditionalRentServicesInput>>>;
   body_style?: InputMaybe<Scalars['ID']>;
   brand?: InputMaybe<Scalars['ID']>;
   fuel_type?: InputMaybe<Scalars['ID']>;
@@ -2558,7 +2589,18 @@ export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } } | null } | null } | null };
 
+export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, colors?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
+
+export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'LocationEntityResponseCollection', data: Array<{ __typename?: 'LocationEntity', id?: string | null, attributes?: { __typename?: 'Location', address: string } | null }> } | null };
+
 export type RentCarsQueryVariables = Exact<{
+  address?: InputMaybe<Scalars['ID']>;
   brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   vehicleClasses?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
@@ -2570,15 +2612,12 @@ export type RentCarsQueryVariables = Exact<{
 
 export type RentCarsQuery = { __typename?: 'Query', rentCars?: { __typename?: 'RentCarEntityResponseCollection', data: Array<{ __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', name: string, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, vehicle_class?: { __typename?: 'VehicleClassEntityResponse', data?: { __typename?: 'VehicleClassEntity', attributes?: { __typename?: 'VehicleClass', title: string } | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
-export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAddRentServicesQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
 
 
-export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, colors?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
-
-export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'LocationEntityResponseCollection', data: Array<{ __typename?: 'LocationEntity', id?: string | null, attributes?: { __typename?: 'Location', address: string } | null }> } | null };
+export type GetAddRentServicesQuery = { __typename?: 'Query', rentCar?: { __typename?: 'RentCarEntityResponse', data?: { __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', additionalServices: Array<{ __typename?: 'ComponentVehicleAdditionalRentServices', id: string, label: string, dailyPrice: number } | null> } | null } | null } | null };
 
 export type SaleCarsQueryVariables = Exact<{
   state?: InputMaybe<Scalars['String']>;
@@ -2802,104 +2841,6 @@ export function useHomePageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<H
 export type HomePageQueryHookResult = ReturnType<typeof useHomePageQuery>;
 export type HomePageLazyQueryHookResult = ReturnType<typeof useHomePageLazyQuery>;
 export type HomePageQueryResult = Apollo.QueryResult<HomePageQuery, HomePageQueryVariables>;
-export const RentCarsDocument = gql`
-    query RentCars($brands: [ID], $vehicleClasses: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $locale: I18NLocaleCode) {
-  rentCars(
-    filters: {brand: {id: {in: $brands}}, vehicle_class: {id: {in: $vehicleClasses}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}}
-    locale: $locale
-  ) {
-    data {
-      id
-      attributes {
-        name
-        image {
-          data {
-            attributes {
-              url
-              alternativeText
-            }
-          }
-        }
-        price {
-          currentPrice
-          fullPrice
-          showDiscounted
-        }
-        body_style {
-          data {
-            attributes {
-              style
-            }
-          }
-        }
-        vehicle_class {
-          data {
-            attributes {
-              title
-            }
-          }
-        }
-        fuel_type {
-          data {
-            attributes {
-              type
-            }
-          }
-        }
-        transmission {
-          data {
-            attributes {
-              type
-            }
-          }
-        }
-        passengers
-      }
-    }
-    meta {
-      pagination {
-        total
-        page
-        pageSize
-        pageCount
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useRentCarsQuery__
- *
- * To run a query within a React component, call `useRentCarsQuery` and pass it any options that fit your needs.
- * When your component renders, `useRentCarsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRentCarsQuery({
- *   variables: {
- *      brands: // value for 'brands'
- *      vehicleClasses: // value for 'vehicleClasses'
- *      bodyStyles: // value for 'bodyStyles'
- *      fuelTypes: // value for 'fuelTypes'
- *      transmissions: // value for 'transmissions'
- *      locale: // value for 'locale'
- *   },
- * });
- */
-export function useRentCarsQuery(baseOptions?: Apollo.QueryHookOptions<RentCarsQuery, RentCarsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<RentCarsQuery, RentCarsQueryVariables>(RentCarsDocument, options);
-      }
-export function useRentCarsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RentCarsQuery, RentCarsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<RentCarsQuery, RentCarsQueryVariables>(RentCarsDocument, options);
-        }
-export type RentCarsQueryHookResult = ReturnType<typeof useRentCarsQuery>;
-export type RentCarsLazyQueryHookResult = ReturnType<typeof useRentCarsLazyQuery>;
-export type RentCarsQueryResult = Apollo.QueryResult<RentCarsQuery, RentCarsQueryVariables>;
 export const GetRentFiltersDocument = gql`
     query GetRentFilters {
   brands {
@@ -3019,6 +2960,149 @@ export function useGetLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetLocationsQueryHookResult = ReturnType<typeof useGetLocationsQuery>;
 export type GetLocationsLazyQueryHookResult = ReturnType<typeof useGetLocationsLazyQuery>;
 export type GetLocationsQueryResult = Apollo.QueryResult<GetLocationsQuery, GetLocationsQueryVariables>;
+export const RentCarsDocument = gql`
+    query RentCars($address: ID, $brands: [ID], $vehicleClasses: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $locale: I18NLocaleCode) {
+  rentCars(
+    filters: {locations: {id: {eq: $address}}, brand: {id: {in: $brands}}, vehicle_class: {id: {in: $vehicleClasses}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}}
+    locale: $locale
+  ) {
+    data {
+      id
+      attributes {
+        name
+        image {
+          data {
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        price {
+          currentPrice
+          fullPrice
+          showDiscounted
+        }
+        body_style {
+          data {
+            attributes {
+              style
+            }
+          }
+        }
+        vehicle_class {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
+        fuel_type {
+          data {
+            attributes {
+              type
+            }
+          }
+        }
+        transmission {
+          data {
+            attributes {
+              type
+            }
+          }
+        }
+        passengers
+      }
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useRentCarsQuery__
+ *
+ * To run a query within a React component, call `useRentCarsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRentCarsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRentCarsQuery({
+ *   variables: {
+ *      address: // value for 'address'
+ *      brands: // value for 'brands'
+ *      vehicleClasses: // value for 'vehicleClasses'
+ *      bodyStyles: // value for 'bodyStyles'
+ *      fuelTypes: // value for 'fuelTypes'
+ *      transmissions: // value for 'transmissions'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useRentCarsQuery(baseOptions?: Apollo.QueryHookOptions<RentCarsQuery, RentCarsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RentCarsQuery, RentCarsQueryVariables>(RentCarsDocument, options);
+      }
+export function useRentCarsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RentCarsQuery, RentCarsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RentCarsQuery, RentCarsQueryVariables>(RentCarsDocument, options);
+        }
+export type RentCarsQueryHookResult = ReturnType<typeof useRentCarsQuery>;
+export type RentCarsLazyQueryHookResult = ReturnType<typeof useRentCarsLazyQuery>;
+export type RentCarsQueryResult = Apollo.QueryResult<RentCarsQuery, RentCarsQueryVariables>;
+export const GetAddRentServicesDocument = gql`
+    query GetAddRentServices($id: ID) {
+  rentCar(id: $id) {
+    data {
+      id
+      attributes {
+        additionalServices {
+          id
+          label
+          dailyPrice
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAddRentServicesQuery__
+ *
+ * To run a query within a React component, call `useGetAddRentServicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAddRentServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAddRentServicesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetAddRentServicesQuery(baseOptions?: Apollo.QueryHookOptions<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>(GetAddRentServicesDocument, options);
+      }
+export function useGetAddRentServicesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>(GetAddRentServicesDocument, options);
+        }
+export type GetAddRentServicesQueryHookResult = ReturnType<typeof useGetAddRentServicesQuery>;
+export type GetAddRentServicesLazyQueryHookResult = ReturnType<typeof useGetAddRentServicesLazyQuery>;
+export type GetAddRentServicesQueryResult = Apollo.QueryResult<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>;
 export const SaleCarsDocument = gql`
     query SaleCars($state: String, $price: [Float], $brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $mileage: [Int], $year: [Int], $exteriorColor: [ID], $interiorColor: [ID], $sortBy: [String], $start: Int, $limit: Int, $locale: I18NLocaleCode) {
   salesCars(

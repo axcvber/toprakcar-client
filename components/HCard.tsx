@@ -16,10 +16,10 @@ interface IHCard {
   // price: string
   // options: any
   item: RentCarEntity
-  buttonCallback?: (id: number) => void
+  handleSelect: () => void
 }
 
-const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
+const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
   return (
     <Stack
       direction={{ xs: 'column', lg: 'row' }}
@@ -65,7 +65,7 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
               {item.attributes?.name}
             </Typography>
             <Typography component='span' color='primary' variant='h5' fontWeight={600}>
-              {item.attributes?.price.fullPrice} ₺ /d
+              {item.attributes?.price.fullPrice?.toLocaleString()} ₺ /d
             </Typography>
           </div>
 
@@ -79,7 +79,7 @@ const HCard: React.FC<IHCard> = ({ item, buttonCallback }) => {
             <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />}>
               More Info
             </Button>
-            <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={() => buttonCallback(item)}>
+            <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={handleSelect}>
               Select
             </Button>
           </Stack>

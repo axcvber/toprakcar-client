@@ -1,56 +1,129 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
+import { Dayjs } from 'dayjs'
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useReducer, useState } from 'react'
+import { UserDataFormInputs } from '../../components/forms/PersonalInfoForm'
+import { RentCarEntity } from '../../generated'
 import { useLocale } from '../../hooks/useLocale'
+import rentFilterReducer, { RentActionKind } from './rent-reducer'
+
+type LocationOption = {
+  id: string
+  address: string
+}
+
+export type ExtrasType = {
+  name: string
+  value: string
+  price: number
+}
+
+type OrderSummaryType = {
+  dayCount: number
+  rentPrice: number
+  extrasPrice: number
+  totalAmount: number
+  extrasData?: ExtrasType[] | null
+}
+
+export type RentState = {
+  location: LocationOption | null
+  pickUpDate: Dayjs | null
+  dropOffDate: Dayjs | null
+  currentStep: number
+  selectedCar: RentCarEntity | null
+  orderSummary: OrderSummaryType | null
+  userData: UserDataFormInputs | null
+}
 
 interface IRentContext {
-  location: string
-  pickUpDate: string
-  dropOffDate: string
-  userData: any
-  selectedCar: any
-  setSelectedCar: (car: any) => void
-  //refactor
+  location: LocationOption | null
+  pickUpDate: Dayjs | null
+  dropOffDate: Dayjs | null
+  currentStep: number
+  selectedCar: RentCarEntity | null
+  orderSummary: OrderSummaryType | null
+  userData: UserDataFormInputs | null
+  setLocation: (data: LocationOption) => void
+  setPickUpDate: (value: Dayjs | null) => void
+  setDropOffDate: (value: Dayjs | null) => void
+  setCurrentStep: (step: number) => void
+  setSelectedCar: (carItem: RentCarEntity) => void
+  setExtrasData: (data: ExtrasType[]) => void
+  setUserData: (data: UserDataFormInputs) => void
+
+  // userData: any
+  // selectedCar: any
+  // setSelectedCar: (car: any) => void
 }
 
-interface IStepContext {
-  currentStep: number
-  setCurrentStep: Dispatch<SetStateAction<number>>
-}
+// interface IStepContext {
+//   currentStep: number
+//   setCurrentStep: Dispatch<SetStateAction<number>>
+// }
 
 export const useRentContext = () => useContext(RentContext)
 
 //@ts-ignore
-const RentContext = createContext<IRentContext & IStepContext>({})
+const RentContext = createContext<IRentContext>({})
 
 interface IAppProvider {
   children: ReactNode
 }
 
-const RentProvider: React.FC<IAppProvider> = ({ children }) => {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [selectedCar, setSelectedCar] = useState(null)
+export const initialState: RentState = {
+  location: null,
+  pickUpDate: null,
+  dropOffDate: null,
+  currentStep: 1,
+  selectedCar: null,
+  orderSummary: null,
+  userData: null,
+}
 
-  const [state, setState] = useState({
-    location: '',
-    pickUpDate: '',
-    dropOffDate: '',
-    userData: '',
-  })
+const RentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(rentFilterReducer, initialState)
 
-  // const setSelectedService = (item: string | null) => {
-  //   setState({
-  //     ...state,
-  //     selectedService: item,
-  //   })
-  // }
+  const setLocation = (data: LocationOption) => {
+    dispatch({ type: RentActionKind.SET_LOCATION, payload: data })
+  }
+  const setPickUpDate = (value: Dayjs | null) => {
+    dispatch({ type: RentActionKind.SET_PICK_UP_DATE, payload: value })
+  }
+  const setDropOffDate = (value: Dayjs | null) => {
+    dispatch({ type: RentActionKind.SET_DROP_OFF_DATE, payload: value })
+  }
+
+  const setCurrentStep = (step: number) => {
+    dispatch({ type: RentActionKind.SET_CURRENT_STEP, payload: step })
+  }
+
+  const setSelectedCar = (carItem: RentCarEntity) => {
+    dispatch({ type: RentActionKind.SET_SELECTED_CAR, payload: carItem })
+  }
+
+  const setExtrasData = (data: ExtrasType[]) => {
+    dispatch({ type: RentActionKind.SET_EXTRAS_DATA, payload: data })
+  }
+  const setUserData = (userData: UserDataFormInputs) => {
+    dispatch({ type: RentActionKind.SET_USER_DATA, payload: userData })
+  }
 
   return (
     <RentContext.Provider
-      //@ts-ignore
       value={{
-        currentStep,
+        location: state.location,
+        pickUpDate: state.pickUpDate,
+        dropOffDate: state.dropOffDate,
+        currentStep: state.currentStep,
+        selectedCar: state.selectedCar,
+        orderSummary: state.orderSummary,
+        userData: state.userData,
+        setLocation,
+        setPickUpDate,
+        setDropOffDate,
         setCurrentStep,
-        selectedCar,
         setSelectedCar,
+        setExtrasData,
+        setUserData,
       }}
     >
       {children}
