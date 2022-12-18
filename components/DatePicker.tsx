@@ -1,22 +1,35 @@
 import React from 'react'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import dayjs, { Dayjs } from 'dayjs'
 import { HiChevronDown } from 'react-icons/hi'
 import { BsCalendar3 } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
+import Fade from '@mui/material/Fade'
+import { TransitionProps } from '@mui/material/transitions'
 
 interface IDatePicker {
-  value: Dayjs | null
+  value: Dayjs
   handleChange: (newValue: Dayjs | null) => void
+  placeholder: string
 }
 
-const DatePicker: React.FC<IDatePicker> = ({ value, handleChange }) => {
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Fade ref={ref} {...props} timeout={300} />
+})
+
+const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder }) => {
   const [open, setOpen] = React.useState<boolean>(false)
 
   return (
     <DateTimePicker
-      // disableOpenPicker
+      //@ts-ignore
+      TransitionComponent={Transition}
       hideTabs
       showToolbar={false}
       views={['month', 'day', 'hours', 'minutes']}
@@ -37,21 +50,27 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange }) => {
         },
       }}
       disablePast
-      label='Pick-up date'
       value={value}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      onChange={(newValue) => handleChange(newValue)}
+      onChange={(newValue) => {
+        handleChange(newValue)
+        console.log('newValue', newValue)
+      }}
       renderInput={({ inputRef, inputProps }) => (
-        <Button color='inherit' ref={inputRef} size='extra' onClick={() => setOpen(true)}>
+        <Button color='inherit' fullWidth ref={inputRef} size='extra' onClick={() => setOpen(true)}>
           <Stack
+            width={'100%'}
             direction='row'
             alignItems='center'
+            justifyContent={'space-between'}
             spacing={1.5}
             sx={{
               'svg': {
                 color: 'primary.main',
+                fontSize: 22,
+                minWidth: 22,
               },
               '.arrow': {
                 color: 'text.secondary',
@@ -59,8 +78,8 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange }) => {
             }}
           >
             <BsCalendar3 fontSize={22} />
-            <StyledInput {...inputProps} readOnly placeholder='Pick-up date' />
-            <HiChevronDown fontSize={20} className='arrow' />
+            <StyledInput {...inputProps} readOnly placeholder={placeholder} />
+            <HiChevronDown fontSize={22} className='arrow' />
           </Stack>
         </Button>
       )}
@@ -71,7 +90,9 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange }) => {
 
 const StyledInput = styled('input')(({ theme }) => ({
   border: 'none',
-  width: '160px',
+  width: '100%',
+  // width: '100%',
+  // maxWidth: 200,
   fontSize: 15,
   userSelect: 'none',
   outline: 'none',
@@ -80,6 +101,11 @@ const StyledInput = styled('input')(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontWeight: 600,
   fontFamily: theme.typography.fontFamily,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: '...',
+  WebkitBoxOrient: 'vertical',
 
   '&::placeholder': {
     color: theme.palette.text.secondary,

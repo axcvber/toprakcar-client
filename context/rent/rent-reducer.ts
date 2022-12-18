@@ -1,7 +1,8 @@
 import { RentState } from './rent-context'
 
 export enum RentActionKind {
-  SET_LOCATION = 'SET_LOCATION',
+  SET_PICK_UP_LOCATION = 'SET_PICK_UP_LOCATION',
+  SET_DROP_OFF_LOCATION = 'SET_DROP_OFF_LOCATION',
   SET_PICK_UP_DATE = 'SET_PICK_UP_DATE',
   SET_DROP_OFF_DATE = 'SET_DROP_OFF_DATE',
   SET_CURRENT_STEP = 'SET_CURRENT_STEP',
@@ -18,10 +19,17 @@ type Action = {
 const rentFilterReducer = (state: RentState, action: Action): RentState => {
   const { type, payload } = action
   switch (type) {
-    case RentActionKind.SET_LOCATION:
+    case RentActionKind.SET_PICK_UP_LOCATION:
       return {
         ...state,
-        location: payload,
+        pickUpLocation: payload,
+        dropOffLocation: state.dropOffLocation ? state.dropOffLocation : payload,
+      }
+
+    case RentActionKind.SET_DROP_OFF_LOCATION:
+      return {
+        ...state,
+        dropOffLocation: payload,
       }
 
     case RentActionKind.SET_PICK_UP_DATE:

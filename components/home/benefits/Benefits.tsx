@@ -2,108 +2,29 @@ import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 import React from 'react'
 import Heading from '../../Heading'
 import IconBox from '../../IconBox'
-import { ImPriceTags } from 'react-icons/im'
-import { MdElectricalServices, MdPayments } from 'react-icons/md'
-import { BiSupport } from 'react-icons/bi'
-import { RiMedal2Fill, RiMoneyDollarCircleFill } from 'react-icons/ri'
 import Image from 'next/image'
 import AdditionalBenefits from './AdditionalBenefits'
-import { TbEngine, TbManualGearbox } from 'react-icons/tb'
-import { BsThermometerSnow } from 'react-icons/bs'
-import { CiCircleMore } from 'react-icons/ci'
-import { CgMoreO } from 'react-icons/cg'
+import { ComponentHomeBenefits } from '../../../generated'
 
-type LinePlacement = 'top-left' | 'middle-left' | 'bottom-left' | 'right-top' | 'right-middle' | 'right-bottom'
-
-const addBenefits = [
-  {
-    id: 1,
-    icon: <TbEngine />,
-    label: 'Engine',
-  },
-  {
-    id: 2,
-    icon: <TbManualGearbox />,
-    label: 'Transmission',
-  },
-  {
-    id: 3,
-    icon: <MdElectricalServices />,
-    label: 'Electrical',
-  },
-  {
-    id: 4,
-    icon: <BsThermometerSnow />,
-    label: 'Cooling',
-  },
-  {
-    id: 5,
-    icon: <CgMoreO />,
-    label: '10+ More',
-  },
-]
-
-const leftSideData = [
-  {
-    id: 1,
-    icon: <ImPriceTags />,
-    label: 'Competitive Pricing',
-    placement: 'top-left' as LinePlacement,
-  },
-  {
-    id: 2,
-    icon: <RiMoneyDollarCircleFill />,
-    label: 'Easier Rent On Your Budget',
-    placement: 'middle-left' as LinePlacement,
-  },
-  {
-    id: 3,
-    icon: <MdPayments />,
-    label: 'Most Flexible Payment Plans',
-    placement: 'bottom-left' as LinePlacement,
-  },
-]
-
-const rightSideData = [
-  {
-    id: 4,
-    icon: <ImPriceTags />,
-    label: 'The Best Extended Auto Warranties',
-    placement: 'top-left' as LinePlacement,
-  },
-  {
-    id: 5,
-    icon: <BiSupport />,
-    label: 'Roadside Assistance 24/7',
-    placement: 'middle-left' as LinePlacement,
-  },
-  {
-    id: 6,
-    icon: <RiMedal2Fill />,
-    label: 'Your Choise Of Mechanic',
-    placement: 'bottom-left' as LinePlacement,
-  },
-]
-
-const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ placement, rightSide }) => {
+const Line: React.FC<{ placement: number; rightSide?: boolean }> = ({ placement, rightSide }) => {
   let path = '/top-line.png'
   let width
   let height
 
   switch (placement) {
-    case 'top-left':
+    case 0:
       path = '/top-line.png'
       width = 225
       height = 149
       break
 
-    case 'middle-left':
+    case 1:
       path = '/middle-line.png'
       width = 248
       height = 15
       break
 
-    case 'bottom-left':
+    case 2:
       path = '/bottom-line.png'
       width = 150
       height = 15
@@ -118,7 +39,6 @@ const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ pla
       sx={{
         transform: rightSide ? 'scaleX(-1)' : 'none',
         display: 'block',
-        // background: 'red',
         width: { sm: '130px', lg: '180px' },
         position: 'absolute',
         top: 25,
@@ -132,13 +52,18 @@ const Line: React.FC<{ placement: LinePlacement; rightSide?: boolean }> = ({ pla
   )
 }
 
-const Benefits = () => {
+interface IBenefits {
+  data: ComponentHomeBenefits
+}
+
+const Benefits: React.FC<IBenefits> = ({ data }) => {
   return (
     <Container>
       <Heading
         width={450}
-        desc={'You cannot put a price on your family’s safety and security on the road. Find a lower price?'}
-        title='We Are Ensuring The Best Customer Experience'
+        title={data.benefitsHeading.title}
+        label={data.benefitsHeading.label}
+        desc={data.benefitsHeading.description}
         align='center'
       />
       <Box
@@ -150,13 +75,13 @@ const Benefits = () => {
         }}
       >
         <Stack spacing={5} justifyContent='space-around'>
-          {leftSideData.map((item) => (
-            <Stack key={item.id} position='relative'>
+          {data.leftSide.map((item, inx: number) => (
+            <Stack key={item?.id} position='relative'>
               <Stack spacing={2} maxWidth={150}>
-                <IconBox icon={item.icon} variant='small' />
-                <Typography fontWeight={600}>{item.label}</Typography>
+                <IconBox icon={item?.icon.data?.attributes?.url} variant='small' />
+                <Typography fontWeight={600}>{item?.title}</Typography>
               </Stack>
-              <Line placement={item.placement} />
+              <Line placement={inx} />
             </Stack>
           ))}
         </Stack>
@@ -167,18 +92,20 @@ const Benefits = () => {
             height={900}
             layout='responsive'
             objectFit='contain'
-            src='https://res.cloudinary.com/doea7ahfk/image/upload/v1667158574/Image_p5dapl.png'
-            alt='car'
+            placeholder='blur'
+            blurDataURL={data.image.data?.attributes?.url || ''}
+            src={data.image.data?.attributes?.url || ''}
+            alt={data.image.data?.attributes?.alternativeText || ''}
           />
         </Box>
 
         <Stack spacing={5} justifyContent='space-around'>
-          {rightSideData.map((item) => (
-            <Stack key={item.id} direction='row' position='relative'>
-              <Line rightSide placement={item.placement} />
+          {data.rightSide.map((item, inx: number) => (
+            <Stack key={item?.id} direction='row' position='relative'>
+              <Line rightSide placement={inx} />
               <Stack spacing={2} maxWidth={150} alignItems='flex-end' textAlign={'right'}>
-                <IconBox icon={item.icon} variant='small' />
-                <Typography fontWeight={600}>{item.label}</Typography>
+                <IconBox icon={item?.icon.data?.attributes?.url} variant='small' />
+                <Typography fontWeight={600}>{item?.title}</Typography>
               </Stack>
             </Stack>
           ))}
@@ -194,29 +121,29 @@ const Benefits = () => {
           pt: 4,
         }}
       >
-        {leftSideData.map((item) => (
-          <Grid key={item.id} item xs={6} sm={4}>
+        {data.leftSide.map((item) => (
+          <Grid key={item?.id} item xs={6} sm={4}>
             <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
-              <IconBox icon={item.icon} rounded />
-              <Typography fontWeight={600} variant='body2'>
-                {item.label}
+              <IconBox icon={item?.icon.data?.attributes?.url} rounded />
+              <Typography fontWeight={600} variant='body2' maxWidth={150}>
+                {item?.title}
               </Typography>
             </Stack>
           </Grid>
         ))}
-        {rightSideData.map((item) => (
-          <Grid key={item.id} item xs={6} sm={4}>
+        {data.rightSide.map((item) => (
+          <Grid key={item?.id} item xs={6} sm={4}>
             <Stack spacing={2} justifyContent='center' alignItems='center' textAlign={'center'}>
-              <IconBox icon={item.icon} rounded />
-              <Typography fontWeight={600} variant='body2'>
-                {item.label}
+              <IconBox icon={item?.icon.data?.attributes?.url} rounded />
+              <Typography fontWeight={600} variant='body2' maxWidth={150}>
+                {item?.title}
               </Typography>
             </Stack>
           </Grid>
         ))}
       </Grid>
       <Box display={{ xs: 'none', md: 'block' }} my={3}>
-        <AdditionalBenefits data={addBenefits} />
+        <AdditionalBenefits data={data.additionalBenefits} />
       </Box>
     </Container>
   )

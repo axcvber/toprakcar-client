@@ -1,13 +1,14 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import Line from '../styles/shared/Line'
+import { Maybe } from '../generated'
 
 interface IHeading {
-  label?: string
+  label?: Maybe<string>
   title: string
   align?: 'left' | 'center'
   width?: number
-  desc?: string
+  desc?: Maybe<string>
   withLine?: boolean
 }
 

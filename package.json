@@ -17,6 +17,10 @@
     "@emotion/styled": "^11.10.4",
     "@fontsource/montserrat": "^4.5.13",
     "@fontsource/roboto": "^4.5.8",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/resolvers": "^2.9.10",
     "@mui/material": "^5.10.10",
     "@mui/x-date-pickers": "^5.0.5",
@@ -29,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.7",
     "react-icons": "^4.6.0",
+    "react-inlinesvg": "^3.0.1",
     "react-markdown": "^8.0.4",
     "swiper": "^8.4.4",
     "yup": "^0.32.11"

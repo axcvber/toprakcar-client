@@ -5,6 +5,8 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { BsCalendarCheckFill, BsCalendarDateFill } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
 import IconBox from '../../IconBox'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ComponentHomeSteps } from '../../../generated'
 
 const data = [
   {
@@ -27,10 +29,20 @@ const data = [
   },
 ]
 
-const Steps = () => {
+interface ISteps {
+  data: ComponentHomeSteps
+}
+
+const Steps: React.FC<ISteps> = ({ data }) => {
   return (
     <Container sx={{ pt: 6, pb: 10 }}>
-      <Heading label={'How it works'} title='Rentgo following 3 working Steps' align='center' />
+      <Heading
+        label={data.stepsHeading.label}
+        title={data.stepsHeading.title}
+        desc={data.stepsHeading.description}
+        align='center'
+      />
+
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         justifyContent={'space-between'}
@@ -38,15 +50,15 @@ const Steps = () => {
         mt={8}
         spacing={{ xs: 10, md: 0 }}
       >
-        {data.map((item, inx) => (
-          <React.Fragment key={item.id}>
+        {data.stepOptions.map((item, inx) => (
+          <React.Fragment key={item?.id}>
             <Stack alignItems={'center'} sx={{ textAlign: 'center', maxWidth: '250px' }}>
-              <IconBox isActive={inx === 1} icon={item.icon} variant='large' />
+              <IconBox isActive={inx === 1} icon={item?.icon.data?.attributes?.url || ''} variant='large' />
               <Typography variant='h6' fontWeight={600} mt={2}>
-                {item.title}
+                {item?.title}
               </Typography>
               <Typography mt={1} fontSize='15px'>
-                {item.subtitle}
+                {item?.description}
               </Typography>
             </Stack>
             {inx <= 1 && (

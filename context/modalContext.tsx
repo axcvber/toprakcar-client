@@ -1,37 +1,46 @@
-import React, { useState, createContext, useContext, ReactChild } from 'react'
+import React, { useState, createContext, ReactNode } from 'react'
+import RentCarInfoModal from '../components/modals/RentCarInfoModal'
 import SearchModal from '../components/modals/SearchModal'
+import ShopSidebarModal from '../components/modals/ShopSidebarModal'
+import ShopWorkStepsModal from '../components/modals/ShopWorkStepsModal'
 
 export enum MODAL_TYPES {
   SEARCH_MODAL = 'SEARCH_MODAL',
-  RENT_INFO_MODAL = 'RENT_INFO_MODAL',
-  SALE_CAR_INFO = 'SEARCH_MODAL',
-  SHOP_STEPS = 'SHOP_STEPS',
+  RENT_CAR_INFO_MODAL = 'RENT_CAR_INFO_MODAL',
+  SHOP_SIDEBAR_MODAL = 'SHOP_SIDEBAR_MODAL',
+  SHOP_WORK_STEPS = 'SHOP_WORK_STEPS',
 }
 
 const MODAL_COMPONENTS: any = {
   [MODAL_TYPES.SEARCH_MODAL]: SearchModal,
+  [MODAL_TYPES.RENT_CAR_INFO_MODAL]: RentCarInfoModal,
+  [MODAL_TYPES.SHOP_SIDEBAR_MODAL]: ShopSidebarModal,
+  [MODAL_TYPES.SHOP_WORK_STEPS]: ShopWorkStepsModal,
 }
 
 interface IModalContext {
-  showModal: (modalType: string) => void
+  showModal: (modalType: string, modalProps?: any) => void
   hideModal: () => void
   modalType?: string
+  modalProps: any
   isOpen: boolean
 }
 
 //@ts-ignore
 const ModalContext = createContext<IModalContext>({})
 
-const ModalProvider: React.FC<{ children: ReactChild }> = ({ children }) => {
+const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, setState] = useState({
     modalType: '',
+    modalProps: {},
     isOpen: false,
   })
 
-  const showModal = (modalType: string) => {
+  const showModal = (modalType: string, modalProps: any = {}) => {
     setState({
       ...state,
       modalType,
+      modalProps,
       isOpen: true,
     })
   }
@@ -39,6 +48,7 @@ const ModalProvider: React.FC<{ children: ReactChild }> = ({ children }) => {
   const hideModal = () => {
     setState({
       ...state,
+      // modalProps: {},
       isOpen: false,
     })
   }
@@ -48,11 +58,11 @@ const ModalProvider: React.FC<{ children: ReactChild }> = ({ children }) => {
     if (!ModalComponent) {
       return null
     }
-    return <ModalComponent />
+    return <ModalComponent {...state.modalProps} />
   }
 
   return (
-    <ModalContext.Provider value={{ isOpen: state.isOpen, showModal, hideModal }}>
+    <ModalContext.Provider value={{ isOpen: state.isOpen, modalProps: state.modalProps, showModal, hideModal }}>
       {renderComponent()}
       {children}
     </ModalContext.Provider>

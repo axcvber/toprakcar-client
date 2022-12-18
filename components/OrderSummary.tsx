@@ -12,7 +12,7 @@ import { BiCar, BiSupport } from 'react-icons/bi'
 import { BsSpeedometer2 } from 'react-icons/bs'
 
 const OrderSummary = () => {
-  const { location, setCurrentStep, selectedCar, dropOffDate, pickUpDate, orderSummary } = useRentContext()
+  const { pickUpLocation, dropOffLocation, selectedCar, dropOffDate, pickUpDate, orderSummary } = useRentContext()
 
   return (
     <Paper>
@@ -23,8 +23,8 @@ const OrderSummary = () => {
               Ride Details
             </Typography>
             <Divider />
-            <LocationItem title={'Pick Up'} address={location?.address} date={pickUpDate?.format('LLL')} />
-            <LocationItem title={'Drop Off'} address={location?.address} date={dropOffDate?.format('LLL')} />
+            <LocationItem title={'Pick Up'} address={pickUpLocation?.address} date={pickUpDate?.format('LLL')} />
+            <LocationItem title={'Drop Off'} address={dropOffLocation?.address} date={dropOffDate?.format('LLL')} />
           </Stack>
         </Grid>
         <Grid item xs={12} md={5} lg={6}>

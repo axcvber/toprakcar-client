@@ -1,188 +1,176 @@
-import { Box, Button, Stack, Typography, Divider } from '@mui/material'
-import React, { forwardRef, useState } from 'react'
+import { Box, Button, Stack, Typography, Divider, Grid } from '@mui/material'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import TextField from '@mui/material/TextField'
 import dayjs, { Dayjs } from 'dayjs'
-import Dropdown from './Dropdown'
-import { IoLocationSharp } from 'react-icons/io5'
-import { HiChevronDown } from 'react-icons/hi'
-import { BsCalendar3 } from 'react-icons/bs'
 import DatePicker from './DatePicker'
-import InputAdornment from '@mui/material/InputAdornment'
 import { LocationEntity, useGetLocationsLazyQuery } from '../generated'
 import { useRentContext } from '../context/rent/rent-context'
+import { useRouter } from 'next/router'
+import DropdownItem from './dropdown/DropdownItem'
+import Alert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import LocationDropdown from './dropdown/LocationDropdown'
 
-const data = [
-  {
-    id: 1,
-    location: 'Adana Hava Limanı İç Hatlar',
-  },
-  {
-    id: 2,
-    location: 'Adana Otobüs Terminali',
-  },
-  {
-    id: 3,
-    location: 'Antalya Hava Limanı Dış Hatlar',
-  },
-  {
-    id: 4,
-    location: 'Alanya Hava Limanı',
-  },
-  {
-    id: 5,
-    location: 'Gaziantep Hava Limanı İç Hatlar',
-  },
-  {
-    id: 6,
-    location: 'Muğla Dalaman',
-  },
-  {
-    id: 7,
-    location: 'Kahramanmaraş',
-  },
-  {
-    id: 8,
-    location: 'Kayseri Merkez',
-  },
-  {
-    id: 9,
-    location: 'Adana Hava Limanı İç Hatlar',
-  },
-  {
-    id: 10,
-    location: 'Adana Otobüs Terminali',
-  },
-  {
-    id: 11,
-    location: 'Antalya Hava Limanı Dış Hatlar',
-  },
-  {
-    id: 12,
-    location: 'Alanya Hava Limanı',
-  },
-  {
-    id: 13,
-    location: 'Gaziantep Hava Limanı İç Hatlar',
-  },
-  {
-    id: 14,
-    location: 'Muğla Dalaman',
-  },
-  {
-    id: 15,
-    location: 'Kahramanmaraş',
-  },
-  {
-    id: 16,
-    location: 'Kayseri Merkez',
-  },
-]
+const schema = yup.object().shape({
+  pickUpLocation: yup.object().required(),
+  pickUpDate: yup.date().min(new Date(), 'Please choose future date'),
+  dropOffDate: yup.date().when('pickUpDate', (pickUpDate, schema) => {
+    if (pickUpDate) {
+      const dayAfter = new Date(pickUpDate.getTime() + 86400000)
 
-interface ISearch {
-  forModal?: boolean
+      return schema.min(dayAfter, 'End date has to be after than start date')
+    }
+
+    return schema
+  }),
+})
+
+// const schema = yup
+//   .object({
+//     pickUpLocation: yup.object().required(),
+//     pickUpDate: yup.date().required(),
+//     dropOffDate: yup.date().test('same_dates_test', 'Start and end dates must not be equal.', function (value: any) {
+//       const { startDate } = this.parent
+//       return value.getTime() !== startDate.getTime()
+//     }),
+//   })
+//   .required()
+
+interface ISearchInputs {
+  pickUpLocation: LocationEntity
+  pickUpDate: Dayjs
+  dropOffDate: Dayjs
 }
 
-const Search: React.FC<ISearch> = ({ forModal }) => {
-  const { location, pickUpDate, dropOffDate, setLocation, setPickUpDate, setDropOffDate } = useRentContext()
+const Search = () => {
+  const { pickUpLocation, pickUpDate, dropOffDate, setPickUpLocation, setPickUpDate, setDropOffDate } = useRentContext()
+  const router = useRouter()
+  const [open, setOpen] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
 
-  const handleSearch = () => {
-    // if (pickUpDate >= dropOffDate) {
-    //   alert('dalboeb')
-    // }
-    console.log('totalDayse', dropOffDate?.diff(pickUpDate, 'days'))
-    console.log('pickUpDate', pickUpDate?.format('L LT'))
-    console.log('dropOffDate', dropOffDate?.format('L LT'))
-  }
-
-  const [getLocations, { loading, error, data }] = useGetLocationsLazyQuery({
-    notifyOnNetworkStatusChange: true,
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting, isSubmitSuccessful, errors },
+    getValues,
+    watch,
+  } = useForm<ISearchInputs>({
+    resolver: yupResolver(schema),
   })
 
-  const onSelectLocation = (option: LocationEntity) => {
-    if (option.id && option.attributes) {
-      setLocation({
-        id: option.id,
-        address: option.attributes?.address,
-      })
+  const pickUpLocationTrigger = watch('pickUpLocation')
+
+  useEffect(() => {
+    if (errors.dropOffDate?.message) {
+      setErrorMessage(errors.dropOffDate?.message)
+      setOpen(true)
     }
+  }, [errors])
+
+  const handleClick = () => {
+    setOpen(true)
   }
 
-  const handlePickUpDateChange = (newValue: Dayjs | null) => {
-    setPickUpDate(newValue)
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
   }
 
-  const handleDropOffDateChange = (newValue: Dayjs | null) => {
-    setDropOffDate(newValue)
+  const handleSelectPickUpLocation = (option: LocationEntity) => {
+    setValue('pickUpLocation', option)
   }
 
-  // if (forModal) {
-  //   return (
-  //     <Stack spacing={2}>
-  //       <Dropdown
-  //         title={sortTitle}
-  //         icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-  //         menu={data.map((item) => (
-  //           <Box key={item.id} onClick={() => onSelectSort(item.location)}>
-  //             {item.location}
-  //           </Box>
-  //         ))}
-  //       />
-
-  //       <DatePicker />
-  //       <DatePicker />
-  //     </Stack>
-  //   )
+  // if(!location) {
+  //   setErrorMessage('Select Location')
   // }
 
-  return (
-    <Stack
-      direction={{ xs: 'column', md: 'row' }}
-      justifyContent='space-between'
-      alignItems='center'
-      width={'100%'}
-      gap={3}
-      sx={{
-        background: '#fff',
-        borderRadius: 3,
-        p: 2,
-        boxShadow: 12,
-      }}
-    >
-      <Box>
-        <Dropdown
-          title={location?.address || 'Choose a location'}
-          onTriggerClick={getLocations}
-          icon={<IoLocationSharp fontSize={24} color='#FF8A5D' />}
-          menu={
-            data?.locations?.data
-              ? data?.locations?.data.map((item) => (
-                  <Box key={item.id} width={'100%'} onClick={() => onSelectLocation(item)} px={2} py={1}>
-                    {item.attributes?.address}
-                  </Box>
-                ))
-              : []
-          }
-        />
-      </Box>
-      <Box>
-        <DatePicker value={pickUpDate} handleChange={handlePickUpDateChange} />
-      </Box>
+  // handleClick()
+  // if(router.pathname === '/') {
+  //   router.push('/fleet')
+  // }
+  const onSubmit: SubmitHandler<ISearchInputs> = (data) => {
+    console.log('SearchformModalData', data)
 
-      <Box>
-        <DatePicker value={dropOffDate} handleChange={handleDropOffDateChange} />
-      </Box>
-      <Button
-        onClick={handleSearch}
-        startIcon={<FiSearch />}
-        variant='contained'
-        size='extra'
-        sx={{ color: '#fff', fontSize: 18, px: 6 }}
+    console.log(
+      'test',
+      dayjs(data.pickUpDate)
+        .locale(router.locale as string)
+        .format('LLL')
+    )
+
+    setPickUpLocation({
+      id: data.pickUpLocation.id as any,
+      address: data.pickUpLocation.attributes?.address as any,
+    })
+    setPickUpDate(data.pickUpDate)
+    setDropOffDate(data.dropOffDate)
+  }
+
+  return (
+    <>
+      <Stack
+        component={'form'}
+        onSubmit={handleSubmit(onSubmit)}
+        direction={{ xs: 'column', md: 'row' }}
+        justifyContent='space-between'
+        alignItems={{ xs: 'stretch', md: 'center' }}
+        gap={3}
+        sx={{
+          background: '#fff',
+          borderRadius: 3,
+          p: 2,
+          boxShadow: 12,
+          margin: 'auto',
+          border: '2px solid',
+          borderColor: 'error.main',
+        }}
       >
-        Search
-      </Button>
-    </Stack>
+        <Box>
+          <LocationDropdown
+            title={pickUpLocationTrigger?.attributes?.address || 'Choose a location'}
+            onSelectLocation={handleSelectPickUpLocation}
+          />
+        </Box>
+        <Controller
+          name='pickUpDate'
+          control={control}
+          render={({ field }) => (
+            <DatePicker value={field.value} handleChange={field.onChange} placeholder='Pick-up date' />
+          )}
+        />
+
+        <Controller
+          name='dropOffDate'
+          control={control}
+          render={({ field }) => (
+            <DatePicker value={field.value} handleChange={field.onChange} placeholder='Drop-off date' />
+          )}
+        />
+
+        <Button
+          type='submit'
+          startIcon={<FiSearch />}
+          variant='contained'
+          size='extra'
+          sx={{ color: '#fff', fontSize: 18, px: 6, alignSelf: 'stretch' }}
+        >
+          Search
+        </Button>
+      </Stack>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} variant='filled' severity='error' sx={{ width: '100%' }}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
+    </>
   )
 }
 

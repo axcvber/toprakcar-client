@@ -6,9 +6,8 @@ import { GrOverview } from 'react-icons/gr'
 import { MdOutlineFeaturedPlayList } from 'react-icons/md'
 import { FiAlertTriangle, FiClipboard, FiThermometer } from 'react-icons/fi'
 import { ComponentVehicleOverview, ComponentVehicleVehicleFeatures, Maybe } from '../../../generated'
-import ReactMarkdown from 'react-markdown'
-import Markdown from '../../Markdown'
 import { styled } from '@mui/material/styles'
+import { Markdown } from '../../Markdown'
 
 interface IVehicleDetails {
   vehicleOverviews: Maybe<ComponentVehicleOverview>[]

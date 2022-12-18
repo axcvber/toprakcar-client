@@ -26,15 +26,21 @@ const Hero: React.FC<IHero> = ({ data }) => {
             <Stack spacing={4} direction={{ xs: 'column', md: 'column' }}>
               <Stack spacing={3} px={{ xs: 1, md: 0 }}>
                 <Typography variant={'h2'} fontWeight={800} textTransform='uppercase'>
-                  {data.title}
+                  {data?.title}
                 </Typography>
                 <Line />
                 <Typography width={{ xs: '100%', md: '70%' }} fontWeight={400} color='text.primary'>
-                  {data.description}
+                  {data?.description}
                 </Typography>
               </Stack>
 
-              <Box zIndex={2} pt={0} width={{ xs: '100%', md: '850px', lg: '1000px' }}>
+              <Box
+                zIndex={2}
+                pt={0}
+                // display='flex'
+                // alignItems='stretch'
+                width={{ xs: '100%', md: '850px', lg: '1000px' }}
+              >
                 <Search />
               </Box>
             </Stack>
@@ -78,7 +84,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
                   width: '100%',
                   height: 'auto',
                 }}
-                src={data.image.data?.attributes?.url || ''}
+                src={data?.image.data?.attributes?.url || ''}
 
                 // src='https://res.cloudinary.com/doea7ahfk/image/upload/v1666896487/40451b669eb48a0ef7ef8844e9b8320b_1_kovycf.png'
               />

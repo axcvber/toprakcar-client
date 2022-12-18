@@ -1,5 +1,5 @@
-query HomePage {
-  homePage {
+query HomePage($locale: I18NLocaleCode) {
+  homePage(locale: $locale) {
     data {
       attributes {
         hero {
@@ -12,6 +12,135 @@ query HomePage {
                 alternativeText
               }
             }
+          }
+        }
+        brands {
+          images {
+            data {
+              id
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+        steps {
+          stepsHeading {
+            title
+            label
+            description
+          }
+          stepOptions {
+            id
+            title
+            description
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+          }
+        }
+        services {
+          servicesHeading {
+            title
+            label
+            description
+          }
+          serviceOptions {
+            title
+            description
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+          }
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+        }
+        fleets {
+          fleetsHeading {
+            title
+            label
+            description
+          }
+        }
+        benefits {
+          benefitsHeading {
+            title
+            label
+            description
+          }
+          leftSide {
+            id
+            title
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+          }
+          image {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          rightSide {
+            id
+            title
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+          }
+          additionalBenefits {
+            id
+            title
+            icon {
+              data {
+                attributes {
+                  url
+                  alternativeText
+                }
+              }
+            }
+          }
+        }
+        faq {
+          id
+          faqHeading {
+            title
+            label
+            description
+          }
+          faqItem {
+            id
+            question
+            answer
           }
         }
       }

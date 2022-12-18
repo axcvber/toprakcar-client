@@ -15,17 +15,17 @@ interface IReservationPage {
 
 const ReservationPage: NextPage<IReservationPage> = ({ filters }) => {
   const { setFilterData } = useShopFilterContext()
-  const { location } = useRentContext()
+  const { pickUpLocation } = useRentContext()
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (!location) {
-  //     router.replace('/fleet')
-  //   }
-  //   setFilterData(filters)
-  // }, [router, location])
+  useEffect(() => {
+    if (!pickUpLocation) {
+      router.replace('/fleet')
+    }
+    setFilterData(filters)
+  }, [router, pickUpLocation])
 
-  if (!location) {
+  if (!pickUpLocation) {
     return (
       <Stack width={'100%'} minHeight={'100vh'} justifyContent='center' alignItems='center'>
         <CircularProgress />

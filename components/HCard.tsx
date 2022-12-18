@@ -8,21 +8,28 @@ import { FiBarChart } from 'react-icons/fi'
 import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
 import { TbEngine, TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { BsSpeedometer2 } from 'react-icons/bs'
+import { useModal } from '../hooks/useModal'
+import { MODAL_TYPES } from '../context/modalContext'
 
 interface IHCard {
-  // id: number
-  // imageUrl: string
-  // name: string
-  // price: string
-  // options: any
   item: RentCarEntity
   handleSelect: () => void
 }
 
 const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
+  const { showModal } = useModal()
+
+  const showMoreInfo = (title?: string, content?: string) => {
+    showModal(MODAL_TYPES.RENT_CAR_INFO_MODAL, {
+      title,
+      content,
+    })
+  }
+
   return (
     <Stack
       direction={{ xs: 'column', lg: 'row' }}
+      alignItems='flex-start'
       spacing={3}
       p={2.5}
       sx={{
@@ -53,13 +60,7 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
         />
       </Box>
       <Stack width={'100%'} flex={1} spacing={3}>
-        <Stack
-          direction={{ xs: 'column', lg: 'row' }}
-          justifyContent='space-between'
-          alignItems='flex-start'
-          // sx={{ background: 'red' }}
-          gap={3}
-        >
+        <Stack direction={{ xs: 'column', lg: 'row' }} justifyContent='space-between' alignItems='flex-start' gap={3}>
           <div>
             <Typography variant='h6' fontWeight={600} mb={1}>
               {item.attributes?.name}
@@ -76,7 +77,12 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
             justifyContent='flex-end'
             flexWrap='wrap-reverse'
           >
-            <Button size={'large'} variant='outlined' startIcon={<AiOutlineInfoCircle />}>
+            <Button
+              size={'large'}
+              variant='outlined'
+              startIcon={<AiOutlineInfoCircle />}
+              onClick={() => showMoreInfo(item.attributes?.name, item.attributes?.moreInfo)}
+            >
               More Info
             </Button>
             <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={handleSelect}>

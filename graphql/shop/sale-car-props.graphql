@@ -17,6 +17,13 @@ query GetSaleCarProps($slug: String, $locale: I18NLocaleCode) {
         sidebarOptions {
           id
           label
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
           modalContent
         }
         vehicleOverviews {

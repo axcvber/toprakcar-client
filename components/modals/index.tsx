@@ -1,17 +1,14 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { ReactNode } from 'react'
-import { Box } from '@mui/material'
-import { GrClose } from 'react-icons/gr'
-import { IconButton } from '@mui/material'
 import { IoClose } from 'react-icons/io5'
+import Slide from '@mui/material/Slide'
+import { TransitionProps } from '@mui/material/transitions'
 interface IModal {
   open: boolean
   onClose: () => void
@@ -21,12 +18,13 @@ interface IModal {
 
 const Modal: React.FC<IModal> = ({ open, children, onClose, title }) => {
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
+  // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Dialog
-      fullScreen={fullScreen}
+      // fullScreen={fullScreen}
       open={open}
+      // TransitionComponent={Transition}
       onClose={onClose}
       aria-labelledby='responsive-dialog-title'
       sx={{
@@ -42,8 +40,8 @@ const Modal: React.FC<IModal> = ({ open, children, onClose, title }) => {
         size='small'
         sx={{
           position: 'absolute',
-          top: 15,
-          right: 15,
+          top: 18,
+          right: 24,
           minWidth: 'auto',
           display: 'flex',
           p: 0.3,
@@ -52,18 +50,18 @@ const Modal: React.FC<IModal> = ({ open, children, onClose, title }) => {
       >
         <IoClose fontSize={22} />
       </Button>
-      <DialogTitle id='responsive-dialog-title' sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
+      <DialogTitle sx={{ borderBottom: '1px solid', borderColor: 'divider', fontWeight: 600, color: 'text.primary' }}>
         {title}
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={onClose}>
-          Cancel
-        </Button>
-        <Button onClick={onClose} autoFocus>
-          Search
-        </Button>
-      </DialogActions>
+      <DialogContent
+        sx={{
+          width: '100%',
+          padding: '16px 24px !important',
+          overflowX: 'hidden',
+        }}
+      >
+        {children}
+      </DialogContent>
     </Dialog>
   )
 }

@@ -1,10 +1,11 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
+import SVG from 'react-inlinesvg'
 
 type IconBoxVariants = 'small' | 'medium' | 'large'
 
 interface IconBoxProps {
-  icon: JSX.Element
+  icon?: string
   isActive?: boolean
   variant?: IconBoxVariants
   rounded?: boolean
@@ -13,7 +14,7 @@ interface IconBoxProps {
 const IconBox: React.FC<IconBoxProps> = ({ icon, isActive, variant = 'medium', rounded }) => {
   return (
     <StyledBox variant={variant} isActive={isActive} rounded={rounded}>
-      {icon}
+      <SVG src={icon || ''} />
     </StyledBox>
   )
 }
@@ -31,7 +32,8 @@ const StyledBox = styled('div', {
   alignItems: 'center',
   color: theme.palette.primary.main,
   'svg': {
-    fontSize: '35px',
+    width: '35px',
+    height: '35px',
   },
   ...(variant === 'small' && {
     minWidth: '65px',
@@ -39,7 +41,8 @@ const StyledBox = styled('div', {
     height: '65px',
     borderRadius: 10,
     'svg': {
-      fontSize: '25px',
+      width: '25px',
+      height: '25px',
     },
   }),
   ...(variant === 'large' && {
@@ -47,7 +50,8 @@ const StyledBox = styled('div', {
     height: '100px',
     borderRadius: 20,
     'svg': {
-      fontSize: '35px',
+      width: '35px',
+      height: '35px',
     },
   }),
   ...(isActive && {

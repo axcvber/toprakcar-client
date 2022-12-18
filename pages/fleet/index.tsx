@@ -29,14 +29,12 @@ const FleetPage: NextPage<IFleetPage> = ({ filters }) => {
   return (
     <Container maxWidth='xl'>
       <ImageHeading>
-        <Box width={1200}>
-          <Search />
-        </Box>
+        <Search />
       </ImageHeading>
 
       <RentCarsList />
 
-      <RentSteps />
+      {/* <RentSteps /> */}
     </Container>
   )
 }

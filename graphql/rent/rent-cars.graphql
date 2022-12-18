@@ -64,6 +64,7 @@ query RentCars(
           }
         }
         passengers
+        moreInfo
       }
     }
     meta {

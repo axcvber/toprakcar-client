@@ -1,40 +1,35 @@
 import React from 'react'
-import Button from '@mui/material/Button'
+import { LocationEntity, useGetLocationsLazyQuery } from '../../generated'
+import { Box, Button, Stack, Typography } from '@mui/material'
+import { IoLocationSharp } from 'react-icons/io5'
+import { HiChevronDown } from 'react-icons/hi'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import MenuItem from '@mui/material/MenuItem'
 import MenuList from '@mui/material/MenuList'
-import Stack from '@mui/material/Stack'
-import { Typography } from '@mui/material'
-import { HiChevronDown } from 'react-icons/hi'
-import Popover from '@mui/material/Popover'
 import Fade from '@mui/material/Fade'
-import Loader from './Loader'
 import Skeleton from '@mui/material/Skeleton'
-import { Box } from '@mui/material'
+import Loader from '../Loader'
 
-interface IDropdown {
+interface ILocationDropdown {
   title: string
-  icon?: JSX.Element
-  trigger?: any
-  menu?: any
-  onTriggerClick?: () => void
+  onSelectLocation: (option: LocationEntity) => void
   placement?: 'bottom-end' | 'bottom-start'
-  isContentLoading?: boolean
   width?: number
+  isError?: boolean
 }
 
-const Dropdown: React.FC<IDropdown> = ({
+const LocationDropdown: React.FC<ILocationDropdown> = ({
   title,
-  trigger,
-  menu,
-  width = '100%',
-  icon,
-  onTriggerClick,
-  placement = 'bottom-end',
-  isContentLoading,
+  onSelectLocation,
+  isError,
+  width = 200,
+  placement,
 }) => {
+  const [getLocations, { loading, error, data }] = useGetLocationsLazyQuery({
+    notifyOnNetworkStatusChange: true,
+  })
   const [selectedIndex, setSelectedIndex] = React.useState<number>()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLButtonElement>(null)
@@ -42,8 +37,8 @@ const Dropdown: React.FC<IDropdown> = ({
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
-    if (onTriggerClick) {
-      onTriggerClick()
+    if (!data) {
+      getLocations()
     }
   }
 
@@ -61,14 +56,6 @@ const Dropdown: React.FC<IDropdown> = ({
       setSelectedIndex(index)
     }, 500)
   }
-
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current!.focus()
-    }
-
-    prevOpen.current = open
-  }, [open])
 
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Tab') {
@@ -118,7 +105,7 @@ const Dropdown: React.FC<IDropdown> = ({
           }}
         >
           <Stack direction='row' spacing={1}>
-            {icon}
+            <IoLocationSharp fontSize={24} color='#FF8A5D' />
             <Typography noWrap fontWeight={600} fontSize={15} maxWidth={width} textAlign='left'>
               {title}
             </Typography>
@@ -167,10 +154,10 @@ const Dropdown: React.FC<IDropdown> = ({
                     p: 1,
                   }}
                 >
-                  {menu ? (
-                    menu.map((menuItem: any, inx: number) => (
+                  {data?.locations?.data ? (
+                    data.locations.data.map((item, inx: number) => (
                       <MenuItem
-                        key={inx}
+                        key={item.id}
                         selected={inx === selectedIndex}
                         disableGutters
                         sx={{
@@ -193,12 +180,19 @@ const Dropdown: React.FC<IDropdown> = ({
                           },
                         }}
                       >
-                        {React.cloneElement(menuItem, {
-                          onClick: (event: React.MouseEvent<HTMLElement>) => {
-                            menuItem.props.onClick()
+                        <Box
+                          component='span'
+                          key={item.id}
+                          width={'100%'}
+                          onClick={(event: React.MouseEvent<HTMLElement>) => {
+                            onSelectLocation(item)
                             handleMenuItemClick(event, inx)
-                          },
-                        })}
+                          }}
+                          px={2}
+                          py={1}
+                        >
+                          {item.attributes?.address}
+                        </Box>
                       </MenuItem>
                     ))
                   ) : (
@@ -218,4 +212,4 @@ const Dropdown: React.FC<IDropdown> = ({
   )
 }
 
-export default Dropdown
+export default LocationDropdown

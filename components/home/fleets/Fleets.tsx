@@ -11,6 +11,7 @@ import { FaCarAlt } from 'react-icons/fa'
 import { IoCarSportOutline } from 'react-icons/io5'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import dynamic from 'next/dynamic'
+import { ComponentHomeFleets } from '../../../generated'
 
 const FleetsNavigation = dynamic(() => import('./FleetsNavigation'), {
   ssr: false,
@@ -181,17 +182,22 @@ const data = [
   },
 ]
 
-const Fleets = () => {
+interface IFleets {
+  data: ComponentHomeFleets
+}
+
+const Fleets: React.FC<IFleets> = ({ data }) => {
   return (
     <Container sx={{ my: 8 }}>
       <Heading
         width={500}
-        label={'Our Fleets'}
-        title='Explore Our Top Deal From Top-Rated Dealer'
+        label={data.fleetsHeading.label}
+        title={data.fleetsHeading.title}
+        desc={data.fleetsHeading.description}
         align='center'
         withLine
       />
-      <Stack alignItems='center' mt={4} gap={3}>
+      {/* <Stack alignItems='center' mt={4} gap={3}>
         <FleetsNavigation />
         <Grid container spacing={3}>
           {data.map((item) => (
@@ -203,7 +209,7 @@ const Fleets = () => {
         <Button startIcon={<HiOutlineExternalLink />} variant='outlined' size='large'>
           More Vehicles
         </Button>
-      </Stack>
+      </Stack> */}
     </Container>
   )
 }

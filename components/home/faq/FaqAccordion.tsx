@@ -8,11 +8,11 @@ import { BsQuestionCircle } from 'react-icons/bs'
 import { Divider, Stack } from '@mui/material'
 
 interface IFaqAccordion {
-  id: number
-  title: string
-  content: string
-  expanded: number | boolean
-  onChange: (id: number) => (event: React.SyntheticEvent, isExpanded: boolean) => void
+  id?: string
+  title?: string
+  content?: string
+  expanded: string | boolean
+  onChange: (id?: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void
 }
 
 const FaqAccordion: React.FC<IFaqAccordion> = ({ id, title, content, expanded, onChange }) => {

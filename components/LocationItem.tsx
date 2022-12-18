@@ -5,8 +5,8 @@ import { BsCalendar3 } from 'react-icons/bs'
 
 interface ILocationItem {
   title: string
-  address: string
-  date: string
+  address?: string
+  date?: string
 }
 
 const LocationItem: React.FC<ILocationItem> = ({ title, address, date }) => {

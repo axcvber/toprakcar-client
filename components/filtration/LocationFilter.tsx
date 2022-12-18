@@ -3,9 +3,11 @@ import { Stack, Typography, Divider, Button } from '@mui/material'
 import LocationItem from '../LocationItem'
 import { useModal } from '../../hooks/useModal'
 import { MODAL_TYPES } from '../../context/modalContext'
+import { useRentContext } from '../../context/rent/rent-context'
 
 const LocationFilter = () => {
   const { showModal } = useModal()
+  const { pickUpLocation, dropOffLocation, pickUpDate, dropOffDate } = useRentContext()
 
   const onSearchModal = () => {
     showModal(MODAL_TYPES.SEARCH_MODAL)
@@ -28,8 +30,8 @@ const LocationFilter = () => {
         Prepare Reservation
       </Typography>
       <Divider />
-      <LocationItem title={'Pick Up'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 15 ,2022 00:00'} />
-      <LocationItem title={'Drop Off'} address={'Adana Hava Limanı İç Hatlar'} date={'Ekim 18 ,2022 00:00'} />
+      <LocationItem title={'Pick Up'} address={pickUpLocation?.address} date={pickUpDate?.format('LLL')} />
+      <LocationItem title={'Drop Off'} address={dropOffLocation?.address} date={dropOffDate?.format('LLL')} />
       <Button variant='contained' size='extra' onClick={onSearchModal}>
         Change Search
       </Button>

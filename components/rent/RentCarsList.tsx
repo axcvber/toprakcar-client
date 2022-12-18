@@ -21,7 +21,7 @@ interface IRentCarsList {
 const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   // const { filtered, deleteFilter, clearFilter } = useFilterContext()
   const { setFilterData, filtered, deleteFilter, clearFilter, carState } = useShopFilterContext()
-  const { location, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
+  const { pickUpLocation, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
 
   const router = useRouter()
   const { data, loading, error, refetch } = useRentCarsQuery({
@@ -35,14 +35,14 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
     console.log('changed filtered', filtered)
 
     refetch({
-      address: location ? location?.id : undefined,
+      address: pickUpLocation ? pickUpLocation?.id : undefined,
       brands: filterEmptyArray(filtered.brands),
       // vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
       bodyStyles: filterEmptyArray(filtered.bodyStyles),
       fuelTypes: filterEmptyArray(filtered.fuelTypes),
       transmissions: filterEmptyArray(filtered.transmissions),
     })
-  }, [filtered, refetch, location])
+  }, [filtered, refetch, pickUpLocation])
 
   if (error) {
     console.error(error)

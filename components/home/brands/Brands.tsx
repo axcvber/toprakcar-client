@@ -3,43 +3,13 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper'
 import { Box, Container } from '@mui/material'
 import Image from 'next/image'
+import { UploadFileEntity } from '../../../generated'
 
-const data = [
-  {
-    id: 1,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580699/pngwing.com_27_ztq9hf.png',
-  },
-  {
-    id: 2,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580703/pngwing.com_23_ciwmvv.png',
-  },
-  {
-    id: 3,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580708/pngwing.com_21_lpujuc.png',
-  },
-  {
-    id: 4,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580711/pngwing.com_22_sdukyv.png',
-  },
-  {
-    id: 5,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580724/pngwing.com_25_abvmjw.png',
-  },
-  {
-    id: 6,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580733/pngwing.com_20_qlilx0.png',
-  },
-  {
-    id: 7,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580736/pngwing.com_24_m7etvk.png',
-  },
-  {
-    id: 8,
-    imageUrl: 'https://res.cloudinary.com/doea7ahfk/image/upload/v1667580741/pngwing.com_26_eaei3w.png',
-  },
-]
+interface IBrands {
+  data: UploadFileEntity[]
+}
 
-const Brands = () => {
+const Brands: React.FC<IBrands> = ({ data }) => {
   return (
     <Container maxWidth={'xl'} sx={{ my: 10 }}>
       <Swiper
@@ -78,7 +48,15 @@ const Brands = () => {
                 userSelect: 'none',
               }}
             >
-              <Image priority layout='fill' objectFit='contain' src={item.imageUrl} alt='brand' />
+              <Image
+                priority
+                layout='fill'
+                objectFit='contain'
+                // placeholder='blur'
+                // blurDataURL={item.attributes?.url || ''}
+                src={item.attributes?.url || ''}
+                alt={item.attributes?.alternativeText || ''}
+              />
             </Box>
           </SwiperSlide>
         ))}
