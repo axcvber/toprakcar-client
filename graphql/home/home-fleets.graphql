@@ -1,0 +1,67 @@
+query GetHomeFleets($brandId: ID, $locale: I18NLocaleCode) {
+  homePage(locale: $locale) {
+    data {
+      attributes {
+        fleets {
+          rent_cars(filters: { brand: { id: { eq: $brandId } } }, pagination: { limit: 6 }) {
+            data {
+              id
+              attributes {
+                name
+                image {
+                  data {
+                    attributes {
+                      url
+                      alternativeText
+                    }
+                  }
+                }
+                vehicle_class {
+                  data {
+                    attributes {
+                      title
+                    }
+                  }
+                }
+                fuel_type {
+                  data {
+                    attributes {
+                      type
+                    }
+                  }
+                }
+                body_style {
+                  data {
+                    attributes {
+                      style
+                    }
+                  }
+                }
+                transmission {
+                  data {
+                    attributes {
+                      type
+                    }
+                  }
+                }
+                passengers
+                brand {
+                  data {
+                    attributes {
+                      name
+                    }
+                  }
+                }
+                price {
+                  fullPrice
+                  currentPrice
+                  showDiscounted
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

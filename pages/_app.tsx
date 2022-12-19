@@ -28,7 +28,7 @@ import { ApolloProvider } from '@apollo/client'
 import client from '../graphql/apollo-client'
 import { FilterProvider } from '../context/filter-context'
 import { ShopFilterProvider } from '../context/shop-filter/shop-filter-context'
-
+import { SnackbarProvider } from 'notistack'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
@@ -48,11 +48,13 @@ export default function MyApp(props: MyAppProps) {
               <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
                   <CssBaseline />
-                  <ModalProvider>
-                    <Layout>
-                      <Component {...pageProps} />
-                    </Layout>
-                  </ModalProvider>
+                  <SnackbarProvider maxSnack={1}>
+                    <ModalProvider>
+                      <Layout>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </ModalProvider>
+                  </SnackbarProvider>
                 </LocalizationProvider>
               </ThemeProvider>
             </CacheProvider>

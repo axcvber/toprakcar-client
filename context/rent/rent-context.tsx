@@ -26,8 +26,8 @@ type OrderSummaryType = {
 export type RentState = {
   pickUpLocation?: LocationOption | null
   dropOffLocation?: LocationOption | null
-  pickUpDate?: Dayjs
-  dropOffDate?: Dayjs
+  pickUpDate: Dayjs | null
+  dropOffDate: Dayjs | null
   currentStep: number
   selectedCar: RentCarEntity | null
   orderSummary: OrderSummaryType | null
@@ -37,8 +37,8 @@ export type RentState = {
 interface IRentContext {
   pickUpLocation?: LocationOption | null
   dropOffLocation?: LocationOption | null
-  pickUpDate?: Dayjs
-  dropOffDate?: Dayjs
+  pickUpDate: Dayjs | null
+  dropOffDate: Dayjs | null
   currentStep: number
   selectedCar: RentCarEntity | null
   orderSummary: OrderSummaryType | null
@@ -68,6 +68,8 @@ export const useRentContext = () => useContext(RentContext)
 const RentContext = createContext<IRentContext>({})
 
 export const initialState: RentState = {
+  pickUpDate: null,
+  dropOffDate: null,
   currentStep: 1,
   selectedCar: null,
   orderSummary: null,

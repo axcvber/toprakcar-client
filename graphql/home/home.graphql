@@ -78,6 +78,27 @@ query HomePage($locale: I18NLocaleCode) {
             label
             description
           }
+          rent_cars {
+            data {
+              attributes {
+                brand {
+                  data {
+                    id
+                    attributes {
+                      name
+                      logoSvg {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
         benefits {
           benefitsHeading {

@@ -4,10 +4,12 @@ import LocationItem from '../LocationItem'
 import { useModal } from '../../hooks/useModal'
 import { MODAL_TYPES } from '../../context/modalContext'
 import { useRentContext } from '../../context/rent/rent-context'
+import { useRouter } from 'next/router'
 
 const LocationFilter = () => {
   const { showModal } = useModal()
   const { pickUpLocation, dropOffLocation, pickUpDate, dropOffDate } = useRentContext()
+  const router = useRouter()
 
   const onSearchModal = () => {
     showModal(MODAL_TYPES.SEARCH_MODAL)
@@ -30,8 +32,16 @@ const LocationFilter = () => {
         Prepare Reservation
       </Typography>
       <Divider />
-      <LocationItem title={'Pick Up'} address={pickUpLocation?.address} date={pickUpDate?.format('LLL')} />
-      <LocationItem title={'Drop Off'} address={dropOffLocation?.address} date={dropOffDate?.format('LLL')} />
+      <LocationItem
+        title={'Pick Up'}
+        address={pickUpLocation?.address}
+        date={pickUpDate?.locale(router.locale as string).format('LLL')}
+      />
+      <LocationItem
+        title={'Drop Off'}
+        address={dropOffLocation?.address}
+        date={dropOffDate?.locale(router.locale as string).format('LLL')}
+      />
       <Button variant='contained' size='extra' onClick={onSearchModal}>
         Change Search
       </Button>

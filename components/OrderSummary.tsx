@@ -10,9 +10,11 @@ import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
 import { BiCar, BiSupport } from 'react-icons/bi'
 import { BsSpeedometer2 } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 const OrderSummary = () => {
   const { pickUpLocation, dropOffLocation, selectedCar, dropOffDate, pickUpDate, orderSummary } = useRentContext()
+  const router = useRouter()
 
   return (
     <Paper>
@@ -23,8 +25,16 @@ const OrderSummary = () => {
               Ride Details
             </Typography>
             <Divider />
-            <LocationItem title={'Pick Up'} address={pickUpLocation?.address} date={pickUpDate?.format('LLL')} />
-            <LocationItem title={'Drop Off'} address={dropOffLocation?.address} date={dropOffDate?.format('LLL')} />
+            <LocationItem
+              title={'Pick Up'}
+              address={pickUpLocation?.address}
+              date={pickUpDate?.locale(router.locale as string).format('LLL')}
+            />
+            <LocationItem
+              title={'Drop Off'}
+              address={dropOffLocation?.address}
+              date={dropOffDate?.locale(router.locale as string).format('LLL')}
+            />
           </Stack>
         </Grid>
         <Grid item xs={12} md={5} lg={6}>

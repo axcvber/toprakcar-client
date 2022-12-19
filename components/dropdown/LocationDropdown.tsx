@@ -94,18 +94,19 @@ const LocationDropdown: React.FC<ILocationDropdown> = ({
           justifyContent={'space-between'}
           spacing={1.5}
           sx={{
+            color: isError ? 'error.main' : 'text.secondary',
             'svg': {
-              color: 'primary.main',
+              color: isError ? 'error.main' : 'primary.main',
               fontSize: 22,
               minWidth: 22,
             },
             '.arrow': {
-              color: 'text.secondary',
+              color: isError ? 'error.main' : 'text.secondary',
             },
           }}
         >
           <Stack direction='row' spacing={1}>
-            <IoLocationSharp fontSize={24} color='#FF8A5D' />
+            <IoLocationSharp fontSize={24} />
             <Typography noWrap fontWeight={600} fontSize={15} maxWidth={width} textAlign='left'>
               {title}
             </Typography>

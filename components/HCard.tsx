@@ -10,6 +10,7 @@ import { TbEngine, TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { BsSpeedometer2 } from 'react-icons/bs'
 import { useModal } from '../hooks/useModal'
 import { MODAL_TYPES } from '../context/modalContext'
+import CarOption from './cards/components/CarOption'
 
 interface IHCard {
   item: RentCarEntity
@@ -62,12 +63,25 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
       <Stack width={'100%'} flex={1} spacing={3}>
         <Stack direction={{ xs: 'column', lg: 'row' }} justifyContent='space-between' alignItems='flex-start' gap={3}>
           <div>
-            <Typography variant='h6' fontWeight={600} mb={1}>
+            <Typography variant='h6' fontWeight={600} mb={0.5}>
               {item.attributes?.name}
             </Typography>
-            <Typography component='span' color='primary' variant='h5' fontWeight={600}>
-              {item.attributes?.price.fullPrice?.toLocaleString()} ₺ /d
-            </Typography>
+            <Stack direction='row' spacing={1}>
+              <Typography component='span' color='primary' variant='h6' fontWeight={600}>
+                {item.attributes?.price.currentPrice.toLocaleString()} ₺ /d
+              </Typography>
+              {item.attributes?.price.showDiscounted && item.attributes?.price.fullPrice && (
+                <Typography
+                  component='span'
+                  color='text.disabled'
+                  variant='body2'
+                  fontWeight={500}
+                  sx={{ textDecoration: 'line-through', pt: 0.3 }}
+                >
+                  {item.attributes?.price.fullPrice.toLocaleString()} ₺ /d
+                </Typography>
+              )}
+            </Stack>
           </div>
 
           <Stack
@@ -117,34 +131,6 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
         </Grid>
       </Stack>
     </Stack>
-  )
-}
-
-interface ICarOption {
-  icon: JSX.Element
-  label?: string | number
-}
-
-const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
-  return (
-    <Grid item component='li'>
-      <Stack
-        spacing={1}
-        direction='row'
-        alignItems={'center'}
-        sx={{
-          color: 'text.disabled',
-          'svg': {
-            fontSize: 18,
-          },
-        }}
-      >
-        {icon}
-        <Typography component='span' fontWeight={500} fontSize={{ xs: 14, md: 16 }}>
-          {label}
-        </Typography>
-      </Stack>
-    </Grid>
   )
 }
 

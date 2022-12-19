@@ -1,6 +1,6 @@
 import React from 'react'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import { Button, Stack } from '@mui/material'
+import { Button, Stack, Tooltip } from '@mui/material'
 import dayjs, { Dayjs } from 'dayjs'
 import { HiChevronDown } from 'react-icons/hi'
 import { BsCalendar3 } from 'react-icons/bs'
@@ -9,9 +9,10 @@ import Fade from '@mui/material/Fade'
 import { TransitionProps } from '@mui/material/transitions'
 
 interface IDatePicker {
-  value: Dayjs
+  value: Dayjs | null
   handleChange: (newValue: Dayjs | null) => void
   placeholder: string
+  isError?: boolean
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -23,7 +24,7 @@ const Transition = React.forwardRef(function Transition(
   return <Fade ref={ref} {...props} timeout={300} />
 })
 
-const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder }) => {
+const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder, isError }) => {
   const [open, setOpen] = React.useState<boolean>(false)
 
   return (
@@ -68,7 +69,7 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder })
             spacing={1.5}
             sx={{
               'svg': {
-                color: 'primary.main',
+                color: isError ? 'error.main' : 'primary.main',
                 fontSize: 22,
                 minWidth: 22,
               },

@@ -13,6 +13,7 @@ import FilterList from '../filtration/FilterList'
 import { filterEmptyArray } from '../../utils/filterEmptyArray'
 import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 import { useRentContext } from '../../context/rent/rent-context'
+import { useSnackbar } from 'notistack'
 
 interface IRentCarsList {
   withLocationChange?: boolean
@@ -21,7 +22,8 @@ interface IRentCarsList {
 const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   // const { filtered, deleteFilter, clearFilter } = useFilterContext()
   const { setFilterData, filtered, deleteFilter, clearFilter, carState } = useShopFilterContext()
-  const { pickUpLocation, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
+  const { pickUpLocation, pickUpDate, dropOffDate, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const router = useRouter()
   const { data, loading, error, refetch } = useRentCarsQuery({
@@ -50,9 +52,15 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   }
 
   const handleSelectCar = (carItem: RentCarEntity) => {
-    setSelectedCar(carItem)
-    setCurrentStep(2)
-    router.push('/fleet/reservation')
+    if (pickUpLocation && pickUpDate && dropOffDate) {
+      setSelectedCar(carItem)
+      setCurrentStep(2)
+      if (router.pathname === '/fleet') {
+        router.push('/fleet/reservation')
+      }
+    } else {
+      enqueueSnackbar('Select search details', { variant: 'error' })
+    }
   }
 
   return (

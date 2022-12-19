@@ -1,35 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Modal from '.'
 import { useModal } from '../../hooks/useModal'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import Dropdown from '../Dropdown'
 import { useRentContext } from '../../context/rent/rent-context'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import DatePicker from '../DatePicker'
 import { LocationEntity, useGetLocationsLazyQuery } from '../../generated'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import LocationDropdown from '../dropdown/LocationDropdown'
+import { useSnackbar } from 'notistack'
+import { useRouter } from 'next/router'
 
-const schema = yup
-  .object({
-    pickUpLocation: yup.object().required(),
-    dropOffLocation: yup.object().required(),
-    pickUpDate: yup.date().required(),
-    dropOffDate: yup.date().required(),
-  })
-  .required()
+const schema = yup.object().shape({
+  pickUpLocation: yup.object().required(),
+  dropOffLocation: yup.object().required(),
+  pickUpDate: yup.date().min(new Date(), 'Please choose future date').nullable().required(),
+  dropOffDate: yup
+    .date()
+    .when('pickUpDate', (pickUpDate, schema) => {
+      if (pickUpDate) {
+        const dayAfter = new Date(pickUpDate.getTime() + 86400000)
+        return schema.min(dayAfter, 'End date has to be after than start date')
+      }
+
+      return schema
+    })
+    .nullable()
+    .required(),
+})
 
 interface ISearchInputs {
-  pickUpLocation: LocationEntity
-  dropOffLocation: LocationEntity
-  pickUpDate: Dayjs
-  dropOffDate: Dayjs
+  pickUpLocation: LocationEntity | null
+  dropOffLocation: LocationEntity | null
+  pickUpDate: Dayjs | null
+  dropOffDate: Dayjs | null
 }
 
 const SearchModal = () => {
-  const { isOpen, hideModal, showModal } = useModal()
+  const { isOpen, hideModal } = useModal()
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { setCurrentStep } = useRentContext()
+  const router = useRouter()
   const {
     pickUpLocation,
     dropOffLocation,
@@ -45,66 +59,54 @@ const SearchModal = () => {
     control,
     handleSubmit,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
-    getValues,
+    formState: { errors },
     watch,
   } = useForm<ISearchInputs>({
     resolver: yupResolver(schema),
     defaultValues: {
-      pickUpLocation: {
-        id: pickUpLocation?.id,
-        attributes: {
-          address: pickUpLocation?.address,
-        },
-      },
-      dropOffLocation: {
-        id: dropOffLocation?.id,
-        attributes: {
-          address: dropOffLocation?.address,
-        },
-      },
+      pickUpLocation,
+      dropOffLocation,
       pickUpDate,
       dropOffDate,
     },
   })
 
+  useEffect(() => {
+    const text = Object.values(errors)
+    if (text[0]?.message) {
+      enqueueSnackbar(text[0].message, { variant: 'error' })
+    }
+  }, [errors])
+
   const pickUpLocationTrigger = watch('pickUpLocation')
   const dropOffLocationTrigger = watch('dropOffLocation')
-
-  console.log('errors', errors)
 
   const onSubmit: SubmitHandler<ISearchInputs> = (data) => {
     console.log('formModalData', data)
     setPickUpLocation({
-      id: data.pickUpLocation.id as any,
-      address: data.pickUpLocation.attributes?.address as any,
+      id: data.pickUpLocation?.id as any,
+      address: data.pickUpLocation?.attributes?.address as any,
     })
     setDropOffLocation({
-      id: data.dropOffLocation.id as any,
-      address: data.dropOffLocation.attributes?.address as any,
+      id: data.dropOffLocation?.id as any,
+      address: data.dropOffLocation?.attributes?.address as any,
     })
-    setPickUpDate(data.pickUpDate)
-    setDropOffDate(data.dropOffDate)
-  }
+    setPickUpDate(dayjs(data.pickUpDate))
+    setDropOffDate(dayjs(data.dropOffDate))
 
-  const handleChangeSearch = () => {
-    // if (tempPickUpLocation?.id && tempPickUpLocation?.attributes) {
-    //   setLocation({
-    //     id: tempPickUpLocation.id,
-    //     address: tempPickUpLocation.attributes?.address,
-    //   })
-    // }
-    // if (onModalClose) {
-    //   onModalClose()
-    // }
+    if (router.pathname === '/') {
+      setCurrentStep(2)
+      router.push('/fleet/reservation')
+    }
+    hideModal()
   }
 
   const handleSelectPickUpLocation = (option: LocationEntity) => {
-    setValue('pickUpLocation', option)
+    setValue('pickUpLocation', option, { shouldValidate: true, shouldDirty: true })
   }
 
   const handleSelectDropOffLocation = (option: LocationEntity) => {
-    setValue('dropOffLocation', option)
+    setValue('dropOffLocation', option, { shouldValidate: true, shouldDirty: true })
   }
 
   return (
@@ -115,11 +117,10 @@ const SearchModal = () => {
             Pick Up
           </Typography>
           <LocationDropdown
-            title={pickUpLocationTrigger?.attributes?.address || 'Pick-up Location'}
+            title={pickUpLocationTrigger?.attributes?.address || pickUpLocation?.address || 'Pick-up Location'}
             onSelectLocation={handleSelectPickUpLocation}
           />
 
-          {/* {errors.pickUpLocation && <span>{errors.pickUpLocation.message}</span>} */}
           <Controller
             name='pickUpDate'
             control={control}
@@ -127,7 +128,6 @@ const SearchModal = () => {
               <DatePicker value={field.value} handleChange={field.onChange} placeholder='Pick-up date' />
             )}
           />
-          {errors.pickUpDate && <span>{errors.pickUpDate.message}</span>}
         </Stack>
 
         <Stack spacing={1}>
@@ -135,7 +135,7 @@ const SearchModal = () => {
             Drop Off
           </Typography>
           <LocationDropdown
-            title={dropOffLocationTrigger?.attributes?.address || 'Drop Off Location'}
+            title={dropOffLocationTrigger?.attributes?.address || dropOffLocation?.address || 'Drop Off Location'}
             onSelectLocation={handleSelectDropOffLocation}
           />
 

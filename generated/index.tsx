@@ -147,6 +147,7 @@ export type BooleanFilterInput = {
 export type Brand = {
   __typename?: 'Brand';
   createdAt?: Maybe<Scalars['DateTime']>;
+  logoSvg: UploadFileEntityResponse;
   name: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -179,6 +180,7 @@ export type BrandFiltersInput = {
 };
 
 export type BrandInput = {
+  logoSvg?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -2595,12 +2597,20 @@ export type FindAvailableShopFiltersQueryVariables = Exact<{ [key: string]: neve
 
 export type FindAvailableShopFiltersQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', id?: string | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', id?: string | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', id?: string | null } | null } | null, exterior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null, interior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null } | null }> } | null };
 
+export type GetHomeFleetsQueryVariables = Exact<{
+  brandId?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetHomeFleetsQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', fleets: { __typename?: 'ComponentHomeFleets', rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', name: string, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, vehicle_class?: { __typename?: 'VehicleClassEntityResponse', data?: { __typename?: 'VehicleClassEntity', attributes?: { __typename?: 'VehicleClass', title: string } | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', attributes?: { __typename?: 'Brand', name: string } | null } | null } | null, price: { __typename?: 'ComponentVehiclePrice', fullPrice?: number | null, currentPrice: number, showDiscounted?: boolean | null } } | null }> } | null } } | null } | null } | null };
+
 export type HomePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null } }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
 
 export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2805,6 +2815,104 @@ export function useFindAvailableShopFiltersLazyQuery(baseOptions?: Apollo.LazyQu
 export type FindAvailableShopFiltersQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersQuery>;
 export type FindAvailableShopFiltersLazyQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersLazyQuery>;
 export type FindAvailableShopFiltersQueryResult = Apollo.QueryResult<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>;
+export const GetHomeFleetsDocument = gql`
+    query GetHomeFleets($brandId: ID, $locale: I18NLocaleCode) {
+  homePage(locale: $locale) {
+    data {
+      attributes {
+        fleets {
+          rent_cars(filters: {brand: {id: {eq: $brandId}}}, pagination: {limit: 6}) {
+            data {
+              id
+              attributes {
+                name
+                image {
+                  data {
+                    attributes {
+                      url
+                      alternativeText
+                    }
+                  }
+                }
+                vehicle_class {
+                  data {
+                    attributes {
+                      title
+                    }
+                  }
+                }
+                fuel_type {
+                  data {
+                    attributes {
+                      type
+                    }
+                  }
+                }
+                body_style {
+                  data {
+                    attributes {
+                      style
+                    }
+                  }
+                }
+                transmission {
+                  data {
+                    attributes {
+                      type
+                    }
+                  }
+                }
+                passengers
+                brand {
+                  data {
+                    attributes {
+                      name
+                    }
+                  }
+                }
+                price {
+                  fullPrice
+                  currentPrice
+                  showDiscounted
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetHomeFleetsQuery__
+ *
+ * To run a query within a React component, call `useGetHomeFleetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHomeFleetsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHomeFleetsQuery({
+ *   variables: {
+ *      brandId: // value for 'brandId'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetHomeFleetsQuery(baseOptions?: Apollo.QueryHookOptions<GetHomeFleetsQuery, GetHomeFleetsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHomeFleetsQuery, GetHomeFleetsQueryVariables>(GetHomeFleetsDocument, options);
+      }
+export function useGetHomeFleetsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHomeFleetsQuery, GetHomeFleetsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHomeFleetsQuery, GetHomeFleetsQueryVariables>(GetHomeFleetsDocument, options);
+        }
+export type GetHomeFleetsQueryHookResult = ReturnType<typeof useGetHomeFleetsQuery>;
+export type GetHomeFleetsLazyQueryHookResult = ReturnType<typeof useGetHomeFleetsLazyQuery>;
+export type GetHomeFleetsQueryResult = Apollo.QueryResult<GetHomeFleetsQuery, GetHomeFleetsQueryVariables>;
 export const HomePageDocument = gql`
     query HomePage($locale: I18NLocaleCode) {
   homePage(locale: $locale) {
@@ -2885,6 +2993,27 @@ export const HomePageDocument = gql`
             title
             label
             description
+          }
+          rent_cars {
+            data {
+              attributes {
+                brand {
+                  data {
+                    id
+                    attributes {
+                      name
+                      logoSvg {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         benefits {
