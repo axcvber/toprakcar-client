@@ -1,10 +1,10 @@
 import { Dayjs } from 'dayjs'
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useReducer, useState } from 'react'
-import { UserDataFormInputs } from '../../components/forms/PersonalInfoForm'
+import { UserDataFormInputs } from '../../components/rent/steps/contact-details/PersonalInfoForm'
 import { RentCarEntity } from '../../generated'
 import rentFilterReducer, { RentActionKind } from './rent-reducer'
 
-type LocationOption = {
+export type LocationOption = {
   id: string
   address: string
 }
@@ -24,8 +24,8 @@ type OrderSummaryType = {
 }
 
 export type RentState = {
-  pickUpLocation?: LocationOption | null
-  dropOffLocation?: LocationOption | null
+  pickUpLocation?: LocationOption
+  dropOffLocation?: LocationOption
   pickUpDate: Dayjs | null
   dropOffDate: Dayjs | null
   currentStep: number
@@ -35,8 +35,8 @@ export type RentState = {
 }
 
 interface IRentContext {
-  pickUpLocation?: LocationOption | null
-  dropOffLocation?: LocationOption | null
+  pickUpLocation?: LocationOption
+  dropOffLocation?: LocationOption
   pickUpDate: Dayjs | null
   dropOffDate: Dayjs | null
   currentStep: number

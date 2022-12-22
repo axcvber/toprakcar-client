@@ -1,13 +1,13 @@
 import React from 'react'
 import { Grid } from '@mui/material'
-import OrderSummary from '../OrderSummary'
-import AdditionalServices from '../AdditionalServices'
-import PersonalInfoForm from '../forms/PersonalInfoForm'
-import { useRentContext } from '../../context/rent/rent-context'
-import { useGetAddRentServicesQuery } from '../../generated'
+import OrderSummary from './OrderSummary'
+import AdditionalServices from './AdditionalServices'
+import PersonalInfoForm from './PersonalInfoForm'
+import { useRentContext } from '../../../../context/rent/rent-context'
+import { useGetAddRentServicesQuery } from '../../../../generated'
 
 const ContactDetailsStep = () => {
-  const { setCurrentStep, selectedCar } = useRentContext()
+  const { selectedCar } = useRentContext()
 
   const { data, loading, error, refetch } = useGetAddRentServicesQuery({
     variables: {
@@ -16,12 +16,6 @@ const ContactDetailsStep = () => {
     },
     notifyOnNetworkStatusChange: true,
   })
-
-  console.log('addServices', data?.rentCar?.data?.attributes?.additionalServices)
-
-  const handleSubmit = () => {
-    setCurrentStep(3)
-  }
 
   return (
     <Grid container spacing={3}>

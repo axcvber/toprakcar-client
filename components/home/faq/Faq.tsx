@@ -1,7 +1,7 @@
 import { Container, Grid } from '@mui/material'
 import React from 'react'
 import { ComponentHomeFaq } from '../../../generated'
-import Heading from '../../Heading'
+import Heading from '../../heading/Heading'
 import FaqAccordion from './FaqAccordion'
 
 interface IFaq {

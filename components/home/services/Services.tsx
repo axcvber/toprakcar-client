@@ -1,8 +1,8 @@
 import { Box, Container, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
-import Heading from '../../Heading'
-import IconBox from '../../IconBox'
+import Heading from '../../heading/Heading'
+import IconBox from '../../layout/IconBox'
 import { ComponentHomeServices } from '../../../generated'
 
 interface IServices {

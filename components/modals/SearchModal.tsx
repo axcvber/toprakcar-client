@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import Modal from '.'
 import { useModal } from '../../hooks/useModal'
 import { Box, Button, Stack, Typography } from '@mui/material'
-import Dropdown from '../Dropdown'
-import { useRentContext } from '../../context/rent/rent-context'
+import Dropdown from '../dropdown/Dropdown'
+import { LocationOption, useRentContext } from '../../context/rent/rent-context'
 import dayjs, { Dayjs } from 'dayjs'
 import DatePicker from '../DatePicker'
 import { LocationEntity, useGetLocationsLazyQuery } from '../../generated'
@@ -33,16 +33,16 @@ const schema = yup.object().shape({
 })
 
 interface ISearchInputs {
-  pickUpLocation: LocationEntity | null
-  dropOffLocation: LocationEntity | null
+  pickUpLocation: LocationOption
+  dropOffLocation: LocationOption
   pickUpDate: Dayjs | null
   dropOffDate: Dayjs | null
 }
 
 const SearchModal = () => {
-  const { isOpen, hideModal } = useModal()
+  const { isOpen, hideModal, modalProps } = useModal()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-  const { setCurrentStep } = useRentContext()
+  const { setCurrentStep, setSelectedCar } = useRentContext()
   const router = useRouter()
   const {
     pickUpLocation,
@@ -83,18 +83,13 @@ const SearchModal = () => {
 
   const onSubmit: SubmitHandler<ISearchInputs> = (data) => {
     console.log('formModalData', data)
-    setPickUpLocation({
-      id: data.pickUpLocation?.id as any,
-      address: data.pickUpLocation?.attributes?.address as any,
-    })
-    setDropOffLocation({
-      id: data.dropOffLocation?.id as any,
-      address: data.dropOffLocation?.attributes?.address as any,
-    })
+    setPickUpLocation(data.pickUpLocation)
+    setDropOffLocation(data.dropOffLocation)
     setPickUpDate(dayjs(data.pickUpDate))
     setDropOffDate(dayjs(data.dropOffDate))
 
     if (router.pathname === '/') {
+      setSelectedCar(modalProps.rentCar)
       setCurrentStep(2)
       router.push('/fleet/reservation')
     }
@@ -102,11 +97,29 @@ const SearchModal = () => {
   }
 
   const handleSelectPickUpLocation = (option: LocationEntity) => {
-    setValue('pickUpLocation', option, { shouldValidate: true, shouldDirty: true })
+    if (option.id && option.attributes?.address) {
+      setValue(
+        'pickUpLocation',
+        {
+          id: option.id,
+          address: option.attributes?.address,
+        },
+        { shouldValidate: true, shouldDirty: true }
+      )
+    }
   }
 
   const handleSelectDropOffLocation = (option: LocationEntity) => {
-    setValue('dropOffLocation', option, { shouldValidate: true, shouldDirty: true })
+    if (option.id && option.attributes?.address) {
+      setValue(
+        'dropOffLocation',
+        {
+          id: option.id,
+          address: option.attributes?.address,
+        },
+        { shouldValidate: true, shouldDirty: true }
+      )
+    }
   }
 
   return (
@@ -117,7 +130,7 @@ const SearchModal = () => {
             Pick Up
           </Typography>
           <LocationDropdown
-            title={pickUpLocationTrigger?.attributes?.address || pickUpLocation?.address || 'Pick-up Location'}
+            title={pickUpLocationTrigger?.address || pickUpLocation?.address || 'Pick-up Location'}
             onSelectLocation={handleSelectPickUpLocation}
           />
 
@@ -135,7 +148,7 @@ const SearchModal = () => {
             Drop Off
           </Typography>
           <LocationDropdown
-            title={dropOffLocationTrigger?.attributes?.address || dropOffLocation?.address || 'Drop Off Location'}
+            title={dropOffLocationTrigger?.address || dropOffLocation?.address || 'Drop Off Location'}
             onSelectLocation={handleSelectDropOffLocation}
           />
 

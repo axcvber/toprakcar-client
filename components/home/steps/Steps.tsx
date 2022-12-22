@@ -1,10 +1,10 @@
 import { Stack, Typography, Box, Container } from '@mui/material'
 import React from 'react'
-import Heading from '../../Heading'
+import Heading from '../../heading/Heading'
 import { IoLocationSharp } from 'react-icons/io5'
 import { BsCalendarCheckFill, BsCalendarDateFill } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
-import IconBox from '../../IconBox'
+import IconBox from '../../layout/IconBox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ComponentHomeSteps } from '../../../generated'
 

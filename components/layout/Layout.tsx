@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React, { ReactNode } from 'react'
-import Footer from './footer/Footer'
-import Navbar from './navbar/Navbar'
+import Footer from '../footer/Footer'
+import Navbar from '../navbar/Navbar'
 
 interface ILayout {
   children: ReactNode

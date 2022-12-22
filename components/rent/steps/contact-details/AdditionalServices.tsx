@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Stack, Typography, Divider } from '@mui/material'
-import Paper from './Paper'
+import Paper from '../../../layout/Paper'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
-import { ComponentVehicleAdditionalRentServices } from '../generated'
-import { ExtrasType, useRentContext } from '../context/rent/rent-context'
+import { ComponentVehicleAdditionalRentServices } from '../../../../generated'
+import { ExtrasType, useRentContext } from '../../../../context/rent/rent-context'
 
 interface IAdditionalServices {
   data: ComponentVehicleAdditionalRentServices[]
@@ -43,7 +43,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
               <Stack key={item.id} direction='row' justifyContent='space-between'>
                 <Stack spacing={1}>
                   <Typography fontWeight={600}>{item.label}</Typography>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant='subtitle2' color='text.secondary'>
                     Daily Price {item.dailyPrice} ₺
                   </Typography>
                   <FormControl>

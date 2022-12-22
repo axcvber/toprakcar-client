@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
@@ -8,12 +8,12 @@ import { StepIconProps } from '@mui/material/StepIcon'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { FiCheck } from 'react-icons/fi'
-import ChooseVehicleStep from './steps/ChooseVehicleStep'
-import ContactDetailsStep from './steps/ContactDetailsStep'
-import BookingSummaryStep from './steps/BookingSummaryStep'
-import { useRentContext } from '../context/rent/rent-context'
-import { useLocale } from '../hooks/useLocale'
+import ContactDetailsStep from './contact-details'
+import { useRentContext } from '../../../context/rent/rent-context'
+import { useLocale } from '../../../hooks/useLocale'
 import { BiArrowBack } from 'react-icons/bi'
+import RentCarsList from '../RentCarsList'
+import BookingSummaryStep from './booking-summary'
 
 interface IRentStepper {
   stepLabels: Array<string>
@@ -22,16 +22,17 @@ interface IRentStepper {
 function getStepContent(step: number) {
   switch (step) {
     case 1:
-      return <ChooseVehicleStep />
+      return <RentCarsList withLocationChange />
 
     case 2:
       return <ContactDetailsStep />
 
     case 3:
-      return <BookingSummaryStep />
+      return null
 
     case 4:
       return <BookingSummaryStep />
+
     default:
       return null
   }
@@ -45,6 +46,10 @@ function StepIcon(props: StepIconProps) {
 const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
   const { currentStep, setCurrentStep } = useRentContext()
   const t = useLocale()
+
+  useEffect(() => {
+    window.scrollTo({ top: 400, left: 0 })
+  }, [currentStep])
 
   const handleBack = () => {
     setCurrentStep(currentStep - 1)
@@ -64,7 +69,7 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
       >
         <Stepper activeStep={currentStep} alternativeLabel connector={<Connector />}>
           {stepLabels.map((label, index) => (
-            <Step key={index} disabled={index === 0} last={currentStep === 2}>
+            <Step key={index} disabled={index === 0} last={currentStep === 4}>
               <StepLabel
                 sx={{
                   '& .MuiStepLabel-label': {
@@ -85,7 +90,7 @@ const RentStepper: React.FC<IRentStepper> = ({ stepLabels }) => {
       <Button
         startIcon={<BiArrowBack />}
         color='inherit'
-        disabled={currentStep === 1 || currentStep === 3}
+        disabled={currentStep === 1 || currentStep === 4}
         onClick={handleBack}
         sx={{ mb: 2 }}
       >

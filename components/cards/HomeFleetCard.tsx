@@ -17,12 +17,12 @@ interface IHomeFleetCard {
 }
 
 const HomeFleetCard: React.FC<IHomeFleetCard> = ({ item }) => {
-  const { setSelectedCar } = useRentContext()
   const { showModal } = useModal()
 
   const handleSelectCar = () => {
-    setSelectedCar(item)
-    showModal(MODAL_TYPES.SEARCH_MODAL)
+    showModal(MODAL_TYPES.SEARCH_MODAL, {
+      rentCar: item,
+    })
   }
 
   return (

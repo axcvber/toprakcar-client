@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container, Stack, Grid, Typography } from '@mui/material'
-import Heading from '../components/Heading'
+import Heading from '../components/heading/Heading'
 import Image from 'next/image'
 import ContactListItem from '../components/about/ContactListItem'
 import AboutItem from '../components/about/AboutItem'

@@ -10,6 +10,9 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com'],
   },
+  env: {
+    SERVER_API: process.env.SERVER_API,
+  },
 }
 
 module.exports = nextConfig

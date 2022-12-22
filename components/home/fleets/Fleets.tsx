@@ -1,6 +1,6 @@
 import { Button, Container, Grid, Skeleton, Stack } from '@mui/material'
 import React, { useState } from 'react'
-import Heading from '../../Heading'
+import Heading from '../../heading/Heading'
 import dynamic from 'next/dynamic'
 import { ComponentHomeFleets, Maybe, useGetHomeFleetsQuery } from '../../../generated'
 import HomeFleetCard from '../../cards/HomeFleetCard'

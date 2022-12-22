@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@mui/material'
-import ReservationDetails from '../ReservationDetails'
-import ReservationText from '../ReservationText'
+import ReservationDetails from './ReservationDetails'
+import ReservationText from './ReservationText'
 
 const BookingSummaryStep = () => {
   return (

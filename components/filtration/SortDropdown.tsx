@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BiSortAlt2 } from 'react-icons/bi'
 import { SortValues, useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 import { Box, Stack, Typography, Divider } from '@mui/material'
-import Dropdown from '../Dropdown'
+import Dropdown from '../dropdown/Dropdown'
 
 const SortDropdown = () => {
   const { setSortBy, sortBy } = useShopFilterContext()

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Stack, Typography, Divider } from '@mui/material'
 import { FiTarget } from 'react-icons/fi'
-import Paper from '../Paper'
+import Paper from '../layout/Paper'
 
 const FilterBar: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (

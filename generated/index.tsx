@@ -417,6 +417,26 @@ export type ComponentHomeStepsInput = {
   stepsHeading?: InputMaybe<ComponentMainHeadingInput>;
 };
 
+export type ComponentInsuranceInsuranceQuestion = {
+  __typename?: 'ComponentInsuranceInsuranceQuestion';
+  faqItem: Array<Maybe<ComponentDynamicAccordion>>;
+  heading: ComponentMainHeading;
+  id: Scalars['ID'];
+};
+
+
+export type ComponentInsuranceInsuranceQuestionFaqItemArgs = {
+  filters?: InputMaybe<ComponentDynamicAccordionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentInsuranceInsuranceQuestionInput = {
+  faqItem?: InputMaybe<Array<InputMaybe<ComponentDynamicAccordionInput>>>;
+  heading?: InputMaybe<ComponentMainHeadingInput>;
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 export type ComponentMainHeading = {
   __typename?: 'ComponentMainHeading';
   description?: Maybe<Scalars['String']>;
@@ -706,6 +726,94 @@ export enum Enum_Salescar_State {
   Used = 'used'
 }
 
+export type EzformsRecipient = {
+  __typename?: 'EzformsRecipient';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type EzformsRecipientEntity = {
+  __typename?: 'EzformsRecipientEntity';
+  attributes?: Maybe<EzformsRecipient>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type EzformsRecipientEntityResponse = {
+  __typename?: 'EzformsRecipientEntityResponse';
+  data?: Maybe<EzformsRecipientEntity>;
+};
+
+export type EzformsRecipientEntityResponseCollection = {
+  __typename?: 'EzformsRecipientEntityResponseCollection';
+  data: Array<EzformsRecipientEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type EzformsRecipientFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<EzformsRecipientFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<EzformsRecipientFiltersInput>;
+  number?: InputMaybe<StringFilterInput>;
+  or?: InputMaybe<Array<InputMaybe<EzformsRecipientFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type EzformsRecipientInput = {
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  number?: InputMaybe<Scalars['String']>;
+};
+
+export type EzformsSubmission = {
+  __typename?: 'EzformsSubmission';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  data?: Maybe<Scalars['JSON']>;
+  formName?: Maybe<Scalars['String']>;
+  score?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type EzformsSubmissionEntity = {
+  __typename?: 'EzformsSubmissionEntity';
+  attributes?: Maybe<EzformsSubmission>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type EzformsSubmissionEntityResponse = {
+  __typename?: 'EzformsSubmissionEntityResponse';
+  data?: Maybe<EzformsSubmissionEntity>;
+};
+
+export type EzformsSubmissionEntityResponseCollection = {
+  __typename?: 'EzformsSubmissionEntityResponseCollection';
+  data: Array<EzformsSubmissionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type EzformsSubmissionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<EzformsSubmissionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  data?: InputMaybe<JsonFilterInput>;
+  formName?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<EzformsSubmissionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<EzformsSubmissionFiltersInput>>>;
+  score?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type EzformsSubmissionInput = {
+  data?: InputMaybe<Scalars['JSON']>;
+  formName?: InputMaybe<Scalars['String']>;
+  score?: InputMaybe<Scalars['String']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -819,7 +927,7 @@ export type FuelTypeRelationResponseCollection = {
   data: Array<FuelTypeEntity>;
 };
 
-export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeServices | ComponentHomeSteps | ComponentMainHeading | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentVehicleAdditionalRentServices | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | FleetPage | FuelType | HomePage | I18NLocale | Location | Model | RentCar | SalesCar | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
+export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeServices | ComponentHomeSteps | ComponentInsuranceInsuranceQuestion | ComponentMainHeading | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentVehicleAdditionalRentServices | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | EzformsRecipient | EzformsSubmission | FleetPage | FuelType | HomePage | I18NLocale | InsurancePage | Location | Model | RentCar | SalesCar | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -920,6 +1028,50 @@ export type IdFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   startsWith?: InputMaybe<Scalars['ID']>;
+};
+
+export type InsurancePage = {
+  __typename?: 'InsurancePage';
+  background: UploadFileEntityResponse;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description: Scalars['String'];
+  insuranceBenefits: Array<Maybe<ComponentMainIconBox>>;
+  insuranceQuestions: ComponentInsuranceInsuranceQuestion;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<InsurancePageRelationResponseCollection>;
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type InsurancePageInsuranceBenefitsArgs = {
+  filters?: InputMaybe<ComponentMainIconBoxFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type InsurancePageEntity = {
+  __typename?: 'InsurancePageEntity';
+  attributes?: Maybe<InsurancePage>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type InsurancePageEntityResponse = {
+  __typename?: 'InsurancePageEntityResponse';
+  data?: Maybe<InsurancePageEntity>;
+};
+
+export type InsurancePageInput = {
+  background?: InputMaybe<Scalars['ID']>;
+  description?: InputMaybe<Scalars['String']>;
+  insuranceBenefits?: InputMaybe<Array<InputMaybe<ComponentMainIconBoxInput>>>;
+  insuranceQuestions?: InputMaybe<ComponentInsuranceInsuranceQuestionInput>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type InsurancePageRelationResponseCollection = {
+  __typename?: 'InsurancePageRelationResponseCollection';
+  data: Array<InsurancePageEntity>;
 };
 
 export type IntFilterInput = {
@@ -1080,10 +1232,13 @@ export type Mutation = {
   createBrand?: Maybe<BrandEntityResponse>;
   createColor?: Maybe<ColorEntityResponse>;
   createColorLocalization?: Maybe<ColorEntityResponse>;
+  createEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
+  createEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   createFleetPageLocalization?: Maybe<FleetPageEntityResponse>;
   createFuelType?: Maybe<FuelTypeEntityResponse>;
   createFuelTypeLocalization?: Maybe<FuelTypeEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
+  createInsurancePageLocalization?: Maybe<InsurancePageEntityResponse>;
   createLocation?: Maybe<LocationEntityResponse>;
   createModel?: Maybe<ModelEntityResponse>;
   createModelLocalization?: Maybe<ModelEntityResponse>;
@@ -1105,9 +1260,12 @@ export type Mutation = {
   deleteBodyStyle?: Maybe<BodyStyleEntityResponse>;
   deleteBrand?: Maybe<BrandEntityResponse>;
   deleteColor?: Maybe<ColorEntityResponse>;
+  deleteEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
+  deleteEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   deleteFleetPage?: Maybe<FleetPageEntityResponse>;
   deleteFuelType?: Maybe<FuelTypeEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
+  deleteInsurancePage?: Maybe<InsurancePageEntityResponse>;
   deleteLocation?: Maybe<LocationEntityResponse>;
   deleteModel?: Maybe<ModelEntityResponse>;
   deleteRentCar?: Maybe<RentCarEntityResponse>;
@@ -1135,10 +1293,13 @@ export type Mutation = {
   updateBodyStyle?: Maybe<BodyStyleEntityResponse>;
   updateBrand?: Maybe<BrandEntityResponse>;
   updateColor?: Maybe<ColorEntityResponse>;
+  updateEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
+  updateEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFleetPage?: Maybe<FleetPageEntityResponse>;
   updateFuelType?: Maybe<FuelTypeEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
+  updateInsurancePage?: Maybe<InsurancePageEntityResponse>;
   updateLocation?: Maybe<LocationEntityResponse>;
   updateModel?: Maybe<ModelEntityResponse>;
   updateRentCar?: Maybe<RentCarEntityResponse>;
@@ -1200,6 +1361,16 @@ export type MutationCreateColorLocalizationArgs = {
 };
 
 
+export type MutationCreateEzformsRecipientArgs = {
+  data: EzformsRecipientInput;
+};
+
+
+export type MutationCreateEzformsSubmissionArgs = {
+  data: EzformsSubmissionInput;
+};
+
+
 export type MutationCreateFleetPageLocalizationArgs = {
   data?: InputMaybe<FleetPageInput>;
   id?: InputMaybe<Scalars['ID']>;
@@ -1222,6 +1393,13 @@ export type MutationCreateFuelTypeLocalizationArgs = {
 
 export type MutationCreateHomePageLocalizationArgs = {
   data?: InputMaybe<HomePageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateInsurancePageLocalizationArgs = {
+  data?: InputMaybe<InsurancePageInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1339,6 +1517,16 @@ export type MutationDeleteColorArgs = {
 };
 
 
+export type MutationDeleteEzformsRecipientArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteEzformsSubmissionArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteFleetPageArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1351,6 +1539,11 @@ export type MutationDeleteFuelTypeArgs = {
 
 
 export type MutationDeleteHomePageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteInsurancePageArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1476,6 +1669,18 @@ export type MutationUpdateColorArgs = {
 };
 
 
+export type MutationUpdateEzformsRecipientArgs = {
+  data: EzformsRecipientInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateEzformsSubmissionArgs = {
+  data: EzformsSubmissionInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -1497,6 +1702,12 @@ export type MutationUpdateFuelTypeArgs = {
 
 export type MutationUpdateHomePageArgs = {
   data: HomePageInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateInsurancePageArgs = {
+  data: InsurancePageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1598,12 +1809,17 @@ export type Query = {
   brands?: Maybe<BrandEntityResponseCollection>;
   color?: Maybe<ColorEntityResponse>;
   colors?: Maybe<ColorEntityResponseCollection>;
+  ezformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
+  ezformsRecipients?: Maybe<EzformsRecipientEntityResponseCollection>;
+  ezformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
+  ezformsSubmissions?: Maybe<EzformsSubmissionEntityResponseCollection>;
   fleetPage?: Maybe<FleetPageEntityResponse>;
   fuelType?: Maybe<FuelTypeEntityResponse>;
   fuelTypes?: Maybe<FuelTypeEntityResponseCollection>;
   homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
+  insurancePage?: Maybe<InsurancePageEntityResponse>;
   location?: Maybe<LocationEntityResponse>;
   locations?: Maybe<LocationEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
@@ -1673,6 +1889,30 @@ export type QueryColorsArgs = {
 };
 
 
+export type QueryEzformsRecipientArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryEzformsRecipientsArgs = {
+  filters?: InputMaybe<EzformsRecipientFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryEzformsSubmissionArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryEzformsSubmissionsArgs = {
+  filters?: InputMaybe<EzformsSubmissionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryFleetPageArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1706,6 +1946,11 @@ export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryInsurancePageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2612,6 +2857,13 @@ export type HomePageQueryVariables = Exact<{
 
 export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
 
+export type GetInsurancePageQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetInsurancePageQuery = { __typename?: 'Query', insurancePage?: { __typename?: 'InsurancePageEntityResponse', data?: { __typename?: 'InsurancePageEntity', attributes?: { __typename?: 'InsurancePage', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, insuranceBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, insuranceQuestions: { __typename?: 'ComponentInsuranceInsuranceQuestion', heading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
+
 export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3113,6 +3365,76 @@ export function useHomePageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<H
 export type HomePageQueryHookResult = ReturnType<typeof useHomePageQuery>;
 export type HomePageLazyQueryHookResult = ReturnType<typeof useHomePageLazyQuery>;
 export type HomePageQueryResult = Apollo.QueryResult<HomePageQuery, HomePageQueryVariables>;
+export const GetInsurancePageDocument = gql`
+    query GetInsurancePage($locale: I18NLocaleCode) {
+  insurancePage(locale: $locale) {
+    data {
+      attributes {
+        title
+        description
+        background {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        insuranceBenefits {
+          id
+          title
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        insuranceQuestions {
+          heading {
+            title
+            label
+            description
+          }
+          faqItem {
+            id
+            question
+            answer
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetInsurancePageQuery__
+ *
+ * To run a query within a React component, call `useGetInsurancePageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInsurancePageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetInsurancePageQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetInsurancePageQuery(baseOptions?: Apollo.QueryHookOptions<GetInsurancePageQuery, GetInsurancePageQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetInsurancePageQuery, GetInsurancePageQueryVariables>(GetInsurancePageDocument, options);
+      }
+export function useGetInsurancePageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetInsurancePageQuery, GetInsurancePageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetInsurancePageQuery, GetInsurancePageQueryVariables>(GetInsurancePageDocument, options);
+        }
+export type GetInsurancePageQueryHookResult = ReturnType<typeof useGetInsurancePageQuery>;
+export type GetInsurancePageLazyQueryHookResult = ReturnType<typeof useGetInsurancePageLazyQuery>;
+export type GetInsurancePageQueryResult = Apollo.QueryResult<GetInsurancePageQuery, GetInsurancePageQueryVariables>;
 export const GetRentFiltersDocument = gql`
     query GetRentFilters {
   brands {

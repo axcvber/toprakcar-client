@@ -1,13 +1,15 @@
 import { GetServerSideProps, NextPage } from 'next'
 import React, { useEffect } from 'react'
-import RentSteps from '../../components/RentSteps'
 import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
 import { GetRentFiltersDocument, GetRentFiltersQuery, GetRentFiltersQueryVariables } from '../../generated'
 import client from '../../graphql/apollo-client'
-import { CircularProgress, Container } from '@mui/material'
+import { CircularProgress, Container, Typography } from '@mui/material'
 import { useRentContext } from '../../context/rent/rent-context'
 import { useRouter } from 'next/router'
 import { Stack } from '@mui/material'
+import ImageHeading from '../../components/heading/ImageHeading'
+import { useLocale } from '../../hooks/useLocale'
+import RentStepper from '../../components/rent/steps/RentStepper'
 
 interface IReservationPage {
   filters: GetRentFiltersQuery
@@ -15,8 +17,9 @@ interface IReservationPage {
 
 const ReservationPage: NextPage<IReservationPage> = ({ filters }) => {
   const { setFilterData } = useShopFilterContext()
-  const { pickUpLocation } = useRentContext()
+  const { pickUpLocation, currentStep } = useRentContext()
   const router = useRouter()
+  const t = useLocale()
 
   useEffect(() => {
     if (!pickUpLocation) {
@@ -35,7 +38,12 @@ const ReservationPage: NextPage<IReservationPage> = ({ filters }) => {
 
   return (
     <Container maxWidth='xl'>
-      <RentSteps />
+      <ImageHeading>
+        <Typography variant='h4' color='#fff'>
+          {t.stepLabels[currentStep]}
+        </Typography>
+      </ImageHeading>
+      <RentStepper stepLabels={t.stepLabels} />
     </Container>
   )
 }

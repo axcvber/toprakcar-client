@@ -36,6 +36,10 @@ let theme = createTheme({
         a: {
           textDecoration: 'none',
         },
+        table: {
+          borderCollapse: 'collapse',
+          borderSpacing: 0,
+        },
       },
     },
     MuiCheckbox: {

@@ -10,7 +10,7 @@ import { Typography } from '@mui/material'
 import { HiChevronDown } from 'react-icons/hi'
 import Popover from '@mui/material/Popover'
 import Fade from '@mui/material/Fade'
-import Loader from './Loader'
+import Loader from '../Loader'
 import Skeleton from '@mui/material/Skeleton'
 import { Box } from '@mui/material'
 

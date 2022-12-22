@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
-import Line from '../styles/shared/Line'
-import { Maybe } from '../generated'
+import Line from '../../styles/shared/Line'
+import { Maybe } from '../../generated'
 
 interface IHeading {
   label?: Maybe<string>
@@ -10,12 +10,19 @@ interface IHeading {
   width?: number
   desc?: Maybe<string>
   withLine?: boolean
+  color?: string
 }
 
-const Heading: React.FC<IHeading> = ({ width, label, title, align = 'left', desc, withLine }) => {
+const Heading: React.FC<IHeading> = ({ width, label, title, align = 'left', desc, withLine, color = 'inherit' }) => {
   return (
     <Stack alignItems={align === 'center' ? 'center' : 'flex-start'}>
-      <Stack alignItems={align === 'center' ? 'center' : 'flex-start'} maxWidth={width} textAlign={align} spacing={2}>
+      <Stack
+        sx={{ color }}
+        alignItems={align === 'center' ? 'center' : 'flex-start'}
+        maxWidth={width}
+        textAlign={align}
+        spacing={1.5}
+      >
         {label && (
           <Typography fontWeight={500} color='text.disabled' textTransform={'uppercase'}>
             {label}
@@ -25,7 +32,7 @@ const Heading: React.FC<IHeading> = ({ width, label, title, align = 'left', desc
           {title}
         </Typography>
         {withLine && <Line />}
-        {desc && <Typography>{desc}</Typography>}
+        {desc && <Typography fontWeight={500}>{desc}</Typography>}
       </Stack>
     </Stack>
   )

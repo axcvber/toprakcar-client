@@ -1,0 +1,40 @@
+query GetInsurancePage($locale: I18NLocaleCode) {
+  insurancePage(locale: $locale) {
+    data {
+      attributes {
+        title
+        description
+        background {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        insuranceBenefits {
+          id
+          title
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        insuranceQuestions {
+          heading {
+            title
+            label
+            description
+          }
+          faqItem {
+            id
+            question
+            answer
+          }
+        }
+      }
+    }
+  }
+}

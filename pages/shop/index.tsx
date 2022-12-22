@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Container, Stack, Pagination } from '@mui/material'
-import VehicleShopCard from '../../components/VehicleShopCard'
+import VehicleShopCard from '../../components/cards/VehicleShopCard'
 import FilterNav from '../../components/filtration/FilterNav'
 import FilterBar from '../../components/filtration/FilterBar'
 import {

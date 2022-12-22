@@ -4,7 +4,7 @@ import { FiSearch } from 'react-icons/fi'
 import dayjs, { Dayjs } from 'dayjs'
 import DatePicker from './DatePicker'
 import { LocationEntity } from '../generated'
-import { useRentContext } from '../context/rent/rent-context'
+import { LocationOption, useRentContext } from '../context/rent/rent-context'
 import { useRouter } from 'next/router'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,7 +13,15 @@ import LocationDropdown from './dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
 
 const schema = yup.object().shape({
+  // pickUpLocation: yup
+  //   .object()
+  //   .shape({
+  //     id: yup.string().required('sdsd'),
+  //     address: yup.string().required('dsad'),
+  //   })
+  //   .required('asds'),
   pickUpLocation: yup.object().required(),
+
   pickUpDate: yup.date().min(new Date(), 'Please choose future date').nullable().required(),
   dropOffDate: yup
     .date()
@@ -30,10 +38,12 @@ const schema = yup.object().shape({
 })
 
 interface ISearchInputs {
-  pickUpLocation: LocationEntity | null
+  pickUpLocation: LocationOption
   pickUpDate: Dayjs | null
   dropOffDate: Dayjs | null
 }
+
+// LocationEntity
 
 const Search = () => {
   const { pickUpLocation, pickUpDate, dropOffDate, setPickUpLocation, setPickUpDate, setDropOffDate } = useRentContext()
@@ -65,15 +75,20 @@ const Search = () => {
   const pickUpLocationTrigger = watch('pickUpLocation')
 
   const handleSelectPickUpLocation = (option: LocationEntity) => {
-    setValue('pickUpLocation', option, { shouldValidate: true, shouldDirty: true })
+    if (option.id && option.attributes?.address) {
+      setValue(
+        'pickUpLocation',
+        {
+          id: option.id,
+          address: option.attributes?.address,
+        },
+        { shouldValidate: true, shouldDirty: true }
+      )
+    }
   }
 
   const onSubmit: SubmitHandler<ISearchInputs> = (data) => {
-    console.log('SearchformModalData', data)
-    setPickUpLocation({
-      id: data.pickUpLocation?.id as any,
-      address: data.pickUpLocation?.attributes?.address as any,
-    })
+    setPickUpLocation(data.pickUpLocation)
     setPickUpDate(dayjs(data.pickUpDate))
     setDropOffDate(dayjs(data.dropOffDate))
     if (router.pathname === '/') {
@@ -104,7 +119,7 @@ const Search = () => {
             control={control}
             render={({ fieldState }) => (
               <LocationDropdown
-                title={pickUpLocationTrigger?.attributes?.address || pickUpLocation?.address || 'Choose a location'}
+                title={pickUpLocationTrigger?.address || pickUpLocation?.address || 'Choose a location'}
                 onSelectLocation={handleSelectPickUpLocation}
                 isError={!!fieldState.error}
               />

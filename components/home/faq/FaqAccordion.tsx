@@ -33,11 +33,11 @@ const FaqAccordion: React.FC<IFaqAccordion> = ({ id, title, content, expanded, o
             alignSelf: 'flex-start',
           },
         }}
-        expandIcon={<FaChevronDown color='inherit' />}
+        expandIcon={<FaChevronDown fontSize={14} color='inherit' />}
       >
         <Stack
           direction='row'
-          spacing={1.5}
+          spacing={1.2}
           alignItems={'flex-start'}
           sx={{
             'svg': {
@@ -47,7 +47,7 @@ const FaqAccordion: React.FC<IFaqAccordion> = ({ id, title, content, expanded, o
             },
           }}
         >
-          <BsQuestionCircle className='icon' fontSize={22} />
+          <BsQuestionCircle className='icon' />
           <Typography pr={2} fontWeight={600}>
             {title}
           </Typography>
@@ -55,7 +55,7 @@ const FaqAccordion: React.FC<IFaqAccordion> = ({ id, title, content, expanded, o
       </AccordionSummary>
       <Divider />
       <AccordionDetails>
-        <Typography fontSize={14} color='text.disabled'>
+        <Typography variant='body2' color='text.disabled'>
           {content}
         </Typography>
       </AccordionDetails>
