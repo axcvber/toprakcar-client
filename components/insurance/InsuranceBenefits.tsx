@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Typography, Divider, Button, Box, Container } from '@mui/material'
+import { Stack, Typography, Divider, Button, Box, Grid } from '@mui/material'
 import { HiOutlineClipboardList } from 'react-icons/hi'
 import { ComponentMainIconBox, Maybe } from '../../generated'
 import SVG from 'react-inlinesvg'
@@ -12,7 +12,13 @@ interface InsuranceBenefitsProps {
 const InsuranceBenefits: React.FC<InsuranceBenefitsProps> = ({ data }) => {
   return (
     <Paper withShadow>
-      <Stack direction='row' justifyContent={'space-around'} py={1}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={4}
+        justifyContent={'space-around'}
+        // alignItems='center'
+        py={1}
+      >
         {data.map((item) => (
           <BenefitItem key={item?.id} icon={item?.icon.data?.attributes?.url} label={item?.title} />
         ))}
@@ -35,14 +41,14 @@ const BenefitItem: React.FC<IBenefitItem> = ({ icon, label }) => {
       maxWidth={340}
       sx={(theme) => ({
         '.benefit-icon': {
-          width: 40,
-          height: 40,
+          width: 35,
+          height: 35,
           fill: theme.palette.primary.main,
         },
       })}
     >
       <SVG className='benefit-icon' src={icon || ''} />
-      <Typography flex={1} fontWeight={600} color='text.secondary'>
+      <Typography flex={1} fontWeight={600} variant='body2' color='text.secondary'>
         {label}
       </Typography>
     </Stack>

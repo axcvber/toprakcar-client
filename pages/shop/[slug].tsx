@@ -8,19 +8,26 @@ import {
   SalesCar,
 } from '../../generated'
 import client from '../../graphql/apollo-client'
-import { Container, Grid } from '@mui/material'
+import { Container, Grid, Button } from '@mui/material'
 import GallerySlider from '../../components/shop/shop-single/GallerySlider'
 import VehicleDetails from '../../components/shop/shop-single/VehicleDetails'
 import VehicleSidebar from '../../components/shop/shop-single/VehicleSidebar'
+import { useRouter } from 'next/router'
+import { BiArrowBack } from 'react-icons/bi'
 
 interface IShopSingle {
   item: SalesCar
 }
 
 const ShopSingle: NextPage<IShopSingle> = ({ item }) => {
+  const router = useRouter()
+
   return (
     <>
-      <Container maxWidth={'lg'} sx={{ mt: 4, mb: 8 }}>
+      <Container maxWidth={'lg'} sx={{ mt: 2, mb: 8 }}>
+        <Button startIcon={<BiArrowBack />} color='primary' onClick={() => router.back()} sx={{ mb: 2 }}>
+          {'Back'}
+        </Button>
         <Grid container>
           <Grid item xs={12} md={7} lg={8} pr={{ xs: 0, md: 4 }}>
             <GallerySlider data={item.gallery.data} />

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
@@ -29,8 +29,12 @@ import client from '../graphql/apollo-client'
 import { FilterProvider } from '../context/filter-context'
 import { ShopFilterProvider } from '../context/shop-filter/shop-filter-context'
 import { SnackbarProvider } from 'notistack'
+import { InsuranceProvider } from '../context/insurance/insurance-context'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
+NProgress.configure({ showSpinner: false })
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
@@ -39,25 +43,42 @@ interface MyAppProps extends AppProps {
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   const router = useRouter()
+  useEffect(() => {
+    const handleRouteStart = () => NProgress.start()
+    const handleRouteDone = () => NProgress.done()
+
+    router.events.on('routeChangeStart', handleRouteStart)
+    router.events.on('routeChangeComplete', handleRouteDone)
+    router.events.on('routeChangeError', handleRouteDone)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteStart)
+      router.events.off('routeChangeComplete', handleRouteDone)
+      router.events.off('routeChangeError', handleRouteDone)
+    }
+  }, [])
+
   return (
     <ApolloProvider client={client}>
       <FilterProvider>
         <RentProvider>
           <ShopFilterProvider>
-            <CacheProvider value={emotionCache}>
-              <ThemeProvider theme={theme}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
-                  <CssBaseline />
-                  <SnackbarProvider maxSnack={1}>
-                    <ModalProvider>
-                      <Layout>
-                        <Component {...pageProps} />
-                      </Layout>
-                    </ModalProvider>
-                  </SnackbarProvider>
-                </LocalizationProvider>
-              </ThemeProvider>
-            </CacheProvider>
+            <InsuranceProvider>
+              <CacheProvider value={emotionCache}>
+                <ThemeProvider theme={theme}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={router.locale}>
+                    <CssBaseline />
+                    <SnackbarProvider maxSnack={1}>
+                      <ModalProvider>
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                      </ModalProvider>
+                    </SnackbarProvider>
+                  </LocalizationProvider>
+                </ThemeProvider>
+              </CacheProvider>
+            </InsuranceProvider>
           </ShopFilterProvider>
         </RentProvider>
       </FilterProvider>

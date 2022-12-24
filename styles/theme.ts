@@ -10,7 +10,7 @@ declare module '@mui/material/Button' {
 let theme = createTheme({
   components: {
     MuiCssBaseline: {
-      styleOverrides: {
+      styleOverrides: (themeParam) => ({
         '*': {
           // WebkitTapHighlightColor: 'transparent',
           'input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button': {
@@ -40,7 +40,15 @@ let theme = createTheme({
           borderCollapse: 'collapse',
           borderSpacing: 0,
         },
-      },
+        '#nprogress': {
+          '.bar': {
+            background: `${themeParam.palette.primary.main} !important`,
+          },
+          '.peg': {
+            boxShadow: `0 0 10px ${themeParam.palette.primary.main}, 0 0 5px ${themeParam.palette.primary.main} !important`,
+          },
+        },
+      }),
     },
     MuiCheckbox: {
       defaultProps: {

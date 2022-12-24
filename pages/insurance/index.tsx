@@ -1,11 +1,7 @@
 import React from 'react'
-import { Stack, Typography, Divider, Grid, Box, Container } from '@mui/material'
-import OrderTable from '../../components/OrderTable'
-import Paper from '../../components/layout/Paper'
+import { Stack, Grid, Box, Container } from '@mui/material'
 import Heading from '../../components/heading/Heading'
-import Field from '../../components/form/Field'
 import InsuranceStartForm from '../../components/insurance/InsuranceStartForm'
-import { HiOutlineClipboardList } from 'react-icons/hi'
 import { GetStaticProps, NextPage } from 'next'
 import {
   GetInsurancePageDocument,
@@ -22,7 +18,7 @@ interface InsurancePageProps {
 }
 
 const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
-  const [expanded, setExpanded] = React.useState<string | false>(false)
+  const [expanded, setExpanded] = React.useState<string | false>(false) //refactor
 
   const handleChange = (id?: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     if (id) {
@@ -42,6 +38,19 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
+          position: 'relative',
+          zIndex: 1,
+          '&:before': {
+            content: '""',
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: -1,
+          },
         }}
       >
         <Container maxWidth={'sm'}>
@@ -51,11 +60,10 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
         </Container>
       </Box>
 
-      <Container maxWidth={'lg'} sx={{}}>
-        <Box mt={-6}>
+      <Container maxWidth={'lg'}>
+        <Box sx={{ mt: -6, zIndex: 2, position: 'relative' }}>
           <InsuranceBenefits data={pageData.insuranceBenefits} />
         </Box>
-
         <Stack spacing={6} my={6}>
           <div>
             <Heading

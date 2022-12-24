@@ -85,18 +85,18 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
             direction='row'
             spacing={1}
             alignItems='center'
-            sx={{
+            sx={(theme) => ({
               '& .option-icon': {
                 width: 22,
                 height: 22,
-                color: 'text.primary',
+                color: theme.palette.text.primary,
               },
               '& .q-icon': {
                 color: 'primary.main',
                 fontSize: 18,
                 cursor: 'pointer',
               },
-            }}
+            })}
           >
             <SVG className='option-icon' src={item?.icon.data?.attributes?.url || ''} />
             <Typography fontWeight={500} color='text.primary'>

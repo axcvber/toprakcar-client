@@ -31,6 +31,7 @@ const FormCheckbox: React.FC<IFormCheckbox> = ({ label, name, control }) => {
           control={
             <Checkbox
               {...field}
+              checked={field.value === true}
               icon={<IoSquareOutline />}
               checkedIcon={<IoCheckbox />}
               sx={{

@@ -2,6 +2,9 @@ export const phoneRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{
 
 export const passportRegExp = /^(?!^0+$)[a-zA-Z0-9]{6,9}$/
 
+export const drivingLicenseRegExp =
+  /^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\d{4,5})|([A-Z]{2})(\d{3,4})|([A-Z]{3})(\d{2,4}))$/
+
 export const checkTcNum = (value: any) => {
   value = value.toString()
   let isEleven = /^[0-9]{11}$/.test(value)

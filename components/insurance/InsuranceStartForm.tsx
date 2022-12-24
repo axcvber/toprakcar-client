@@ -2,21 +2,22 @@ import React from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { checkTcNum } from '../../utils/validations'
-import { Stack, Typography, Divider, Button, Box, Container } from '@mui/material'
+import { checkTcNum, drivingLicenseRegExp } from '../../utils/validations'
+import { Stack, Button } from '@mui/material'
 import Field from '../form/Field'
 import FormCheckbox from '../form/FormCheckbox'
 import Paper from '../layout/Paper'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Controller } from 'react-hook-form'
+import { useInsuranceContext } from '../../context/insurance/insurance-context'
+import { useRouter } from 'next/router'
 
 const schema = yup
   .object({
-    tabValue: yup.number(),
-    licensePlate: yup.string().when('tabValue', {
-      is: 0,
-      then: yup.string().required(),
+    hasLicense: yup.boolean(),
+    licensePlate: yup.string().when('hasLicense', {
+      is: true,
+      then: yup.string().required().matches(drivingLicenseRegExp, 'incorrect license'),
       otherwise: yup.string(),
     }),
     TCIdNumber: yup
@@ -27,39 +28,32 @@ const schema = yup
   })
   .required()
 
-interface InsuranceStartFormInputs {
-  tabValue: number
+export interface InsuranceStartFormInputs {
+  hasLicense: boolean
   licensePlate: string
   TCIdNumber: string
   termsOfService: boolean
 }
 
 const InsuranceStartForm = () => {
-  const [tabValue, setTabValue] = React.useState(0)
-
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting, isSubmitSuccessful },
-    setValue,
-    clearErrors,
-    watch,
-    reset,
-  } = useForm<InsuranceStartFormInputs>({
+  const { setFirstStepData, firstStepData } = useInsuranceContext()
+  const [tabValue, setTabValue] = React.useState(firstStepData?.hasLicense ? 0 : 1)
+  const router = useRouter()
+  const { handleSubmit, control, setValue, clearErrors, resetField } = useForm<InsuranceStartFormInputs>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      tabValue,
-    },
+    defaultValues: firstStepData,
   })
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue)
-    setValue('tabValue', newValue)
+    setValue('hasLicense', newValue === 0 ? true : false)
+    resetField('licensePlate')
     clearErrors()
   }
 
   const onSubmit: SubmitHandler<InsuranceStartFormInputs> = async (data) => {
-    console.log('data', data)
+    setFirstStepData(data)
+    router.push('insurance/registration')
   }
 
   return (
@@ -104,8 +98,14 @@ const InsuranceStartForm = () => {
         </Tabs>
 
         <Stack direction='row' spacing={2}>
-          <Field name='licensePlate' control={control} placeholder={'License Plate'} disabled={tabValue === 1} />
-          <Field name='TCIdNumber' control={control} placeholder={'TR Identity'} />
+          <Field
+            name='licensePlate'
+            control={control}
+            label='License Plate'
+            placeholder={'34P3169'}
+            disabled={tabValue === 1}
+          />
+          <Field name='TCIdNumber' control={control} label='TR Identity' placeholder={'56437878965'} />
         </Stack>
 
         <Stack spacing={2}>

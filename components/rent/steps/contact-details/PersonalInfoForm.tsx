@@ -74,22 +74,8 @@ const PersonalInfoForm = () => {
       setUserData(data)
       setCurrentStep(4)
       enqueueSnackbar('Success', { variant: 'success' })
-      // toast({
-      //   description: t.form.notify.successFormSend,
-      //   status: 'success',
-      //   duration: 5000,
-      //   isClosable: true,
-      // })
-      // reset()
     } catch (error) {
-      console.log('error', error)
-
-      // toast({
-      //   description: t.form.notify.errorFormSend,
-      //   status: 'error',
-      //   duration: 5000,
-      //   isClosable: true,
-      // })
+      enqueueSnackbar('Error', { variant: 'error' })
     }
   }
 

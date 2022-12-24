@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper'
-
 import { UploadFileEntity } from '../../../generated'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
@@ -23,8 +22,6 @@ const GallerySlider: React.FC<IGallerySlider> = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(1)
   const prevRef = useRef(null)
   const nextRef = useRef(null)
-  // console.log('thumbsSwiper', thumbsSwiper)
-  // console.log('activeIndex', activeIndex)
 
   return (
     <>
@@ -53,13 +50,13 @@ const GallerySlider: React.FC<IGallerySlider> = ({ data }) => {
           updateOnWindowResize
           observer
           observeParents
-          onSlideChange={(swiper: ST) => setActiveIndex(swiper.activeIndex)}
-          // onSwiper={(swiper: any) => console.log(swiper.activeIndex)}
+          onSlideChange={(swiper: ST) => setActiveIndex(swiper.realIndex + 1)}
         >
           {data.map((item) => (
             <SwiperSlide key={item.id}>
               <Image
                 width='100%'
+                priority
                 height={65}
                 layout='responsive'
                 objectFit='cover'
@@ -96,48 +93,18 @@ const GallerySlider: React.FC<IGallerySlider> = ({ data }) => {
         style={{ padding: '10px 0' }}
       >
         {data.map((item, inx: number) => (
-          <SwiperSlide key={item.id} style={{ width: '100%' }}>
-            <Box
-              sx={{
-                borderRadius: { xs: 2, md: 3 },
-                border: '2px solid',
-                borderColor: inx === activeIndex ? 'primary.main' : 'divider',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                position: 'relative',
-                // width: '100%',
-                // height: '100%',
-                '&:after': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  display: 'block',
-                  width: '100%',
-                  height: '100%',
-                  background: 'rgba(0,0,0,0.3)',
-                  zIndex: 999,
-                  opacity: 0,
-                  transition: 'opacity 0.1s ease',
-                },
-                '&:hover': {
-                  '&:after': {
-                    opacity: 1,
-                  },
-                },
-              }}
-            >
-              <Image
-                width={100}
-                height={100}
-                layout='responsive'
-                objectFit='cover'
-                src={item.attributes?.url || ''}
-                placeholder='blur'
-                blurDataURL={item.attributes?.url || ''}
-                alt={item.attributes?.alternativeText || ''}
-              />
-            </Box>
-          </SwiperSlide>
+          <BottomNavSlide key={item.id} isActive={inx + 1 === activeIndex}>
+            <Image
+              width={100}
+              height={100}
+              layout='responsive'
+              objectFit='cover'
+              src={item.attributes?.url || ''}
+              placeholder='blur'
+              blurDataURL={item.attributes?.url || ''}
+              alt={item.attributes?.alternativeText || ''}
+            />
+          </BottomNavSlide>
         ))}
       </Swiper>
     </>
@@ -208,14 +175,36 @@ const MainSlider = styled(Swiper)(({ theme }) => ({
   userSelect: 'none',
 }))
 
-const BottomNavSlide = styled(SwiperSlide)(({ theme }) => ({
-  height: '100%',
-  border: '2px solid',
+const BottomNavSlide = styled(SwiperSlide, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<{ isActive: boolean }>(({ isActive, theme }) => ({
+  boxSizing: 'border-box',
+  maxWidth: '100px',
+  maxHeight: '100px',
   userSelect: 'none',
-  borderColor: 'red',
-  overflow: 'hidden',
-  // borderColor: theme.palette.divider,
   borderRadius: '10px',
+  border: '2px solid',
+  borderColor: isActive ? theme.palette.primary.main : theme.palette.divider,
+  overflow: 'hidden',
+  cursor: 'pointer',
+  position: 'relative',
+  '&:after': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0,0,0,0.3)',
+    zIndex: 999,
+    opacity: 0,
+    transition: 'opacity 0.1s ease',
+  },
+  '&:hover': {
+    '&:after': {
+      opacity: 1,
+    },
+  },
 }))
 
 export default GallerySlider
