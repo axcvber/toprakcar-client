@@ -6,6 +6,7 @@ import SocialIcons from './SocialIcons'
 import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import Link from 'next/link'
 import { FiMail, FiPhoneCall } from 'react-icons/fi'
+import { useAppContext } from '../../context/appContext'
 
 interface IFooterLink {
   path: string
@@ -35,30 +36,10 @@ const workTime = [
   },
 ]
 
-const icons = [
-  {
-    id: 1,
-    icon: <FaInstagram />,
-    link: '#',
-  },
-  {
-    id: 2,
-    icon: <FaTwitter />,
-    link: '#',
-  },
-  {
-    id: 3,
-    icon: <FaWhatsapp />,
-    link: '#',
-  },
-  {
-    id: 4,
-    icon: <FaFacebookF />,
-    link: '#',
-  },
-]
-
 const Footer = () => {
+  const { initialData } = useAppContext()
+  const contacts = initialData?.contact?.data?.attributes
+
   const t = useLocale()
   return (
     <Box sx={{ marginTop: 'auto', background: '#1D252C', pt: 6, pb: 3, color: 'text.secondary', boxShadow: 15 }}>
@@ -67,10 +48,9 @@ const Footer = () => {
           <Stack spacing={3} width={300}>
             <Logo placement='footer' />
             <Typography variant='body2' lineHeight={2}>
-              Toprak Car provides services. Green Car, one of the strongest and most meticulous working companies in the
-              rent a car market, considers customer satisfaction as its first duty.
+              {initialData?.contact?.data?.attributes?.footerText}
             </Typography>
-            <SocialIcons icons={icons} />
+            <SocialIcons icons={contacts?.socialNetworks as any} />
           </Stack>
           <Stack>
             <Title text={t.footer.explore} />
@@ -85,9 +65,9 @@ const Footer = () => {
           <Stack>
             <Title text={t.footer.workHours} />
             <Stack spacing={2}>
-              {workTime.map((item) => (
-                <Typography key={item.id} variant='body2' fontWeight={500}>
-                  {item.text}
+              {contacts?.workingHours.map((item) => (
+                <Typography key={item?.id} variant='body2' fontWeight={500}>
+                  {item?.listItem}
                 </Typography>
               ))}
             </Stack>
@@ -95,8 +75,14 @@ const Footer = () => {
           <Stack>
             <Title text={t.footer.contactUs} />
             <Stack spacing={1} alignItems='flex-start'>
-              <Button startIcon={<FiPhoneCall />}>+505 843 30 32</Button>
-              <Button startIcon={<FiMail />}>toprakcar@gmail.com</Button>
+              <Button component='a' href={`mailto:${contacts?.email}`} startIcon={<FiMail />}>
+                {contacts?.email}
+              </Button>
+              {contacts?.phoneNumbers.map((item) => (
+                <Button key={item?.id} component='a' href={`tel:${item?.phone}`} startIcon={<FiPhoneCall />}>
+                  {item?.phone}
+                </Button>
+              ))}
             </Stack>
           </Stack>
         </Stack>
@@ -114,7 +100,7 @@ const Footer = () => {
               ))}
             </Stack>
           </Stack>
-          <CreatorLink createdText={t.footer.createdBy} name='AXCVBER' link='#' />
+          <CreatorLink createdText={t.footer.createdBy} name='AXCVBER' link='https://t.me/axcvber' />
         </Stack>
       </Container>
     </Box>

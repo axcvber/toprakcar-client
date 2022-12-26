@@ -11,6 +11,7 @@ import { BsSpeedometer2 } from 'react-icons/bs'
 import { useModal } from '../../hooks/useModal'
 import { MODAL_TYPES } from '../../context/modalContext'
 import CarOption from './components/CarOption'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IHCard {
   item: RentCarEntity
@@ -19,6 +20,7 @@ interface IHCard {
 
 const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
   const { showModal } = useModal()
+  const t = useLocale()
 
   const showMoreInfo = (title?: string, content?: string) => {
     showModal(MODAL_TYPES.RENT_CAR_INFO_MODAL, {
@@ -97,10 +99,10 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
               startIcon={<AiOutlineInfoCircle />}
               onClick={() => showMoreInfo(item.attributes?.name, item.attributes?.moreInfo)}
             >
-              More Info
+              {t.button.moreInfo}
             </Button>
             <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={handleSelect}>
-              Select
+            {t.button.select}
             </Button>
           </Stack>
         </Stack>

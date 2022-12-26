@@ -19,6 +19,7 @@ import { useInsuranceContext } from '../../../context/insurance/insurance-contex
 import VehicleSelectStep from './VehicleSelectStep'
 import VehicleInfoStep from './VehicleInfoStep'
 import { useRouter } from 'next/router'
+import { useLocale } from '../../../hooks/useLocale'
 
 function getStepContent(step: number, hasLicense: boolean) {
   switch (step) {
@@ -50,12 +51,10 @@ function ColorlibStepIcon(props: StepIconProps) {
   )
 }
 
-const steps = ['Basic Information', 'Vehicle Information', 'Contact Information', 'Submission']
-
 const InsuranceStepper = () => {
   const { currentStep, decrementCurrentStep, firstStepData, clearData } = useInsuranceContext()
   const router = useRouter()
-
+  const t = useLocale()
   // useEffect(() => {
   //   return () => {
   //     clearData()
@@ -84,7 +83,7 @@ const InsuranceStepper = () => {
         }}
       >
         <Stepper alternativeLabel activeStep={currentStep} connector={<ColorlibConnector />}>
-          {steps.map((label, inx: number) => (
+          {t.insurance.stepLabels.map((label, inx: number) => (
             <Step key={label} disabled={inx === 0}>
               <StepLabel
                 sx={{
@@ -97,7 +96,7 @@ const InsuranceStepper = () => {
                 }}
                 StepIconComponent={ColorlibStepIcon}
               >
-                {inx === 1 && firstStepData?.hasLicense ? 'Ruhsat Bilgileri' : label}
+                {inx === 1 && firstStepData?.hasLicense ? t.insurance.addStepLabel : label}
               </StepLabel>
             </Step>
           ))}
@@ -105,7 +104,7 @@ const InsuranceStepper = () => {
       </Box>
       <Box>
         <Button startIcon={<BiArrowBack />} color='inherit' disabled={currentStep === 3} onClick={handleBack}>
-          {'Back'}
+          {t.button.back}
         </Button>
       </Box>
 

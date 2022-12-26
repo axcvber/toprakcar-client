@@ -1,4 +1,5 @@
 import React, { useState, createContext, ReactNode } from 'react'
+import CarPurchaseModal from '../components/modals/CarPurchaseModal'
 import RentCarInfoModal from '../components/modals/RentCarInfoModal'
 import SearchModal from '../components/modals/SearchModal'
 import ShopSidebarModal from '../components/modals/ShopSidebarModal'
@@ -9,6 +10,7 @@ export enum MODAL_TYPES {
   RENT_CAR_INFO_MODAL = 'RENT_CAR_INFO_MODAL',
   SHOP_SIDEBAR_MODAL = 'SHOP_SIDEBAR_MODAL',
   SHOP_WORK_STEPS = 'SHOP_WORK_STEPS',
+  CAR_PURCHASE_MODAL = 'CAR_PURCHASE_MODAL',
 }
 
 const MODAL_COMPONENTS: any = {
@@ -16,6 +18,7 @@ const MODAL_COMPONENTS: any = {
   [MODAL_TYPES.RENT_CAR_INFO_MODAL]: RentCarInfoModal,
   [MODAL_TYPES.SHOP_SIDEBAR_MODAL]: ShopSidebarModal,
   [MODAL_TYPES.SHOP_WORK_STEPS]: ShopWorkStepsModal,
+  [MODAL_TYPES.CAR_PURCHASE_MODAL]: CarPurchaseModal,
 }
 
 interface IModalContext {

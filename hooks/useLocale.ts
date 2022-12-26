@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { en, ru, tr } from '../locales'
+import { en, ru, tr, uk } from '../locales'
 
 export const useLocale = () => {
   const router = useRouter()
@@ -13,6 +13,9 @@ export const useLocale = () => {
       break
     case 'ru':
       t = ru
+      break
+    case 'uk':
+      t = uk
       break
     default:
       t = tr

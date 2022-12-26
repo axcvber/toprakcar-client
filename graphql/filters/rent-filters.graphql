@@ -1,0 +1,49 @@
+query GetRentFilters(
+  $brands: [ID]
+  $vehicleClasses: [ID]
+  $bodyStyles: [ID]
+  $fuelTypes: [ID]
+  $transmissions: [ID]
+  $locale: I18NLocaleCode
+) {
+  brands(filters: { id: { in: $brands } }) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+  vehicleClasses(filters: { id: { in: $vehicleClasses } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+  bodyStyles(filters: { id: { in: $bodyStyles } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        style
+      }
+    }
+  }
+  fuelTypes(filters: { id: { in: $fuelTypes } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  transmissions(filters: { id: { in: $transmissions } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+}

@@ -1,27 +1,26 @@
 import React, { useEffect } from 'react'
-import { Grid, Stack } from '@mui/material'
+import { Grid } from '@mui/material'
 import LocationFilter from '../filtration/LocationFilter'
 import FilterBar from '../filtration/FilterBar'
 import FilterNav from '../filtration/FilterNav'
 import Loader from '../Loader'
 import Skeleton from '@mui/material/Skeleton'
-import { GetRentFiltersQuery, RentCarEntity, useRentCarsQuery } from '../../generated'
+import { RentCarEntity, useRentCarsQuery } from '../../generated'
 import HCard from '../cards/HCard'
-import { FilterOption, useFilterContext } from '../../context/filter-context'
 import { useRouter } from 'next/router'
-import FilterList from '../filtration/FilterList'
+import FilterList from './RentFilter'
 import { filterEmptyArray } from '../../utils/filterEmptyArray'
-import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
+import { useFilterContext } from '../../context/filter/filter-context'
 import { useRentContext } from '../../context/rent/rent-context'
 import { useSnackbar } from 'notistack'
+import Paginator from '../Paginator'
 
 interface IRentCarsList {
   withLocationChange?: boolean
 }
 
 const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
-  // const { filtered, deleteFilter, clearFilter } = useFilterContext()
-  const { setFilterData, filtered, deleteFilter, clearFilter, carState } = useShopFilterContext()
+  const { filtered, deleteFilter, clearFilter, carState, sortBy } = useFilterContext()
   const { pickUpLocation, pickUpDate, dropOffDate, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
@@ -29,27 +28,34 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   const { data, loading, error, refetch } = useRentCarsQuery({
     variables: {
       locale: router.locale,
-    },
-    notifyOnNetworkStatusChange: true,
-  })
-
-  useEffect(() => {
-    console.log('changed filtered', filtered)
-
-    refetch({
+      start: 0,
+      limit: 20,
+      sortBy: [sortBy],
       address: pickUpLocation ? pickUpLocation?.id : undefined,
+      price: filtered.priceRange ? filtered.priceRange.value : undefined,
       brands: filterEmptyArray(filtered.brands),
-      // vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
+      vehicleClasses: filterEmptyArray(filtered.vehicleClasses),
       bodyStyles: filterEmptyArray(filtered.bodyStyles),
       fuelTypes: filterEmptyArray(filtered.fuelTypes),
       transmissions: filterEmptyArray(filtered.transmissions),
-    })
-  }, [filtered, refetch, pickUpLocation])
+    },
+  })
+
+  useEffect(() => {
+    if (!loading) {
+      window.scrollTo({ top: 300, left: 0 })
+    }
+  }, [data, loading])
 
   if (error) {
     console.error(error)
     return null
   }
+
+  const page = data?.rentCars?.meta.pagination.page
+  const pageSize = data?.rentCars?.meta.pagination.pageSize
+  const totalCount = data?.rentCars?.meta.pagination.total
+  const pageCount = data?.rentCars?.meta.pagination.pageCount
 
   const handleSelectCar = (carItem: RentCarEntity) => {
     if (pickUpLocation && pickUpDate && dropOffDate) {
@@ -60,6 +66,18 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
       }
     } else {
       enqueueSnackbar('Select search details', { variant: 'error' })
+    }
+  }
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, selectedPage: number) => {
+    console.log('selectedPage', selectedPage)
+
+    if (selectedPage !== page) {
+      if (pageSize) {
+        refetch({
+          start: (selectedPage - 1) * pageSize,
+        })
+      }
     }
   }
 
@@ -89,6 +107,7 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
             ))
           )}
         </Grid>
+        <Paginator page={page} pageCount={pageCount} totalCount={totalCount} handleChange={handlePageChange} />
       </Grid>
     </Grid>
   )

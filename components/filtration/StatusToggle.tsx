@@ -3,10 +3,12 @@ import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { styled } from '@mui/material/styles'
 import { Box } from '@mui/material'
-import { CarStateType, useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
+import { CarStateType, useFilterContext } from '../../context/filter/filter-context'
+import { useLocale } from '../../hooks/useLocale'
 
 const StatusToggle = () => {
-  const { setCarState, carState } = useShopFilterContext()
+  const { setCarState, carState } = useFilterContext()
+  const t = useLocale()
 
   const handleChange = (_: React.MouseEvent<HTMLElement>, newAlignment: CarStateType) => {
     if (newAlignment !== null) {
@@ -16,6 +18,8 @@ const StatusToggle = () => {
   return (
     <Box
       sx={{
+        width: '100%',
+        height: '100%',
         border: '1px solid',
         borderColor: 'divider',
         borderRadius: '10px',
@@ -31,10 +35,10 @@ const StatusToggle = () => {
         fullWidth
       >
         <ToggleButton value='used' selected={carState === 'used'}>
-          Used Cars
+          {t.filter.usedCars}
         </ToggleButton>
         <ToggleButton value='new' selected={carState === 'new'}>
-          New Cars
+          {t.filter.newCars}
         </ToggleButton>
       </StyledToggleButtonGroup>
     </Box>
@@ -51,9 +55,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
     '&.MuiToggleButton-root': {
       textTransform: 'none',
-      height: '40px',
+      height: 'auto',
+      padding: '10px',
       fontWeight: 600,
       transition: 'all 0.1s linear',
+      fontSize: 13,
       '&:hover': {
         background: theme.palette.grey[100],
       },

@@ -1,0 +1,29 @@
+query GetFleetPage($locale: I18NLocaleCode) {
+  fleetPage(locale: $locale) {
+    data {
+      attributes {
+        headingImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
+      }
+    }
+  }
+}

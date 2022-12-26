@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import LocationDropdown from './dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
+import { useLocale } from '../hooks/useLocale'
 
 const schema = yup.object().shape({
   // pickUpLocation: yup
@@ -43,12 +44,12 @@ interface ISearchInputs {
   dropOffDate: Dayjs | null
 }
 
-// LocationEntity
-
 const Search = () => {
   const { pickUpLocation, pickUpDate, dropOffDate, setPickUpLocation, setPickUpDate, setDropOffDate } = useRentContext()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const router = useRouter()
+  const t = useLocale()
+
   const {
     control,
     handleSubmit,
@@ -119,7 +120,7 @@ const Search = () => {
             control={control}
             render={({ fieldState }) => (
               <LocationDropdown
-                title={pickUpLocationTrigger?.address || pickUpLocation?.address || 'Choose a location'}
+                title={pickUpLocationTrigger?.address || pickUpLocation?.address || t.forms.placeholders.chooseLocation}
                 onSelectLocation={handleSelectPickUpLocation}
                 isError={!!fieldState.error}
               />
@@ -133,7 +134,7 @@ const Search = () => {
             <DatePicker
               value={field.value}
               handleChange={field.onChange}
-              placeholder='Pick-up date'
+              placeholder={t.forms.placeholders.pickupDate}
               isError={!!fieldState.error}
             />
           )}
@@ -146,7 +147,7 @@ const Search = () => {
             <DatePicker
               value={field.value}
               handleChange={field.onChange}
-              placeholder='Drop-off date'
+              placeholder={t.forms.placeholders.returnDate}
               isError={!!fieldState.error}
             />
           )}
@@ -158,7 +159,7 @@ const Search = () => {
           size='extra'
           sx={{ color: '#fff', fontSize: 18, px: 6, alignSelf: 'stretch' }}
         >
-          Search
+          {t.button.search}
         </Button>
       </Stack>
     </>

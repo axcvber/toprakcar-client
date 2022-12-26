@@ -6,7 +6,7 @@ import Skeleton from '@mui/material/Skeleton'
 import { Button, Stack, Typography } from '@mui/material'
 import Popper from '@mui/material/Popper'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
-import Grow from '@mui/material/Grow'
+import Fade from '@mui/material/Fade'
 import Paper from '@mui/material/Paper'
 import Image from 'next/image'
 import { HiChevronDown } from 'react-icons/hi'
@@ -19,19 +19,24 @@ interface LocaleProps {
 
 const localeArr = [
   {
-    icon: '/tr2.png',
-    label: 'Türkçe',
-    locale: 'tr',
-  },
-  {
     icon: '/us2.png',
     label: 'English',
     locale: 'en',
   },
   {
+    icon: '/tr2.png',
+    label: 'Türkçe',
+    locale: 'tr',
+  },
+  {
     icon: '/ru2.png',
     label: 'Русский',
     locale: 'ru',
+  },
+  {
+    icon: '/uk2.png',
+    label: 'Українська',
+    locale: 'uk',
   },
 ]
 
@@ -141,12 +146,7 @@ const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
         }}
       >
         {({ TransitionProps }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin: 'right top',
-            }}
-          >
+          <Fade {...TransitionProps} timeout={300}>
             <Paper
               elevation={0}
               sx={{
@@ -194,7 +194,7 @@ const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
                 </MenuList>
               </ClickAwayListener>
             </Paper>
-          </Grow>
+          </Fade>
         )}
       </Popper>
     </>

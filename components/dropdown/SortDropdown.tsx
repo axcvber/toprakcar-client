@@ -1,30 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BiSortAlt2 } from 'react-icons/bi'
-import { SortValues, useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
-import { Box, Stack, Typography, Divider } from '@mui/material'
-import Dropdown from '../dropdown/Dropdown'
+import { SortValues, useFilterContext } from '../../context/filter/filter-context'
+import { Box, } from '@mui/material'
+import Dropdown from './Dropdown'
+import { useLocale } from '../../hooks/useLocale'
 
 const SortDropdown = () => {
-  const { setSortBy, sortBy } = useShopFilterContext()
+  const { setSortBy, sortBy } = useFilterContext()
+  const t = useLocale()
+
   const sortData = [
     {
       id: 1,
-      label: 'Recommended',
+      label: t.filterNav.sortBy.recommended,
       value: SortValues.RECOMMENDED,
     },
     {
       id: 2,
-      label: 'Newest Inventory',
+      label: t.filterNav.sortBy.newestInventory,
       value: SortValues.NEWEST_INVENTORY,
     },
     {
       id: 3,
-      label: 'Lowest Price',
+      label: t.filterNav.sortBy.lowestPrice,
       value: SortValues.LOWEST_PRICE,
     },
     {
       id: 4,
-      label: 'Highest Price',
+      label: t.filterNav.sortBy.highestPrice,
       value: SortValues.HIGHEST_PRICE,
     },
   ]

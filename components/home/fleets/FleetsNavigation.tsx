@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles'
 import Link from 'next/link'
 import { BrandEntity, Maybe } from '../../../generated'
 import SVG from 'react-inlinesvg'
+import { useLocale } from '../../../hooks/useLocale'
 
 interface IFleetsNavigation {
   brands?: (Maybe<BrandEntity> | undefined)[]
@@ -13,6 +14,8 @@ interface IFleetsNavigation {
 }
 
 const FleetsNavigation: React.FC<IFleetsNavigation> = ({ brands, selectedBrand, onSelectBrand }) => {
+  const t = useLocale()
+
   if (!brands) {
     return null
   }
@@ -42,7 +45,7 @@ const FleetsNavigation: React.FC<IFleetsNavigation> = ({ brands, selectedBrand, 
       <SwiperSlide style={{ width: 'auto' }}>
         <Link href='/fleet' passHref>
           <Button size='large' variant='contained' color='inherit'>
-            Explore
+            {t.button.explore}
             <Typography ml={1} component='span' fontWeight={600} color='primary'>
               10+
             </Typography>

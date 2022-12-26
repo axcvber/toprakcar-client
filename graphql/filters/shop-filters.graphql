@@ -5,6 +5,7 @@ query GetShopFilters(
   $transmissions: [ID]
   $exteriorColors: [ID]
   $interiorColors: [ID]
+  $locale: I18NLocaleCode
 ) {
   brands(filters: { id: { in: $brands } }) {
     data {
@@ -14,7 +15,7 @@ query GetShopFilters(
       }
     }
   }
-  bodyStyles(filters: { id: { in: $bodyStyles } }) {
+  bodyStyles(filters: { id: { in: $bodyStyles } }, locale: $locale) {
     data {
       id
       attributes {
@@ -23,7 +24,7 @@ query GetShopFilters(
     }
   }
 
-  fuelTypes(filters: { id: { in: $fuelTypes } }) {
+  fuelTypes(filters: { id: { in: $fuelTypes } }, locale: $locale) {
     data {
       id
       attributes {
@@ -31,7 +32,7 @@ query GetShopFilters(
       }
     }
   }
-  transmissions(filters: { id: { in: $transmissions } }) {
+  transmissions(filters: { id: { in: $transmissions } }, locale: $locale) {
     data {
       id
       attributes {
@@ -39,7 +40,7 @@ query GetShopFilters(
       }
     }
   }
-  exterior_color: colors(filters: { id: { in: $exteriorColors } }) {
+  exterior_color: colors(filters: { id: { in: $exteriorColors } }, locale: $locale) {
     data {
       id
       attributes {
@@ -49,7 +50,7 @@ query GetShopFilters(
     }
   }
 
-  interior_color: colors(filters: { id: { in: $interiorColors } }) {
+  interior_color: colors(filters: { id: { in: $interiorColors } }, locale: $locale) {
     data {
       id
       attributes {

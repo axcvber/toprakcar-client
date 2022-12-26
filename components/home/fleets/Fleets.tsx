@@ -8,6 +8,7 @@ import Loader from '../../Loader'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useLocale } from '../../../hooks/useLocale'
 
 const FleetsNavigation = dynamic(() => import('./FleetsNavigation'), {
   ssr: false,
@@ -21,6 +22,7 @@ const Fleets: React.FC<IFleets> = ({ data }) => {
   const filteredBrands = data.rent_cars?.data.map((item) => item.attributes?.brand?.data)
   const brandsArr = Array.from(new Set(filteredBrands))
   const router = useRouter()
+  const t = useLocale()
   const [selectedBrand, setSelectedBrand] = useState<Maybe<string> | undefined>(brandsArr[0]?.id)
   const {
     data: rentCars,
@@ -75,7 +77,7 @@ const Fleets: React.FC<IFleets> = ({ data }) => {
         </Grid>
         <Link href='/fleet' passHref>
           <Button startIcon={<HiOutlineExternalLink />} variant='outlined' size='large'>
-            More Vehicles
+            {t.button.moreVehicles}
           </Button>
         </Link>
       </Stack>

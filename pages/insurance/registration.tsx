@@ -16,7 +16,7 @@ const RegistrationPage = () => {
 
   if (!firstStepData) {
     return (
-      <Stack width={'100%'} minHeight={'100vh'} justifyContent='center' alignItems='center'>
+      <Stack width={'100%'} minHeight={'calc(100vh - 70px)'} justifyContent='center' alignItems='center'>
         <CircularProgress />
       </Stack>
     )

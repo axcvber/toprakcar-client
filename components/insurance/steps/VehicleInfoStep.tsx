@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Field from '../../form/Field'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
+import { useLocale } from '../../../hooks/useLocale'
 
 const schema = yup.object().shape({
   licenseSerial: yup
@@ -28,15 +29,8 @@ export interface IVehicleInfoInputs {
 
 const VehicleInfoStep = () => {
   const { incrementCurrentStep, setSecondStepData, secondStepData } = useInsuranceContext()
-
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting, isSubmitSuccessful },
-    setValue,
-    watch,
-    reset,
-  } = useForm<IVehicleInfoInputs>({
+  const t = useLocale()
+  const { handleSubmit, control, formState } = useForm<IVehicleInfoInputs>({
     resolver: yupResolver(schema),
     defaultValues: secondStepData,
   })
@@ -51,16 +45,22 @@ const VehicleInfoStep = () => {
       <Box flex={1}>
         <Stack spacing={1} mb={3}>
           <Typography variant={'h4'} fontWeight={600}>
-            Araç bilgilerini girin
+            {t.insurance.vehicleInfoStep.title}
           </Typography>
           <Typography variant='body2' fontWeight={500} color='text.secondary'>
-            Paylaşacağınız araç bilgileri Koalay ile her daim güvende olacak!
+            {t.insurance.vehicleInfoStep.desc}
           </Typography>
         </Stack>
         <Stack component={'form'} spacing={2} onSubmit={handleSubmit(onSubmit)}>
           <Stack direction='row' spacing={2}>
-            <Field name='licenseSerial' control={control} label='License Serial' placeholder={'AA'} />
-            <Field name='licenseNumber' control={control} label='License Number' placeholder={'999999'} type='number' />
+            <Field name='licenseSerial' control={control} label={t.forms.labels.licenseSerial} placeholder={'AA'} />
+            <Field
+              name='licenseNumber'
+              control={control}
+              label={t.forms.labels.licenseNumber}
+              placeholder={'999999'}
+              type='number'
+            />
           </Stack>
           <Stack
             sx={{
@@ -82,8 +82,8 @@ const VehicleInfoStep = () => {
               {"İnternet bankacılığı kullanıcı bilgileriniz ile buradan e-Devlet'e giriş yapabilirsiniz."}
             </Typography>
           </Stack>
-          <Button disabled={isSubmitting} type='submit' variant='contained' size='extra' endIcon={<FiArrowUpRight />}>
-            {isSubmitting ? 'Loading...' : 'Devam Et'}
+          <Button type='submit' variant='contained' size='extra' endIcon={<FiArrowUpRight />}>
+            {t.button.continue}
           </Button>
         </Stack>
       </Box>
@@ -95,7 +95,7 @@ const VehicleInfoStep = () => {
           height={120}
           objectFit='contain'
           src={'/vehicle-info.png'}
-          alt='svgicon'
+          alt='vehicle'
         />
       </Box>
     </Stack>

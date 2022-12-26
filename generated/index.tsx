@@ -27,6 +27,7 @@ export type AboutPage = {
   heading: ComponentHomeHero;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<AboutPageRelationResponseCollection>;
+  seo: ComponentMainSeo;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -59,6 +60,7 @@ export type AboutPageInput = {
   aboutItem?: InputMaybe<Array<InputMaybe<ComponentMainListItemInput>>>;
   contactInfo?: InputMaybe<Array<InputMaybe<ComponentMainMarkdownItemInput>>>;
   heading?: InputMaybe<ComponentHomeHeroInput>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
 };
 
 export type AboutPageRelationResponseCollection = {
@@ -262,10 +264,25 @@ export type ComponentDynamicAccordionInput = {
   question?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentDynamicHeading = {
+  __typename?: 'ComponentDynamicHeading';
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  label?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type ComponentDynamicHeadingInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentHomeBenefits = {
   __typename?: 'ComponentHomeBenefits';
   additionalBenefits: Array<Maybe<ComponentMainIconBox>>;
-  benefitsHeading: ComponentMainHeading;
+  benefitsHeading: ComponentDynamicHeading;
   id: Scalars['ID'];
   image: UploadFileEntityResponse;
   leftSide: Array<Maybe<ComponentMainIconBox>>;
@@ -295,7 +312,7 @@ export type ComponentHomeBenefitsRightSideArgs = {
 
 export type ComponentHomeBenefitsInput = {
   additionalBenefits?: InputMaybe<Array<InputMaybe<ComponentMainIconBoxInput>>>;
-  benefitsHeading?: InputMaybe<ComponentMainHeadingInput>;
+  benefitsHeading?: InputMaybe<ComponentDynamicHeadingInput>;
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['ID']>;
   leftSide?: InputMaybe<Array<InputMaybe<ComponentMainIconBoxInput>>>;
@@ -322,7 +339,7 @@ export type ComponentHomeBrandsInput = {
 
 export type ComponentHomeFaq = {
   __typename?: 'ComponentHomeFaq';
-  faqHeading: ComponentMainHeading;
+  faqHeading: ComponentDynamicHeading;
   faqItem: Array<Maybe<ComponentDynamicAccordion>>;
   id: Scalars['ID'];
 };
@@ -335,14 +352,14 @@ export type ComponentHomeFaqFaqItemArgs = {
 };
 
 export type ComponentHomeFaqInput = {
-  faqHeading?: InputMaybe<ComponentMainHeadingInput>;
+  faqHeading?: InputMaybe<ComponentDynamicHeadingInput>;
   faqItem?: InputMaybe<Array<InputMaybe<ComponentDynamicAccordionInput>>>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentHomeFleets = {
   __typename?: 'ComponentHomeFleets';
-  fleetsHeading: ComponentMainHeading;
+  fleetsHeading: ComponentDynamicHeading;
   id: Scalars['ID'];
   rent_cars?: Maybe<RentCarRelationResponseCollection>;
 };
@@ -355,7 +372,7 @@ export type ComponentHomeFleetsRent_CarsArgs = {
 };
 
 export type ComponentHomeFleetsInput = {
-  fleetsHeading?: InputMaybe<ComponentMainHeadingInput>;
+  fleetsHeading?: InputMaybe<ComponentDynamicHeadingInput>;
   id?: InputMaybe<Scalars['ID']>;
   rent_cars?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
@@ -375,12 +392,25 @@ export type ComponentHomeHeroInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentHomeRentCars = {
+  __typename?: 'ComponentHomeRentCars';
+  id: Scalars['ID'];
+  rent_cars?: Maybe<RentCarRelationResponseCollection>;
+};
+
+
+export type ComponentHomeRentCarsRent_CarsArgs = {
+  filters?: InputMaybe<RentCarFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
 export type ComponentHomeServices = {
   __typename?: 'ComponentHomeServices';
   id: Scalars['ID'];
   image: UploadFileEntityResponse;
   serviceOptions: Array<Maybe<ComponentMainIconOption>>;
-  servicesHeading: ComponentMainHeading;
+  servicesHeading: ComponentDynamicHeading;
 };
 
 
@@ -394,14 +424,14 @@ export type ComponentHomeServicesInput = {
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['ID']>;
   serviceOptions?: InputMaybe<Array<InputMaybe<ComponentMainIconOptionInput>>>;
-  servicesHeading?: InputMaybe<ComponentMainHeadingInput>;
+  servicesHeading?: InputMaybe<ComponentDynamicHeadingInput>;
 };
 
 export type ComponentHomeSteps = {
   __typename?: 'ComponentHomeSteps';
   id: Scalars['ID'];
   stepOptions: Array<Maybe<ComponentMainIconOption>>;
-  stepsHeading: ComponentMainHeading;
+  stepsHeading: ComponentDynamicHeading;
 };
 
 
@@ -414,13 +444,13 @@ export type ComponentHomeStepsStepOptionsArgs = {
 export type ComponentHomeStepsInput = {
   id?: InputMaybe<Scalars['ID']>;
   stepOptions?: InputMaybe<Array<InputMaybe<ComponentMainIconOptionInput>>>;
-  stepsHeading?: InputMaybe<ComponentMainHeadingInput>;
+  stepsHeading?: InputMaybe<ComponentDynamicHeadingInput>;
 };
 
 export type ComponentInsuranceInsuranceQuestion = {
   __typename?: 'ComponentInsuranceInsuranceQuestion';
   faqItem: Array<Maybe<ComponentDynamicAccordion>>;
-  heading: ComponentMainHeading;
+  heading: ComponentDynamicHeading;
   id: Scalars['ID'];
 };
 
@@ -433,23 +463,8 @@ export type ComponentInsuranceInsuranceQuestionFaqItemArgs = {
 
 export type ComponentInsuranceInsuranceQuestionInput = {
   faqItem?: InputMaybe<Array<InputMaybe<ComponentDynamicAccordionInput>>>;
-  heading?: InputMaybe<ComponentMainHeadingInput>;
+  heading?: InputMaybe<ComponentDynamicHeadingInput>;
   id?: InputMaybe<Scalars['ID']>;
-};
-
-export type ComponentMainHeading = {
-  __typename?: 'ComponentMainHeading';
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  label?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-};
-
-export type ComponentMainHeadingInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  label?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentMainIconBox = {
@@ -537,6 +552,81 @@ export type ComponentMainMarkdownItemInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type ComponentMainPhoneNumbers = {
+  __typename?: 'ComponentMainPhoneNumbers';
+  id: Scalars['ID'];
+  phone: Scalars['String'];
+};
+
+export type ComponentMainPhoneNumbersFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentMainPhoneNumbersFiltersInput>>>;
+  not?: InputMaybe<ComponentMainPhoneNumbersFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentMainPhoneNumbersFiltersInput>>>;
+  phone?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentMainPhoneNumbersInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  phone?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentMainSeo = {
+  __typename?: 'ComponentMainSeo';
+  canonicalURL: Scalars['String'];
+  id: Scalars['ID'];
+  keywords: Scalars['String'];
+  metaDescription: Scalars['String'];
+  metaImage?: Maybe<UploadFileEntityResponse>;
+  metaTitle: Scalars['String'];
+};
+
+export type ComponentMainSeoInput = {
+  canonicalURL?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  keywords?: InputMaybe<Scalars['String']>;
+  metaDescription?: InputMaybe<Scalars['String']>;
+  metaImage?: InputMaybe<Scalars['ID']>;
+  metaTitle?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentMainSocialNetworks = {
+  __typename?: 'ComponentMainSocialNetworks';
+  id: Scalars['ID'];
+  link: Scalars['String'];
+  svgIcon: UploadFileEntityResponse;
+};
+
+export type ComponentMainSocialNetworksFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentMainSocialNetworksFiltersInput>>>;
+  link?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentMainSocialNetworksFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentMainSocialNetworksFiltersInput>>>;
+};
+
+export type ComponentMainSocialNetworksInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  link?: InputMaybe<Scalars['String']>;
+  svgIcon?: InputMaybe<Scalars['ID']>;
+};
+
+export type ComponentMainWorkingHours = {
+  __typename?: 'ComponentMainWorkingHours';
+  id: Scalars['ID'];
+  listItem: Scalars['String'];
+};
+
+export type ComponentMainWorkingHoursFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentMainWorkingHoursFiltersInput>>>;
+  listItem?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentMainWorkingHoursFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentMainWorkingHoursFiltersInput>>>;
+};
+
+export type ComponentMainWorkingHoursInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  listItem?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentVehicleAdditionalRentServices = {
   __typename?: 'ComponentVehicleAdditionalRentServices';
   dailyPrice: Scalars['Float'];
@@ -588,17 +678,10 @@ export type ComponentVehicleMoneyBackLabelInput = {
 
 export type ComponentVehicleOverview = {
   __typename?: 'ComponentVehicleOverview';
-  icon: UploadFileRelationResponseCollection;
+  icon: UploadFileEntityResponse;
   id: Scalars['ID'];
   subtitle: Scalars['String'];
   title: Scalars['String'];
-};
-
-
-export type ComponentVehicleOverviewIconArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ComponentVehicleOverviewFiltersInput = {
@@ -610,7 +693,7 @@ export type ComponentVehicleOverviewFiltersInput = {
 };
 
 export type ComponentVehicleOverviewInput = {
-  icon?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  icon?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   subtitle?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
@@ -695,6 +778,64 @@ export type ComponentVehicleVehicleFeaturesInput = {
   id?: InputMaybe<Scalars['ID']>;
   option?: InputMaybe<Scalars['String']>;
   optionList?: InputMaybe<Scalars['String']>;
+};
+
+export type Contact = {
+  __typename?: 'Contact';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  footerText: Scalars['String'];
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<ContactRelationResponseCollection>;
+  phoneNumbers: Array<Maybe<ComponentMainPhoneNumbers>>;
+  socialNetworks: Array<Maybe<ComponentMainSocialNetworks>>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  workingHours: Array<Maybe<ComponentMainWorkingHours>>;
+};
+
+
+export type ContactPhoneNumbersArgs = {
+  filters?: InputMaybe<ComponentMainPhoneNumbersFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ContactSocialNetworksArgs = {
+  filters?: InputMaybe<ComponentMainSocialNetworksFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ContactWorkingHoursArgs = {
+  filters?: InputMaybe<ComponentMainWorkingHoursFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ContactEntity = {
+  __typename?: 'ContactEntity';
+  attributes?: Maybe<Contact>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ContactEntityResponse = {
+  __typename?: 'ContactEntityResponse';
+  data?: Maybe<ContactEntity>;
+};
+
+export type ContactInput = {
+  email?: InputMaybe<Scalars['String']>;
+  footerText?: InputMaybe<Scalars['String']>;
+  phoneNumbers?: InputMaybe<Array<InputMaybe<ComponentMainPhoneNumbersInput>>>;
+  socialNetworks?: InputMaybe<Array<InputMaybe<ComponentMainSocialNetworksInput>>>;
+  workingHours?: InputMaybe<Array<InputMaybe<ComponentMainWorkingHoursInput>>>;
+};
+
+export type ContactRelationResponseCollection = {
+  __typename?: 'ContactRelationResponseCollection';
+  data: Array<ContactEntity>;
 };
 
 export type DateTimeFilterInput = {
@@ -826,6 +967,7 @@ export type FleetPage = {
   headingImage: UploadFileEntityResponse;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<FleetPageRelationResponseCollection>;
+  seo: ComponentMainSeo;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -842,6 +984,7 @@ export type FleetPageEntityResponse = {
 
 export type FleetPageInput = {
   headingImage?: InputMaybe<Scalars['ID']>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
 };
 
 export type FleetPageRelationResponseCollection = {
@@ -927,7 +1070,42 @@ export type FuelTypeRelationResponseCollection = {
   data: Array<FuelTypeEntity>;
 };
 
-export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeServices | ComponentHomeSteps | ComponentInsuranceInsuranceQuestion | ComponentMainHeading | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentVehicleAdditionalRentServices | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | EzformsRecipient | EzformsSubmission | FleetPage | FuelType | HomePage | I18NLocale | InsurancePage | Location | Model | RentCar | SalesCar | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
+export type GenericMorph = AboutPage | BodyStyle | Brand | Color | ComponentDynamicAccordion | ComponentDynamicHeading | ComponentHomeBenefits | ComponentHomeBrands | ComponentHomeFaq | ComponentHomeFleets | ComponentHomeHero | ComponentHomeRentCars | ComponentHomeServices | ComponentHomeSteps | ComponentInsuranceInsuranceQuestion | ComponentMainIconBox | ComponentMainIconOption | ComponentMainListItem | ComponentMainMarkdownItem | ComponentMainPhoneNumbers | ComponentMainSeo | ComponentMainSocialNetworks | ComponentMainWorkingHours | ComponentVehicleAdditionalRentServices | ComponentVehicleFeatureList | ComponentVehicleMoneyBackLabel | ComponentVehicleOverview | ComponentVehiclePrice | ComponentVehicleSidebarOptions | ComponentVehicleVehicle | ComponentVehicleVehicleFeatures | Contact | EzformsRecipient | EzformsSubmission | FleetPage | FuelType | Global | HomePage | I18NLocale | InsurancePage | Location | Model | RentCar | SalesCar | ShopPage | Transmission | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VehicleClass;
+
+export type Global = {
+  __typename?: 'Global';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  darkLogo: UploadFileEntityResponse;
+  favicon: UploadFileEntityResponse;
+  googleAnalyticsTag: Scalars['String'];
+  lightLogo: UploadFileEntityResponse;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<GlobalRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type GlobalEntity = {
+  __typename?: 'GlobalEntity';
+  attributes?: Maybe<Global>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type GlobalEntityResponse = {
+  __typename?: 'GlobalEntityResponse';
+  data?: Maybe<GlobalEntity>;
+};
+
+export type GlobalInput = {
+  darkLogo?: InputMaybe<Scalars['ID']>;
+  favicon?: InputMaybe<Scalars['ID']>;
+  googleAnalyticsTag?: InputMaybe<Scalars['String']>;
+  lightLogo?: InputMaybe<Scalars['ID']>;
+};
+
+export type GlobalRelationResponseCollection = {
+  __typename?: 'GlobalRelationResponseCollection';
+  data: Array<GlobalEntity>;
+};
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -939,6 +1117,7 @@ export type HomePage = {
   hero: ComponentHomeHero;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<HomePageRelationResponseCollection>;
+  seo: ComponentMainSeo;
   services: ComponentHomeServices;
   steps: ComponentHomeSteps;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -961,6 +1140,7 @@ export type HomePageInput = {
   faq?: InputMaybe<ComponentHomeFaqInput>;
   fleets?: InputMaybe<ComponentHomeFleetsInput>;
   hero?: InputMaybe<ComponentHomeHeroInput>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   services?: InputMaybe<ComponentHomeServicesInput>;
   steps?: InputMaybe<ComponentHomeStepsInput>;
 };
@@ -1039,6 +1219,7 @@ export type InsurancePage = {
   insuranceQuestions: ComponentInsuranceInsuranceQuestion;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<InsurancePageRelationResponseCollection>;
+  seo: ComponentMainSeo;
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1066,6 +1247,7 @@ export type InsurancePageInput = {
   description?: InputMaybe<Scalars['String']>;
   insuranceBenefits?: InputMaybe<Array<InputMaybe<ComponentMainIconBoxInput>>>;
   insuranceQuestions?: InputMaybe<ComponentInsuranceInsuranceQuestionInput>;
+  seo?: InputMaybe<ComponentMainSeoInput>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -1232,11 +1414,13 @@ export type Mutation = {
   createBrand?: Maybe<BrandEntityResponse>;
   createColor?: Maybe<ColorEntityResponse>;
   createColorLocalization?: Maybe<ColorEntityResponse>;
+  createContactLocalization?: Maybe<ContactEntityResponse>;
   createEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
   createEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   createFleetPageLocalization?: Maybe<FleetPageEntityResponse>;
   createFuelType?: Maybe<FuelTypeEntityResponse>;
   createFuelTypeLocalization?: Maybe<FuelTypeEntityResponse>;
+  createGlobalLocalization?: Maybe<GlobalEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
   createInsurancePageLocalization?: Maybe<InsurancePageEntityResponse>;
   createLocation?: Maybe<LocationEntityResponse>;
@@ -1246,6 +1430,7 @@ export type Mutation = {
   createRentCarLocalization?: Maybe<RentCarEntityResponse>;
   createSalesCar?: Maybe<SalesCarEntityResponse>;
   createSalesCarLocalization?: Maybe<SalesCarEntityResponse>;
+  createShopPageLocalization?: Maybe<ShopPageEntityResponse>;
   createTransmission?: Maybe<TransmissionEntityResponse>;
   createTransmissionLocalization?: Maybe<TransmissionEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1260,16 +1445,19 @@ export type Mutation = {
   deleteBodyStyle?: Maybe<BodyStyleEntityResponse>;
   deleteBrand?: Maybe<BrandEntityResponse>;
   deleteColor?: Maybe<ColorEntityResponse>;
+  deleteContact?: Maybe<ContactEntityResponse>;
   deleteEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
   deleteEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   deleteFleetPage?: Maybe<FleetPageEntityResponse>;
   deleteFuelType?: Maybe<FuelTypeEntityResponse>;
+  deleteGlobal?: Maybe<GlobalEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
   deleteInsurancePage?: Maybe<InsurancePageEntityResponse>;
   deleteLocation?: Maybe<LocationEntityResponse>;
   deleteModel?: Maybe<ModelEntityResponse>;
   deleteRentCar?: Maybe<RentCarEntityResponse>;
   deleteSalesCar?: Maybe<SalesCarEntityResponse>;
+  deleteShopPage?: Maybe<ShopPageEntityResponse>;
   deleteTransmission?: Maybe<TransmissionEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -1293,17 +1481,20 @@ export type Mutation = {
   updateBodyStyle?: Maybe<BodyStyleEntityResponse>;
   updateBrand?: Maybe<BrandEntityResponse>;
   updateColor?: Maybe<ColorEntityResponse>;
+  updateContact?: Maybe<ContactEntityResponse>;
   updateEzformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
   updateEzformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFleetPage?: Maybe<FleetPageEntityResponse>;
   updateFuelType?: Maybe<FuelTypeEntityResponse>;
+  updateGlobal?: Maybe<GlobalEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
   updateInsurancePage?: Maybe<InsurancePageEntityResponse>;
   updateLocation?: Maybe<LocationEntityResponse>;
   updateModel?: Maybe<ModelEntityResponse>;
   updateRentCar?: Maybe<RentCarEntityResponse>;
   updateSalesCar?: Maybe<SalesCarEntityResponse>;
+  updateShopPage?: Maybe<ShopPageEntityResponse>;
   updateTransmission?: Maybe<TransmissionEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -1361,6 +1552,13 @@ export type MutationCreateColorLocalizationArgs = {
 };
 
 
+export type MutationCreateContactLocalizationArgs = {
+  data?: InputMaybe<ContactInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationCreateEzformsRecipientArgs = {
   data: EzformsRecipientInput;
 };
@@ -1386,6 +1584,13 @@ export type MutationCreateFuelTypeArgs = {
 
 export type MutationCreateFuelTypeLocalizationArgs = {
   data?: InputMaybe<FuelTypeInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateGlobalLocalizationArgs = {
+  data?: InputMaybe<GlobalInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1444,6 +1649,13 @@ export type MutationCreateSalesCarArgs = {
 
 export type MutationCreateSalesCarLocalizationArgs = {
   data?: InputMaybe<SalesCarInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateShopPageLocalizationArgs = {
+  data?: InputMaybe<ShopPageInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1517,6 +1729,11 @@ export type MutationDeleteColorArgs = {
 };
 
 
+export type MutationDeleteContactArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationDeleteEzformsRecipientArgs = {
   id: Scalars['ID'];
 };
@@ -1534,6 +1751,11 @@ export type MutationDeleteFleetPageArgs = {
 
 export type MutationDeleteFuelTypeArgs = {
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteGlobalArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1567,6 +1789,11 @@ export type MutationDeleteRentCarArgs = {
 
 export type MutationDeleteSalesCarArgs = {
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteShopPageArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1669,6 +1896,12 @@ export type MutationUpdateColorArgs = {
 };
 
 
+export type MutationUpdateContactArgs = {
+  data: ContactInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationUpdateEzformsRecipientArgs = {
   data: EzformsRecipientInput;
   id: Scalars['ID'];
@@ -1696,6 +1929,12 @@ export type MutationUpdateFleetPageArgs = {
 export type MutationUpdateFuelTypeArgs = {
   data: FuelTypeInput;
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateGlobalArgs = {
+  data: GlobalInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1735,6 +1974,12 @@ export type MutationUpdateRentCarArgs = {
 export type MutationUpdateSalesCarArgs = {
   data: SalesCarInput;
   id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateShopPageArgs = {
+  data: ShopPageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1809,6 +2054,7 @@ export type Query = {
   brands?: Maybe<BrandEntityResponseCollection>;
   color?: Maybe<ColorEntityResponse>;
   colors?: Maybe<ColorEntityResponseCollection>;
+  contact?: Maybe<ContactEntityResponse>;
   ezformsRecipient?: Maybe<EzformsRecipientEntityResponse>;
   ezformsRecipients?: Maybe<EzformsRecipientEntityResponseCollection>;
   ezformsSubmission?: Maybe<EzformsSubmissionEntityResponse>;
@@ -1816,6 +2062,7 @@ export type Query = {
   fleetPage?: Maybe<FleetPageEntityResponse>;
   fuelType?: Maybe<FuelTypeEntityResponse>;
   fuelTypes?: Maybe<FuelTypeEntityResponseCollection>;
+  global?: Maybe<GlobalEntityResponse>;
   homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
@@ -1829,6 +2076,7 @@ export type Query = {
   rentCars?: Maybe<RentCarEntityResponseCollection>;
   salesCar?: Maybe<SalesCarEntityResponse>;
   salesCars?: Maybe<SalesCarEntityResponseCollection>;
+  shopPage?: Maybe<ShopPageEntityResponse>;
   transmission?: Maybe<TransmissionEntityResponse>;
   transmissions?: Maybe<TransmissionEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1889,6 +2137,11 @@ export type QueryColorsArgs = {
 };
 
 
+export type QueryContactArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type QueryEzformsRecipientArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -1929,6 +2182,11 @@ export type QueryFuelTypesArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryGlobalArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2005,6 +2263,11 @@ export type QuerySalesCarsArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryShopPageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2323,6 +2586,35 @@ export type SalesCarInput = {
 export type SalesCarRelationResponseCollection = {
   __typename?: 'SalesCarRelationResponseCollection';
   data: Array<SalesCarEntity>;
+};
+
+export type ShopPage = {
+  __typename?: 'ShopPage';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<ShopPageRelationResponseCollection>;
+  seo: ComponentMainSeo;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ShopPageEntity = {
+  __typename?: 'ShopPageEntity';
+  attributes?: Maybe<ShopPage>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ShopPageEntityResponse = {
+  __typename?: 'ShopPageEntityResponse';
+  data?: Maybe<ShopPageEntity>;
+};
+
+export type ShopPageInput = {
+  seo?: InputMaybe<ComponentMainSeoInput>;
+};
+
+export type ShopPageRelationResponseCollection = {
+  __typename?: 'ShopPageRelationResponseCollection';
+  data: Array<ShopPageEntity>;
 };
 
 export type StringFilterInput = {
@@ -2835,12 +3127,46 @@ export type GetAboutPageQueryVariables = Exact<{
 }>;
 
 
-export type GetAboutPageQuery = { __typename?: 'Query', aboutPage?: { __typename?: 'AboutPageEntityResponse', data?: { __typename?: 'AboutPageEntity', attributes?: { __typename?: 'AboutPage', heading: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, aboutItem: Array<{ __typename?: 'ComponentMainListItem', id: string, title: string, description: string } | null>, contactInfo: Array<{ __typename?: 'ComponentMainMarkdownItem', id: string, title: string, description: string } | null> } | null } | null } | null };
+export type GetAboutPageQuery = { __typename?: 'Query', aboutPage?: { __typename?: 'AboutPageEntityResponse', data?: { __typename?: 'AboutPageEntity', attributes?: { __typename?: 'AboutPage', heading: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, aboutItem: Array<{ __typename?: 'ComponentMainListItem', id: string, title: string, description: string } | null>, contactInfo: Array<{ __typename?: 'ComponentMainMarkdownItem', id: string, title: string, description: string } | null>, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
 
-export type FindAvailableShopFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindAvailableRentFiltersQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type FindAvailableRentFiltersQuery = { __typename?: 'Query', rentCars?: { __typename?: 'RentCarEntityResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null } | null } | null, vehicle_class?: { __typename?: 'VehicleClassEntityResponse', data?: { __typename?: 'VehicleClassEntity', id?: string | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', id?: string | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', id?: string | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', id?: string | null } | null } | null } | null }> } | null };
+
+export type FindAvailableShopFiltersQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
 
 
 export type FindAvailableShopFiltersQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', id?: string | null } | null } | null, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', id?: string | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', id?: string | null } | null } | null, exterior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null, interior_color?: { __typename?: 'ColorEntityResponse', data?: { __typename?: 'ColorEntity', id?: string | null } | null } | null } | null }> } | null };
+
+export type GetRentFiltersQueryVariables = Exact<{
+  brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  vehicleClasses?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null };
+
+export type GetShopFiltersQueryVariables = Exact<{
+  brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  exteriorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  interiorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetShopFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, exterior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null, interior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
 
 export type GetHomeFleetsQueryVariables = Exact<{
   brandId?: InputMaybe<Scalars['ID']>;
@@ -2855,19 +3181,28 @@ export type HomePageQueryVariables = Exact<{
 }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
+
+export type InitialDataQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type InitialDataQuery = { __typename?: 'Query', global?: { __typename?: 'GlobalEntityResponse', data?: { __typename?: 'GlobalEntity', attributes?: { __typename?: 'Global', googleAnalyticsTag: string, lightLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, darkLogo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, favicon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', attributes?: { __typename?: 'Contact', email: string, footerText: string, phoneNumbers: Array<{ __typename?: 'ComponentMainPhoneNumbers', id: string, phone: string } | null>, socialNetworks: Array<{ __typename?: 'ComponentMainSocialNetworks', id: string, link: string, svgIcon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, workingHours: Array<{ __typename?: 'ComponentMainWorkingHours', id: string, listItem: string } | null> } | null } | null } | null };
 
 export type GetInsurancePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type GetInsurancePageQuery = { __typename?: 'Query', insurancePage?: { __typename?: 'InsurancePageEntityResponse', data?: { __typename?: 'InsurancePageEntity', attributes?: { __typename?: 'InsurancePage', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, insuranceBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, insuranceQuestions: { __typename?: 'ComponentInsuranceInsuranceQuestion', heading: { __typename?: 'ComponentMainHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> } } | null } | null } | null };
+export type GetInsurancePageQuery = { __typename?: 'Query', insurancePage?: { __typename?: 'InsurancePageEntityResponse', data?: { __typename?: 'InsurancePageEntity', attributes?: { __typename?: 'InsurancePage', title: string, description: string, background: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, insuranceBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, insuranceQuestions: { __typename?: 'ComponentInsuranceInsuranceQuestion', heading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
 
-export type GetRentFiltersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetFleetPageQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
 
 
-export type GetRentFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, vehicleClasses?: { __typename?: 'VehicleClassEntityResponseCollection', data: Array<{ __typename?: 'VehicleClassEntity', id?: string | null, attributes?: { __typename?: 'VehicleClass', title: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, colors?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
+export type GetFleetPageQuery = { __typename?: 'Query', fleetPage?: { __typename?: 'FleetPageEntityResponse', data?: { __typename?: 'FleetPageEntity', attributes?: { __typename?: 'FleetPage', headingImage: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
 
 export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2876,11 +3211,15 @@ export type GetLocationsQuery = { __typename?: 'Query', locations?: { __typename
 
 export type RentCarsQueryVariables = Exact<{
   address?: InputMaybe<Scalars['ID']>;
+  price?: InputMaybe<Array<InputMaybe<Scalars['Float']>> | InputMaybe<Scalars['Float']>>;
   brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   vehicleClasses?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
   transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
+  sortBy?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  start?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
@@ -2893,6 +3232,27 @@ export type GetAddRentServicesQueryVariables = Exact<{
 
 
 export type GetAddRentServicesQuery = { __typename?: 'Query', rentCar?: { __typename?: 'RentCarEntityResponse', data?: { __typename?: 'RentCarEntity', id?: string | null, attributes?: { __typename?: 'RentCar', additionalServices: Array<{ __typename?: 'ComponentVehicleAdditionalRentServices', id: string, label: string, dailyPrice: number } | null> } | null } | null } | null };
+
+export type GetModelsQueryVariables = Exact<{
+  brandId?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetModelsQuery = { __typename?: 'Query', models?: { __typename?: 'ModelEntityResponseCollection', data: Array<{ __typename?: 'ModelEntity', id?: string | null, attributes?: { __typename?: 'Model', model: string } | null }> } | null };
+
+export type GetSaleCarPropsQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type GetSaleCarPropsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, price: { __typename?: 'ComponentVehiclePrice', fullPrice?: number | null, currentPrice: number, showDiscounted?: boolean | null }, moneyBackLabel: { __typename?: 'ComponentVehicleMoneyBackLabel', title: string, description: string }, sidebarOptions: Array<{ __typename?: 'ComponentVehicleSidebarOptions', id: string, label: string, modalContent?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, vehicleOverviews: Array<{ __typename?: 'ComponentVehicleOverview', id: string, title: string, subtitle: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, vehicleFeatures: Array<{ __typename?: 'ComponentVehicleVehicleFeatures', id: string, option: string, optionList: string } | null>, gallery: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }> } | null };
+
+export type GetSalesCarsPathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSalesCarsPathsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', slug?: string | null, locale?: string | null } | null }> } | null };
 
 export type SaleCarsQueryVariables = Exact<{
   state?: InputMaybe<Scalars['String']>;
@@ -2914,30 +3274,12 @@ export type SaleCarsQueryVariables = Exact<{
 
 export type SaleCarsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', name: string, slug?: string | null, mileage: number, year: number, passengers: number, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, price: { __typename?: 'ComponentVehiclePrice', currentPrice: number, fullPrice?: number | null, showDiscounted?: boolean | null }, fuel_type?: { __typename?: 'FuelTypeEntityResponse', data?: { __typename?: 'FuelTypeEntity', attributes?: { __typename?: 'FuelType', type: string } | null } | null } | null, transmission?: { __typename?: 'TransmissionEntityResponse', data?: { __typename?: 'TransmissionEntity', attributes?: { __typename?: 'Transmission', type: string } | null } | null } | null, body_style?: { __typename?: 'BodyStyleEntityResponse', data?: { __typename?: 'BodyStyleEntity', attributes?: { __typename?: 'BodyStyle', style: string } | null } | null } | null, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } } } | null };
 
-export type GetShopFiltersQueryVariables = Exact<{
-  brands?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-  bodyStyles?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-  fuelTypes?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-  transmissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-  exteriorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-  interiorColors?: InputMaybe<Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>>;
-}>;
-
-
-export type GetShopFiltersQuery = { __typename?: 'Query', brands?: { __typename?: 'BrandEntityResponseCollection', data: Array<{ __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string } | null }> } | null, bodyStyles?: { __typename?: 'BodyStyleEntityResponseCollection', data: Array<{ __typename?: 'BodyStyleEntity', id?: string | null, attributes?: { __typename?: 'BodyStyle', style: string } | null }> } | null, fuelTypes?: { __typename?: 'FuelTypeEntityResponseCollection', data: Array<{ __typename?: 'FuelTypeEntity', id?: string | null, attributes?: { __typename?: 'FuelType', type: string } | null }> } | null, transmissions?: { __typename?: 'TransmissionEntityResponseCollection', data: Array<{ __typename?: 'TransmissionEntity', id?: string | null, attributes?: { __typename?: 'Transmission', type: string } | null }> } | null, exterior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null, interior_color?: { __typename?: 'ColorEntityResponseCollection', data: Array<{ __typename?: 'ColorEntity', id?: string | null, attributes?: { __typename?: 'Color', name: string, color: string } | null }> } | null };
-
-export type GetSaleCarPropsQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+export type GetShopPageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type GetSaleCarPropsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', attributes?: { __typename?: 'SalesCar', name: string, mileage: number, year: number, price: { __typename?: 'ComponentVehiclePrice', fullPrice?: number | null, currentPrice: number, showDiscounted?: boolean | null }, moneyBackLabel: { __typename?: 'ComponentVehicleMoneyBackLabel', title: string, description: string }, sidebarOptions: Array<{ __typename?: 'ComponentVehicleSidebarOptions', id: string, label: string, modalContent?: string | null, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null>, vehicleOverviews: Array<{ __typename?: 'ComponentVehicleOverview', id: string, title: string, subtitle: string } | null>, vehicleFeatures: Array<{ __typename?: 'ComponentVehicleVehicleFeatures', id: string, option: string, optionList: string } | null>, gallery: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> }, model?: { __typename?: 'ModelEntityResponse', data?: { __typename?: 'ModelEntity', attributes?: { __typename?: 'Model', model: string } | null } | null } | null } | null }> } | null };
-
-export type GetSalesCarsPathsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSalesCarsPathsQuery = { __typename?: 'Query', salesCars?: { __typename?: 'SalesCarEntityResponseCollection', data: Array<{ __typename?: 'SalesCarEntity', id?: string | null, attributes?: { __typename?: 'SalesCar', slug?: string | null, locale?: string | null } | null }> } | null };
+export type GetShopPageQuery = { __typename?: 'Query', shopPage?: { __typename?: 'ShopPageEntityResponse', data?: { __typename?: 'ShopPageEntity', attributes?: { __typename?: 'ShopPage', seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
 
 
 export const GetAboutPageDocument = gql`
@@ -2966,6 +3308,20 @@ export const GetAboutPageDocument = gql`
           id
           title
           description
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
         }
       }
     }
@@ -3000,9 +3356,72 @@ export function useGetAboutPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetAboutPageQueryHookResult = ReturnType<typeof useGetAboutPageQuery>;
 export type GetAboutPageLazyQueryHookResult = ReturnType<typeof useGetAboutPageLazyQuery>;
 export type GetAboutPageQueryResult = Apollo.QueryResult<GetAboutPageQuery, GetAboutPageQueryVariables>;
+export const FindAvailableRentFiltersDocument = gql`
+    query FindAvailableRentFilters($locale: I18NLocaleCode) {
+  rentCars(locale: $locale) {
+    data {
+      attributes {
+        brand {
+          data {
+            id
+          }
+        }
+        vehicle_class {
+          data {
+            id
+          }
+        }
+        body_style {
+          data {
+            id
+          }
+        }
+        fuel_type {
+          data {
+            id
+          }
+        }
+        transmission {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindAvailableRentFiltersQuery__
+ *
+ * To run a query within a React component, call `useFindAvailableRentFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAvailableRentFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAvailableRentFiltersQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useFindAvailableRentFiltersQuery(baseOptions?: Apollo.QueryHookOptions<FindAvailableRentFiltersQuery, FindAvailableRentFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAvailableRentFiltersQuery, FindAvailableRentFiltersQueryVariables>(FindAvailableRentFiltersDocument, options);
+      }
+export function useFindAvailableRentFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAvailableRentFiltersQuery, FindAvailableRentFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAvailableRentFiltersQuery, FindAvailableRentFiltersQueryVariables>(FindAvailableRentFiltersDocument, options);
+        }
+export type FindAvailableRentFiltersQueryHookResult = ReturnType<typeof useFindAvailableRentFiltersQuery>;
+export type FindAvailableRentFiltersLazyQueryHookResult = ReturnType<typeof useFindAvailableRentFiltersLazyQuery>;
+export type FindAvailableRentFiltersQueryResult = Apollo.QueryResult<FindAvailableRentFiltersQuery, FindAvailableRentFiltersQueryVariables>;
 export const FindAvailableShopFiltersDocument = gql`
-    query FindAvailableShopFilters {
-  salesCars {
+    query FindAvailableShopFilters($locale: I18NLocaleCode) {
+  salesCars(locale: $locale) {
     data {
       attributes {
         brand {
@@ -3053,6 +3472,7 @@ export const FindAvailableShopFiltersDocument = gql`
  * @example
  * const { data, loading, error } = useFindAvailableShopFiltersQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */
@@ -3067,6 +3487,171 @@ export function useFindAvailableShopFiltersLazyQuery(baseOptions?: Apollo.LazyQu
 export type FindAvailableShopFiltersQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersQuery>;
 export type FindAvailableShopFiltersLazyQueryHookResult = ReturnType<typeof useFindAvailableShopFiltersLazyQuery>;
 export type FindAvailableShopFiltersQueryResult = Apollo.QueryResult<FindAvailableShopFiltersQuery, FindAvailableShopFiltersQueryVariables>;
+export const GetRentFiltersDocument = gql`
+    query GetRentFilters($brands: [ID], $vehicleClasses: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $locale: I18NLocaleCode) {
+  brands(filters: {id: {in: $brands}}) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+  vehicleClasses(filters: {id: {in: $vehicleClasses}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        title
+      }
+    }
+  }
+  bodyStyles(filters: {id: {in: $bodyStyles}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        style
+      }
+    }
+  }
+  fuelTypes(filters: {id: {in: $fuelTypes}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  transmissions(filters: {id: {in: $transmissions}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetRentFiltersQuery__
+ *
+ * To run a query within a React component, call `useGetRentFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRentFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRentFiltersQuery({
+ *   variables: {
+ *      brands: // value for 'brands'
+ *      vehicleClasses: // value for 'vehicleClasses'
+ *      bodyStyles: // value for 'bodyStyles'
+ *      fuelTypes: // value for 'fuelTypes'
+ *      transmissions: // value for 'transmissions'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetRentFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetRentFiltersQuery, GetRentFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRentFiltersQuery, GetRentFiltersQueryVariables>(GetRentFiltersDocument, options);
+      }
+export function useGetRentFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRentFiltersQuery, GetRentFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRentFiltersQuery, GetRentFiltersQueryVariables>(GetRentFiltersDocument, options);
+        }
+export type GetRentFiltersQueryHookResult = ReturnType<typeof useGetRentFiltersQuery>;
+export type GetRentFiltersLazyQueryHookResult = ReturnType<typeof useGetRentFiltersLazyQuery>;
+export type GetRentFiltersQueryResult = Apollo.QueryResult<GetRentFiltersQuery, GetRentFiltersQueryVariables>;
+export const GetShopFiltersDocument = gql`
+    query GetShopFilters($brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $exteriorColors: [ID], $interiorColors: [ID], $locale: I18NLocaleCode) {
+  brands(filters: {id: {in: $brands}}) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+  bodyStyles(filters: {id: {in: $bodyStyles}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        style
+      }
+    }
+  }
+  fuelTypes(filters: {id: {in: $fuelTypes}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  transmissions(filters: {id: {in: $transmissions}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        type
+      }
+    }
+  }
+  exterior_color: colors(filters: {id: {in: $exteriorColors}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+  interior_color: colors(filters: {id: {in: $interiorColors}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        name
+        color
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShopFiltersQuery__
+ *
+ * To run a query within a React component, call `useGetShopFiltersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShopFiltersQuery({
+ *   variables: {
+ *      brands: // value for 'brands'
+ *      bodyStyles: // value for 'bodyStyles'
+ *      fuelTypes: // value for 'fuelTypes'
+ *      transmissions: // value for 'transmissions'
+ *      exteriorColors: // value for 'exteriorColors'
+ *      interiorColors: // value for 'interiorColors'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetShopFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
+      }
+export function useGetShopFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
+        }
+export type GetShopFiltersQueryHookResult = ReturnType<typeof useGetShopFiltersQuery>;
+export type GetShopFiltersLazyQueryHookResult = ReturnType<typeof useGetShopFiltersLazyQuery>;
+export type GetShopFiltersQueryResult = Apollo.QueryResult<GetShopFiltersQuery, GetShopFiltersQueryVariables>;
 export const GetHomeFleetsDocument = gql`
     query GetHomeFleets($brandId: ID, $locale: I18NLocaleCode) {
   homePage(locale: $locale) {
@@ -3332,6 +3917,20 @@ export const HomePageDocument = gql`
             answer
           }
         }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
       }
     }
   }
@@ -3365,6 +3964,93 @@ export function useHomePageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<H
 export type HomePageQueryHookResult = ReturnType<typeof useHomePageQuery>;
 export type HomePageLazyQueryHookResult = ReturnType<typeof useHomePageLazyQuery>;
 export type HomePageQueryResult = Apollo.QueryResult<HomePageQuery, HomePageQueryVariables>;
+export const InitialDataDocument = gql`
+    query InitialData($locale: I18NLocaleCode) {
+  global {
+    data {
+      attributes {
+        lightLogo {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        darkLogo {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        favicon {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        googleAnalyticsTag
+      }
+    }
+  }
+  contact(locale: $locale) {
+    data {
+      attributes {
+        email
+        phoneNumbers {
+          id
+          phone
+        }
+        socialNetworks {
+          id
+          link
+          svgIcon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        workingHours {
+          id
+          listItem
+        }
+        footerText
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useInitialDataQuery__
+ *
+ * To run a query within a React component, call `useInitialDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInitialDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInitialDataQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useInitialDataQuery(baseOptions?: Apollo.QueryHookOptions<InitialDataQuery, InitialDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InitialDataQuery, InitialDataQueryVariables>(InitialDataDocument, options);
+      }
+export function useInitialDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InitialDataQuery, InitialDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InitialDataQuery, InitialDataQueryVariables>(InitialDataDocument, options);
+        }
+export type InitialDataQueryHookResult = ReturnType<typeof useInitialDataQuery>;
+export type InitialDataLazyQueryHookResult = ReturnType<typeof useInitialDataLazyQuery>;
+export type InitialDataQueryResult = Apollo.QueryResult<InitialDataQuery, InitialDataQueryVariables>;
 export const GetInsurancePageDocument = gql`
     query GetInsurancePage($locale: I18NLocaleCode) {
   insurancePage(locale: $locale) {
@@ -3402,6 +4088,20 @@ export const GetInsurancePageDocument = gql`
             answer
           }
         }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
       }
     }
   }
@@ -3435,54 +4135,32 @@ export function useGetInsurancePageLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetInsurancePageQueryHookResult = ReturnType<typeof useGetInsurancePageQuery>;
 export type GetInsurancePageLazyQueryHookResult = ReturnType<typeof useGetInsurancePageLazyQuery>;
 export type GetInsurancePageQueryResult = Apollo.QueryResult<GetInsurancePageQuery, GetInsurancePageQueryVariables>;
-export const GetRentFiltersDocument = gql`
-    query GetRentFilters {
-  brands {
+export const GetFleetPageDocument = gql`
+    query GetFleetPage($locale: I18NLocaleCode) {
+  fleetPage(locale: $locale) {
     data {
-      id
       attributes {
-        name
-      }
-    }
-  }
-  vehicleClasses {
-    data {
-      id
-      attributes {
-        title
-      }
-    }
-  }
-  bodyStyles {
-    data {
-      id
-      attributes {
-        style
-      }
-    }
-  }
-  fuelTypes {
-    data {
-      id
-      attributes {
-        type
-      }
-    }
-  }
-  transmissions {
-    data {
-      id
-      attributes {
-        type
-      }
-    }
-  }
-  colors {
-    data {
-      id
-      attributes {
-        name
-        color
+        headingImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
       }
     }
   }
@@ -3490,31 +4168,32 @@ export const GetRentFiltersDocument = gql`
     `;
 
 /**
- * __useGetRentFiltersQuery__
+ * __useGetFleetPageQuery__
  *
- * To run a query within a React component, call `useGetRentFiltersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRentFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetFleetPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFleetPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRentFiltersQuery({
+ * const { data, loading, error } = useGetFleetPageQuery({
  *   variables: {
+ *      locale: // value for 'locale'
  *   },
  * });
  */
-export function useGetRentFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetRentFiltersQuery, GetRentFiltersQueryVariables>) {
+export function useGetFleetPageQuery(baseOptions?: Apollo.QueryHookOptions<GetFleetPageQuery, GetFleetPageQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRentFiltersQuery, GetRentFiltersQueryVariables>(GetRentFiltersDocument, options);
+        return Apollo.useQuery<GetFleetPageQuery, GetFleetPageQueryVariables>(GetFleetPageDocument, options);
       }
-export function useGetRentFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRentFiltersQuery, GetRentFiltersQueryVariables>) {
+export function useGetFleetPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFleetPageQuery, GetFleetPageQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRentFiltersQuery, GetRentFiltersQueryVariables>(GetRentFiltersDocument, options);
+          return Apollo.useLazyQuery<GetFleetPageQuery, GetFleetPageQueryVariables>(GetFleetPageDocument, options);
         }
-export type GetRentFiltersQueryHookResult = ReturnType<typeof useGetRentFiltersQuery>;
-export type GetRentFiltersLazyQueryHookResult = ReturnType<typeof useGetRentFiltersLazyQuery>;
-export type GetRentFiltersQueryResult = Apollo.QueryResult<GetRentFiltersQuery, GetRentFiltersQueryVariables>;
+export type GetFleetPageQueryHookResult = ReturnType<typeof useGetFleetPageQuery>;
+export type GetFleetPageLazyQueryHookResult = ReturnType<typeof useGetFleetPageLazyQuery>;
+export type GetFleetPageQueryResult = Apollo.QueryResult<GetFleetPageQuery, GetFleetPageQueryVariables>;
 export const GetLocationsDocument = gql`
     query GetLocations {
   locations {
@@ -3555,9 +4234,11 @@ export type GetLocationsQueryHookResult = ReturnType<typeof useGetLocationsQuery
 export type GetLocationsLazyQueryHookResult = ReturnType<typeof useGetLocationsLazyQuery>;
 export type GetLocationsQueryResult = Apollo.QueryResult<GetLocationsQuery, GetLocationsQueryVariables>;
 export const RentCarsDocument = gql`
-    query RentCars($address: ID, $brands: [ID], $vehicleClasses: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $locale: I18NLocaleCode) {
+    query RentCars($address: ID, $price: [Float], $brands: [ID], $vehicleClasses: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $sortBy: [String], $start: Int, $limit: Int, $locale: I18NLocaleCode) {
   rentCars(
-    filters: {locations: {id: {eq: $address}}, brand: {id: {in: $brands}}, vehicle_class: {id: {in: $vehicleClasses}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}}
+    filters: {locations: {id: {eq: $address}}, price: {currentPrice: {between: $price}}, brand: {id: {in: $brands}}, vehicle_class: {id: {in: $vehicleClasses}}, body_style: {id: {in: $bodyStyles}}, fuel_type: {id: {in: $fuelTypes}}, transmission: {id: {in: $transmissions}}}
+    sort: $sortBy
+    pagination: {start: $start, limit: $limit}
     locale: $locale
   ) {
     data {
@@ -3634,11 +4315,15 @@ export const RentCarsDocument = gql`
  * const { data, loading, error } = useRentCarsQuery({
  *   variables: {
  *      address: // value for 'address'
+ *      price: // value for 'price'
  *      brands: // value for 'brands'
  *      vehicleClasses: // value for 'vehicleClasses'
  *      bodyStyles: // value for 'bodyStyles'
  *      fuelTypes: // value for 'fuelTypes'
  *      transmissions: // value for 'transmissions'
+ *      sortBy: // value for 'sortBy'
+ *      start: // value for 'start'
+ *      limit: // value for 'limit'
  *      locale: // value for 'locale'
  *   },
  * });
@@ -3698,6 +4383,183 @@ export function useGetAddRentServicesLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetAddRentServicesQueryHookResult = ReturnType<typeof useGetAddRentServicesQuery>;
 export type GetAddRentServicesLazyQueryHookResult = ReturnType<typeof useGetAddRentServicesLazyQuery>;
 export type GetAddRentServicesQueryResult = Apollo.QueryResult<GetAddRentServicesQuery, GetAddRentServicesQueryVariables>;
+export const GetModelsDocument = gql`
+    query GetModels($brandId: ID, $locale: I18NLocaleCode) {
+  models(filters: {brand: {id: {eq: $brandId}}}, locale: $locale) {
+    data {
+      id
+      attributes {
+        model
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetModelsQuery__
+ *
+ * To run a query within a React component, call `useGetModelsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetModelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetModelsQuery({
+ *   variables: {
+ *      brandId: // value for 'brandId'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetModelsQuery(baseOptions?: Apollo.QueryHookOptions<GetModelsQuery, GetModelsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetModelsQuery, GetModelsQueryVariables>(GetModelsDocument, options);
+      }
+export function useGetModelsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetModelsQuery, GetModelsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetModelsQuery, GetModelsQueryVariables>(GetModelsDocument, options);
+        }
+export type GetModelsQueryHookResult = ReturnType<typeof useGetModelsQuery>;
+export type GetModelsLazyQueryHookResult = ReturnType<typeof useGetModelsLazyQuery>;
+export type GetModelsQueryResult = Apollo.QueryResult<GetModelsQuery, GetModelsQueryVariables>;
+export const GetSaleCarPropsDocument = gql`
+    query GetSaleCarProps($slug: String, $locale: I18NLocaleCode) {
+  salesCars(filters: {slug: {eq: $slug}}, locale: $locale) {
+    data {
+      attributes {
+        name
+        mileage
+        year
+        price {
+          fullPrice
+          currentPrice
+          showDiscounted
+        }
+        moneyBackLabel {
+          title
+          description
+        }
+        sidebarOptions {
+          id
+          label
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          modalContent
+        }
+        vehicleOverviews {
+          id
+          title
+          subtitle
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        vehicleFeatures {
+          id
+          option
+          optionList
+        }
+        gallery {
+          data {
+            id
+            attributes {
+              url
+              alternativeText
+            }
+          }
+        }
+        model {
+          data {
+            attributes {
+              model
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSaleCarPropsQuery__
+ *
+ * To run a query within a React component, call `useGetSaleCarPropsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSaleCarPropsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSaleCarPropsQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useGetSaleCarPropsQuery(baseOptions?: Apollo.QueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+      }
+export function useGetSaleCarPropsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+        }
+export type GetSaleCarPropsQueryHookResult = ReturnType<typeof useGetSaleCarPropsQuery>;
+export type GetSaleCarPropsLazyQueryHookResult = ReturnType<typeof useGetSaleCarPropsLazyQuery>;
+export type GetSaleCarPropsQueryResult = Apollo.QueryResult<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>;
+export const GetSalesCarsPathsDocument = gql`
+    query GetSalesCarsPaths {
+  salesCars(locale: "all") {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSalesCarsPathsQuery__
+ *
+ * To run a query within a React component, call `useGetSalesCarsPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSalesCarsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSalesCarsPathsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSalesCarsPathsQuery(baseOptions?: Apollo.QueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
+      }
+export function useGetSalesCarsPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
+        }
+export type GetSalesCarsPathsQueryHookResult = ReturnType<typeof useGetSalesCarsPathsQuery>;
+export type GetSalesCarsPathsLazyQueryHookResult = ReturnType<typeof useGetSalesCarsPathsLazyQuery>;
+export type GetSalesCarsPathsQueryResult = Apollo.QueryResult<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>;
 export const SaleCarsDocument = gql`
     query SaleCars($state: String, $price: [Float], $brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $mileage: [Int], $year: [Int], $exteriorColor: [ID], $interiorColor: [ID], $sortBy: [String], $start: Int, $limit: Int, $locale: I18NLocaleCode) {
   salesCars(
@@ -3809,147 +4671,24 @@ export function useSaleCarsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<S
 export type SaleCarsQueryHookResult = ReturnType<typeof useSaleCarsQuery>;
 export type SaleCarsLazyQueryHookResult = ReturnType<typeof useSaleCarsLazyQuery>;
 export type SaleCarsQueryResult = Apollo.QueryResult<SaleCarsQuery, SaleCarsQueryVariables>;
-export const GetShopFiltersDocument = gql`
-    query GetShopFilters($brands: [ID], $bodyStyles: [ID], $fuelTypes: [ID], $transmissions: [ID], $exteriorColors: [ID], $interiorColors: [ID]) {
-  brands(filters: {id: {in: $brands}}) {
-    data {
-      id
-      attributes {
-        name
-      }
-    }
-  }
-  bodyStyles(filters: {id: {in: $bodyStyles}}) {
-    data {
-      id
-      attributes {
-        style
-      }
-    }
-  }
-  fuelTypes(filters: {id: {in: $fuelTypes}}) {
-    data {
-      id
-      attributes {
-        type
-      }
-    }
-  }
-  transmissions(filters: {id: {in: $transmissions}}) {
-    data {
-      id
-      attributes {
-        type
-      }
-    }
-  }
-  exterior_color: colors(filters: {id: {in: $exteriorColors}}) {
-    data {
-      id
-      attributes {
-        name
-        color
-      }
-    }
-  }
-  interior_color: colors(filters: {id: {in: $interiorColors}}) {
-    data {
-      id
-      attributes {
-        name
-        color
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetShopFiltersQuery__
- *
- * To run a query within a React component, call `useGetShopFiltersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetShopFiltersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetShopFiltersQuery({
- *   variables: {
- *      brands: // value for 'brands'
- *      bodyStyles: // value for 'bodyStyles'
- *      fuelTypes: // value for 'fuelTypes'
- *      transmissions: // value for 'transmissions'
- *      exteriorColors: // value for 'exteriorColors'
- *      interiorColors: // value for 'interiorColors'
- *   },
- * });
- */
-export function useGetShopFiltersQuery(baseOptions?: Apollo.QueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
-      }
-export function useGetShopFiltersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShopFiltersQuery, GetShopFiltersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetShopFiltersQuery, GetShopFiltersQueryVariables>(GetShopFiltersDocument, options);
-        }
-export type GetShopFiltersQueryHookResult = ReturnType<typeof useGetShopFiltersQuery>;
-export type GetShopFiltersLazyQueryHookResult = ReturnType<typeof useGetShopFiltersLazyQuery>;
-export type GetShopFiltersQueryResult = Apollo.QueryResult<GetShopFiltersQuery, GetShopFiltersQueryVariables>;
-export const GetSaleCarPropsDocument = gql`
-    query GetSaleCarProps($slug: String, $locale: I18NLocaleCode) {
-  salesCars(filters: {slug: {eq: $slug}}, locale: $locale) {
+export const GetShopPageDocument = gql`
+    query GetShopPage($locale: I18NLocaleCode) {
+  shopPage(locale: $locale) {
     data {
       attributes {
-        name
-        mileage
-        year
-        price {
-          fullPrice
-          currentPrice
-          showDiscounted
-        }
-        moneyBackLabel {
-          title
-          description
-        }
-        sidebarOptions {
-          id
-          label
-          icon {
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
             data {
               attributes {
                 url
+                alternativeText
               }
             }
           }
-          modalContent
-        }
-        vehicleOverviews {
-          id
-          title
-          subtitle
-        }
-        vehicleFeatures {
-          id
-          option
-          optionList
-        }
-        gallery {
-          data {
-            id
-            attributes {
-              url
-              alternativeText
-            }
-          }
-        }
-        model {
-          data {
-            attributes {
-              model
-            }
-          }
+          keywords
+          canonicalURL
         }
       }
     }
@@ -3958,70 +4697,29 @@ export const GetSaleCarPropsDocument = gql`
     `;
 
 /**
- * __useGetSaleCarPropsQuery__
+ * __useGetShopPageQuery__
  *
- * To run a query within a React component, call `useGetSaleCarPropsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSaleCarPropsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetShopPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShopPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetSaleCarPropsQuery({
+ * const { data, loading, error } = useGetShopPageQuery({
  *   variables: {
- *      slug: // value for 'slug'
  *      locale: // value for 'locale'
  *   },
  * });
  */
-export function useGetSaleCarPropsQuery(baseOptions?: Apollo.QueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+export function useGetShopPageQuery(baseOptions?: Apollo.QueryHookOptions<GetShopPageQuery, GetShopPageQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+        return Apollo.useQuery<GetShopPageQuery, GetShopPageQueryVariables>(GetShopPageDocument, options);
       }
-export function useGetSaleCarPropsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>) {
+export function useGetShopPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShopPageQuery, GetShopPageQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>(GetSaleCarPropsDocument, options);
+          return Apollo.useLazyQuery<GetShopPageQuery, GetShopPageQueryVariables>(GetShopPageDocument, options);
         }
-export type GetSaleCarPropsQueryHookResult = ReturnType<typeof useGetSaleCarPropsQuery>;
-export type GetSaleCarPropsLazyQueryHookResult = ReturnType<typeof useGetSaleCarPropsLazyQuery>;
-export type GetSaleCarPropsQueryResult = Apollo.QueryResult<GetSaleCarPropsQuery, GetSaleCarPropsQueryVariables>;
-export const GetSalesCarsPathsDocument = gql`
-    query GetSalesCarsPaths {
-  salesCars(locale: "all") {
-    data {
-      id
-      attributes {
-        slug
-        locale
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetSalesCarsPathsQuery__
- *
- * To run a query within a React component, call `useGetSalesCarsPathsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSalesCarsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetSalesCarsPathsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetSalesCarsPathsQuery(baseOptions?: Apollo.QueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
-      }
-export function useGetSalesCarsPathsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>(GetSalesCarsPathsDocument, options);
-        }
-export type GetSalesCarsPathsQueryHookResult = ReturnType<typeof useGetSalesCarsPathsQuery>;
-export type GetSalesCarsPathsLazyQueryHookResult = ReturnType<typeof useGetSalesCarsPathsLazyQuery>;
-export type GetSalesCarsPathsQueryResult = Apollo.QueryResult<GetSalesCarsPathsQuery, GetSalesCarsPathsQueryVariables>;
+export type GetShopPageQueryHookResult = ReturnType<typeof useGetShopPageQuery>;
+export type GetShopPageLazyQueryHookResult = ReturnType<typeof useGetShopPageLazyQuery>;
+export type GetShopPageQueryResult = Apollo.QueryResult<GetShopPageQuery, GetShopPageQueryVariables>;

@@ -1,0 +1,38 @@
+query FindAvailableShopFilters($locale: I18NLocaleCode) {
+  salesCars(locale: $locale) {
+    data {
+      attributes {
+        brand {
+          data {
+            id
+          }
+        }
+        body_style {
+          data {
+            id
+          }
+        }
+        fuel_type {
+          data {
+            id
+          }
+        }
+        transmission {
+          data {
+            id
+          }
+        }
+        exterior_color {
+          data {
+            id
+          }
+        }
+        interior_color {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}

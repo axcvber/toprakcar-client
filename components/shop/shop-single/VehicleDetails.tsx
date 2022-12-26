@@ -1,13 +1,12 @@
 import React from 'react'
-import { Container, Stack, Box, Typography, Button, Grid } from '@mui/material'
+import { Container, Stack, Box, Typography, Grid } from '@mui/material'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { GrOverview } from 'react-icons/gr'
-import { MdOutlineFeaturedPlayList } from 'react-icons/md'
-import { FiAlertTriangle, FiClipboard, FiThermometer } from 'react-icons/fi'
 import { ComponentVehicleOverview, ComponentVehicleVehicleFeatures, Maybe } from '../../../generated'
 import { styled } from '@mui/material/styles'
 import { Markdown } from '../../Markdown'
+import SVG from 'react-inlinesvg'
+import { useLocale } from '../../../hooks/useLocale'
 
 interface IVehicleDetails {
   vehicleOverviews: Maybe<ComponentVehicleOverview>[]
@@ -16,6 +15,7 @@ interface IVehicleDetails {
 
 const VehicleDetails: React.FC<IVehicleDetails> = ({ vehicleOverviews, vehicleFeatures }) => {
   const [value, setValue] = React.useState(0)
+  const t = useLocale()
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -39,11 +39,11 @@ const VehicleDetails: React.FC<IVehicleDetails> = ({ vehicleOverviews, vehicleFe
           }}
         >
           <Typography variant='h4' fontWeight={600} textAlign='center'>
-            Vehicle Details
+          {t.shopSingle.vehicleDetails}
           </Typography>
           <StyledTabs value={value} onChange={handleChange} centered>
-            <Tab label='Overview' />
-            <Tab label='Features' />
+            <Tab label={t.shopSingle.overview} />
+            <Tab label={t.shopSingle.features} />
           </StyledTabs>
         </Stack>
       </Container>
@@ -53,9 +53,21 @@ const VehicleDetails: React.FC<IVehicleDetails> = ({ vehicleOverviews, vehicleFe
             <Grid container>
               {vehicleOverviews.map((item) => (
                 <Grid key={item?.id} item xs={6} sm={4} md={4} lg={3} pb={6} pl={{ md: 6 }}>
-                  <Stack direction={{ xs: 'column', md: 'row' }} alignItems='center' spacing={{ xs: 1, md: 2 }}>
-                    <FiAlertTriangle fontSize={55} />
-                    <Box textAlign={{ xs: 'center', md: 'left' }}>
+                  <Stack
+                    direction={{ xs: 'column', md: 'row' }}
+                    alignItems='center'
+                    spacing={{ xs: 1, md: 2 }}
+                    sx={(theme) => ({
+                      'svg': {
+                        width: 50,
+                        minWidth: 50,
+                        height: 50,
+                        fill: theme.palette.primary.main,
+                      },
+                    })}
+                  >
+                    <SVG src={item?.icon.data?.attributes?.url || ''} />
+                    <Box textAlign={{ xs: 'center', md: 'left' }} sx={{ flex: 1 }}>
                       <Typography fontWeight={600}>{item?.title}</Typography>
                       <Typography mt={0.5}>{item?.subtitle}</Typography>
                     </Box>

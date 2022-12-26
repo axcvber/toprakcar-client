@@ -9,6 +9,7 @@ import { InsuranceContactsSchema } from '../../../schemas/insurance-contacts'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
 import { useSnackbar } from 'notistack'
 import axios from 'axios'
+import { useLocale } from '../../../hooks/useLocale'
 
 export interface IContactInfoInputs {
   fullName: string
@@ -18,7 +19,7 @@ export interface IContactInfoInputs {
 
 const ContactInfoStep = () => {
   const { incrementCurrentStep, setThirdStepData, firstStepData, secondStepData, thirdStepData } = useInsuranceContext()
-
+  const t = useLocale()
   const {
     handleSubmit,
     control,
@@ -59,18 +60,35 @@ const ContactInfoStep = () => {
       <Box flex={1}>
         <Stack spacing={1} mb={3}>
           <Typography variant={'h4'} fontWeight={600}>
-            Teklifler Neredeyse Hazır!
+            {t.insurance.contactInfoStep.title}
           </Typography>
           <Typography variant='body2' fontWeight={500} color='text.secondary'>
-            Kaydettiğiniz tüm bilgiler Koalay ile her zaman güvende.
+            {t.insurance.contactInfoStep.desc}
           </Typography>
         </Stack>
         <Stack component={'form'} spacing={2} onSubmit={handleSubmit(onSubmit)}>
-          <Field name='fullName' control={control} label={'Full Name'} placeholder={'Full Name'} />
-          <Field name='email' control={control} label={'Email'} placeholder={'Email'} type='email' />
-          <Field name='phone' control={control} label={'Phone'} placeholder={'Phone'} type='tel' />
+          <Field
+            name='fullName'
+            control={control}
+            label={t.forms.labels.fullName}
+            placeholder={t.forms.labels.fullName}
+          />
+          <Field
+            name='email'
+            control={control}
+            label={t.forms.labels.email}
+            placeholder={t.forms.labels.email}
+            type='email'
+          />
+          <Field
+            name='phone'
+            control={control}
+            label={t.forms.labels.phone}
+            placeholder={t.forms.labels.phone}
+            type='tel'
+          />
           <Button disabled={isSubmitting} type='submit' variant='contained' size='extra' endIcon={<FiArrowUpRight />}>
-            {isSubmitting ? 'Loading...' : 'Devam Et'}
+            {isSubmitting ? t.button.loading : t.button.submit}
           </Button>
         </Stack>
       </Box>

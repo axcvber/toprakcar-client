@@ -6,9 +6,10 @@ import { Box, Stack, Typography, Button } from '@mui/material'
 import { HiOutlineFilter } from 'react-icons/hi'
 import { IoClose } from 'react-icons/io5'
 import ChipNavigation from './ChipNavigation'
-import FilterList from './FilterList'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
+import { useFilterContext } from '../../context/filter/filter-context'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IMobileFilter {
   isOpen?: boolean
@@ -17,28 +18,35 @@ interface IMobileFilter {
 }
 
 const MobileFilter: React.FC<IMobileFilter> = ({ children }) => {
+  const {  filtered } = useFilterContext()
   const [isOpen, setOpen] = React.useState<boolean>(false)
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true })
+  const t = useLocale()
+
+  const totalFiltersCount = Object.values(filtered).reduce(
+    (acc, val) => acc + (Array.isArray(val) ? val.length : val !== null),
+    0
+  )
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <>
-      <Button color='inherit' onClick={handleOpen}>
+      <Button color='inherit' onClick={handleOpen} size='large'>
         <Badge
           color='primary'
-          badgeContent={9}
+          badgeContent={totalFiltersCount}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
         >
-          <Stack direction='row' spacing={0.8} alignItems='center'>
+          <Stack direction='row' spacing={0.8} px={1} alignItems='center'>
             <HiOutlineFilter fontSize={20} />
             <Typography fontWeight={600} variant='body2'>
-              Filter
+              {t.filterNav.filters}
             </Typography>
           </Stack>
         </Badge>
@@ -61,18 +69,18 @@ const MobileFilter: React.FC<IMobileFilter> = ({ children }) => {
         onClose={handleClose}
         onOpen={handleOpen}
       >
-        <FilterHeader onClose={handleClose} />
+        <FilterHeader onClose={handleClose} title={t.filter.title} />
         <Stack spacing={3} p={3}>
           <ChipNavigation />
           {children}
         </Stack>
-        <FilterBottom />
+        <FilterBottom onClose={handleClose} btnText={t.button.showResults} />
       </SwipeableDrawer>
     </>
   )
 }
 
-const FilterHeader: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const FilterHeader: React.FC<{ onClose: () => void, title: string }> = ({ onClose, title }) => {
   return (
     <Stack
       direction='row'
@@ -101,7 +109,7 @@ const FilterHeader: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       >
         <FiTarget />
         <Typography variant='h6' fontWeight={600}>
-          Filter by
+          {title}
         </Typography>
       </Stack>
       <Button
@@ -121,7 +129,7 @@ const FilterHeader: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   )
 }
 
-const FilterBottom = () => {
+const FilterBottom: React.FC<{ onClose: () => void, btnText: string }> = ({ onClose, btnText }) => {
   return (
     <Box
       sx={{
@@ -133,8 +141,8 @@ const FilterBottom = () => {
         boxShadow: 25,
       }}
     >
-      <Button fullWidth variant='contained' size='extra'>
-        Show Results
+      <Button fullWidth variant='contained' size='extra' onClick={onClose}>
+        {btnText}
       </Button>
     </Box>
   )

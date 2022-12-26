@@ -1,8 +1,13 @@
-query FindAvailableShopFilters {
-  salesCars {
+query FindAvailableRentFilters($locale: I18NLocaleCode) {
+  rentCars(locale: $locale) {
     data {
       attributes {
         brand {
+          data {
+            id
+          }
+        }
+        vehicle_class {
           data {
             id
           }
@@ -18,16 +23,6 @@ query FindAvailableShopFilters {
           }
         }
         transmission {
-          data {
-            id
-          }
-        }
-        exterior_color {
-          data {
-            id
-          }
-        }
-        interior_color {
           data {
             id
           }

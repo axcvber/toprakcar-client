@@ -9,6 +9,7 @@ import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { MODAL_TYPES } from '../../context/modalContext'
 import { useRentContext } from '../../context/rent/rent-context'
 import { RentCarEntity } from '../../generated'
+import { useLocale } from '../../hooks/useLocale'
 import { useModal } from '../../hooks/useModal'
 import CarOption from '../CarOption'
 
@@ -18,6 +19,7 @@ interface IHomeFleetCard {
 
 const HomeFleetCard: React.FC<IHomeFleetCard> = ({ item }) => {
   const { showModal } = useModal()
+  const t = useLocale()
 
   const handleSelectCar = () => {
     showModal(MODAL_TYPES.SEARCH_MODAL, {
@@ -101,7 +103,7 @@ const HomeFleetCard: React.FC<IHomeFleetCard> = ({ item }) => {
       </Grid>
 
       <Button variant='contained' size='extra' onClick={handleSelectCar}>
-        Rent Now
+        {t.button.rentNow}
       </Button>
     </Stack>
   )

@@ -164,6 +164,20 @@ query HomePage($locale: I18NLocaleCode) {
             answer
           }
         }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
       }
     }
   }

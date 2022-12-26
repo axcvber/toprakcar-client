@@ -10,6 +10,7 @@ import {
 import SVG from 'react-inlinesvg'
 import { useModal } from '../../../hooks/useModal'
 import { MODAL_TYPES } from '../../../context/modalContext'
+import { useLocale } from '../../../hooks/useLocale'
 
 interface IVehicleSidebar {
   name: string
@@ -31,6 +32,7 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
   moneyBackLabel,
 }) => {
   const { showModal } = useModal()
+  const t = useLocale()
 
   const showSidebarOptionModal = (title: string, content: string) => {
     showModal(MODAL_TYPES.SHOP_SIDEBAR_MODAL, {
@@ -41,6 +43,10 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
 
   const showWorkSteps = () => {
     showModal(MODAL_TYPES.SHOP_WORK_STEPS)
+  }
+
+  const showPurchaseModal = () => {
+    showModal(MODAL_TYPES.CAR_PURCHASE_MODAL)
   }
 
   return (
@@ -89,7 +95,7 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
               '& .option-icon': {
                 width: 22,
                 height: 22,
-                color: theme.palette.text.primary,
+                fill: theme.palette.text.primary,
               },
               '& .q-icon': {
                 color: 'primary.main',
@@ -128,8 +134,8 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
         </Typography>
       </Box>
 
-      <Button variant='contained' size='extra'>
-        Get Started
+      <Button variant='contained' size='extra' onClick={showPurchaseModal}>
+        {t.button.getStarted}
       </Button>
       <Button
         onClick={showWorkSteps}
@@ -137,7 +143,7 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
         size='extra'
         sx={{ fontSize: 15, 'svg': { fontSize: 22 } }}
       >
-        {"Ready to buy? Here's how it works."}
+       {t.button.readyToBuy}
       </Button>
     </Stack>
   )

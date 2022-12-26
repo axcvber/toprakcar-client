@@ -8,11 +8,9 @@ import MenuList from '@mui/material/MenuList'
 import Stack from '@mui/material/Stack'
 import { Typography } from '@mui/material'
 import { HiChevronDown } from 'react-icons/hi'
-import Popover from '@mui/material/Popover'
 import Fade from '@mui/material/Fade'
 import Loader from '../Loader'
 import Skeleton from '@mui/material/Skeleton'
-import { Box } from '@mui/material'
 
 interface IDropdown {
   title: string
@@ -21,20 +19,9 @@ interface IDropdown {
   menu?: any
   onTriggerClick?: () => void
   placement?: 'bottom-end' | 'bottom-start'
-  isContentLoading?: boolean
-  width?: number
 }
 
-const Dropdown: React.FC<IDropdown> = ({
-  title,
-  trigger,
-  menu,
-  width = '100%',
-  icon,
-  onTriggerClick,
-  placement = 'bottom-end',
-  isContentLoading,
-}) => {
+const Dropdown: React.FC<IDropdown> = ({ title, trigger, menu, icon, onTriggerClick, placement = 'bottom-end' }) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number>()
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.useRef<HTMLButtonElement>(null)
@@ -87,7 +74,7 @@ const Dropdown: React.FC<IDropdown> = ({
         color='inherit'
         id='dropdown-button'
         aria-label='when device is locked'
-        size='extra'
+        size='large'
         ref={anchorRef}
         aria-controls={open ? 'locale-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
@@ -108,7 +95,7 @@ const Dropdown: React.FC<IDropdown> = ({
           spacing={1.5}
           sx={{
             'svg': {
-              color: 'primary.main',
+              // color: 'primary.main',
               fontSize: 22,
               minWidth: 22,
             },
@@ -119,7 +106,7 @@ const Dropdown: React.FC<IDropdown> = ({
         >
           <Stack direction='row' spacing={1}>
             {icon}
-            <Typography noWrap fontWeight={600} fontSize={15} maxWidth={width} textAlign='left'>
+            <Typography fontWeight={600} fontSize={15} textAlign='left'>
               {title}
             </Typography>
           </Stack>

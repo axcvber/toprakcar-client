@@ -1,57 +1,44 @@
-import { Container, Typography, Grid, Stack, Box } from '@mui/material'
-import React, { useEffect } from 'react'
-import { BiSupport } from 'react-icons/bi'
-import { BsSpeedometer2 } from 'react-icons/bs'
-import { FiBarChart } from 'react-icons/fi'
-import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
-import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
-import { GetServerSideProps, NextPage } from 'next'
-import { GetRentFiltersDocument, GetRentFiltersQuery, GetRentFiltersQueryVariables } from '../../generated'
+import { Container } from '@mui/material'
 import ImageHeading from '../../components/heading/ImageHeading'
 import Search from '../../components/Search'
 import RentCarsList from '../../components/rent/RentCarsList'
-import RentSteps from '../../components/RentSteps'
+import { FleetPage, GetFleetPageDocument, GetFleetPageQuery, GetFleetPageQueryVariables } from '../../generated'
 import client from '../../graphql/apollo-client'
-import { useShopFilterContext } from '../../context/shop-filter/shop-filter-context'
-import { useRouter } from 'next/router'
+import { GetStaticProps, NextPage } from 'next'
+import SeoSingle from '../../components/seo/SeoSingle'
 
 interface IFleetPage {
-  filters: GetRentFiltersQuery
+  pageData: FleetPage
 }
 
-const FleetPage: NextPage<IFleetPage> = ({ filters }) => {
-  const { setFilterData, clearFilter } = useShopFilterContext()
-
-  useEffect(() => {
-    setFilterData(filters)
-  }, [])
-
+const FleetPage: NextPage<IFleetPage> = ({ pageData }) => {
   return (
-    <Container maxWidth='xl'>
-      <ImageHeading>
-        <Search />
-      </ImageHeading>
-
-      <RentCarsList />
-
-      {/* <RentSteps /> */}
-    </Container>
+    <>
+      <SeoSingle seo={pageData.seo} />
+      <Container maxWidth='xl'>
+        <ImageHeading bgImage={pageData.headingImage.data?.attributes?.url || ''}>
+          <Search />
+        </ImageHeading>
+        <RentCarsList />
+      </Container>
+    </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const { locale } = context
-  const { data } = await client.query<GetRentFiltersQuery, GetRentFiltersQueryVariables>({
-    query: GetRentFiltersDocument,
-    // variables: {
-    //   locale: locale,
-    // },
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { locale } = context
+  const { data } = await client.query<GetFleetPageQuery, GetFleetPageQueryVariables>({
+    query: GetFleetPageDocument,
+    variables: {
+      locale: locale,
+    },
   })
 
   return {
     props: {
-      filters: data,
+      pageData: data.fleetPage?.data?.attributes,
     },
+    revalidate: 60,
   }
 }
 

@@ -1,0 +1,22 @@
+query GetShopPage($locale: I18NLocaleCode) {
+  shopPage(locale: $locale) {
+    data {
+      attributes {
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
+      }
+    }
+  }
+}

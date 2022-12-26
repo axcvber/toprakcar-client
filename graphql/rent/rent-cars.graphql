@@ -1,21 +1,28 @@
 query RentCars(
   $address: ID
+  $price: [Float]
   $brands: [ID]
   $vehicleClasses: [ID]
   $bodyStyles: [ID]
   $fuelTypes: [ID]
   $transmissions: [ID]
+  $sortBy: [String]
+  $start: Int
+  $limit: Int
   $locale: I18NLocaleCode
 ) {
   rentCars(
     filters: {
       locations: { id: { eq: $address } }
+      price: { currentPrice: { between: $price } }
       brand: { id: { in: $brands } }
       vehicle_class: { id: { in: $vehicleClasses } }
       body_style: { id: { in: $bodyStyles } }
       fuel_type: { id: { in: $fuelTypes } }
       transmission: { id: { in: $transmissions } }
     }
+    sort: $sortBy
+    pagination: { start: $start, limit: $limit }
     locale: $locale
   ) {
     data {

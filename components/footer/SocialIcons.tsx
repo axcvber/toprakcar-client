@@ -1,8 +1,10 @@
 import React from 'react'
 import { Stack, Box } from '@mui/material'
+import { ComponentMainSocialNetworks } from '../../generated'
+import SVG from 'react-inlinesvg'
 
 interface ISocialIcons {
-  icons: Array<any>
+  icons: ComponentMainSocialNetworks[]
 }
 
 const SocialIcons: React.FC<ISocialIcons> = ({ icons }) => {
@@ -12,26 +14,27 @@ const SocialIcons: React.FC<ISocialIcons> = ({ icons }) => {
         <li key={item.id}>
           <a href={item.link} target='_blank' rel='noopener noreferrer'>
             <Box
-              sx={{
+              sx={(theme) => ({
                 background: 'rgba(0,0,0,0.2)',
                 p: 1.4,
                 borderRadius: 2,
                 display: 'flex',
                 transition: 'all 0.1s linear',
                 'svg': {
-                  color: '#fff',
-                  fontSize: 18,
+                  fill: '#fff',
+                  width: 18,
+                  height: 18,
                 },
                 '&:hover': {
                   background: '#fff',
                   cursor: 'pointer',
                   'svg': {
-                    color: 'text.primary',
+                    fill: theme.palette.text.primary,
                   },
                 },
-              }}
+              })}
             >
-              {item.icon}
+              <SVG src={item.svgIcon.data?.attributes?.url || ''} />
             </Box>
           </a>
         </li>

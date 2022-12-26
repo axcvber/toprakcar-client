@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { checkTcNum, drivingLicenseRegExp } from '../../utils/validations'
-import { Stack, Button } from '@mui/material'
+import { Stack, Button, Link as MUILink } from '@mui/material'
 import Field from '../form/Field'
 import FormCheckbox from '../form/FormCheckbox'
 import Paper from '../layout/Paper'
@@ -11,6 +11,8 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { useInsuranceContext } from '../../context/insurance/insurance-context'
 import { useRouter } from 'next/router'
+import { useLocale } from '../../hooks/useLocale'
+import Link from 'next/link'
 
 const schema = yup
   .object({
@@ -39,6 +41,8 @@ const InsuranceStartForm = () => {
   const { setFirstStepData, firstStepData } = useInsuranceContext()
   const [tabValue, setTabValue] = React.useState(firstStepData?.hasLicense ? 0 : 1)
   const router = useRouter()
+  const t = useLocale()
+
   const { handleSubmit, control, setValue, clearErrors, resetField } = useForm<InsuranceStartFormInputs>({
     resolver: yupResolver(schema),
     defaultValues: firstStepData,
@@ -93,25 +97,33 @@ const InsuranceStartForm = () => {
             },
           }}
         >
-          <Tab label='I have a plate' />
-          <Tab label="I don't have a license plate" />
+          <Tab label={t.insurance.tabs.hasPlate} />
+          <Tab label={t.insurance.tabs.hasNotPlate} />
         </Tabs>
 
         <Stack direction='row' spacing={2}>
           <Field
             name='licensePlate'
             control={control}
-            label='License Plate'
+            label={t.forms.labels.licensePlate}
             placeholder={'34P3169'}
             disabled={tabValue === 1}
           />
-          <Field name='TCIdNumber' control={control} label='TR Identity' placeholder={'56437878965'} />
+          <Field name='TCIdNumber' control={control} label={t.forms.labels.TRIdentity} placeholder={'56437878965'} />
         </Stack>
 
         <Stack spacing={2}>
-          <FormCheckbox name='termsOfService' control={control} label={'I Have Read and Approve Terms & Conditions'} />
+          <Stack direction='row' alignItems='center' gap={1} flexWrap='wrap'>
+            <FormCheckbox name='termsOfService' control={control} label={t.forms.termsOfService} />
+            <Link href={'/'} passHref>
+              <MUILink underline='always' variant='body2' fontWeight={600}>
+                {t.links.terms}
+              </MUILink>
+            </Link>
+          </Stack>
+
           <Button type='submit' variant='contained' size='extra'>
-            Get Traffic Insurance Offers
+            {t.button.geTrafficInsuranceOffers}
           </Button>
         </Stack>
       </Stack>

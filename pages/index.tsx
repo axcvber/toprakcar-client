@@ -9,6 +9,7 @@ import Steps from '../components/home/steps/Steps'
 import dynamic from 'next/dynamic'
 import { HomePage, HomePageDocument, HomePageQuery, HomePageQueryVariables } from '../generated'
 import client from '../graphql/apollo-client'
+import SeoSingle from '../components/seo/SeoSingle'
 
 const Brands = dynamic(() => import('../components/home/brands/Brands'), {
   ssr: false,
@@ -21,6 +22,7 @@ interface IHomePage {
 const Home: NextPage<IHomePage> = ({ pageData }) => {
   return (
     <>
+      <SeoSingle seo={pageData.seo} />
       <Hero data={pageData?.hero} />
       <Brands data={pageData?.brands.images.data} />
       <Steps data={pageData.steps} />

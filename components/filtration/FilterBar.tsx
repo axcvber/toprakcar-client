@@ -2,8 +2,11 @@ import React, { ReactNode } from 'react'
 import { Stack, Typography, Divider } from '@mui/material'
 import { FiTarget } from 'react-icons/fi'
 import Paper from '../layout/Paper'
+import { useLocale } from '../../hooks/useLocale'
 
 const FilterBar: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const t = useLocale()
+
   return (
     <Paper>
       <Stack
@@ -19,7 +22,7 @@ const FilterBar: React.FC<{ children: ReactNode }> = ({ children }) => {
       >
         <FiTarget />
         <Typography variant='h6' fontWeight={600}>
-          Filter by
+          {t.filter.title}
         </Typography>
       </Stack>
       <Divider sx={{ my: 2 }} />

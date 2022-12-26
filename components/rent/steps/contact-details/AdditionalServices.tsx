@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import { ComponentVehicleAdditionalRentServices } from '../../../../generated'
 import { ExtrasType, useRentContext } from '../../../../context/rent/rent-context'
+import { useLocale } from '../../../../hooks/useLocale'
 
 interface IAdditionalServices {
   data: ComponentVehicleAdditionalRentServices[]
@@ -16,6 +17,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
   const [values, setValues] = React.useState<ExtrasType[]>([])
   const { orderSummary, setExtrasData } = useRentContext()
   const dayCount = orderSummary?.dayCount
+  const t = useLocale()
 
   useEffect(() => {
     setExtrasData(values.filter((item) => item.value === 'yes'))
@@ -34,7 +36,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
     <Paper>
       <Stack spacing={3}>
         <Typography variant='h6' fontWeight={600}>
-          Additional services
+          {t.reservation.additionalServices.title}
         </Typography>
         <Divider />
         <Stack spacing={3}>
@@ -44,7 +46,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
                 <Stack spacing={1}>
                   <Typography fontWeight={600}>{item.label}</Typography>
                   <Typography variant='subtitle2' color='text.secondary'>
-                    Daily Price {item.dailyPrice} ₺
+                  ({t.reservation.additionalServices.dailyPrice}: {item.dailyPrice} ₺)
                   </Typography>
                   <FormControl>
                     <RadioGroup
@@ -59,7 +61,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
                         name={item.label}
                         value={'yes'}
                         control={<Radio size='small' />}
-                        label='Yes'
+                        label={t.reservation.additionalServices.yes}
                       />
 
                       <FormControlLabel
@@ -67,7 +69,7 @@ const AdditionalServices: React.FC<IAdditionalServices> = ({ data }) => {
                         name={item.label}
                         checked={!!values.find((c) => c.name === item.label && c.value === 'no')}
                         control={<Radio size='small' />}
-                        label='No'
+                        label={t.reservation.additionalServices.no}
                       />
                     </RadioGroup>
                   </FormControl>

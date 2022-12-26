@@ -1,19 +1,20 @@
-import * as React from 'react'
+import React from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import { HiMinus, HiPlus } from 'react-icons/hi'
-import { Typography, Box, Stack } from '@mui/material'
+import { Typography, Stack, Skeleton } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import { IoIosArrowDown } from 'react-icons/io'
+import Loader from '../Loader'
 
 interface IFilterAccordion {
   title: string
   children: React.ReactNode
   selectedCount?: number
+  isLoading?: boolean
 }
 
-const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selectedCount }) => {
+const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selectedCount, isLoading }) => {
   const [expanded, setExpanded] = React.useState<boolean>(true)
   const onToggle = () => setExpanded(!expanded)
 
@@ -24,7 +25,6 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selected
       elevation={0}
       sx={{
         background: 'transparent',
-        // padding: '0px !important',
         '&:before': {
           content: 'none',
         },
@@ -48,16 +48,6 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selected
             {title}
           </Typography>
 
-          {/* <Chip
-            color='primary'
-            size='small'
-            label={selectedCount}
-            sx={{
-              mr: 2,
-              borderRadius: '50px',
-            }}
-          /> */}
-
           {!!selectedCount && selectedCount > 0 && (
             <Chip
               color='primary'
@@ -68,9 +58,6 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selected
                 borderRadius: '50px',
                 width: 24,
                 height: 24,
-                // display: 'flex',
-                // alightItems: 'center',
-                // justifyContent: 'center',
                 fontWeight: 600,
                 fontSize: 12,
               }}
@@ -78,7 +65,17 @@ const FilterAccordion: React.FC<IFilterAccordion> = ({ title, children, selected
           )}
         </Stack>
       </AccordionSummary>
-      <AccordionDetails sx={{ padding: 0 }}>{children}</AccordionDetails>
+      <AccordionDetails sx={{ padding: 0 }}>
+        {isLoading ? (
+          <Stack spacing={1}>
+            <Loader quantity={4}>
+              <Skeleton width={'100%'} height={50} sx={{ borderRadius: 2 }} />
+            </Loader>
+          </Stack>
+        ) : (
+          children
+        )}
+      </AccordionDetails>
     </Accordion>
   )
 }

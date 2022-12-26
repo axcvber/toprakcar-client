@@ -3,21 +3,23 @@ import { Stack, Typography, Box } from '@mui/material'
 import Image from 'next/image'
 import OrderTable from '../../OrderTable'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
+import { useLocale } from '../../../hooks/useLocale'
 
 const FormSubmissionStep = () => {
   const { thirdStepData } = useInsuranceContext()
+  const t = useLocale()
 
   const formData = [
     {
-      title: 'Full Name',
+      title: t.forms.labels.fullName,
       value: thirdStepData?.fullName,
     },
     {
-      title: 'Email',
+      title: t.forms.labels.email,
       value: thirdStepData?.email,
     },
     {
-      title: 'Phone',
+      title: t.forms.labels.phone,
       value: thirdStepData?.phone,
     },
   ]
@@ -27,10 +29,10 @@ const FormSubmissionStep = () => {
       <Box flex={1}>
         <Stack spacing={1} mb={3}>
           <Typography variant={'h4'} fontWeight={600}>
-            {"Toprakcar'i terci̇h etti̇ği̇ni̇z i̇çi̇n teşekkür ederi̇z"}
+            {t.insurance.formSubmissionStep.title}
           </Typography>
           <Typography variant='body2' fontWeight={500} color='text.secondary'>
-            Yöneticilerimiz kısa süre içinde sizinle iletişime geçecektir
+            {t.insurance.formSubmissionStep.desc}
           </Typography>
         </Stack>
         <Stack>
@@ -38,7 +40,7 @@ const FormSubmissionStep = () => {
         </Stack>
       </Box>
       <Box flex={1} width={'100%'}>
-        <Image priority layout='responsive' width={200} height={150} src={'/form-submition.svg'} alt='svgicon' />
+        <Image priority layout='responsive' width={200} height={150} src={'/form-submition.svg'} alt='form-submitted' />
       </Box>
     </Stack>
   )

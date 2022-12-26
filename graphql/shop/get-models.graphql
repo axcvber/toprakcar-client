@@ -1,0 +1,10 @@
+query GetModels($brandId: ID, $locale: I18NLocaleCode) {
+  models(filters: { brand: { id: { eq: $brandId } } }, locale: $locale) {
+    data {
+      id
+      attributes {
+        model
+      }
+    }
+  }
+}

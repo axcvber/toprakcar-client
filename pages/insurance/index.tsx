@@ -12,6 +12,7 @@ import {
 import client from '../../graphql/apollo-client'
 import InsuranceBenefits from '../../components/insurance/InsuranceBenefits'
 import FaqAccordion from '../../components/home/faq/FaqAccordion'
+import SeoSingle from '../../components/seo/SeoSingle'
 
 interface InsurancePageProps {
   pageData: InsurancePage
@@ -28,6 +29,7 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
 
   return (
     <>
+      <SeoSingle seo={pageData.seo} />
       <Box
         sx={{
           pt: 8,
@@ -53,8 +55,9 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
           },
         }}
       >
+        <Heading width={800} title={pageData.title} desc={pageData.description} withLine align='center' color='#fff' />
+
         <Container maxWidth={'sm'}>
-          <Heading title={pageData.title} desc={pageData.description} withLine align='center' color='#fff' />
           <Box my={4} />
           <InsuranceStartForm />
         </Container>

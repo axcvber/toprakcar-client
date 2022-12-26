@@ -14,6 +14,7 @@ import VehicleDetails from '../../components/shop/shop-single/VehicleDetails'
 import VehicleSidebar from '../../components/shop/shop-single/VehicleSidebar'
 import { useRouter } from 'next/router'
 import { BiArrowBack } from 'react-icons/bi'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IShopSingle {
   item: SalesCar
@@ -21,12 +22,12 @@ interface IShopSingle {
 
 const ShopSingle: NextPage<IShopSingle> = ({ item }) => {
   const router = useRouter()
-
+  const t = useLocale()
   return (
     <>
       <Container maxWidth={'lg'} sx={{ mt: 2, mb: 8 }}>
         <Button startIcon={<BiArrowBack />} color='primary' onClick={() => router.back()} sx={{ mb: 2 }}>
-          {'Back'}
+          {t.button.back}
         </Button>
         <Grid container>
           <Grid item xs={12} md={7} lg={8} pr={{ xs: 0, md: 4 }}>
@@ -81,7 +82,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths =
     data.salesCars?.data.map(({ attributes }: any) => ({
       params: { slug: attributes?.slug },
-      // locale: attributes?.locale,
+      locale: attributes.locale,
     })) || []
 
   return {

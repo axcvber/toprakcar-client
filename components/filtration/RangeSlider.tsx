@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IRangeSlider {
   title?: string
@@ -16,6 +17,7 @@ interface IRangeSlider {
 
 const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handleChange }) => {
   const [value, setValue] = React.useState<number[]>([minValue, maxValue])
+  const t = useLocale()
 
   const onChangeCommitted = () => {
     handleChange(value)
@@ -26,11 +28,6 @@ const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handle
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // if (event.target.name === 'min') {
-    //   handleChange([Number(event.target.value), value[1]])
-    // } else if (event.target.name === 'max') {
-    //   handleChange([value[0], Number(event.target.value)])
-    // }
     if (event.target.name === 'min') {
       setValue((prev) => [Number(event.target.value), prev[1]])
     } else if (event.target.name === 'max') {
@@ -51,7 +48,7 @@ const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handle
   return (
     <div>
       {title && (
-        <Typography textAlign='start' fontWeight={600} color='text.secondary'>
+        <Typography textAlign='start' fontWeight={600} color='text.secondary' mb={2}>
           {title}
         </Typography>
       )}
@@ -59,7 +56,7 @@ const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handle
         <RangeField
           name={'min'}
           value={value[0]}
-          label='Min'
+          label={t.forms.labels.min}
           handleChange={handleInputChange}
           handleBlur={onChangeCommitted}
         />
@@ -67,7 +64,7 @@ const RangeSlider: React.FC<IRangeSlider> = ({ title, minValue, maxValue, handle
         <RangeField
           name={'max'}
           value={value[1]}
-          label='Max'
+          label={t.forms.labels.max}
           handleChange={handleInputChange}
           handleBlur={onChangeCommitted}
         />

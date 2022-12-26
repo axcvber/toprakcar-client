@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Chip, Divider, Stack, Typography, Grid } from '@mui/material'
+import { Box, Divider, Stack, Typography, Grid } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SalesCarEntity } from '../../generated'
@@ -7,7 +7,6 @@ import { BsSpeedometer2 } from 'react-icons/bs'
 import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
 import { BiCar, BiCrosshair } from 'react-icons/bi'
-import { FiClock } from 'react-icons/fi'
 
 interface IVehicleShopCard {
   item: SalesCarEntity
@@ -35,13 +34,14 @@ const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
           sx={{
             backgroundColor: 'grey.100',
             borderRadius: 4,
+            overflow: 'hidden',
           }}
         >
           <Image
             width='100%'
             height={80}
             layout='responsive'
-            objectFit='contain'
+            objectFit='cover'
             src={item.attributes?.image.data?.attributes?.url || ''}
             placeholder='blur'
             blurDataURL={item.attributes?.image.data?.attributes?.url || ''}

@@ -11,10 +11,12 @@ import { MdAirlineSeatLegroomNormal, MdOutlineCancel } from 'react-icons/md'
 import { BiCar, BiSupport } from 'react-icons/bi'
 import { BsSpeedometer2 } from 'react-icons/bs'
 import { useRouter } from 'next/router'
+import { useLocale } from '../../../../hooks/useLocale'
 
 const OrderSummary = () => {
   const { pickUpLocation, dropOffLocation, selectedCar, dropOffDate, pickUpDate, orderSummary } = useRentContext()
   const router = useRouter()
+  const t = useLocale()
 
   return (
     <Paper>
@@ -22,16 +24,16 @@ const OrderSummary = () => {
         <Grid item xs={12} md={3.5} lg={3}>
           <Stack spacing={3}>
             <Typography variant='h6' fontWeight={600}>
-              Ride Details
+              {t.reservation.rideDetails}
             </Typography>
             <Divider />
             <LocationItem
-              title={'Pick Up'}
+              title={t.reservation.pickUp}
               address={pickUpLocation?.address}
               date={pickUpDate?.locale(router.locale as string).format('LLL')}
             />
             <LocationItem
-              title={'Drop Off'}
+              title={t.reservation.dropOff}
               address={dropOffLocation?.address}
               date={dropOffDate?.locale(router.locale as string).format('LLL')}
             />
@@ -98,15 +100,15 @@ const OrderSummary = () => {
         <Grid item xs={12} md={3.5} lg={3}>
           <Stack spacing={3}>
             <Typography variant='h6' fontWeight={600}>
-              Summary
+              {t.reservation.summary.title}
             </Typography>
             <Divider />
 
             <Stack direction='row' justifyContent={'space-between'} color='text.secondary'>
               <Stack spacing={2}>
-                <Typography fontWeight={500}>Number of Days:</Typography>
-                <Typography fontWeight={500}>Renting price:</Typography>
-                <Typography fontWeight={500}>Extras:</Typography>
+                <Typography fontWeight={500}>{t.reservation.summary.daysNum}:</Typography>
+                <Typography fontWeight={500}>{t.reservation.summary.rentPrice}:</Typography>
+                <Typography fontWeight={500}>{t.reservation.summary.extras}:</Typography>
               </Stack>
 
               <Stack spacing={2}>
@@ -119,7 +121,7 @@ const OrderSummary = () => {
             <Divider />
             <Stack direction='row' justifyContent={'space-between'}>
               <Typography variant='h6' fontWeight={600}>
-                Total amount:
+                {t.reservation.summary.totalAmount}:
               </Typography>
               <Typography variant='h6' color='primary.main' fontWeight={600}>
                 {orderSummary?.totalAmount.toLocaleString()} ₺

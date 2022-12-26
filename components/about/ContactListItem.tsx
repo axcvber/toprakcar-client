@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
-import Markdown from '../Markdown'
+import { Markdown } from '../Markdown'
 
 interface IContactListItem {
   title?: string

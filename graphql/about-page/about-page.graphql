@@ -24,6 +24,20 @@ query GetAboutPage($locale: I18NLocaleCode) {
           title
           description
         }
+        seo {
+          metaTitle
+          metaDescription
+          metaImage {
+            data {
+              attributes {
+                url
+                alternativeText
+              }
+            }
+          }
+          keywords
+          canonicalURL
+        }
       }
     }
   }

@@ -18,6 +18,7 @@ import FormCheckbox from '../../../form/FormCheckbox'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack'
+import { useLocale } from '../../../../hooks/useLocale'
 
 export interface UserDataFormInputs {
   nationality: string
@@ -54,6 +55,7 @@ const PersonalInfoForm = () => {
     orderSummary,
   } = useRentContext()
   const router = useRouter()
+  const t = useLocale()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const nationalityType = watch('nationality')
 
@@ -83,7 +85,7 @@ const PersonalInfoForm = () => {
     <Paper>
       <Stack spacing={3}>
         <Typography variant='h6' fontWeight={600}>
-          Personal Information
+          {t.reservation.personalInformation}
         </Typography>
         <Divider />
         <Stack component={'form'} spacing={3} onSubmit={handleSubmit(onSubmit)}>
@@ -94,7 +96,7 @@ const PersonalInfoForm = () => {
               id='nationality-label'
               sx={{ fontSize: 14, fontWeight: 500, mb: 1.3 }}
             >
-              Nationality
+              {t.forms.labels.nationality}
             </FormLabel>
             <Controller
               control={control}
@@ -112,7 +114,7 @@ const PersonalInfoForm = () => {
                         }}
                       />
                     }
-                    label='I am a Turkish citizen'
+                    label={t.forms.labels.isTurk}
                     sx={{
                       userSelect: 'none',
                       color: 'text.secondary',
@@ -133,7 +135,7 @@ const PersonalInfoForm = () => {
                         }}
                       />
                     }
-                    label='I am not Turkish citizen'
+                    label={t.forms.labels.notTurk}
                     sx={{
                       color: 'text.secondary',
                       userSelect: 'none',
@@ -149,27 +151,27 @@ const PersonalInfoForm = () => {
           </FormControl>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
-            <Field name='fullName' control={control} label={'Full Name'} placeholder={'John Doe'} />
+            <Field name='fullName' control={control} label={t.forms.labels.fullName} placeholder={'John Doe'} />
 
             {nationalityType === 'turk' && (
               <Field
                 name='passportId'
                 control={control}
-                label={'TC Identification number'}
+                label={t.forms.labels.TCnumber}
                 placeholder={'YYMMDDSSSSCAZ'}
               />
             )}
             {nationalityType === 'notTurk' && (
-              <Field name='passportId' control={control} label={'Passport ID number'} placeholder={'YYMMDDSSSSCAZ'} />
+              <Field name='passportId' control={control} label={t.forms.labels.passportIdNumber} placeholder={'YYMMDDSSSSCAZ'} />
             )}
           </Stack>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
-            <Field name='email' control={control} label={'Email'} placeholder={'johndoe@gmail.com'} />
-            <Field name='phone' control={control} label={'Phone number'} placeholder={'+35843949521'} />
+            <Field name='email' control={control} label={t.forms.labels.email} placeholder={'johndoe@gmail.com'} />
+            <Field name='phone' control={control} label={t.forms.labels.phone} placeholder={'+35843949521'} />
           </Stack>
 
-          <Textarea name='message' control={control} label={'Additional Note'} placeholder={'Message'} />
+          <Textarea name='message' control={control} label={t.forms.labels.additionalNote} placeholder={t.forms.placeholders.message} />
 
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -178,10 +180,10 @@ const PersonalInfoForm = () => {
             alignItems={{ xs: 'stretch', sm: 'flex-start' }}
           >
             <Stack direction='row' alignItems='center' gap={1} flexWrap='wrap'>
-              <FormCheckbox name='termsOfService' control={control} label={'I Have Read and Approve'} />
+              <FormCheckbox name='termsOfService' control={control} label={t.forms.termsOfService} />
               <Link href={'/'} passHref>
                 <MUILink underline='always' variant='body2' fontWeight={600}>
-                  Terms & Conditions
+                  {t.links.terms}
                 </MUILink>
               </Link>
             </Stack>

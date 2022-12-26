@@ -2,17 +2,18 @@ import { Box } from '@mui/material'
 import React from 'react'
 
 interface ImageHeadingProps {
+  bgImage: string
   children: React.ReactNode
 }
 
-const ImageHeading: React.FC<ImageHeadingProps> = ({ children }) => {
+const ImageHeading: React.FC<ImageHeadingProps> = ({ children, bgImage }) => {
   return (
     <Box
       my={3}
       sx={{
         width: '100%',
         position: 'relative',
-        backgroundImage: `url(${'https://res.cloudinary.com/doea7ahfk/image/upload/v1667765410/1920x_bz8azz.jpg'})`,
+        backgroundImage: `url(${bgImage})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',

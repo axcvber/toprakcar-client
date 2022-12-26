@@ -13,6 +13,7 @@ import * as yup from 'yup'
 import LocationDropdown from '../dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
 import { useRouter } from 'next/router'
+import { useLocale } from '../../hooks/useLocale'
 
 const schema = yup.object().shape({
   pickUpLocation: yup.object().required(),
@@ -44,6 +45,8 @@ const SearchModal = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const { setCurrentStep, setSelectedCar } = useRentContext()
   const router = useRouter()
+  const t = useLocale()
+
   const {
     pickUpLocation,
     dropOffLocation,
@@ -127,10 +130,10 @@ const SearchModal = () => {
       <Stack component={'form'} spacing={2} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={1}>
           <Typography pl={2} variant='body2' fontWeight={600} color='text.secondary'>
-            Pick Up
+            {t.reservation.pickUp}
           </Typography>
           <LocationDropdown
-            title={pickUpLocationTrigger?.address || pickUpLocation?.address || 'Pick-up Location'}
+            title={pickUpLocationTrigger?.address || pickUpLocation?.address || t.forms.placeholders.pickUpLocation}
             onSelectLocation={handleSelectPickUpLocation}
           />
 
@@ -138,17 +141,17 @@ const SearchModal = () => {
             name='pickUpDate'
             control={control}
             render={({ field }) => (
-              <DatePicker value={field.value} handleChange={field.onChange} placeholder='Pick-up date' />
+              <DatePicker value={field.value} handleChange={field.onChange} placeholder={t.forms.placeholders.pickupDate} />
             )}
           />
         </Stack>
 
         <Stack spacing={1}>
           <Typography pl={2} variant='body2' fontWeight={600} color='text.secondary'>
-            Drop Off
+          {t.reservation.dropOff}
           </Typography>
           <LocationDropdown
-            title={dropOffLocationTrigger?.address || dropOffLocation?.address || 'Drop Off Location'}
+            title={dropOffLocationTrigger?.address || dropOffLocation?.address || t.forms.placeholders.dropOffLocation}
             onSelectLocation={handleSelectDropOffLocation}
           />
 
@@ -156,12 +159,12 @@ const SearchModal = () => {
             name='dropOffDate'
             control={control}
             render={({ field }) => (
-              <DatePicker value={field.value} handleChange={field.onChange} placeholder='Drop-off date' />
+              <DatePicker value={field.value} handleChange={field.onChange} placeholder={t.forms.placeholders.returnDate} />
             )}
           />
         </Stack>
         <Button variant='contained' size='extra' type='submit'>
-          Search
+        {t.button.search}
         </Button>
       </Stack>
     </Modal>
