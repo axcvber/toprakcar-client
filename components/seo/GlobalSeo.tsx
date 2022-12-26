@@ -1,25 +1,27 @@
 import Script from 'next/script'
 import React from 'react'
 import { DefaultSeo } from 'next-seo'
-import { GlobalEntity } from '../../generated'
+import { Global } from '../../generated'
 
 interface IGlobalSeo {
-  globalData?: GlobalEntity
+  globalData?: Global
   locale?: string
 }
 
 const GlobalSeo: React.FC<IGlobalSeo> = ({ globalData, locale }) => {
-  const data = globalData?.attributes
   const siteName = 'Toprakcar'
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${data?.googleAnalyticsTag}`} strategy='lazyOnload' />
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${globalData?.googleAnalyticsTag}`}
+        strategy='lazyOnload'
+      />
       <Script id='google-analytics' strategy='lazyOnload'>
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${data?.googleAnalyticsTag}');
+          gtag('config', '${globalData?.googleAnalyticsTag}');
         `}
       </Script>
       <DefaultSeo
@@ -38,7 +40,7 @@ const GlobalSeo: React.FC<IGlobalSeo> = ({ globalData, locale }) => {
         additionalLinkTags={[
           {
             rel: 'shortcut icon',
-            href: data?.favicon.data?.attributes?.url || '',
+            href: globalData?.favicon.data?.attributes?.url || '',
           },
         ]}
         openGraph={{
@@ -48,7 +50,7 @@ const GlobalSeo: React.FC<IGlobalSeo> = ({ globalData, locale }) => {
           site_name: siteName,
           images: [
             {
-              url: data?.darkLogo.data?.attributes?.url || '',
+              url: globalData?.darkLogo.data?.attributes?.url || '',
               width: 400,
               height: 400,
               alt: 'logo',

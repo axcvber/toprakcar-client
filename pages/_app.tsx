@@ -58,7 +58,7 @@ export default function MyApp(props: MyAppProps) {
 
   return (
     <>
-      <GlobalSeo globalData={initialData?.global as any} locale={router.locale} />
+      <GlobalSeo globalData={initialData?.global?.data?.attributes as any} locale={router.locale} />
       <ApolloProvider client={client}>
         <AppProvider initialData={initialData}>
           <CacheProvider value={emotionCache}>
