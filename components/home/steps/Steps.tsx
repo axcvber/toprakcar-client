@@ -5,29 +5,7 @@ import { IoLocationSharp } from 'react-icons/io5'
 import { BsCalendarCheckFill, BsCalendarDateFill } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
 import IconBox from '../../layout/IconBox'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ComponentHomeSteps } from '../../../generated'
-
-const data = [
-  {
-    id: 1,
-    icon: <IoLocationSharp />,
-    title: 'Choose a location',
-    subtitle: 'See 3 popular hotels at a heavily disconted price.',
-  },
-  {
-    id: 2,
-    icon: <BsCalendarCheckFill />,
-    title: 'Pick-ud date',
-    subtitle: 'Click choose and we’ll pick one of the 3 hotels',
-  },
-  {
-    id: 3,
-    icon: <BsCalendarDateFill />,
-    title: 'Book your car',
-    subtitle: 'See which hotel right after you book!',
-  },
-]
 
 interface ISteps {
   data: ComponentHomeSteps
