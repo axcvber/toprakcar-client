@@ -20,12 +20,20 @@ const Logo: React.FC<ILogo> = ({ placement = 'header' }) => {
       <Box
         component='a'
         sx={{
-          position: 'relative',
-          width: '200px',
-          height: '64px',
+          display: 'block',
+          width: '150px',
         }}
       >
-        <Image priority objectFit='contain' layout='fill' src={logoUrl || ''} alt='logo' />
+        <Image
+          priority
+          width={150}
+          objectFit='contain'
+          objectPosition={'left center'}
+          height={50}
+          layout='responsive'
+          src={logoUrl || ''}
+          alt='logo'
+        />
       </Box>
     </Link>
   )
