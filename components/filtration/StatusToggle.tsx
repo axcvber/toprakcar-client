@@ -59,7 +59,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
       padding: '10px',
       fontWeight: 600,
       transition: 'all 0.1s linear',
-      fontSize: 13,
+      fontSize: 14,
       '&:hover': {
         background: theme.palette.grey[100],
       },
