@@ -1,8 +1,6 @@
 import { Stack, Typography, Box, Container } from '@mui/material'
 import React from 'react'
 import Heading from '../../heading/Heading'
-import { IoLocationSharp } from 'react-icons/io5'
-import { BsCalendarCheckFill, BsCalendarDateFill } from 'react-icons/bs'
 import { styled } from '@mui/material/styles'
 import IconBox from '../../layout/IconBox'
 import { ComponentHomeSteps } from '../../../generated'
@@ -67,28 +65,5 @@ const Steps: React.FC<ISteps> = ({ data }) => {
     </Container>
   )
 }
-
-const StepBox = styled('div', {
-  shouldForwardProp: (prop) => prop !== 'isActive',
-})<{ isActive?: boolean }>(({ isActive, theme }) => ({
-  width: '100px',
-  height: '100px',
-  border: `2px solid ${theme.palette.primary.main}`,
-  background: '#fff',
-  borderRadius: '20px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginBottom: 20,
-  color: theme.palette.primary.main,
-  'svg': {
-    fontSize: '35px',
-  },
-  ...(isActive && {
-    background: theme.palette.primary.main,
-    color: '#fff',
-    boxShadow: theme.shadows[5],
-  }),
-}))
 
 export default Steps

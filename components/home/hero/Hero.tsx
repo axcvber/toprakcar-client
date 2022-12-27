@@ -34,13 +34,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
                 </Typography>
               </Stack>
 
-              <Box
-                zIndex={2}
-                pt={0}
-                // display='flex'
-                // alignItems='stretch'
-                width={{ xs: '100%', md: '850px', lg: '1000px' }}
-              >
+              <Box zIndex={2} pt={0} width={{ xs: '100%', md: '850px', lg: '1000px' }}>
                 <Search />
               </Box>
             </Stack>
@@ -53,9 +47,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
-              // background: 'red',
               width: { xs: '100%', md: '40%', lg: '40%' },
-              // flex: 1,
               height: { xs: '300px', sm: '500px', lg: '700px' },
               boxShadow: 10,
               borderRadius: '35px',
@@ -75,6 +67,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
               }}
             >
               <Image
+                priority
                 width={700}
                 height={500}
                 objectFit='contain'
@@ -85,8 +78,6 @@ const Hero: React.FC<IHero> = ({ data }) => {
                   height: 'auto',
                 }}
                 src={data?.image.data?.attributes?.url || ''}
-
-                // src='https://res.cloudinary.com/doea7ahfk/image/upload/v1666896487/40451b669eb48a0ef7ef8844e9b8320b_1_kovycf.png'
               />
             </Box>
           </Box>

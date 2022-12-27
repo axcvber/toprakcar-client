@@ -88,6 +88,7 @@ const Benefits: React.FC<IBenefits> = ({ data }) => {
 
         <Box width={'500px'} sx={{ zIndex: 1 }}>
           <Image
+            priority
             width={500}
             height={900}
             layout='responsive'

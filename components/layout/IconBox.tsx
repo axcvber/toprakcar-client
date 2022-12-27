@@ -22,18 +22,20 @@ const IconBox: React.FC<IconBoxProps> = ({ icon, isActive, variant = 'medium', r
 const StyledBox = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isActive' && prop !== 'variant' && prop !== 'rounded',
 })<{ isActive?: boolean; variant: IconBoxVariants; rounded?: boolean }>(({ isActive, theme, variant, rounded }) => ({
-  width: '80px',
-  height: '80px',
+  width: '75px',
+  height: '75px',
   border: `2px solid ${theme.palette.primary.main}`,
-  background: '#fff',
-  borderRadius: 15,
+  background: isActive ? theme.palette.primary.main : '#fff',
+  borderRadius: 12,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  color: theme.palette.primary.main,
+
   'svg': {
     width: '35px',
     height: '35px',
+    fill: theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
   ...(variant === 'small' && {
     minWidth: '65px',
@@ -41,8 +43,10 @@ const StyledBox = styled('div', {
     height: '65px',
     borderRadius: 10,
     'svg': {
-      width: '25px',
-      height: '25px',
+      width: '30px',
+      height: '30px',
+      fill: theme.palette.primary.main,
+      color: theme.palette.primary.main,
     },
   }),
   ...(variant === 'large' && {
@@ -50,19 +54,22 @@ const StyledBox = styled('div', {
     height: '100px',
     borderRadius: 20,
     'svg': {
-      width: '35px',
-      height: '35px',
+      width: '40px',
+      height: '40px',
+      fill: isActive ? '#fff' : theme.palette.primary.main,
+      color: isActive ? '#fff' : theme.palette.primary.main,
     },
   }),
   ...(isActive && {
-    background: theme.palette.primary.main,
-    color: '#fff',
     boxShadow: theme.shadows[5],
   }),
   ...(rounded && {
     borderRadius: 50,
     background: theme.palette.primary.main,
-    color: '#fff',
+    'svg': {
+      color: '#fff',
+      fill: '#fff',
+    },
   }),
 }))
 

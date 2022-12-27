@@ -26,16 +26,18 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
           }}
         >
           <Box
-            sx={{
+            sx={(theme) => ({
               background: '#fff',
               borderRadius: 2,
               p: 1,
               display: 'flex',
               'svg': {
-                fontSize: 24,
-                color: 'text.secondary',
+                width: 24,
+                height: 24,
+                fill: theme.palette.primary.main,
+                color: 'red',
               },
-            }}
+            })}
           >
             <SVG src={item?.icon.data?.attributes?.url || ''} />
           </Box>

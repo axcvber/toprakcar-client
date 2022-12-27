@@ -20,6 +20,7 @@ const Services: React.FC<IServices> = ({ data }) => {
           }}
         >
           <Image
+            priority
             width={970}
             height={750}
             placeholder='blur'
@@ -40,7 +41,7 @@ const Services: React.FC<IServices> = ({ data }) => {
           <Stack component={'ul'} spacing={3}>
             {data.serviceOptions.map((item) => (
               <Stack key={item?.id} component={'li'} direction='row' spacing={3}>
-                <IconBox icon={item?.icon.data?.attributes?.url || ''} variant='small' />
+                <IconBox icon={item?.icon.data?.attributes?.url || ''} />
                 <Box maxWidth={'300px'}>
                   <Typography variant='h6' fontWeight={600}>
                     {item?.title}

@@ -11,8 +11,8 @@ const nextConfig = {
     domains: ['res.cloudinary.com'],
   },
   env: {
-    SERVER_API: process.env.SERVER_API,
-    // SERVER_API: 'https://toprakcar-admin.herokuapp.com',
+    // SERVER_API: process.env.SERVER_API,
+    SERVER_API: 'https://toprakcar-admin.herokuapp.com',
   },
 }
 
