@@ -23,6 +23,7 @@ const SocialIcons: React.FC<ISocialIcons> = ({ icons }) => {
                   transition: 'all 0.1s linear',
                   'svg': {
                     fill: '#fff',
+                    color: '#fff',
                     width: 18,
                     height: 18,
                   },
@@ -31,6 +32,7 @@ const SocialIcons: React.FC<ISocialIcons> = ({ icons }) => {
                     cursor: 'pointer',
                     'svg': {
                       fill: theme.palette.text.primary,
+                      color: theme.palette.text.primary,
                     },
                   },
                 })}
