@@ -12,13 +12,7 @@ interface InsuranceBenefitsProps {
 const InsuranceBenefits: React.FC<InsuranceBenefitsProps> = ({ data }) => {
   return (
     <Paper withShadow>
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        spacing={4}
-        justifyContent={'space-around'}
-        // alignItems='center'
-        py={1}
-      >
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} justifyContent={'space-around'} py={1}>
         {data.map((item) => (
           <BenefitItem key={item?.id} icon={item?.icon.data?.attributes?.url} label={item?.title} />
         ))}
@@ -41,9 +35,10 @@ const BenefitItem: React.FC<IBenefitItem> = ({ icon, label }) => {
       maxWidth={340}
       sx={(theme) => ({
         '.benefit-icon': {
-          width: 35,
-          height: 35,
+          width: 45,
+          height: 45,
           fill: theme.palette.primary.main,
+          color: theme.palette.primary.main,
         },
       })}
     >

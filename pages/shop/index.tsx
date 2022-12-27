@@ -78,7 +78,7 @@ const ShopPage: NextPage<IShopPage> = ({ pageData }) => {
   return (
     <>
       <SeoSingle seo={pageData.seo} />
-      <Container maxWidth='xl' sx={{ my: 4 }}>
+      <Container maxWidth='xl' sx={{ my: 3 }}>
         <Grid container spacing={3}>
           <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
             <FilterBar>

@@ -55,9 +55,16 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
           },
         }}
       >
-        <Heading width={800} title={pageData.title} desc={pageData.description} withLine align='center' color='#fff' />
-
         <Container maxWidth={'sm'}>
+          <Heading
+            width={800}
+            title={pageData.title}
+            desc={pageData.description}
+            withLine
+            align='center'
+            color='#fff'
+          />
+
           <Box my={4} />
           <InsuranceStartForm />
         </Container>

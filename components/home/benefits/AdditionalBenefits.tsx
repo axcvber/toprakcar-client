@@ -34,8 +34,8 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
               'svg': {
                 width: 24,
                 height: 24,
-                fill: theme.palette.primary.main,
-                color: 'red',
+                fill: theme.palette.text.secondary,
+                color: theme.palette.text.secondary,
               },
             })}
           >

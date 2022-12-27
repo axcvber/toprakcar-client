@@ -69,6 +69,8 @@ const StyledBox = styled('div', {
     'svg': {
       color: '#fff',
       fill: '#fff',
+      width: '30px',
+      height: '30px',
     },
   }),
 }))

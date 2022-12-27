@@ -30,7 +30,7 @@ const ru = {
     explore: 'Исследуйте',
     back: 'Назад',
     readyToBuy: 'Готовы купить? Вот как это работает.',
-    getStarted: 'Приступить к работе',
+    getStarted: 'Приступить',
     submit: 'Отправить',
     geTrafficInsuranceOffers: 'Получить предложения по страхованию',
     loading: 'Отправка...',

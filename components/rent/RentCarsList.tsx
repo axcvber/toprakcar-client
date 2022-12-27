@@ -82,7 +82,7 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} mb={2}>
       <Grid item xs={0} lg={3} display={{ xs: 'none', lg: 'block' }}>
         {withLocationChange && <LocationFilter />}
         <FilterBar>

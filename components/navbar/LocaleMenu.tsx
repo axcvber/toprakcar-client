@@ -110,6 +110,7 @@ const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
             aria-haspopup='true'
             onClick={handleToggle}
             color='inherit'
+            size='small'
             sx={(theme) => ({
               borderRadius: '8px',
               'span, svg': {
@@ -131,7 +132,7 @@ const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
           </Button>
         </Stack>
       ) : (
-        <Skeleton width={91} height={55} />
+        <Skeleton width={91} height={32} />
       )}
 
       <Popper
@@ -182,11 +183,41 @@ const LocaleMenu: React.FC<ILocaleMenu> = ({ scrolledToDown }) => {
                   id='locale-menu'
                   aria-labelledby='locale-button'
                   onKeyDown={handleListKeyDown}
+                  sx={{
+                    p: 1,
+                  }}
                 >
                   {localeArr.map((item) => (
-                    <MenuItem key={item.label} color='primary' onClick={() => onSelectLocale(item)}>
+                    <MenuItem
+                      key={item.label}
+                      color='primary'
+                      onClick={() => onSelectLocale(item)}
+                      selected={item.locale === currentLocale?.locale}
+                      sx={{
+                        width: '100%',
+                        borderRadius: 2,
+                        'span': {
+                          fontSize: 14,
+                          fontWeight: 500,
+                          color: 'text.secondary',
+                        },
+                        '&:not(:last-child)': {
+                          mb: 1,
+                        },
+                        '&.Mui-selected': {
+                          backgroundColor: 'grey.100',
+                          'span': {
+                            fontWeight: 600,
+                          },
+
+                          '&:hover': {
+                            backgroundColor: 'grey.100',
+                          },
+                        },
+                      }}
+                    >
                       <Image priority width={24} height={24} src={item.icon} alt='lang' />
-                      <Typography component='span' ml={1} fontSize={14} fontWeight={500} color='text.secondary'>
+                      <Typography component='span' ml={1}>
                         {item.label}
                       </Typography>
                     </MenuItem>
