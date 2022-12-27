@@ -12,6 +12,7 @@ const nextConfig = {
   },
   env: {
     SERVER_API: process.env.SERVER_API,
+    // SERVER_API: 'https://toprakcar-admin.herokuapp.com',
   },
 }
 

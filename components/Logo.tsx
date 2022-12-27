@@ -21,7 +21,7 @@ const Logo: React.FC<ILogo> = ({ placement = 'header' }) => {
         component='a'
         sx={{
           position: 'relative',
-          width: '157px',
+          width: '200px',
           height: '64px',
         }}
       >
