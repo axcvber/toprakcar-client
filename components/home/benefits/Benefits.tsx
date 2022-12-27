@@ -47,7 +47,7 @@ const Line: React.FC<{ placement: number; rightSide?: boolean }> = ({ placement,
         zIndex: 0,
       }}
     >
-      <Image width={width} height={height} objectFit='contain' src={path} alt='line' />
+      <Image priority width={width} height={height} objectFit='contain' src={path} alt='line' />
     </Box>
   )
 }
