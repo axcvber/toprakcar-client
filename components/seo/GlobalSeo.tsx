@@ -30,11 +30,15 @@ const GlobalSeo: React.FC<IGlobalSeo> = ({ globalData, locale }) => {
         additionalMetaTags={[
           {
             name: 'viewport',
-            content: 'initial-scale=1, width=device-width',
+            content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0',
           },
           {
             property: 'google',
             content: 'notranslate',
+          },
+          {
+            name: 'google-site-verification',
+            content: 'VFBH6lk0qTSYn_jOUrHRzvZ7CKt2M-wL4dJG7ueF878',
           },
         ]}
         additionalLinkTags={[
