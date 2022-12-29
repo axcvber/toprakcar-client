@@ -85,6 +85,7 @@ const en = {
       rentPrice: 'Renting price',
       extras: 'Extras',
       totalAmount: 'Total amount',
+      vehicle: 'Vehicle',
     },
     additionalServices: {
       title: 'Additional services',
@@ -95,10 +96,10 @@ const en = {
     personalInformation: 'Personal information',
     bookingSummary: {
       title: 'Thanks for your order!',
-      desc: '​your pre-reservation has been received. The information you sent has reached our system. You will be informed by e-mail or telephone when your reservation is confirmed. We thank you. Toprakcar',
+      desc: '​Your pre-reservation has been received. The information you sent has reached our system. You will be informed by e-mail or telephone when your reservation is confirmed. We thank you.',
       note: 'Note',
       noteText:
-        'If we do not receive a response within 24 hours, you either entered your email address incorrectly or our emails are sent to you as spam (Junk Mail). Please enter your e -mail and mark https://www.kirmizicar.com/ as a secure address. If your arrival date is within the next 24 hours, please contact us at the phone numbers below.',
+        "If you haven't heard back within 24 hours, you've either entered your email address incorrectly, or our emails are going into spam. If your arrival date is within the next 24 hours, please contact us at the numbers below.",
     },
   },
   insurance: {
@@ -115,6 +116,11 @@ const en = {
     vehicleInfoStep: {
       title: 'License information',
       desc: 'All the information you save is always safe with Toprakcar.',
+      banner: {
+        title: "Don't have a license?",
+        fistLine: 'You can access license information via e-government',
+        secondLine: 'You can log in to e-government using your internet banking user information',
+      },
     },
     contactInfoStep: {
       title: 'Enter your contact information',
@@ -124,6 +130,9 @@ const en = {
       title: 'Thank you for choosing Toprakcar',
       desc: 'Our managers will contact you shortly',
     },
+  },
+  aboutPage: {
+    contacts: 'Contacts',
   },
   forms: {
     labels: {
@@ -139,7 +148,7 @@ const en = {
       isTurk: 'I am a Turkish citizen',
       notTurk: 'I am not Turkish citizen',
       licensePlate: 'License plate',
-      TRIdentity: 'TR Identity',
+      TRIdentity: 'TC Identity',
       brand: 'Brand',
       year: 'Year',
       model: 'Model',
@@ -188,28 +197,63 @@ const en = {
     btn: 'Back to Home',
   },
 
-  personalInfoForm: {
-    validation: {
+  validation: {
+    required: 'Required field',
+    search: {
+      required: 'Select search details',
+      pickUpLocation: {
+        required: 'Select a pickup location',
+      },
+      pickUpDate: {
+        min: 'Choose a future date',
+        required: 'Choose a pickup date',
+      },
+      dropOffDate: {
+        min: 'The end date must be after the start date',
+        required: 'Choose a return date',
+      },
+    },
+    personalInfo: {
       fullName: {
-        max: 'Max 20 symbols.',
-        required: 'Enter full name.',
-        matches: 'Please enter a valid full name.',
+        max: 'Max 20 symbols',
+        matches: 'Please enter a valid Full Name',
       },
       idNumber: {
-        required: 'Please choose a service.',
+        incorrectTC: 'Incorrect TC Identification number',
+        incorrectPasswordNum: 'Incorrect Passport Number',
       },
       email: {
-        isEmail: 'Please enter a valid email address.',
-        required: 'Please enter an email address.',
+        isEmail: 'Please enter a valid email address',
       },
       phone: {
-        required: 'Please enter a phone number.',
-        matches: 'Please enter a valid phone number.',
+        matches: 'Please enter a valid phone number',
       },
       message: {
         max: 'Maximum 300 characters',
       },
     },
+    insurance: {
+      licensePlate: {
+        incorrect: 'Incorrect License Plate',
+      },
+      vehicleSelect: {
+        min: 'The minimum value 1970',
+        max: 'Enter the correct year of issue',
+      },
+      vehicleInfo: {
+        licenseSerial: {
+          incorrect: 'Incorrect License Serial',
+        },
+        licenseNumber: {
+          incorrect: 'Incorrect License Number',
+          minMax: 'Must be exactly 6 digits',
+        },
+      },
+    },
+  },
+  notistack: {
+    successSubmit: 'Form successfully submitted',
+    errorSubmit: 'An error occurred, please try again later',
   },
 }
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { checkTcNum, drivingLicenseRegExp } from '../../utils/validations'
 import { Stack, Button, Link as MUILink } from '@mui/material'
 import Field from '../form/Field'
 import FormCheckbox from '../form/FormCheckbox'
@@ -13,22 +11,7 @@ import { useInsuranceContext } from '../../context/insurance/insurance-context'
 import { useRouter } from 'next/router'
 import { useLocale } from '../../hooks/useLocale'
 import Link from 'next/link'
-
-const schema = yup
-  .object({
-    hasLicense: yup.boolean(),
-    licensePlate: yup.string().when('hasLicense', {
-      is: true,
-      then: yup.string().required().matches(drivingLicenseRegExp, 'incorrect license'),
-      otherwise: yup.string(),
-    }),
-    TCIdNumber: yup
-      .string()
-      .required('Please fill out this field')
-      .test('tc-validation', 'Incorrect TC Identification number', checkTcNum),
-    termsOfService: yup.boolean().required().oneOf([true]),
-  })
-  .required()
+import { InsuranceStartSchema } from '../../schemas/insurance/insurance-start-schema'
 
 export interface InsuranceStartFormInputs {
   hasLicense: boolean
@@ -44,7 +27,7 @@ const InsuranceStartForm = () => {
   const t = useLocale()
 
   const { handleSubmit, control, setValue, clearErrors, resetField } = useForm<InsuranceStartFormInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(InsuranceStartSchema()),
     defaultValues: firstStepData,
   })
 

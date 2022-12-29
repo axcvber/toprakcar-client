@@ -46,7 +46,12 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
   }
 
   const showPurchaseModal = () => {
-    showModal(MODAL_TYPES.CAR_PURCHASE_MODAL)
+    showModal(MODAL_TYPES.CAR_PURCHASE_MODAL, {
+      car: name,
+      model,
+      price,
+      year,
+    })
   }
 
   return (
@@ -143,7 +148,7 @@ const VehicleSidebar: React.FC<IVehicleSidebar> = ({
         size='extra'
         sx={{ fontSize: 15, 'svg': { fontSize: 22 } }}
       >
-       {t.button.readyToBuy}
+        {t.button.readyToBuy}
       </Button>
     </Stack>
   )

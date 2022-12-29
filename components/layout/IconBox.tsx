@@ -22,6 +22,7 @@ const IconBox: React.FC<IconBoxProps> = ({ icon, isActive, variant = 'medium', r
 const StyledBox = styled('div', {
   shouldForwardProp: (prop) => prop !== 'isActive' && prop !== 'variant' && prop !== 'rounded',
 })<{ isActive?: boolean; variant: IconBoxVariants; rounded?: boolean }>(({ isActive, theme, variant, rounded }) => ({
+  minWidth: '75px',
   width: '75px',
   height: '75px',
   border: `2px solid ${theme.palette.primary.main}`,

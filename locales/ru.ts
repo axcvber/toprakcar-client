@@ -85,6 +85,7 @@ const ru = {
       rentPrice: 'Стоимость аренды',
       extras: 'Доп. услуги',
       totalAmount: 'Общая сумма',
+      vehicle: 'Автомобиль',
     },
     additionalServices: {
       title: 'Дополнительные услуги',
@@ -95,10 +96,10 @@ const ru = {
     personalInformation: 'Персональная информация',
     bookingSummary: {
       title: 'Благодарим за ваш заказ!',
-      desc: '​your pre-reservation has been received. The information you sent has reached our system. You will be informed by e-mail or telephone when your reservation is confirmed. We thank you. Toprakcar',
+      desc: 'Ваше предварительное бронирование было получено. Отправленная вами информация поступила в нашу систему. Вы будете проинформированы по электронной почте или по телефону, когда ваше бронирование будет подтверждено. Мы благодарим вас.',
       note: 'Примечание',
       noteText:
-        'Если мы не получаем ответа в течение 24 часов, значит, вы либо неправильно ввели свой адрес электронной почты, либо наши письма попадают в спам (Junk Mail). Пожалуйста, введите свой электронный адрес и отметьте https://www.kirmizicar.com/ как безопасный адрес. Если дата вашего прибытия находится в пределах ближайших 24 часов, пожалуйста, свяжитесь с нами по указанным ниже телефонам.',
+        'Если вы не получили ответ в течение 24 часов, значит вы либо неправильно ввели свой адрес электронной почты, либо наши письма попадают в спам. Если дата вашего прибытия находится в пределах ближайших 24 часов, пожалуйста, свяжитесь с нами по указанным ниже телефонам.',
     },
   },
   insurance: {
@@ -115,6 +116,11 @@ const ru = {
     vehicleInfoStep: {
       title: 'Информация о лицензии',
       desc: 'Вся информация, которую вы сохраняете, всегда в безопасности с Toprakcar.',
+      banner: {
+        title: 'У вас нет с собой лицензии?',
+        fistLine: 'Вы можете получить доступ к информации о лицензиях через электронное правительство',
+        secondLine: 'Вы можете войти в электронное правительство, используя данные пользователя интернет-банка',
+      },
     },
     contactInfoStep: {
       title: 'Введите свою контактную информацию',
@@ -124,6 +130,9 @@ const ru = {
       title: 'Спасибо, что выбрали Toprakcar',
       desc: 'Наши менеджеры свяжутся с вами в ближайшее время',
     },
+  },
+  aboutPage: {
+    contacts: 'Контакты',
   },
   forms: {
     labels: {
@@ -139,7 +148,7 @@ const ru = {
       isTurk: 'Я гражданин Турции',
       notTurk: 'Я не являюсь гражданином Турции',
       licensePlate: 'Номерной знак',
-      TRIdentity: 'TR Идентичность',
+      TRIdentity: 'TC Идентичность',
       brand: 'Марка',
       year: 'Год',
       model: 'Модель',
@@ -150,8 +159,8 @@ const ru = {
       chooseLocation: 'Выберите местоположение',
       pickUpLocation: 'Место подбора',
       dropOffLocation: 'Место высадки',
-      pickupDate: 'Дата получения',
-      returnDate: 'Дата возвращения',
+      pickupDate: 'Дата выдачи',
+      returnDate: 'Дата возврата',
       message: 'Сообщение',
     },
     termsOfService: 'Я прочитал и одобряю',
@@ -189,28 +198,64 @@ const ru = {
     btn: 'На главную',
   },
 
-  personalInfoForm: {
-    validation: {
-      fullName: {
-        max: 'Max 20 symbols.',
-        required: 'Enter full name.',
-        matches: 'Please enter a valid full name.',
+  validation: {
+    required: 'Обязательное поле',
+    search: {
+      required: 'Выбирите детали поиска',
+      pickUpLocation: {
+        required: 'Выбирете место выдачи',
       },
-      idNumber: {
-        required: 'Please choose a service.',
+      pickUpDate: {
+        min: 'Выберите будущую дату',
+        required: 'Выбирете дату выдачи',
       },
-      email: {
-        isEmail: 'Please enter a valid email address.',
-        required: 'Please enter an email address.',
-      },
-      phone: {
-        required: 'Please enter a phone number.',
-        matches: 'Please enter a valid phone number.',
-      },
-      message: {
-        max: 'Maximum 300 characters',
+      dropOffDate: {
+        min: 'Дата окончания должна быть после даты начала',
+        required: 'Выберите дату возврата',
       },
     },
+    personalInfo: {
+      fullName: {
+        max: 'Максимум 20 символов',
+        matches: 'Введите правильное полное имя',
+      },
+      idNumber: {
+        incorrectTC: 'Неверный идентификационный номер ТС',
+        incorrectPasswordNum: 'Неверный номер паспорта',
+      },
+      email: {
+        isEmail: 'Введите действующий адрес электронной почты',
+      },
+      phone: {
+        matches: 'Введите действительный номер телефона',
+      },
+      message: {
+        max: 'Максимум 300 символов',
+      },
+    },
+    insurance: {
+      licensePlate: {
+        incorrect: 'Неверный номерной знак',
+      },
+      vehicleSelect: {
+        min: 'Минимальное значение 1970',
+        max: 'Введите верный год выпуска',
+      },
+      vehicleInfo: {
+        licenseSerial: {
+          incorrect: 'Неверная серия лицензии',
+        },
+        licenseNumber: {
+          incorrect: 'Неверный номер лицензии',
+          minMax: 'Должно быть ровно 6 цифр',
+        },
+      },
+    },
+  },
+
+  notistack: {
+    successSubmit: 'Форма успешно отправлена',
+    errorSubmit: 'Произошла ошибка, повторите попытку позже',
   },
 }
 

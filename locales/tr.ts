@@ -85,6 +85,7 @@ const tr = {
       rentPrice: 'Kiralama fiyatı',
       extras: 'Ekstralar',
       totalAmount: 'Toplam tutar',
+      vehicle: 'Araç',
     },
     additionalServices: {
       title: 'Ek hizmetler',
@@ -95,10 +96,10 @@ const tr = {
     personalInformation: 'Kişisel bilgiler',
     bookingSummary: {
       title: 'Siparişiniz için teşekkürler!',
-      desc: '​your pre-reservation has been received. The information you sent has reached our system. You will be informed by e-mail or telephone when your reservation is confirmed. We thank you. Toprakcar',
+      desc: 'Ön rezervasyonunuz alınmıştır. Göndermiş olduğunuz bilgiler sistemimize ulaşmıştır. Rezervasyonunuz onaylandığında e-posta veya telefon ile bilgilendirileceksiniz. Teşekkür ederiz.',
       note: 'Not',
       noteText:
-        'Eğer 24 saat içinde yanıt alamazsak, ya e-posta adresinizi yanlış girmişsinizdir ya da e-postalarımız size istenmeyen posta (Junk Mail) olarak gönderilmiştir. Lütfen e-posta adresinizi girin ve https://www.kirmizicar.com/ adresini güvenli bir adres olarak işaretleyin. Varış tarihiniz önümüzdeki 24 saat içindeyse, lütfen aşağıdaki telefon numaralarından bizimle iletişime geçin.',
+        "Eğer 24 saat içinde geri dönüş almadıysanız ya e-posta adresinizi yanlış girmişsinizdir ya da e-postalarımız spam'e düşmüştür. Varış tarihiniz önümüzdeki 24 saat içindeyse, lütfen aşağıdaki numaralardan bizimle iletişime geçin.",
     },
   },
   insurance: {
@@ -115,6 +116,11 @@ const tr = {
     vehicleInfoStep: {
       title: 'Lisans bilgileri',
       desc: 'Kaydettiğiniz tüm bilgiler Toprakcar ile her zaman güvende.',
+      banner: {
+        title: 'Ruhsat yanınızda değil mi?',
+        fistLine: 'E-devlet üzerinden ruhsat bilgilerine erişebilirsiniz',
+        secondLine: 'İnternet bankacılığı kullanıcı bilgilerinizi kullanarak e-devlete giriş yapabilirsiniz',
+      },
     },
     contactInfoStep: {
       title: 'İletişim bilgilerinizi girin',
@@ -124,6 +130,9 @@ const tr = {
       title: "Toprakcar'ı tercih ettiğiniz için teşekkür ederiz",
       desc: 'Yöneticilerimiz kısa süre içinde sizinle iletişime geçecektir',
     },
+  },
+  aboutPage: {
+    contacts: 'İletişim',
   },
   forms: {
     labels: {
@@ -139,7 +148,7 @@ const tr = {
       isTurk: 'Ben bir Türk vatandaşıyım',
       notTurk: 'Ben Türk vatandaşı değilim',
       licensePlate: 'Plaka',
-      TRIdentity: 'TR Kimlik',
+      TRIdentity: 'TC Kimlik',
       brand: 'Marka',
       year: 'Yıl',
       model: 'Model',
@@ -188,28 +197,64 @@ const tr = {
     btn: 'Ana Sayfaya Geri Dön',
   },
 
-  personalInfoForm: {
-    validation: {
-      fullName: {
-        max: 'Max 20 symbols.',
-        required: 'Enter full name.',
-        matches: 'Please enter a valid full name.',
+  validation: {
+    required: 'Zorunlu alan',
+    search: {
+      required: 'Arama ayrıntılarını seçin',
+      pickUpLocation: {
+        required: 'Bir teslim alma konumu seçin',
       },
-      idNumber: {
-        required: 'Please choose a service.',
+      pickUpDate: {
+        min: 'İleri bir tarih seçin',
+        required: 'Bir teslim alma tarihi seçin',
       },
-      email: {
-        isEmail: 'Please enter a valid email address.',
-        required: 'Please enter an email address.',
-      },
-      phone: {
-        required: 'Please enter a phone number.',
-        matches: 'Please enter a valid phone number.',
-      },
-      message: {
-        max: 'Maximum 300 characters',
+      dropOffDate: {
+        min: 'Bitiş tarihi başlangıç tarihinden sonra olmalıdır',
+        required: 'Bir dönüş tarihi seçin',
       },
     },
+    personalInfo: {
+      fullName: {
+        max: 'Maksimum 20 sembol',
+        matches: 'Lütfen geçerli bir Ad Soyad girin',
+      },
+      idNumber: {
+        incorrectTC: 'Yanlış TC Kimlik numarası',
+        incorrectPasswordNum: 'Yanlış Pasaport Numarası',
+      },
+      email: {
+        isEmail: 'Lütfen geçerli bir e-posta adresi girin',
+      },
+      phone: {
+        matches: 'Lütfen geçerli bir telefon numarası girin',
+      },
+      message: {
+        max: 'Maksimum 300 karakter',
+      },
+    },
+    insurance: {
+      licensePlate: {
+        incorrect: 'Yanlış Plaka',
+      },
+      vehicleSelect: {
+        min: 'Minimum değer 1970',
+        max: 'Doğru basım yılını girin',
+      },
+      vehicleInfo: {
+        licenseSerial: {
+          incorrect: 'Yanlış Lisans Serisi',
+        },
+        licenseNumber: {
+          incorrect: 'Yanlış Lisans Numarası',
+          minMax: 'Tam olarak 6 basamaklı olmalıdır',
+        },
+      },
+    },
+  },
+
+  notistack: {
+    successSubmit: 'Form başarıyla gönderildi',
+    errorSubmit: 'Bir hata oluştu, lütfen daha sonra tekrar deneyin',
   },
 }
 

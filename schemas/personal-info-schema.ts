@@ -11,41 +11,25 @@ export const PersonalInfoSchema = () => {
         if (val === 'turk')
           return yup
             .string()
-            .required('Please fill out this field')
-            .test('tc-validation', 'Incorrect TC Identification number', checkTcNum)
+            .required(t.validation.required)
+            .test('tc-validation', t.validation.personalInfo.idNumber.incorrectTC, checkTcNum)
         if (val === 'notTurk')
           return yup
             .string()
-            .required('Please fill out this field')
-            .matches(passportRegExp, 'Incorrect Passport Number')
+            .required(t.validation.required)
+            .matches(passportRegExp, t.validation.personalInfo.idNumber.incorrectPasswordNum)
         else return yup.string().notRequired()
       }),
 
       fullName: yup
         .string()
-        .max(20, t.personalInfoForm.validation.fullName.max)
-        .required(t.personalInfoForm.validation.fullName.required)
-        .matches(/^[a-zA-ZА-Яа-я\s]+$/, t.personalInfoForm.validation.fullName.matches)
+        .max(20, t.validation.personalInfo.fullName.max)
+        .required(t.validation.required)
+        .matches(/^[a-zA-ZА-Яа-я\s]+$/, t.validation.personalInfo.fullName.matches)
         .trim(),
-
-      // TCIdNumber: yup
-      //   .string()
-      //   .required('Please fill out this field')
-      //   .test('tc-validation', 'Incorrect TC Identification number', checkTcNum),
-      // passportIdNumber: yup
-      //   .string()
-      //   .required('Please fill out this field')
-      //   .matches(passportRegExp, 'Incorrect Passport Number'),
-
-      email: yup
-        .string()
-        .email(t.personalInfoForm.validation.email.isEmail)
-        .required(t.personalInfoForm.validation.email.required),
-      phone: yup
-        .string()
-        .required(t.personalInfoForm.validation.phone.required)
-        .matches(phoneRegExp, t.personalInfoForm.validation.phone.matches),
-      message: yup.string().max(300, t.personalInfoForm.validation.message.max).trim(),
+      email: yup.string().email(t.validation.personalInfo.email.isEmail).required(t.validation.required),
+      phone: yup.string().required(t.validation.required).matches(phoneRegExp, t.validation.personalInfo.phone.matches),
+      message: yup.string().max(300, t.validation.personalInfo.message.max).trim(),
       termsOfService: yup.boolean().required().oneOf([true]),
     })
     .required()

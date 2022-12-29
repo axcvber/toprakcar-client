@@ -52,6 +52,7 @@ query HomePage($locale: I18NLocaleCode) {
             description
           }
           serviceOptions {
+            id
             title
             description
             icon {

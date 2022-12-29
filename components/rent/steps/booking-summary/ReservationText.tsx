@@ -2,42 +2,44 @@ import Paper from '../../../layout/Paper'
 import { Stack, Typography } from '@mui/material'
 import { useRentContext } from '../../../../context/rent/rent-context'
 import OrderTable from '../../../OrderTable'
+import { useLocale } from '../../../../hooks/useLocale'
+import { useAppContext } from '../../../../context/appContext'
 
 const ReservationText = () => {
   const { selectedCar, userData, orderSummary } = useRentContext()
+  const { initialData } = useAppContext()
+  const phoneNumbers = initialData?.contact?.data?.attributes?.phoneNumbers
+
+  const t = useLocale()
 
   const orderResult = [
     {
-      title: 'Order Number',
-      value: '854783',
-    },
-    {
-      title: 'Name',
+      title: t.forms.labels.fullName,
       value: userData?.fullName,
     },
     {
-      title: 'Phone',
-      value: userData?.phone,
-    },
-    {
-      title: 'Email',
+      title: t.forms.labels.email,
       value: userData?.email,
     },
     {
-      title: 'Vehicle',
+      title: t.forms.labels.phone,
+      value: userData?.phone,
+    },
+    {
+      title: t.reservation.summary.vehicle,
       value: selectedCar?.attributes?.name,
     },
     {
-      title: 'Day Count',
+      title: t.reservation.summary.daysNum,
       value: orderSummary?.dayCount,
     },
     {
-      title: 'Extras',
-      value: orderSummary?.extrasPrice.toLocaleString(),
+      title: t.reservation.summary.extras,
+      value: `${orderSummary?.extrasPrice.toLocaleString()} ₺`,
     },
     {
-      title: 'Order Amount',
-      value: orderSummary?.totalAmount.toLocaleString(),
+      title: t.reservation.summary.totalAmount,
+      value: `${orderSummary?.totalAmount.toLocaleString()} ₺`,
     },
   ]
 
@@ -45,16 +47,11 @@ const ReservationText = () => {
     <Paper>
       <Stack spacing={3}>
         <Typography variant='h5' fontWeight={600}>
-          Thanks for your order!
+          {t.reservation.bookingSummary.title}
         </Typography>
 
         <Typography variant='body2' color={'text.secondary'} lineHeight={1.8} fontWeight={500}>
-          Dear{' '}
-          <Typography variant='body2' fontWeight={600} component='span' mr={0.5}>
-            {userData?.fullName}
-          </Typography>
-          ​​your pre-reservation has been received. The information you sent has reached our system. You will be
-          informed by e-mail or telephone when your reservation is confirmed. We thank you. Toprakcar
+          {t.reservation.bookingSummary.desc}
         </Typography>
 
         <OrderTable data={orderResult} />
@@ -62,16 +59,23 @@ const ReservationText = () => {
         <Stack spacing={1}>
           <Typography variant='body2' lineHeight={1.8} fontWeight={500} color={'text.secondary'}>
             <Typography color='primary' variant='body2' fontWeight={600} component='span' mr={0.5}>
-              Note:
+              {t.reservation.bookingSummary.note}:
             </Typography>
-            If we do not receive a response within 24 hours, you either entered your email address incorrectly or our
-            emails are sent to you as spam (Junk Mail). Please enter your e -mail and mark https://www.kirmizicar.com/
-            as a secure address. If your arrival date is within the next 24 hours, please contact us at the phone
-            numbers below.
+            {t.reservation.bookingSummary.noteText}
           </Typography>
-          <Typography color='primary' variant='body2' fontWeight={600}>
-            Tel : +90532 588 08 05 (You can call 7 / 24)
-          </Typography>
+          <Stack direction='row' gap={1} flexWrap='wrap'>
+            <Typography color='primary' variant='body2' fontWeight={600}>
+              Tel :
+            </Typography>
+            <Stack direction='row' gap={1} flexWrap='wrap' alignItems='center'>
+              {phoneNumbers &&
+                phoneNumbers.map((item) => (
+                  <Typography key={item?.id} color='primary' variant='body2' fontWeight={600}>
+                    {item?.phone}
+                  </Typography>
+                ))}
+            </Stack>
+          </Stack>
         </Stack>
       </Stack>
     </Paper>

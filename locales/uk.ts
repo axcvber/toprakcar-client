@@ -85,6 +85,7 @@ const uk = {
       rentPrice: 'Вартість оренди',
       extras: 'Додаткові послуги',
       totalAmount: 'Загальна вартість',
+      vehicle: 'Автомобіль',
     },
     additionalServices: {
       title: 'Додаткові послуги',
@@ -95,10 +96,10 @@ const uk = {
     personalInformation: 'Особиста інформація',
     bookingSummary: {
       title: 'Дякуємо за замовлення!',
-      desc: '​your pre-reservation has been received. The information you sent has reached our system. You will be informed by e-mail or telephone when your reservation is confirmed. We thank you. Toprakcar',
-      note: 'Note',
+      desc: 'Ваше попереднє бронювання отримано. Інформація, яку ви надіслали, надійшла до нашої системи. Ви будете проінформовані по електронній пошті або по телефону, коли Ваше бронювання буде підтверджено. Ми дякуємо вам.',
+      note: 'Примітка',
       noteText:
-        'If we do not receive a response within 24 hours, you either entered your email address incorrectly or our emails are sent to you as spam (Junk Mail). Please enter your e -mail and mark https://www.kirmizicar.com/ as a secure address. If your arrival date is within the next 24 hours, please contact us at the phone numbers below.',
+        "Якщо ви не отримали відповідь протягом 24 годин, значить ви або неправильно ввели свою адресу електронної пошти, або наші листи потрапляють у спам. Якщо дата вашого прибуття знаходиться в межах найближчих 24 годин, будь ласка, зв'яжіться з нами за вказаними нижче телефонами.",
     },
   },
   insurance: {
@@ -115,6 +116,11 @@ const uk = {
     vehicleInfoStep: {
       title: 'Інформація про ліцензію',
       desc: 'Вся інформація, яку ви зберігаєте, завжди в безпеці з Toprakcar.',
+      banner: {
+        title: 'У вас немає з собою посвідчення?',
+        fistLine: 'Ви можете отримати доступ до інформації про ліцензію через електронний уряд',
+        secondLine: 'Ви можете увійти до електронного уряду, використовуючи дані користувача інтернет-банкінгу',
+      },
     },
     contactInfoStep: {
       title: 'Введіть свою контактну інформацію',
@@ -124,6 +130,9 @@ const uk = {
       title: 'Дякуємо, що обрали Toprakcar',
       desc: "Наші менеджери зв'яжуться з вами найближчим часом",
     },
+  },
+  aboutPage: {
+    contacts: 'Контакти',
   },
   forms: {
     labels: {
@@ -139,7 +148,7 @@ const uk = {
       isTurk: 'Я громадянин Туреччини',
       notTurk: 'Я не громадянин Туреччини',
       licensePlate: 'Номерний знак',
-      TRIdentity: 'TR Ідентифікація',
+      TRIdentity: 'TC Ідентифікація',
       brand: 'Марка',
       year: 'Рік',
       model: 'Модель',
@@ -150,7 +159,7 @@ const uk = {
       chooseLocation: 'Оберіть локацію',
       pickUpLocation: 'Місце отримання',
       dropOffLocation: 'Місце висадки',
-      pickupDate: 'Дата самовивозу',
+      pickupDate: 'Дата видачі',
       returnDate: 'Дата повернення',
       message: 'Повідомлення',
     },
@@ -188,28 +197,64 @@ const uk = {
     btn: 'На головну',
   },
 
-  personalInfoForm: {
-    validation: {
-      fullName: {
-        max: 'Max 20 symbols.',
-        required: 'Enter full name.',
-        matches: 'Please enter a valid full name.',
+  validation: {
+    required: "Обов'язкове поле",
+    search: {
+      required: 'Оберіть деталі пошуку',
+      pickUpLocation: {
+        required: 'Оберіть місце видачі',
       },
-      idNumber: {
-        required: 'Please choose a service.',
+      pickUpDate: {
+        min: 'Оберіть майбутню дату',
+        required: 'Оберіть дату видачі',
       },
-      email: {
-        isEmail: 'Please enter a valid email address.',
-        required: 'Please enter an email address.',
-      },
-      phone: {
-        required: 'Please enter a phone number.',
-        matches: 'Please enter a valid phone number.',
-      },
-      message: {
-        max: 'Maximum 300 characters',
+      dropOffDate: {
+        min: 'Дата закінчення має бути після дати початку',
+        required: 'Оберіть дату повернення',
       },
     },
+    personalInfo: {
+      fullName: {
+        max: 'Максимум 20 символів',
+        matches: 'Будь ласка, введіть коректне ПІБ',
+      },
+      idNumber: {
+        incorrectTC: 'Невірний ідентифікаційний номер ТС',
+        incorrectPasswordNum: 'Невірний номер паспорту',
+      },
+      email: {
+        isEmail: 'Будь ласка, введіть дійсну електронну адресу',
+      },
+      phone: {
+        matches: 'Будь ласка, введіть дійсний номер телефону',
+      },
+      message: {
+        max: 'Максимум 300 символів',
+      },
+    },
+    insurance: {
+      licensePlate: {
+        incorrect: 'Невірний номерний знак',
+      },
+      vehicleSelect: {
+        min: 'Мінімальне значення 1970',
+        max: 'Вкажіть коректний рік випуску',
+      },
+      vehicleInfo: {
+        licenseSerial: {
+          incorrect: 'Невірна серія ліцензії',
+        },
+        licenseNumber: {
+          incorrect: 'Невірний номер ліцензії',
+          minMax: 'Повинно бути рівно 6 цифр',
+        },
+      },
+    },
+  },
+
+  notistack: {
+    successSubmit: 'Форма успішно відправлена',
+    errorSubmit: 'Сталася помилка, будь ласка, спробуйте пізніше',
   },
 }
 

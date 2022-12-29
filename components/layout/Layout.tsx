@@ -28,7 +28,7 @@ const Layout: React.FC<ILayout> = ({ children }) => {
             }}
           >
             <Navbar />
-            <Box component='main' sx={{ mt: '70px' }}>
+            <Box component='main' sx={{ mt: '70px', mb: 3 }}>
               {children}
             </Box>
             <Footer />

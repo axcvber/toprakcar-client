@@ -12,31 +12,7 @@ import * as yup from 'yup'
 import LocationDropdown from './dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
 import { useLocale } from '../hooks/useLocale'
-
-const schema = yup.object().shape({
-  // pickUpLocation: yup
-  //   .object()
-  //   .shape({
-  //     id: yup.string().required('sdsd'),
-  //     address: yup.string().required('dsad'),
-  //   })
-  //   .required('asds'),
-  pickUpLocation: yup.object().required(),
-
-  pickUpDate: yup.date().min(new Date(), 'Please choose future date').nullable().required(),
-  dropOffDate: yup
-    .date()
-    .when('pickUpDate', (pickUpDate, schema) => {
-      if (pickUpDate) {
-        const dayAfter = new Date(pickUpDate.getTime() + 86400000)
-        return schema.min(dayAfter, 'End date has to be after than start date')
-      }
-
-      return schema
-    })
-    .nullable()
-    .required(),
-})
+import { SearchSchema } from '../schemas/search-schema'
 
 interface ISearchInputs {
   pickUpLocation: LocationOption
@@ -55,10 +31,9 @@ const Search = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-    getValues,
     watch,
   } = useForm<ISearchInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SearchSchema()),
     defaultValues: {
       pickUpLocation,
       pickUpDate,

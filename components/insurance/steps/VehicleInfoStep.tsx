@@ -1,42 +1,27 @@
-import React from 'react'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Stack, Typography, Divider, Button, Box, Container } from '@mui/material'
+import { Stack, Typography, Button, Box } from '@mui/material'
 import Image from 'next/image'
 import Field from '../../form/Field'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
 import { useLocale } from '../../../hooks/useLocale'
-
-const schema = yup.object().shape({
-  licenseSerial: yup
-    .string()
-    .required()
-    .matches(/^[A-Z]{2}$/, 'ds'),
-  licenseNumber: yup
-    .string()
-    .required()
-    .matches(/^[0-9]+$/, 'Must be only digits')
-    .min(6, 'Must be exactly 6 digits')
-    .max(6, 'Must be exactly 6 digits'),
-})
+import { VehicleInfoSchema } from '../../../schemas/insurance/vehicle-info-schema'
 
 export interface IVehicleInfoInputs {
-  licenseSerial?: string
-  licenseNumber?: string
+  licenseSerial: string
+  licenseNumber: string
 }
 
 const VehicleInfoStep = () => {
   const { incrementCurrentStep, setSecondStepData, secondStepData } = useInsuranceContext()
   const t = useLocale()
-  const { handleSubmit, control, formState } = useForm<IVehicleInfoInputs>({
-    resolver: yupResolver(schema),
+  const { handleSubmit, control } = useForm<IVehicleInfoInputs>({
+    resolver: yupResolver(VehicleInfoSchema()),
     defaultValues: secondStepData,
   })
 
   const onSubmit: SubmitHandler<IVehicleInfoInputs> = (data) => {
-    console.log('data', data)
     setSecondStepData(data)
     incrementCurrentStep()
   }
@@ -73,14 +58,10 @@ const VehicleInfoStep = () => {
             spacing={2}
           >
             <Typography variant={'h6'} fontWeight={600}>
-              Ruhsat yanınızda değil mi?
+              {t.insurance.vehicleInfoStep.banner.title}
             </Typography>
-            <Typography variant={'caption'}>
-              Buraya tıklayarak e-Devlet üzerinden ruhsat bilgilerine erişebilirsiniz.
-            </Typography>
-            <Typography variant={'caption'}>
-              {"İnternet bankacılığı kullanıcı bilgileriniz ile buradan e-Devlet'e giriş yapabilirsiniz."}
-            </Typography>
+            <Typography variant={'caption'}>{t.insurance.vehicleInfoStep.banner.fistLine}</Typography>
+            <Typography variant={'caption'}>{t.insurance.vehicleInfoStep.banner.secondLine}</Typography>
           </Stack>
           <Button type='submit' variant='contained' size='extra' endIcon={<FiArrowUpRight />}>
             {t.button.continue}

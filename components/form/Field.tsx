@@ -68,6 +68,8 @@ const Input = styled(InputBase, {
     borderColor: isError ? theme.palette.error.main : theme.palette.grey[300],
     fontSize: 15,
     fontWeight: 500,
+    color: theme.palette.text.primary,
+
     padding: '10px 12px',
     transition: theme.transitions.create(['border-color', 'background-color', 'box-shadow']),
     '&:focus': {
@@ -75,9 +77,12 @@ const Input = styled(InputBase, {
       backgroundColor: 'transparent',
     },
     '&:disabled': {
-      // opacity: 0.6,
       backgroundColor: theme.palette.grey[200],
       cursor: 'not-allowed',
+    },
+    '&::placeholder': {
+      opacity: 0.6,
+      color: theme.palette.text.disabled,
     },
   },
 }))

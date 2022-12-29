@@ -2,22 +2,16 @@ import React from 'react'
 import { Stack, Typography, Button, Box } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 import Field from '../../form/Field'
 import { FiArrowUpRight } from 'react-icons/fi'
 import Image from 'next/image'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
 import { useLocale } from '../../../hooks/useLocale'
-
-const schema = yup.object().shape({
-  brand: yup.string().required(),
-  year: yup.number().typeError("That doesn't look like a number").min(1960).max(new Date().getFullYear()).required(),
-  model: yup.string().trim().required(),
-})
+import { VehicleSelectSchema } from '../../../schemas/insurance/vehicle-select-schema'
 
 export interface IVehicleSelectInputs {
   brand: string
-  year: string
+  year: number
   model: string
 }
 
@@ -25,7 +19,7 @@ const VehicleSelectStep = () => {
   const { incrementCurrentStep, setSecondStepData, secondStepData } = useInsuranceContext()
   const t = useLocale()
   const { handleSubmit, control } = useForm<IVehicleSelectInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(VehicleSelectSchema()),
     defaultValues: secondStepData,
   })
 

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { Stack, Typography, Divider, Button, Link as MUILink } from '@mui/material'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -34,10 +35,9 @@ const PersonalInfoForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, isSubmitSuccessful },
-    setValue,
+    formState: { isSubmitting },
     watch,
-    reset,
+    clearErrors,
   } = useForm<UserDataFormInputs>({
     resolver: yupResolver(PersonalInfoSchema()),
     defaultValues: {
@@ -56,8 +56,12 @@ const PersonalInfoForm = () => {
   } = useRentContext()
   const router = useRouter()
   const t = useLocale()
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
   const nationalityType = watch('nationality')
+
+  useEffect(() => {
+    clearErrors()
+  }, [nationalityType, clearErrors])
 
   const onSubmit: SubmitHandler<UserDataFormInputs> = async (data) => {
     const formData = {
@@ -69,15 +73,14 @@ const PersonalInfoForm = () => {
       selectedCar: selectedCar?.attributes?.name,
       orderSummary,
     }
-    console.log('data', data)
 
     try {
       await axios.post(`${process.env.SERVER_API}/api/ezforms/submit`, { formName: 'Rent', formData })
       setUserData(data)
       setCurrentStep(4)
-      enqueueSnackbar('Success', { variant: 'success' })
+      enqueueSnackbar(t.notistack.successSubmit, { variant: 'success' })
     } catch (error) {
-      enqueueSnackbar('Error', { variant: 'error' })
+      enqueueSnackbar(t.notistack.errorSubmit, { variant: 'error' })
     }
   }
 
@@ -162,16 +165,38 @@ const PersonalInfoForm = () => {
               />
             )}
             {nationalityType === 'notTurk' && (
-              <Field name='passportId' control={control} label={t.forms.labels.passportIdNumber} placeholder={'YYMMDDSSSSCAZ'} />
+              <Field
+                name='passportId'
+                control={control}
+                label={t.forms.labels.passportIdNumber}
+                placeholder={'YYMMDDSSSSCAZ'}
+              />
             )}
           </Stack>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
-            <Field name='email' control={control} label={t.forms.labels.email} placeholder={'johndoe@gmail.com'} />
-            <Field name='phone' control={control} label={t.forms.labels.phone} placeholder={'+35843949521'} />
+            <Field
+              name='email'
+              control={control}
+              label={t.forms.labels.email}
+              placeholder={'johndoe@gmail.com'}
+              type={'email'}
+            />
+            <Field
+              name='phone'
+              control={control}
+              label={t.forms.labels.phone}
+              placeholder={'+35843949521'}
+              type={'number'}
+            />
           </Stack>
 
-          <Textarea name='message' control={control} label={t.forms.labels.additionalNote} placeholder={t.forms.placeholders.message} />
+          <Textarea
+            name='message'
+            control={control}
+            label={t.forms.labels.additionalNote}
+            placeholder={t.forms.placeholders.message}
+          />
 
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -189,7 +214,7 @@ const PersonalInfoForm = () => {
             </Stack>
 
             <Button disabled={isSubmitting} type='submit' variant='contained' size='large' endIcon={<FiArrowUpRight />}>
-              {isSubmitting ? 'Loading...' : 'Submit'}
+              {isSubmitting ? t.button.loading : t.button.submit}
             </Button>
           </Stack>
         </Stack>

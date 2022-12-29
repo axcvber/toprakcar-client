@@ -1079,8 +1079,6 @@ export type Global = {
   favicon: UploadFileEntityResponse;
   googleAnalyticsTag: Scalars['String'];
   lightLogo: UploadFileEntityResponse;
-  locale?: Maybe<Scalars['String']>;
-  localizations?: Maybe<GlobalRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -1100,11 +1098,6 @@ export type GlobalInput = {
   favicon?: InputMaybe<Scalars['ID']>;
   googleAnalyticsTag?: InputMaybe<Scalars['String']>;
   lightLogo?: InputMaybe<Scalars['ID']>;
-};
-
-export type GlobalRelationResponseCollection = {
-  __typename?: 'GlobalRelationResponseCollection';
-  data: Array<GlobalEntity>;
 };
 
 export type HomePage = {
@@ -1420,7 +1413,6 @@ export type Mutation = {
   createFleetPageLocalization?: Maybe<FleetPageEntityResponse>;
   createFuelType?: Maybe<FuelTypeEntityResponse>;
   createFuelTypeLocalization?: Maybe<FuelTypeEntityResponse>;
-  createGlobalLocalization?: Maybe<GlobalEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
   createInsurancePageLocalization?: Maybe<InsurancePageEntityResponse>;
   createLocation?: Maybe<LocationEntityResponse>;
@@ -1589,13 +1581,6 @@ export type MutationCreateFuelTypeLocalizationArgs = {
 };
 
 
-export type MutationCreateGlobalLocalizationArgs = {
-  data?: InputMaybe<GlobalInput>;
-  id?: InputMaybe<Scalars['ID']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
 export type MutationCreateHomePageLocalizationArgs = {
   data?: InputMaybe<HomePageInput>;
   id?: InputMaybe<Scalars['ID']>;
@@ -1751,11 +1736,6 @@ export type MutationDeleteFleetPageArgs = {
 
 export type MutationDeleteFuelTypeArgs = {
   id: Scalars['ID'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationDeleteGlobalArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1935,7 +1915,6 @@ export type MutationUpdateFuelTypeArgs = {
 
 export type MutationUpdateGlobalArgs = {
   data: GlobalInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -2182,11 +2161,6 @@ export type QueryFuelTypesArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryGlobalArgs = {
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 
@@ -3181,7 +3155,7 @@ export type HomePageQueryVariables = Exact<{
 }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', hero: { __typename?: 'ComponentHomeHero', title: string, description: string, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, brands: { __typename?: 'ComponentHomeBrands', images: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }> } }, steps: { __typename?: 'ComponentHomeSteps', stepsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, stepOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, services: { __typename?: 'ComponentHomeServices', servicesHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, serviceOptions: Array<{ __typename?: 'ComponentMainIconOption', id: string, title: string, description: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } }, fleets: { __typename?: 'ComponentHomeFleets', fleetsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, rent_cars?: { __typename?: 'RentCarRelationResponseCollection', data: Array<{ __typename?: 'RentCarEntity', attributes?: { __typename?: 'RentCar', brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', id?: string | null, attributes?: { __typename?: 'Brand', name: string, logoSvg: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null } | null } } | null } | null } | null } | null }> } | null }, benefits: { __typename?: 'ComponentHomeBenefits', benefitsHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, leftSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, image: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null }, rightSide: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null>, additionalBenefits: Array<{ __typename?: 'ComponentMainIconBox', id: string, title: string, icon: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } } | null> }, faq: { __typename?: 'ComponentHomeFaq', id: string, faqHeading: { __typename?: 'ComponentDynamicHeading', title: string, label?: string | null, description?: string | null }, faqItem: Array<{ __typename?: 'ComponentDynamicAccordion', id: string, question: string, answer: string } | null> }, seo: { __typename?: 'ComponentMainSeo', metaTitle: string, metaDescription: string, keywords: string, canonicalURL: string, metaImage?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } } | null } | null } | null };
 
 export type InitialDataQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -3805,6 +3779,7 @@ export const HomePageDocument = gql`
             description
           }
           serviceOptions {
+            id
             title
             description
             icon {

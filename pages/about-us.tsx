@@ -8,12 +8,15 @@ import client from '../graphql/apollo-client'
 import { AboutPage, GetAboutPageDocument, GetAboutPageQuery, GetAboutPageQueryVariables } from '../generated'
 import { GetStaticProps, NextPage } from 'next'
 import SeoSingle from '../components/seo/SeoSingle'
+import { useLocale } from '../hooks/useLocale'
 
 interface IAboutUsPage {
   pageData: AboutPage
 }
 
 const AboutUsPage: NextPage<IAboutUsPage> = ({ pageData }) => {
+  const t = useLocale()
+
   return (
     <>
       <SeoSingle seo={pageData.seo} />
@@ -65,7 +68,7 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ pageData }) => {
           ))}
         </Grid>
         <Box mb={{ xs: 8, md: 12 }}>
-          <Heading width={450} title='Contacts' withLine />
+          <Heading width={450} title={t.aboutPage.contacts} withLine />
           <Stack component='ul' spacing={3} mt={3}>
             {pageData.contactInfo.map((item) => (
               <ContactListItem key={item?.id} title={item?.title} text={item?.description} />

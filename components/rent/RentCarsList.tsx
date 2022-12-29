@@ -14,6 +14,7 @@ import { useFilterContext } from '../../context/filter/filter-context'
 import { useRentContext } from '../../context/rent/rent-context'
 import { useSnackbar } from 'notistack'
 import Paginator from '../Paginator'
+import { useLocale } from '../../hooks/useLocale'
 
 interface IRentCarsList {
   withLocationChange?: boolean
@@ -23,6 +24,7 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
   const { filtered, deleteFilter, clearFilter, carState, sortBy } = useFilterContext()
   const { pickUpLocation, pickUpDate, dropOffDate, currentStep, setCurrentStep, setSelectedCar } = useRentContext()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const t = useLocale()
 
   const router = useRouter()
   const { data, loading, error, refetch } = useRentCarsQuery({
@@ -65,7 +67,7 @@ const RentCarsList: React.FC<IRentCarsList> = ({ withLocationChange }) => {
         router.push('/fleet/reservation')
       }
     } else {
-      enqueueSnackbar('Select search details', { variant: 'error' })
+      enqueueSnackbar(t.validation.search.required, { variant: 'error' })
     }
   }
 

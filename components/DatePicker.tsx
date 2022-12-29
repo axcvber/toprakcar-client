@@ -74,12 +74,12 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder, i
                 minWidth: 22,
               },
               '.arrow': {
-                color: 'text.secondary',
+                color: isError ? 'error.main' : 'text.secondary',
               },
             }}
           >
             <BsCalendar3 fontSize={22} />
-            <StyledInput {...inputProps} readOnly placeholder={placeholder} />
+            <StyledInput {...inputProps} readOnly placeholder={placeholder} isError={isError} />
             <HiChevronDown fontSize={22} className='arrow' />
           </Stack>
         </Button>
@@ -89,7 +89,9 @@ const DatePicker: React.FC<IDatePicker> = ({ value, handleChange, placeholder, i
   )
 }
 
-const StyledInput = styled('input')(({ theme }) => ({
+const StyledInput = styled('input', {
+  shouldForwardProp: (prop) => prop !== 'isError',
+})<{ isError?: boolean }>(({ isError, theme }) => ({
   border: 'none',
   width: '100%',
   // width: '100%',
@@ -99,7 +101,7 @@ const StyledInput = styled('input')(({ theme }) => ({
   outline: 'none',
   cursor: 'pointer',
   background: 'transparent',
-  color: theme.palette.text.secondary,
+  color: isError ? theme.palette.error.main : theme.palette.text.secondary,
   fontWeight: 600,
   fontFamily: theme.typography.fontFamily,
   overflow: 'hidden',
@@ -109,7 +111,8 @@ const StyledInput = styled('input')(({ theme }) => ({
   WebkitBoxOrient: 'vertical',
 
   '&::placeholder': {
-    color: theme.palette.text.secondary,
+    color: isError ? theme.palette.error.main : theme.palette.text.secondary,
+    opacity: 1,
   },
 }))
 

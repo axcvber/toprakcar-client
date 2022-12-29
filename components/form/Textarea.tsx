@@ -54,11 +54,17 @@ const StyledTextarea = styled('textarea')(({ theme }) => ({
   borderColor: theme.palette.grey[300],
   fontSize: 15,
   fontWeight: 500,
+  color: theme.palette.text.primary,
   padding: '10px 12px',
   transition: theme.transitions.create(['border-color', 'background-color', 'box-shadow']),
+
   '&:focus': {
     borderColor: theme.palette.primary.main,
     backgroundColor: 'transparent',
+  },
+  '&::placeholder': {
+    opacity: 0.6,
+    color: theme.palette.text.disabled,
   },
 }))
 

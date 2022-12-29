@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import Field from '../../form/Field'
 import { FiArrowUpRight } from 'react-icons/fi'
 import Image from 'next/image'
-import { InsuranceContactsSchema } from '../../../schemas/insurance-contacts'
+import { InsuranceContactsSchema } from '../../../schemas/insurance/insurance-contacts'
 import { useInsuranceContext } from '../../../context/insurance/insurance-context'
 import { useSnackbar } from 'notistack'
 import axios from 'axios'
@@ -23,13 +23,13 @@ const ContactInfoStep = () => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, isSubmitSuccessful },
+    formState: { isSubmitting },
   } = useForm<IContactInfoInputs>({
     resolver: yupResolver(InsuranceContactsSchema()),
     defaultValues: thirdStepData,
   })
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
 
   const onSubmit: SubmitHandler<IContactInfoInputs> = async (data) => {
     const formData = {
@@ -37,21 +37,13 @@ const ContactInfoStep = () => {
       secondStepData,
       thirdStepData: data,
     }
-    console.log('data', data)
     try {
       await axios.post(`${process.env.SERVER_API}/api/ezforms/submit`, { formName: 'Insurance', formData })
       setThirdStepData(data)
       incrementCurrentStep()
-      enqueueSnackbar('Success', { variant: 'success' })
-      // toast({
-      //   description: t.form.notify.successFormSend,
-      //   status: 'success',
-      //   duration: 5000,
-      //   isClosable: true,
-      // })
-      // reset()
+      enqueueSnackbar(t.notistack.successSubmit, { variant: 'success' })
     } catch (error) {
-      console.log('error', error)
+      enqueueSnackbar(t.notistack.errorSubmit, { variant: 'error' })
     }
   }
 
@@ -85,7 +77,7 @@ const ContactInfoStep = () => {
             control={control}
             label={t.forms.labels.phone}
             placeholder={t.forms.labels.phone}
-            type='tel'
+            type='number'
           />
           <Button disabled={isSubmitting} type='submit' variant='contained' size='extra' endIcon={<FiArrowUpRight />}>
             {isSubmitting ? t.button.loading : t.button.submit}
