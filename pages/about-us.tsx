@@ -42,6 +42,7 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ pageData }) => {
             }}
           >
             <Image
+              priority
               layout='responsive'
               width={500}
               height={350}

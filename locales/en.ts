@@ -37,10 +37,12 @@ const en = {
     continue: 'Continue',
     showResults: 'Show Results',
     changeSearch: 'Change Search',
+    acceptAll: 'Accept All',
   },
   links: {
     terms: 'Terms & Conditions',
     clearAll: 'Clear all',
+    readMore: 'Read More',
   },
   filter: {
     title: 'Filter by',
@@ -59,7 +61,7 @@ const en = {
     interiorColor: 'Interior Color',
   },
   filterNav: {
-    result: 'Result',
+    result: ['Result', 'Results', 'Results'],
     filters: 'Filters',
     sortBy: {
       recommended: 'Recommended',
@@ -178,7 +180,7 @@ const en = {
     footerLinks: [
       {
         label: 'Terms of Use',
-        path: '/terms',
+        path: '/terms-of-use',
       },
       {
         label: 'Privacy Policy',
@@ -200,9 +202,12 @@ const en = {
   validation: {
     required: 'Required field',
     search: {
-      required: 'Select search details',
+      required: 'Choose search details',
       pickUpLocation: {
-        required: 'Select a pickup location',
+        required: 'Choose a pickup location',
+      },
+      dropOffLocation: {
+        required: 'Choose a return location',
       },
       pickUpDate: {
         min: 'Choose a future date',
@@ -254,6 +259,20 @@ const en = {
   notistack: {
     successSubmit: 'Form successfully submitted',
     errorSubmit: 'An error occurred, please try again later',
+  },
+  dataState: {
+    error: {
+      title: 'Something went wrong',
+      subtitle: 'Brace yourself till we get the error fixed. You may also refresh the page or try again later',
+    },
+    notFound: {
+      title: 'No results found',
+      subtitle: 'Try removing some filters or increasing your range to see more results',
+    },
+  },
+  cookiesConsent: {
+    text: `We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our
+    traffic. By clicking "Accept All", you consent to our use of cookies.`,
   },
 }
 

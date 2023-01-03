@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Chip, Divider, Stack, Typography, Grid } from '@mui/material'
+import { Box, Button, Divider, Stack, Typography, Grid } from '@mui/material'
 import Image from 'next/image'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { RentCarEntity } from '../../generated'
@@ -38,7 +38,6 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
       sx={{
         backgroundColor: 'background.paper',
         borderRadius: 4,
-        // boxShadow: 25,
         border: '1px solid',
         borderColor: 'divider',
       }}
@@ -46,7 +45,7 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
       <Box
         sx={{
           width: '100%',
-          maxWidth: { xs: '100%', md: '300px' },
+          maxWidth: { xs: '100%', lg: '300px' },
           backgroundColor: 'grey.100',
           borderRadius: 3,
         }}
@@ -102,7 +101,7 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
               {t.button.moreInfo}
             </Button>
             <Button size={'large'} variant='contained' sx={{ px: 5 }} onClick={handleSelect}>
-            {t.button.select}
+              {t.button.select}
             </Button>
           </Stack>
         </Stack>

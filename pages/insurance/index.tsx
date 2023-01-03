@@ -13,6 +13,7 @@ import client from '../../graphql/apollo-client'
 import InsuranceBenefits from '../../components/insurance/InsuranceBenefits'
 import FaqAccordion from '../../components/home/faq/FaqAccordion'
 import SeoSingle from '../../components/seo/SeoSingle'
+import Image from 'next/image'
 
 interface InsurancePageProps {
   pageData: InsurancePage
@@ -35,26 +36,40 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
           pt: 8,
           pb: 16,
           width: '100%',
-          background: 'linear-gradient(270deg,#f4f5f8 20%,#f4f5f8,rgba(255,255,255,0))',
-          backgroundImage: `url(${pageData.background.data?.attributes?.url})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
           position: 'relative',
-          zIndex: 1,
-          '&:before': {
-            content: '""',
-            display: 'block',
+        }}
+      >
+        <Box
+          sx={{
             position: 'absolute',
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'rgba(0,0,0,0.5)',
+            right: 0,
+            bottom: 0,
+            marginRight: 'calc(-1 * (100vw - 100%))',
             zIndex: -1,
-          },
-        }}
-      >
+            '&:after': {
+              content: '""',
+              background: 'rgba(0,0,0,0.5)',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            },
+          }}
+        >
+          <Image
+            priority
+            layout='fill'
+            objectFit='cover'
+            objectPosition={'top'}
+            src={pageData.background.data?.attributes?.url || ''}
+            blurDataURL={pageData.background.data?.attributes?.url || ''}
+            alt={pageData.background.data?.attributes?.alternativeText || ''}
+          />
+        </Box>
         <Container maxWidth={'sm'}>
           <Heading
             width={800}

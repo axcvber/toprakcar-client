@@ -16,9 +16,10 @@ interface IFleetsNavigation {
 const FleetsNavigation: React.FC<IFleetsNavigation> = ({ brands, selectedBrand, onSelectBrand }) => {
   const t = useLocale()
 
-  if (!brands) {
+  if (!brands?.length) {
     return null
   }
+
   return (
     <StyledSwiper slidesPerView={'auto'} observer spaceBetween={15}>
       {brands.map((item) => (

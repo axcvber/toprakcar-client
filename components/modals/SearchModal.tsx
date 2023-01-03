@@ -1,37 +1,18 @@
 import React, { useEffect } from 'react'
 import Modal from '.'
 import { useModal } from '../../hooks/useModal'
-import { Box, Button, Stack, Typography } from '@mui/material'
-import Dropdown from '../dropdown/Dropdown'
+import { Button, Stack, Typography } from '@mui/material'
 import { LocationOption, useRentContext } from '../../context/rent/rent-context'
 import dayjs, { Dayjs } from 'dayjs'
 import DatePicker from '../DatePicker'
-import { LocationEntity, useGetLocationsLazyQuery } from '../../generated'
+import { LocationEntity } from '../../generated'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import LocationDropdown from '../dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
 import { useRouter } from 'next/router'
 import { useLocale } from '../../hooks/useLocale'
-
-const schema = yup.object().shape({
-  pickUpLocation: yup.object().required(),
-  dropOffLocation: yup.object().required(),
-  pickUpDate: yup.date().min(new Date(), 'Please choose future date').nullable().required(),
-  dropOffDate: yup
-    .date()
-    .when('pickUpDate', (pickUpDate, schema) => {
-      if (pickUpDate) {
-        const dayAfter = new Date(pickUpDate.getTime() + 86400000)
-        return schema.min(dayAfter, 'End date has to be after than start date')
-      }
-
-      return schema
-    })
-    .nullable()
-    .required(),
-})
+import { SearchModalSchema } from '../../schemas/search-modal-schema'
 
 interface ISearchInputs {
   pickUpLocation: LocationOption
@@ -42,7 +23,7 @@ interface ISearchInputs {
 
 const SearchModal = () => {
   const { isOpen, hideModal, modalProps } = useModal()
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
   const { setCurrentStep, setSelectedCar } = useRentContext()
   const router = useRouter()
   const t = useLocale()
@@ -65,7 +46,7 @@ const SearchModal = () => {
     formState: { errors },
     watch,
   } = useForm<ISearchInputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SearchModalSchema()),
     defaultValues: {
       pickUpLocation,
       dropOffLocation,
@@ -85,7 +66,6 @@ const SearchModal = () => {
   const dropOffLocationTrigger = watch('dropOffLocation')
 
   const onSubmit: SubmitHandler<ISearchInputs> = (data) => {
-    console.log('formModalData', data)
     setPickUpLocation(data.pickUpLocation)
     setDropOffLocation(data.dropOffLocation)
     setPickUpDate(dayjs(data.pickUpDate))
@@ -126,45 +106,73 @@ const SearchModal = () => {
   }
 
   return (
-    <Modal open={isOpen} onClose={hideModal} title='Ride Details'>
+    <Modal open={isOpen} onClose={hideModal} title={t.reservation.rideDetails}>
       <Stack component={'form'} spacing={2} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={1}>
           <Typography pl={2} variant='body2' fontWeight={600} color='text.secondary'>
             {t.reservation.pickUp}
           </Typography>
-          <LocationDropdown
-            title={pickUpLocationTrigger?.address || pickUpLocation?.address || t.forms.placeholders.pickUpLocation}
-            onSelectLocation={handleSelectPickUpLocation}
+
+          <Controller
+            name='pickUpLocation'
+            control={control}
+            render={({ fieldState }) => (
+              <LocationDropdown
+                title={pickUpLocationTrigger?.address || pickUpLocation?.address || t.forms.placeholders.pickUpLocation}
+                onSelectLocation={handleSelectPickUpLocation}
+                isError={!!fieldState.error}
+              />
+            )}
           />
 
           <Controller
             name='pickUpDate'
             control={control}
-            render={({ field }) => (
-              <DatePicker value={field.value} handleChange={field.onChange} placeholder={t.forms.placeholders.pickupDate} />
+            render={({ field, fieldState }) => (
+              <DatePicker
+                value={field.value}
+                handleChange={field.onChange}
+                placeholder={t.forms.placeholders.pickupDate}
+                isError={!!fieldState.error}
+              />
             )}
           />
         </Stack>
 
         <Stack spacing={1}>
           <Typography pl={2} variant='body2' fontWeight={600} color='text.secondary'>
-          {t.reservation.dropOff}
+            {t.reservation.dropOff}
           </Typography>
-          <LocationDropdown
-            title={dropOffLocationTrigger?.address || dropOffLocation?.address || t.forms.placeholders.dropOffLocation}
-            onSelectLocation={handleSelectDropOffLocation}
+
+          <Controller
+            name='dropOffLocation'
+            control={control}
+            render={({ fieldState }) => (
+              <LocationDropdown
+                title={
+                  dropOffLocationTrigger?.address || dropOffLocation?.address || t.forms.placeholders.dropOffLocation
+                }
+                onSelectLocation={handleSelectDropOffLocation}
+                isError={!!fieldState.error}
+              />
+            )}
           />
 
           <Controller
             name='dropOffDate'
             control={control}
-            render={({ field }) => (
-              <DatePicker value={field.value} handleChange={field.onChange} placeholder={t.forms.placeholders.returnDate} />
+            render={({ field, fieldState }) => (
+              <DatePicker
+                value={field.value}
+                handleChange={field.onChange}
+                placeholder={t.forms.placeholders.returnDate}
+                isError={!!fieldState.error}
+              />
             )}
           />
         </Stack>
         <Button variant='contained' size='extra' type='submit'>
-        {t.button.search}
+          {t.button.search}
         </Button>
       </Stack>
     </Modal>

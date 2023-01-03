@@ -21,8 +21,7 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
           sx={{
             backgroundColor: 'grey.100',
             borderRadius: 3,
-            px: 2,
-            py: 1.5,
+            p: 1,
           }}
         >
           <Box
@@ -32,8 +31,8 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
               p: 1,
               display: 'flex',
               'svg': {
-                width: 24,
-                height: 24,
+                width: 22,
+                height: 22,
                 fill: theme.palette.text.secondary,
                 color: theme.palette.text.secondary,
               },
@@ -41,7 +40,9 @@ const AdditionalBenefits: React.FC<IAdditionalBenefits> = ({ data }) => {
           >
             <SVG src={item?.icon.data?.attributes?.url || ''} />
           </Box>
-          <Typography fontWeight={600}>{item?.title}</Typography>
+          <Typography fontWeight={600} variant='body2'>
+            {item?.title}
+          </Typography>
           <MdDone fontSize={24} color='#FF8A5D' />
         </Stack>
       ))}

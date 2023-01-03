@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Divider, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { BiCar } from 'react-icons/bi'
 import { FiBarChart } from 'react-icons/fi'
@@ -34,20 +33,20 @@ const HomeFleetCard: React.FC<IHomeFleetCard> = ({ item }) => {
       sx={{
         background: '#fff',
         borderRadius: 4,
-        // boxShadow: 25,
         border: '1px solid',
         borderColor: 'divider',
       }}
     >
       <Box
         sx={{
+          width: '100%',
           backgroundColor: 'grey.100',
           borderRadius: 4,
         }}
       >
         <Image
           width='100%'
-          height={80}
+          height={70}
           layout='responsive'
           objectFit='contain'
           src={item.attributes?.image.data?.attributes?.url || ''}

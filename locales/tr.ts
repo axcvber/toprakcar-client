@@ -37,10 +37,12 @@ const tr = {
     continue: 'Devam etmek',
     showResults: 'Sonuçları Göster',
     changeSearch: 'Arama Değiştir',
+    acceptAll: 'Tümünü Kabul Et',
   },
   links: {
     terms: 'Şartlar & Koşullar',
     clearAll: 'Tümünü temizle',
+    readMore: 'Daha Fazla Oku',
   },
   filter: {
     title: 'Şuna göre filtrele',
@@ -59,7 +61,7 @@ const tr = {
     interiorColor: 'İç Renk',
   },
   filterNav: {
-    result: 'Sonuç',
+    result: ['Sonuç', 'Sonuç', 'Sonuçlar'],
     filters: 'Filtreler',
     sortBy: {
       recommended: 'Tavsiye edilir',
@@ -178,7 +180,7 @@ const tr = {
     footerLinks: [
       {
         label: 'Kullanım Koşulları',
-        path: '/terms',
+        path: '/terms-of-use',
       },
       {
         label: 'Gizlilik Politikası',
@@ -203,6 +205,9 @@ const tr = {
       required: 'Arama ayrıntılarını seçin',
       pickUpLocation: {
         required: 'Bir teslim alma konumu seçin',
+      },
+      dropOffLocation: {
+        required: 'Bir iade yeri seçin',
       },
       pickUpDate: {
         min: 'İleri bir tarih seçin',
@@ -255,6 +260,20 @@ const tr = {
   notistack: {
     successSubmit: 'Form başarıyla gönderildi',
     errorSubmit: 'Bir hata oluştu, lütfen daha sonra tekrar deneyin',
+  },
+  dataState: {
+    error: {
+      title: 'Bir şeyler ters gitti',
+      subtitle:
+        'Biz hatayı düzeltene kadar kendinizi hazırlayın. Ayrıca sayfayı yenileyebilir veya daha sonra tekrar deneyebilirsiniz',
+    },
+    notFound: {
+      title: 'Sonuç bulunamadı',
+      subtitle: 'Daha fazla sonuç görmek için bazı filtreleri kaldırmayı veya aralığınızı artırmayı deneyin',
+    },
+  },
+  cookiesConsent: {
+    text: `Çerezleri tarama deneyiminizi geliştirmek, kişiselleştirilmiş reklamlar veya içerik sunmak ve trafiğimizi analiz etmek için kullanıyoruz. "Tümünü Kabul Et" seçeneğine tıklayarak çerez kullanımımıza izin vermiş olursunuz.`,
   },
 }
 

@@ -23,7 +23,7 @@ const Steps: React.FC<ISteps> = ({ data }) => {
         direction={{ xs: 'column', md: 'row' }}
         justifyContent={'space-between'}
         alignItems={{ xs: 'center', md: 'flex-start' }}
-        mt={8}
+        mt={{ xs: 8, md: 12 }}
         spacing={{ xs: 10, md: 0 }}
       >
         {data.stepOptions.map((item, inx) => (
@@ -33,7 +33,7 @@ const Steps: React.FC<ISteps> = ({ data }) => {
               <Typography variant='h6' fontWeight={600} mt={2}>
                 {item?.title}
               </Typography>
-              <Typography mt={1} fontSize='15px'>
+              <Typography mt={1} variant='body2'>
                 {item?.description}
               </Typography>
             </Stack>

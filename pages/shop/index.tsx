@@ -20,6 +20,7 @@ import Paginator from '../../components/Paginator'
 import { GetStaticProps, NextPage } from 'next'
 import client from '../../graphql/apollo-client'
 import SeoSingle from '../../components/seo/SeoSingle'
+import DataList from '../../components/data-list/DataList'
 
 interface IShopPage {
   pageData: ShopPage
@@ -64,8 +65,6 @@ const ShopPage: NextPage<IShopPage> = ({ pageData }) => {
   }, [])
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, selectedPage: number) => {
-    console.log('selectedPage', selectedPage)
-
     if (selectedPage !== page) {
       if (pageSize) {
         refetch({
@@ -87,21 +86,25 @@ const ShopPage: NextPage<IShopPage> = ({ pageData }) => {
           </Grid>
           <Grid item xs={12} lg={9}>
             <FilterNav totalResultCount={totalCount} isLoading={loading} />
-            <Grid component='ul' container spacing={3}>
-              {loading ? (
-                <Loader quantity={20}>
-                  <Grid item xs={12} sm={6} md={4} lg={4}>
-                    <Skeleton width={'100%'} height={440} sx={{ borderRadius: 4 }} />
-                  </Grid>
-                </Loader>
-              ) : (
-                data?.salesCars?.data.map((item: any) => (
-                  <Grid key={item.id} item xs={12} sm={6} md={4} lg={4} component='li'>
-                    <VehicleShopCard item={item} />
-                  </Grid>
-                ))
-              )}
-            </Grid>
+
+            <DataList isError={!!error} isEmpty={data?.salesCars?.data?.length === 0}>
+              <>
+                {loading ? (
+                  <Loader quantity={20}>
+                    <Grid item xs={12} sm={6} md={4} lg={4}>
+                      <Skeleton width={'100%'} height={440} sx={{ borderRadius: 4 }} />
+                    </Grid>
+                  </Loader>
+                ) : (
+                  data?.salesCars?.data.map((item: any) => (
+                    <Grid key={item.id} item xs={12} sm={6} md={4} lg={4}>
+                      <VehicleShopCard item={item} />
+                    </Grid>
+                  ))
+                )}
+              </>
+            </DataList>
+
             <Paginator page={page} pageCount={pageCount} totalCount={totalCount} handleChange={handlePageChange} />
           </Grid>
         </Grid>

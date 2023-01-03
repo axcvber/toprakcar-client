@@ -53,10 +53,8 @@ const InsuranceStartForm = () => {
           sx={{
             '& .MuiTabs-flexContainer': {
               width: '100%',
-
               borderBottom: '1px solid',
               borderColor: 'divider',
-              // gap: '24px',
             },
             '& .MuiTabs-scroller': {
               display: 'flex',

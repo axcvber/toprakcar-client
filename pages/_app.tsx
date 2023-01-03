@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
-import Head from 'next/head'
-import App, { AppContext, AppProps } from 'next/app'
-import { ThemeProvider } from '@mui/material/styles'
 import '@fontsource/montserrat/400.css'
 import '@fontsource/montserrat/500.css'
 import '@fontsource/montserrat/600.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
+import React, { useEffect } from 'react'
+import App, { AppContext, AppProps } from 'next/app'
+import { ThemeProvider } from '@mui/material/styles'
+import { SnackbarProvider } from 'notistack'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
 import createEmotionCache from '../utils/createEmotionCache'
@@ -17,13 +17,13 @@ import { AppProvider } from '../context/appContext'
 import client from '../graphql/apollo-client'
 import NProgress from 'nprogress'
 import theme from '../styles/theme'
+import { InitialDataDocument, InitialDataQuery } from '../generated'
+import GlobalSeo from '../components/seo/GlobalSeo'
 import 'nprogress/nprogress.css'
 import 'swiper/css'
 import 'dayjs/locale/ru'
 import 'dayjs/locale/tr'
 import 'dayjs/locale/uk'
-import { InitialDataDocument, InitialDataQuery } from '../generated'
-import GlobalSeo from '../components/seo/GlobalSeo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -64,9 +64,11 @@ export default function MyApp(props: MyAppProps) {
           <CacheProvider value={emotionCache}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <SnackbarProvider dense maxSnack={1}>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </SnackbarProvider>
             </ThemeProvider>
           </CacheProvider>
         </AppProvider>

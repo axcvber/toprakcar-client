@@ -5,7 +5,7 @@ import { useInsuranceContext } from '../../context/insurance/insurance-context'
 import { useRouter } from 'next/router'
 
 const RegistrationPage = () => {
-  const { firstStepData, clearData } = useInsuranceContext()
+  const { firstStepData } = useInsuranceContext()
   const router = useRouter()
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import React from 'react'
 import { useLocale } from '../../hooks/useLocale'
 import Logo from '../Logo'
 import SocialIcons from './SocialIcons'
-import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 import Link from 'next/link'
 import { FiMail, FiPhoneCall } from 'react-icons/fi'
 import { useAppContext } from '../../context/appContext'
@@ -21,21 +20,6 @@ interface CreatorLink {
   createdText: string
 }
 
-const workTime = [
-  {
-    id: 1,
-    text: 'Monday - Friday: 9:00 - 22:00',
-  },
-  {
-    id: 2,
-    text: 'Saturday: 10:00 - 17:00',
-  },
-  {
-    id: 3,
-    text: 'Sunday: 12:00 - 15:00',
-  },
-]
-
 const Footer = () => {
   const { initialData } = useAppContext()
   const contacts = initialData?.contact?.data?.attributes
@@ -46,10 +30,12 @@ const Footer = () => {
       <Container maxWidth='xl'>
         <Stack gap={6} direction={'row'} justifyContent={'space-between'} flexWrap='wrap'>
           <Stack spacing={3} width={300}>
-            <Logo placement='footer' />
-            <Typography variant='body2' lineHeight={2}>
-              {initialData?.contact?.data?.attributes?.footerText}
-            </Typography>
+            <Stack spacing={1}>
+              <Logo placement='footer' />
+              <Typography variant='caption' lineHeight={2}>
+                {initialData?.contact?.data?.attributes?.footerText}
+              </Typography>
+            </Stack>
             <SocialIcons icons={contacts?.socialNetworks as any} />
           </Stack>
           <Stack>
@@ -90,7 +76,7 @@ const Footer = () => {
         <Stack direction='row' justifyContent={'space-between'} flexWrap='wrap' gap={2} alignItems='center'>
           <Stack direction='row' flexWrap='wrap' gap={2} alignItems='center'>
             <Typography variant='caption' fontWeight={600} fontSize={13}>
-              © 2022 toprakcar.com {t.footer.rights}
+              &copy; {new Date().getFullYear()} toprakcar.com {t.footer.rights}
             </Typography>
             <Stack direction='row' flexWrap='wrap' gap={2} component='ul'>
               {t.footer.footerLinks.map((item) => (

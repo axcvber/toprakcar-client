@@ -1,5 +1,5 @@
 import { Box, Button, Stack } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import dayjs, { Dayjs } from 'dayjs'
 import DatePicker from './DatePicker'
@@ -8,7 +8,6 @@ import { LocationOption, useRentContext } from '../context/rent/rent-context'
 import { useRouter } from 'next/router'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import LocationDropdown from './dropdown/LocationDropdown'
 import { useSnackbar } from 'notistack'
 import { useLocale } from '../hooks/useLocale'
@@ -22,7 +21,7 @@ interface ISearchInputs {
 
 const Search = () => {
   const { pickUpLocation, pickUpDate, dropOffDate, setPickUpLocation, setPickUpDate, setDropOffDate } = useRentContext()
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
   const router = useRouter()
   const t = useLocale()
 

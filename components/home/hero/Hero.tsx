@@ -2,17 +2,15 @@ import { Stack, Box, Typography, Container } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
 import { ComponentHomeHero } from '../../../generated'
-import { useLocale } from '../../../hooks/useLocale'
 import Line from '../../../styles/shared/Line'
 import Search from '../../Search'
+import heroPaperImg from '../../../public/hero-paper.png'
 
 interface IHero {
   data: ComponentHomeHero
 }
 
 const Hero: React.FC<IHero> = ({ data }) => {
-  const t = useLocale()
-
   return (
     <Box my={{ xs: 3, md: 5 }}>
       <Container maxWidth='xl'>
@@ -43,7 +41,7 @@ const Hero: React.FC<IHero> = ({ data }) => {
           <Box
             sx={{
               position: 'relative',
-              backgroundImage: `url(${'/hero-paper.png'})`,
+              backgroundImage: `url(${heroPaperImg.src})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
@@ -73,10 +71,6 @@ const Hero: React.FC<IHero> = ({ data }) => {
                 objectFit='contain'
                 layout='responsive'
                 alt='car'
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
                 src={data?.image.data?.attributes?.url || ''}
               />
             </Box>

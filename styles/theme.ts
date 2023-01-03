@@ -147,8 +147,7 @@ let theme = createTheme({
     },
 
     background: {
-      default: '#FAFAFA',
-      // paper: '#F2F2F2',
+      default: '#FBFBFB',
       paper: '#fff',
     },
     error: {

@@ -42,18 +42,16 @@ const Brands: React.FC<IBrands> = ({ data }) => {
               sx={{
                 filter: 'saturate(0)',
                 opacity: 0.5,
-                // background: 'red',
                 width: '100%',
                 height: '80px',
                 userSelect: 'none',
+                position: 'relative',
               }}
             >
               <Image
                 priority
                 layout='fill'
                 objectFit='contain'
-                // placeholder='blur'
-                // blurDataURL={item.attributes?.url || ''}
                 src={item.attributes?.url || ''}
                 alt={item.attributes?.alternativeText || ''}
               />

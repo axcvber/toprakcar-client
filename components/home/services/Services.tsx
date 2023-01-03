@@ -46,7 +46,9 @@ const Services: React.FC<IServices> = ({ data }) => {
                   <Typography variant='h6' fontWeight={600}>
                     {item?.title}
                   </Typography>
-                  <Typography mt={1}>{item?.description}</Typography>
+                  <Typography mt={1} variant='body2'>
+                    {item?.description}
+                  </Typography>
                 </Box>
               </Stack>
             ))}

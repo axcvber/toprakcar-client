@@ -13,26 +13,24 @@ interface IHeading {
   color?: string
 }
 
-const Heading: React.FC<IHeading> = ({ width, label, title, align = 'left', desc, withLine, color = 'inherit' }) => {
+const Heading: React.FC<IHeading> = ({ width, label, title, align = 'left', desc, withLine, color }) => {
   return (
     <Stack alignItems={align === 'center' ? 'center' : 'flex-start'}>
-      <Stack
-        sx={{ color }}
-        alignItems={align === 'center' ? 'center' : 'flex-start'}
-        maxWidth={width}
-        textAlign={align}
-        spacing={1.5}
-      >
+      <Stack alignItems={align === 'center' ? 'center' : 'flex-start'} maxWidth={width} textAlign={align} spacing={1.5}>
         {label && (
-          <Typography fontWeight={500} color='text.disabled' textTransform={'uppercase'}>
+          <Typography fontWeight={500} color={color ? color : 'text.disabled'} textTransform={'uppercase'}>
             {label}
           </Typography>
         )}
-        <Typography variant='h4' fontWeight={600}>
+        <Typography variant='h4' fontWeight={600} color={color ? color : 'text.primary'}>
           {title}
         </Typography>
         {withLine && <Line />}
-        {desc && <Typography fontWeight={500}>{desc}</Typography>}
+        {desc && (
+          <Typography fontWeight={500} color={color ? color : 'text.secondary'}>
+            {desc}
+          </Typography>
+        )}
       </Stack>
     </Stack>
   )
