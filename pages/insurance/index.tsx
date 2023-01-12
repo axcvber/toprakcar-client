@@ -13,7 +13,7 @@ import client from '../../graphql/apollo-client'
 import InsuranceBenefits from '../../components/insurance/InsuranceBenefits'
 import FaqAccordion from '../../components/home/faq/FaqAccordion'
 import SeoSingle from '../../components/seo/SeoSingle'
-import Image from 'next/image'
+import Background from '../../components/layout/Background'
 
 interface InsurancePageProps {
   pageData: InsurancePage
@@ -39,37 +39,11 @@ const InsurancePage: NextPage<InsurancePageProps> = ({ pageData }) => {
           position: 'relative',
         }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            marginRight: 'calc(-1 * (100vw - 100%))',
-            zIndex: -1,
-            '&:after': {
-              content: '""',
-              background: 'rgba(0,0,0,0.5)',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-            },
-          }}
-        >
-          <Image
-            priority
-            layout='fill'
-            objectFit='cover'
-            objectPosition={'top'}
-            src={pageData.background.data?.attributes?.url || ''}
-            blurDataURL={pageData.background.data?.attributes?.url || ''}
-            alt={pageData.background.data?.attributes?.alternativeText || ''}
-          />
-        </Box>
+        <Background
+          src={pageData.background.data?.attributes?.url || ''}
+          alt={pageData.background.data?.attributes?.alternativeText || ''}
+        />
+
         <Container maxWidth={'sm'}>
           <Heading
             width={800}

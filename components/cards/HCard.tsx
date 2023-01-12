@@ -10,8 +10,8 @@ import { TbEngine, TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { BsSpeedometer2 } from 'react-icons/bs'
 import { useModal } from '../../hooks/useModal'
 import { MODAL_TYPES } from '../../context/modalContext'
-import CarOption from './components/CarOption'
 import { useLocale } from '../../hooks/useLocale'
+import CarOption from './components/CarOption'
 
 interface IHCard {
   item: RentCarEntity
@@ -61,7 +61,7 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
           alt='car'
         />
       </Box>
-      <Stack width={'100%'} flex={1} spacing={3}>
+      <Stack width={'100%'} flex={1} spacing={2}>
         <Stack direction={{ xs: 'column', lg: 'row' }} justifyContent='space-between' alignItems='flex-start' gap={3}>
           <div>
             <Typography variant='h6' fontWeight={600} mb={0.5}>
@@ -86,9 +86,11 @@ const HCard: React.FC<IHCard> = ({ item, handleSelect }) => {
           </div>
 
           <Stack
-            direction={{ xs: 'row-reverse', lg: 'row' }}
+            flex={1}
+            width={{ xs: '100%', lg: 'auto' }}
+            direction={{ xs: 'column-reverse', lg: 'row' }}
             gap={2}
-            alignItems='center'
+            alignItems={{ xs: 'stretch', lg: 'center' }}
             justifyContent='flex-end'
             flexWrap='wrap-reverse'
           >

@@ -11,7 +11,7 @@ interface IBrands {
 
 const Brands: React.FC<IBrands> = ({ data }) => {
   return (
-    <Container maxWidth={'xl'} sx={{ my: 10 }}>
+    <Container maxWidth={'xl'} sx={{ my: { xs: 8, md: 10 } }}>
       <Swiper
         wrapperTag='ul'
         observer

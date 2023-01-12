@@ -4,7 +4,7 @@ import { SnackbarContent } from 'notistack'
 import { Stack, Typography, Button, Link as MUILink } from '@mui/material'
 import { BiCookie } from 'react-icons/bi'
 import { setCookie } from 'cookies-next'
-import { useLocale } from '../hooks/useLocale'
+import { useLocale } from '../../hooks/useLocale'
 import Link from 'next/link'
 
 const CookiesConsent = React.forwardRef<HTMLDivElement>((_, ref) => {

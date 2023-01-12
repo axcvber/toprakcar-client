@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, Typography, Divider, Button } from '@mui/material'
-import LocationItem from '../LocationItem'
+import LocationItem from '../layout/LocationItem'
 import { useModal } from '../../hooks/useModal'
 import { MODAL_TYPES } from '../../context/modalContext'
 import { useRentContext } from '../../context/rent/rent-context'

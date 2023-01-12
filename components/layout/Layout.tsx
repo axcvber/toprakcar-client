@@ -6,7 +6,7 @@ import Navbar from '../navbar/Navbar'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useRouter } from 'next/router'
 import { LocalizationProvider } from '@mui/x-date-pickers'
-import CookiesConsent from '../CookiesConsent'
+import CookiesConsent from './CookiesConsent'
 import { hasCookie } from 'cookies-next'
 import { useSnackbar } from 'notistack'
 

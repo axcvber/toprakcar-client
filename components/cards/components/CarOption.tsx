@@ -10,7 +10,7 @@ const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
   return (
     <Grid item component='li'>
       <Stack
-        spacing={1}
+        spacing={0.5}
         direction='row'
         alignItems={'center'}
         sx={{
@@ -21,7 +21,7 @@ const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
         }}
       >
         {icon}
-        <Typography component='span' fontWeight={500} fontSize={{ xs: 14, md: 16 }}>
+        <Typography component='span' variant='body2' fontWeight={500}>
           {label}
         </Typography>
       </Stack>

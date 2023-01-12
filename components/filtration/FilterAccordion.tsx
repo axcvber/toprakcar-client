@@ -5,7 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import { Typography, Stack, Skeleton } from '@mui/material'
 import Chip from '@mui/material/Chip'
 import { IoIosArrowDown } from 'react-icons/io'
-import Loader from '../Loader'
+import Loader from '../layout/Loader'
 
 interface IFilterAccordion {
   title: string

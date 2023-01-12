@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack'
 import { Typography } from '@mui/material'
 import { HiChevronDown } from 'react-icons/hi'
 import Fade from '@mui/material/Fade'
-import Loader from '../Loader'
+import Loader from '../layout/Loader'
 import Skeleton from '@mui/material/Skeleton'
 
 interface IDropdown {

@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem'
 import MenuList from '@mui/material/MenuList'
 import Fade from '@mui/material/Fade'
 import Skeleton from '@mui/material/Skeleton'
-import Loader from '../Loader'
+import Loader from '../layout/Loader'
 
 interface ILocationDropdown {
   title: string

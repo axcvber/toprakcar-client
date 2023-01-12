@@ -21,8 +21,8 @@ const Hero: React.FC<IHero> = ({ data }) => {
           spacing={4}
         >
           <Stack width={{ xs: '100%', md: '50%' }} spacing={3}>
-            <Stack spacing={4} direction={{ xs: 'column', md: 'column' }}>
-              <Stack spacing={3} px={{ xs: 1, md: 0 }}>
+            <Stack spacing={{ xs: 0, md: 4 }} direction={{ xs: 'column', md: 'column' }}>
+              <Stack spacing={3} px={{ xs: 1, md: 0 }} display={{ xs: 'none', md: 'block' }}>
                 <Typography variant={'h2'} fontWeight={800} textTransform='uppercase'>
                   {data?.title}
                 </Typography>

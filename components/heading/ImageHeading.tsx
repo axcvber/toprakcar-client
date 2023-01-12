@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import React from 'react'
+import Background from '../layout/Background'
 
 interface ImageHeadingProps {
   bgImage: string
@@ -13,10 +14,6 @@ const ImageHeading: React.FC<ImageHeadingProps> = ({ children, bgImage }) => {
       sx={{
         width: '100%',
         position: 'relative',
-        backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
         height: { xs: '400px', md: '300px' },
         boxShadow: 25,
         textAlign: 'center',
@@ -27,18 +24,10 @@ const ImageHeading: React.FC<ImageHeadingProps> = ({ children, bgImage }) => {
         justifyContent: 'center',
         zIndex: 0,
         overflow: 'hidden',
-        '&:after': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.4)',
-          zIndex: -1,
-        },
       }}
     >
+      <Background src={bgImage} alt='background' />
+
       {children}
     </Box>
   )

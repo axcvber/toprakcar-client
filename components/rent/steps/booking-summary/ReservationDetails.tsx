@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from '../../../layout/Paper'
 import { Stack, Typography, Divider } from '@mui/material'
-import LocationItem from '../../../LocationItem'
+import LocationItem from '../../../layout/LocationItem'
 import { useRentContext } from '../../../../context/rent/rent-context'
 import { useRouter } from 'next/router'
 import { useLocale } from '../../../../hooks/useLocale'

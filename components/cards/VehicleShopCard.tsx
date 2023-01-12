@@ -7,6 +7,7 @@ import { BsSpeedometer2 } from 'react-icons/bs'
 import { TbGasStation, TbManualGearbox } from 'react-icons/tb'
 import { MdAirlineSeatLegroomNormal } from 'react-icons/md'
 import { BiCar, BiCrosshair } from 'react-icons/bi'
+import CarOption from './components/CarOption'
 
 interface IVehicleShopCard {
   item: SalesCarEntity
@@ -96,34 +97,6 @@ const VehicleShopCard: React.FC<IVehicleShopCard> = ({ item }) => {
         </Grid>
       </Stack>
     </Link>
-  )
-}
-
-interface ICarOption {
-  icon: JSX.Element
-  label?: string | number
-}
-
-const CarOption: React.FC<ICarOption> = ({ icon, label }) => {
-  return (
-    <Grid item component='li'>
-      <Stack
-        spacing={0.5}
-        direction='row'
-        alignItems={'center'}
-        sx={{
-          color: 'text.disabled',
-          'svg': {
-            fontSize: 18,
-          },
-        }}
-      >
-        {icon}
-        <Typography component='span' variant='body2' fontWeight={500}>
-          {label}
-        </Typography>
-      </Stack>
-    </Grid>
   )
 }
 

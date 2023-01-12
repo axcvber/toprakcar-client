@@ -10,7 +10,7 @@ import {
   ShopPage,
   useSaleCarsQuery,
 } from '../../generated'
-import Loader from '../../components/Loader'
+import Loader from '../../components/layout/Loader'
 import Skeleton from '@mui/material/Skeleton'
 import { useFilterContext } from '../../context/filter/filter-context'
 import ShopFilter from '../../components/shop/ShopFilter'

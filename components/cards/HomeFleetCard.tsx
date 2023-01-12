@@ -10,7 +10,7 @@ import { useRentContext } from '../../context/rent/rent-context'
 import { RentCarEntity } from '../../generated'
 import { useLocale } from '../../hooks/useLocale'
 import { useModal } from '../../hooks/useModal'
-import CarOption from '../CarOption'
+import CarOption from './components/CarOption'
 
 interface IHomeFleetCard {
   item: RentCarEntity
